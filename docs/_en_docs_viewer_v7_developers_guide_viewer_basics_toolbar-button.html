@@ -1,0 +1,237 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Customizing the Toolbar | Viewer | Autodesk Platform Services</title>
+          <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+          <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+        </head>
+        <body>
+          <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="customizing-the-toolbar">
+<h1>Customizing the Toolbar</h1>
+<p>Customizing a toolbar is best explained by looking at an example.</p>
+<p>This example creates a custom toolbar with two buttons on the Viewer canvas.
+Each button has its own tooltip and reacts to click events.
+Clicking one button displays the environment background, while clicking the other hides it.</p>
+<img alt="../../../../_images/custom_toolbar.jpg" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/custom_toolbar.jpg">
+<section id="before-you-begin">
+<a href="#before-you-begin"><h2>Before You Begin</h2></a>
+<p>The customization logic is is implemented as an <a class="reference external" href="/en/docs/viewer/v7/developers_guide/viewer_basics/extensions">extension</a>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">ToolbarExtension</span><span class="p">(</span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="kr">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ToolbarExtension</span><span class="p">;</span>
+
+<span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Set background environment to "Infinity Pool"</span>
+<span class="w">  </span><span class="c1">// and make sure the environment background texture is visible</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setLightPreset</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setEnvMapBackground</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Ensure the model is centered</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">fitToView</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// nothing yet</span>
+<span class="p">};</span>
+
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">theExtensionManager</span><span class="p">.</span><span class="nx">registerExtension</span><span class="p">(</span><span class="s1">'ToolbarExtension'</span><span class="p">,</span><span class="w"> </span><span class="nx">ToolbarExtension</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-1-detect-the-toolbar">
+<a href="#step-1-detect-the-toolbar"><h2>Step 1: Detect the Toolbar</h2></a>
+<p>In the custom extension, override base class method <code class="docutils literal notranslate"><span class="pre">onToolbarCreated</span></code>. The Viewer will invoke this method as soon as the toolbar is available to the extension.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onToolbarCreated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">toolbar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">'TODO: customize Viewer toolbar'</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-add-buttons">
+<a href="#step-2-add-buttons"><h2>Step 2: Add Buttons</h2></a>
+<p>To create a sub-toolbar and add a couple of buttons:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onToolbarCreated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">toolbar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// alert('TODO: customize Viewer toolbar');</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Button 1</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">button1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span><span class="p">(</span><span class="s1">'show-env-bg-button'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">button1</span><span class="p">.</span><span class="nx">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setEnvMapBackground</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">button1</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">'show-env-bg-button'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">button1</span><span class="p">.</span><span class="nx">setToolTip</span><span class="p">(</span><span class="s1">'Show Environment'</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Button 2</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">button2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">Button</span><span class="p">(</span><span class="s1">'hide-env-bg-button'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">button2</span><span class="p">.</span><span class="nx">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setEnvMapBackground</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="nx">button2</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">'hide-env-bg-button'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">button2</span><span class="p">.</span><span class="nx">setToolTip</span><span class="p">(</span><span class="s1">'Hide Environment'</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// SubToolbar</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">UI</span><span class="p">.</span><span class="nx">ControlGroup</span><span class="p">(</span><span class="s1">'my-custom-toolbar'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="p">.</span><span class="nx">addControl</span><span class="p">(</span><span class="nx">button1</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="p">.</span><span class="nx">addControl</span><span class="p">(</span><span class="nx">button2</span><span class="p">);</span>
+
+<span class="w">  </span><span class="nx">toolbar</span><span class="p">.</span><span class="nx">addControl</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Notice that the code above calls method <code class="docutils literal notranslate"><span class="pre">addClass()</span></code>, which adds a CSS class to
+control the appearance of the custom buttons.</p>
+<p>For this example, we’ll add the style definitions in the HTML file:</p>
+<div class="highlight-html notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">show-env-bg-button</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">hide-env-bg-button</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>When you refresh the HTML page the buttons display. Hovering over them displays tooltips. Click to trigger their actions.</p>
+</section>
+<section id="step-3-cleanup">
+<a href="#step-3-cleanup"><h2>Step 3: Cleanup</h2></a>
+<p>Extensions should remove any DOM elements and events they add.
+In this case, only  <code class="docutils literal notranslate"><span class="pre">this.subToolbar</span></code> must be removed.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">ToolbarExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">toolbar</span><span class="p">.</span><span class="nx">removeControl</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">subToolbar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>As explained in <a class="reference external" href="/en/docs/viewer/v7/developers_guide/viewer_basics/extensions/">Writing an Extension</a>, you can verify that the extension works as expected by manually
+calling the <code class="docutils literal notranslate"><span class="pre">viewer.loadExtension('ToolbarExtension')</span></code> and <code class="docutils literal notranslate"><span class="pre">viewer.unload('ToolbarExtension')</span></code> methods.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+        </body>
+        </html>
+      

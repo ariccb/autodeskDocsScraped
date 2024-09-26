@@ -1,0 +1,188 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Using DiffTool to Compare Models | Viewer | Autodesk Platform Services</title>
+          <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+          <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+        </head>
+        <body>
+          <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="using-difftool-to-compare-models">
+<h1>Using DiffTool to Compare Models</h1>
+<p>The DiffTool extension provides UI controls for comparing 2D and 3D models.</p>
+<section id="examples">
+<a href="#examples"><h2>Examples</h2></a>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.DiffTool'</span><span class="p">)</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<section id="usage">
+<h3>Usage</h3>
+<p>Using the DiffTool, you can compare the differences between models in Viewer SDK. The DiffTool shows three kinds of changes to the primary model:</p>
+<ul class="simple">
+<li>Added: Shows objects that have been added to the primary model.</li>
+<li>Removed: Shows objects that have been removed from the primary model.</li>
+<li>Modified: Shows objects that have been changed in the primary model</li>
+</ul>
+<p>There are three modification types:</p>
+<ul class="simple">
+<li>Geometry: The geometry data has been modified.</li>
+<li>Transformation: The geometry transformation has been modified.</li>
+<li>Attribute: One or more properties of the geometry has been modified.</li>
+</ul>
+</section>
+<section id="configuring-difftool-lmv-extension">
+<h3>Configuring DiffTool LMV extension</h3>
+<p>A list of all configuration options for the DiffTool LMV extension:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">primaryModels</span><span class="required">*</span><div class="type">Autodesk.Viewing.Model</div></td><td>An array of loaded “Autodesk.Viewing.Model” instances that are compared by the DiffTool.</td></tr><tr><td><span class="name">diffModels</span><span class="required">*</span><div class="type">Autodesk.Viewing.Model</div></td><td>An array of other loaded <cite>Autodesk.Viewing.Model</cite> instances that participate in the diff operation as the previous state. Length must match <cite>primaryModels</cite> to define pairs of models to be compared.</td></tr><tr><td><span class="name">versionA</span><span class="required">*</span><div class="type">string</div></td><td>Version identifier for the primary models, such as “2”, “Version 2”, or “02/26/2018”. Note that you must provide a localized string if you are using something other than numbers or dates.</td></tr><tr><td><span class="name">versionB</span><span class="required">*</span><div class="type">string</div></td><td>Version identifier of the diff models, usually a previous version</td></tr><tr><td><span class="name">mimeType</span><span class="required">*</span><div class="type">string</div></td><td><ul class="simple">
+<li>‘application/vnd.autodesk.revit’: Revit</li>
+<li>‘application/vnd.autodesk.r360’: Revit</li>
+<li>‘application/vnd.autodesk.fusion360’: For Fusion 360</li>
+<li>‘application/vnd.autodesk.f3d’: For Fusion 360</li>
+<li>‘application/vnd.autodesk.inventor.assembly’: For Inventor (IAM)</li>
+<li>‘application/vnd.autodesk.navisworks’<a href="#id1"><span class="problematic" id="id2">`</span></a>: For Navisworks (NWD)</li>
+<li>‘application/vnd.autodesk.cad’: For IFC</li>
+<li>‘application/vnd.autodesk.dxf’: For DXF</li>
+<li>‘application/vnd.autodesk.autocad.dwg’: For DWG</li>
+</ul>
+</td></tr><tr><td><span class="name">propertyFilter</span><div class="type">{Object.&lt;string,Array&lt;string&gt;}</div></td><td>An object representing a category and properties key-value pair to ignore for diff computation. Example: {“Dimensions”:[“Area”,”Length”], “Mechanical - Flow”:[“Flow”]}</td></tr></tbody></table><div class="text-required">* Required</div></div>
+<section id="using-lmv-initialization-options">
+<h4>Using LMV initialization options</h4>
+</section>
+</section>
+</section>
+<section id="id3">
+<a href="#id3"><h2>Examples</h2></a>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">availableDiffModes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'overlay'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sidebyside'</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">diffModels</span><span class="o">:</span><span class="w"> </span><span class="nx">A</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">primaryModels</span><span class="o">:</span><span class="w"> </span><span class="nx">B</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">mimeType</span><span class="o">:</span><span class="w"> </span><span class="s1">'application/vnd.autodesk.revit'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">diffadp</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">diffMode</span><span class="o">:</span><span class="w"> </span><span class="s1">'overlay'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">versionA</span><span class="o">:</span><span class="w"> </span><span class="s1">'A'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">versionB</span><span class="o">:</span><span class="w"> </span><span class="s1">'B'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">propertyFilter</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">"Category1"</span><span class="o">:</span><span class="p">[</span><span class="s2">"Property1"</span><span class="p">,</span><span class="s2">"Property2"</span><span class="p">]}</span>
+<span class="p">};</span>
+
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s2">"Autodesk.DiffTool"</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+        </body>
+        </html>
+      

@@ -1,0 +1,136 @@
+
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Controlling Viewer State | Viewer | Autodesk Platform Services</title>
+        <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+        <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+      </head>
+      <body>
+        <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="controlling-viewer-state">
+<h1>Controlling Viewer State</h1>
+<p>This example adds a button named <strong>Toggle Explode</strong> to the UI. The button toggles between an explode value of 0 and a second preset explode value. This example uses a 50% explode value (0.5) for the second value.</p>
+<p>This is accomplished by adding a click event listener to the new <code class="docutils literal notranslate"><span class="pre">explodeButton</span></code>, which calls <code class="docutils literal notranslate"><span class="pre">viewer.explode()</span></code>. The click event lets you switch between the specified explode values.</p>
+<iframe height="600" style="width: 100%;" scrolling="no" title="Controlling Viewer State" src="https://codepen.io/autodesk-platform-services/embed/QWJaazd?default-tab=js%2Cresult&amp;theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+See the Pen <a href="https://codepen.io/autodesk-platform-services/pen/QWJaazd">
+Controlling Viewer State</a> by Autodesk Platform Services (<a href="https://codepen.io/autodesk-platform-services">@autodesk-platform-services</a>)
+on <a href="https://codepen.io">CodePen</a>.
+</iframe><p><strong>Tip</strong> Open the example in CodePen and try different explode scale values.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          
+      </body>
+      </html>
+    

@@ -1,0 +1,17 @@
+{
+  "name": "autodesk-docs-scraper",
+  "version": "1.0.0",
+  "description": "Scraper for Autodesk APS Viewer documentation",
+  "main": "fetchDocs.js",
+  "scripts": {
+    "start": "node fetchDocs.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bottleneck": "^2.19.5",
+    "glob": "^10.0.0",
+    "puppeteer-core": "^22.8.2",
+    "rimraf": "^5.0.0",
+    "xml2js": "^0.4.23"
+  }
+}

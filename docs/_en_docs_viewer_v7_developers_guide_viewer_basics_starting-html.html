@@ -1,0 +1,353 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Getting Started | Viewer | Autodesk Platform Services</title>
+          <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+          <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+        </head>
+        <body>
+          <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="getting-started">
+<h1>Getting Started</h1>
+<section id="before-you-begin">
+<a href="#before-you-begin"><h2>Before You Begin</h2></a>
+<p>Before you can create a viewer application, there are a few things you need to do.</p>
+<ol class="arabic simple">
+<li>Create an Autodesk Platform Services (APS) account.</li>
+<li>Register an app.</li>
+<li>Get the Client ID and Secret.</li>
+<li>Provision access in other products.</li>
+</ol>
+<p>For more information, see the APS <a class="reference external" href="https://tutorials.autodesk.io" target="_blank">Getting Started</a> tutorial.</p>
+<section id="add-viewer-to-an-html-page">
+<h3>Add Viewer to an HTML Page</h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tag in the following HTML snippet loads the bundled Viewer SDK at runtime and creates an instance of the Viewer that covers the entire HTML page.</p>
+<div class="highlight-html notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no"</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text/css"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="p">#</span><span class="nn">forgeViewer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">            </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#F0F8FF</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"forgeViewer"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">div</span></code> identifier <code class="docutils literal notranslate"><span class="pre">forgeViewer</span></code> will initialize a Viewer instance. To learn how to initialize a viewer instance, see Part 2: <a class="reference external" href="/en/docs/viewer/v7/developers_guide/viewer_basics/initialization">Initialize Viewer</a>.</p>
+<p><strong>Note:</strong> The Viewer has a hard dependency on three.js R71.</p>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<section id="bundle-size">
+<h4>Bundle Size</h4>
+<p>We recommend including the <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tag to load the Viewer JavaScript library as late as possible. This allows browsers to render all static HTML content first.</p>
+</section>
+<section id="viewer-versions">
+<h4>Viewer Versions</h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tag specifies the location of the Viewer’s JavaScript code, as well as the version of the library to download. In the example HTML above, the specified version is <code class="docutils literal notranslate"><span class="pre">7.*</span></code>, which pulls the latest minor version available for the major version 7 release.</p>
+<p>For example, if versions <code class="docutils literal notranslate"><span class="pre">7.0</span></code>, <code class="docutils literal notranslate"><span class="pre">7.1</span></code> and <code class="docutils literal notranslate"><span class="pre">7.2</span></code> are available, then requesting Viewer version <code class="docutils literal notranslate"><span class="pre">7.*</span></code> retrieves version <code class="docutils literal notranslate"><span class="pre">7.2</span></code>.</p>
+<p>Likewise, the specified version can include the minor or patch numbers, too. The following URLs are all valid:</p>
+<div class="highlight-html notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="cm">&lt;!-- Fetch exactly version 7.0.0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0.0/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Fetch latest patch version for 7.0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0.*/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Also fetch latest patch version for 7.0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.0/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- Fetch latest minor version for 7.0 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="lmv-viewer-version">
+<h4>LMV_VIEWER_VERSION</h4>
+<p>You can validate the fetched viewer version with the help of the <a class="reference external" href="/en/docs/viewer/v7/reference/properties/LMV_VIEWER_VERSION">global variable LMV_VIEWER_VERSION</a>.</p>
+</section>
+</section>
+<section id="id2">
+<h3>Initialize Viewer</h3>
+<p>Initialization is a 2 step process:</p>
+<ol class="arabic simple">
+<li>Initialize the page using function <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Initializer()</span></code>.</li>
+<li>Create a Viewer instance and verify that WebGL support is available.</li>
+</ol>
+<section id="example">
+<h4>Example</h4>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">'AutodeskProduction2'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'streamingV2'</span><span class="p">,</span><span class="w">  </span><span class="c1">// for models uploaded to EMEA change this option to 'streamingV2_EU'</span>
+<span class="w">    </span><span class="nx">getAccessToken</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">onTokenReady</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'YOUR_ACCESS_TOKEN'</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">timeInSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3600</span><span class="p">;</span><span class="w"> </span><span class="c1">// Use value provided by APS Authentication (OAuth) API</span>
+<span class="w">        </span><span class="nx">onTokenReady</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">timeInSeconds</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">htmlDiv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'forgeViewer'</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">htmlDiv</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">startedCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">startedCode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed to create a Viewer: WebGL not supported.'</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Initialization complete, loading a model next...'</span><span class="p">);</span>
+
+<span class="p">});</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="initializing-the-viewer-for-svf-and-svf2-support">
+<h4>Initializing the Viewer for SVF and SVF2 Support</h4>
+<p>You enable SVF or SVF2 support by passing the <code class="docutils literal notranslate"><span class="pre">env</span></code> and <code class="docutils literal notranslate"><span class="pre">api</span></code> parameters when initializing the Viewer. The value you use for <code class="docutils literal notranslate"><span class="pre">env</span></code> and <code class="docutils literal notranslate"><span class="pre">api</span></code> specifies an SVF derivative or an SVF2 derivative. The following table lists the values to use:</p>
+<div class="table-section"><table><thead><tr><th>Parameter</th><th>SVF</th><th>SVF2</th></tr></thead><tbody>
+<tr class="row-even"><td>env</td>
+<td>AutodeskProduction</td>
+<td>AutodeskProduction2</td>
+</tr>
+<tr class="row-odd"><td rowspan="3"><p>api</p></td>
+<td>derivativeV2 (for US)</td>
+<td>streamingV2 (for US)</td>
+</tr>
+<tr class="row-even"><td>derivativeV2_EU (for EU)</td>
+<td>streamingV2_EU (for EMEA)</td>
+</tr>
+<tr class="row-odd"><td>derivativeV2_AUS (for AUS)</td>
+<td>streamingV2_AUS (for AUS)</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="initializer">
+<h4>Initializer</h4>
+<p>The Initializer function needs to be run just once. It makes sure that all subsystems are running before proceeding.
+Refer to the Parameters listed under the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/#initializer-options-callback">Initializer Method</a> for details of the values supported for <code class="docutils literal notranslate"><span class="pre">options</span></code>.</p>
+</section>
+<section id="create-viewer-instance">
+<h4>Create Viewer instance</h4>
+<p>Once the Initializer callback is invoked, we proceed to create a new instance of the Viewer.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">htmlDiv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'forgeViewer'</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">htmlDiv</span><span class="p">,</span><span class="w"> </span><span class="p">{});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>You have to invoke the method <code class="docutils literal notranslate"><span class="pre">viewer.start()</span></code> just once. From there, validate that the browser supports WebGL before moving on to <a class="reference external" href="/en/docs/viewer/v7/developers_guide/viewer_basics/load_a_model">Load a Model</a>.</p>
+</section>
+<section id="destroy-viewer-instance">
+<h4>Destroy Viewer instance</h4>
+<p>When the Viewer is no longer needed on the page, uninitialize and claim back memory using:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">finish</span><span class="p">();</span>
+<span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">shutdown</span><span class="p">();</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h3>Load a Model</h3>
+<p>Loading a model is a 2 step process.</p>
+<ol class="arabic simple">
+<li>Fetch a Manifest JSON from <a class="reference external" href="/en/docs/model-derivative/v2/reference/http/urn-manifest-GET/">Model Derivative API</a>.</li>
+<li>Instruct the Viewer to load one of the models referenced by the Manifest JSON.</li>
+</ol>
+<p>Before you load a model, you must use the <a class="reference external" href="/en/docs/model-derivative/v2/reference/http/job-POST/">POST job</a> endpoint of the <a class="reference external" href="/en/docs/model-derivative/v2/">Model Derivative</a> API to kick off a translation job, which translates the model into the SVF format. The translation job produces a JSON file known as a Manifest. The manifest provides details of the resources (e.g., model geometry, thumbnails, camera views) that were produced by the <a class="reference external" href="/en/docs/model-derivative/v2/reference/http/job-POST/">translation job</a>.</p>
+<p>See the <a class="reference external" href="/en/docs/model-derivative/v2/tutorials/prep-file4viewer/">Prepare a File for the Viewer</a> tutorial in the Model Derivative API documentation for more information.</p>
+<p>In order to use the <a class="reference external" href="/en/docs/model-derivative/v2/">Model Derivative</a> API you must have an <code class="docutils literal notranslate"><span class="pre">ACCESS_TOKEN</span></code>. Use the APS <a class="reference external" href="/en/docs/oauth/v2/reference/http/">Authentication</a> API to obtain an access token. The Viewer supports both 2-legged and 3-legged tokens.</p>
+<section id="step-1-fetch-manifest">
+<h4>Step 1: Fetch Manifest</h4>
+<p>A manifest is a JSON document containing the result of a translation job. As this process takes place, the content in the JSON document is updated to reflect the progress of the translation job. Once the translation process is complete, the JSON document will contain references to all available derivatives, some of which are models that can be loaded into the Viewer.</p>
+<p>The Viewer library provides a static method for fetching a manifest for a specified URN string value.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">documentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ'</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">documentId</span><span class="p">,</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">,</span><span class="w"> </span><span class="nx">onDocumentLoadFailure</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// viewerDocument is an instance of Autodesk.Viewing.Document</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">onDocumentLoadFailure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed fetching Forge manifest'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Notes:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>The <code class="docutils literal notranslate"><span class="pre">documentId</span></code> is a string value of the URN of the model that was translated.</li>
+<li>The URN must be encoded as an <em>unpadded Base64 string</em>. See the <a class="reference external" href="/en/docs/model-derivative/v2/tutorials/prep-file4viewer/">Prepare a File for the Viewer</a> tutorial in the Model Derivative API documentation for more information on Base64 encoding.</li>
+<li>The value assigned to <code class="docutils literal notranslate"><span class="pre">documentId</span></code> must be prefixed with the string <code class="docutils literal notranslate"><span class="pre">urn:</span></code></li>
+<li>If you want to reuse the code snippet shown above, replace the value of  <code class="docutils literal notranslate"><span class="pre">documentId</span></code> with the URN from your own translation jobs.</li>
+<li>In some cases you may need to determine if the URN is from EMEA or US. Start by base64 decoding the URN, then check if it contains <code class="docutils literal notranslate"><span class="pre">urn:adsk.wipemea:xxx</span></code> (for EMEA) or <code class="docutils literal notranslate"><span class="pre">urn:adsk.wipprod:xxx</span></code> (for US).</li>
+</ul>
+</div></blockquote>
+<p>After successfully fetching the manifest, the callback <code class="docutils literal notranslate"><span class="pre">onDocumentLoadSuccess</span></code> gets invoked. The callback receives the argument <code class="docutils literal notranslate"><span class="pre">viewerDocument</span></code>, which is an instance of <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Document">Autodesk.Viewing.Document</a>.</p>
+</section>
+<section id="step-2-load-model-in-manifest">
+<h4>Step 2: Load Model in Manifest</h4>
+<p>The snippets below assume that a <code class="docutils literal notranslate"><span class="pre">viewer</span></code> instance is available.</p>
+<p>You have the option to load the default model or to choose from the list of all models in the manifest.</p>
+<p>To load the default model in the manifest:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">defaultModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerDocument</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">getDefaultGeometry</span><span class="p">();</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultModel</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>To choose a different model, retrieve the list of all models and use custom code to determine which one to load.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">viewables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerDocument</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">search</span><span class="p">({</span><span class="s1">'type'</span><span class="o">:</span><span class="s1">'geometry'</span><span class="p">});</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">viewables</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="putting-it-all-together">
+<h4>Putting it all together</h4>
+<p>At this point, developers should have code that looks like this:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">documentId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ'</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">documentId</span><span class="p">,</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">,</span><span class="w"> </span><span class="nx">onDocumentLoadFailure</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">defaultModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerDocument</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">getDefaultGeometry</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultModel</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">onDocumentLoadFailure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed fetching Forge manifest'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+        </body>
+        </html>
+      

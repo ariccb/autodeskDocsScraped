@@ -1,0 +1,184 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Adding Custom Geometry | Viewer | Autodesk Platform Services</title>
+          <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+          <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+        </head>
+        <body>
+          <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="adding-custom-geometry">
+<h1>Adding Custom Geometry</h1>
+<p>The Viewer lets you to add custom geometry into a scene by using the <code class="docutils literal notranslate"><span class="pre">viewer.overlay</span></code> api.</p>
+<p>Use this feature to overlay more data to the loaded model. Every custom geometry
+added into the overlay scene gets rendered on every frame, even when progressive rendering is on.</p>
+<p>Frame rate declines when too many custom geometries are added into overlay scenes.</p>
+<p>Custom geometry uses the main scene depth buffer for depth testing, allowing the custom geometry to appear within the loaded model.</p>
+<p>Use the <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/scene-builder">SceneBuilder</a> API to add objects that can be rendered progressively.</p>
+<section id="step-1-create-custom-geometry">
+<a href="#step-1-create-custom-geometry"><h2>Step 1: Create custom geometry</h2></a>
+<p>The Viewer bundles version 71 of <a class="reference external" href="https://threejs.org" target="_blank">three.js</a> library and exposes its functionality through the global variable <code class="docutils literal notranslate"><span class="pre">THREE</span></code>.
+Let’s use it to create a red sphere.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">geom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">SphereGeometry</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">material</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshBasicMaterial</span><span class="p">({</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="mh">0xff0000</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">sphereMesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span><span class="nx">geom</span><span class="p">,</span><span class="w"> </span><span class="nx">material</span><span class="p">);</span>
+<span class="nx">sphereMesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-create-overlay-scene">
+<a href="#step-2-create-overlay-scene"><h2>Step 2: Create overlay scene</h2></a>
+<p>Custom geometry must be added to an overlay scene. Multiple custom geometries can coexist in the same scene.
+Scenes are created and identified by name. Be sure to choose a name that won’t conflict with scenes created by the Viewer.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">hasScene</span><span class="p">(</span><span class="s1">'custom-scene'</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">addScene</span><span class="p">(</span><span class="s1">'custom-scene'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-3-add-custom-geometry-to-overlay-scene">
+<a href="#step-3-add-custom-geometry-to-overlay-scene"><h2>Step 3: Add custom geometry to overlay scene</h2></a>
+<p>Custom geometry must be added into specific overlay scenes. In this example we are adding custom geometry <code class="docutils literal notranslate"><span class="pre">sphereMesh</span></code>
+into the scene named <code class="docutils literal notranslate"><span class="pre">'custom-scene'</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">addMesh</span><span class="p">(</span><span class="nx">sphereMesh</span><span class="p">,</span><span class="w"> </span><span class="s1">'custom-scene'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-4-remove-custom-geometry-from-overlay-scene">
+<a href="#step-4-remove-custom-geometry-from-overlay-scene"><h2>Step 4: Remove custom geometry from overlay scene</h2></a>
+<p>You can remove the custom geometry and overlay scenes with <code class="docutils literal notranslate"><span class="pre">removeMesh()</span></code> and <code class="docutils literal notranslate"><span class="pre">removeScene()</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">removeMesh</span><span class="p">(</span><span class="nx">sphereMesh</span><span class="p">,</span><span class="w"> </span><span class="s1">'custom-scene'</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">overlays</span><span class="p">.</span><span class="nx">removeScene</span><span class="p">(</span><span class="s1">'custom-scene'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The viewer doesn’t dispose of the geometry or material used with custom geometry. The application developer can use the following to release the memory.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="c1">// Once the material and geometries are no longer used by any other</span>
+<span class="c1">// meshes, they need to be disposed to avoid memory leaks.</span>
+<span class="nx">material</span><span class="p">.</span><span class="nx">dispose</span><span class="p">();</span>
+<span class="nx">geom</span><span class="p">.</span><span class="nx">dispose</span><span class="p">();</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s next?</h2></a>
+<p>To view an interactive example, check out <a class="reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_5/">Customizing Viewer Scene</a>.</p>
+<p>For all available methods, see the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/OverlayManager">OverlayManager</a> API documentation page.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+        </body>
+        </html>
+      

@@ -1,0 +1,193 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Interactive Examples | Viewer | Autodesk Platform Services</title>
+          <style>
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          color: #0696D7;
+          margin-top: 30px;
+      }
+
+      #breadCrumbs {
+          background-color: #f5f5f5;
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+      }
+
+      #breadCrumbs a {
+          color: #0696D7;
+          text-decoration: none;
+      }
+
+      #breadCrumbs a:hover {
+          text-decoration: underline;
+      }
+
+      .highlight {
+          background-color: #f8f8f8;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin: 15px 0;
+          position: relative;
+      }
+
+      .highlight pre {
+          margin: 0;
+          white-space: pre-wrap;
+      }
+
+      .copy-button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #0696D7;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          padding: 5px 10px;
+          cursor: pointer;
+      }
+
+      .copy-button:hover {
+          background-color: #0570a3;
+      }
+
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 15px 0;
+      }
+
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+
+      th {
+          background-color: #f2f2f2;
+      }
+
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      </style>
+          <script>
+      function copyToClipboard(button) {
+        const pre = button.nextElementSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = pre.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 2000);
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+          const button = document.createElement('button');
+          button.textContent = 'Copy';
+          button.className = 'copy-button';
+          button.onclick = function() { copyToClipboard(this); };
+          block.parentNode.insertBefore(button, block);
+        });
+      });
+      </script>
+        </head>
+        <body>
+          <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="interactive-examples">
+<h1>Interactive Examples</h1>
+<div class="sd-container-fluid sd-sphinx-override sd-mt-4 sd-mb-4 sd-ml-0 sd-mr-0 gallery docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-3 sd-g-1 sd-g-xs-1 sd-g-sm-1 sd-g-md-1 sd-g-lg-1 docutils">
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image1.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Controlling Viewer states</div>
+<p class="sd-card-text">Learn to programmatically control Viewer states, like exploding a model.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_1/"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_1/</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image2.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Handling Viewer events</div>
+<p class="sd-card-text">Learn to respond to users’ actions and perform tasks based on specific triggers.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_2"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_2</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image3.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Querying model properties</div>
+<p class="sd-card-text">Add functionality to search for specific model property values and display results in a dialog window.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_3/"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_3/</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image4.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Customizing Viewer UI</div>
+<p class="sd-card-text">Create custom UI elements for unique interactions, like a button that displays a dialog window when clicked.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_4/"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_4/</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image5.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Customizing UI scene</div>
+<p class="sd-card-text">Create and interact with custom three.js geometry that integrates like standard Viewer models.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_5/"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_5/</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-column gallery-card docutils">
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm sd-card-hover sd-text-black docutils">
+<img alt="my text" class="sd-card-img-top" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/image6.png">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Model aggregation</div>
+<p class="sd-card-text">Combine a Revit model and a Fusion 360 model in the same view.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_6/"><span>/en/docs/viewer/v7/developers_guide/interactive_examples/example_6/</span></a></div>
+</div>
+</div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          
+        </body>
+        </html>
+      
