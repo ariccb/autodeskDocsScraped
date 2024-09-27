@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Querying Model Properties | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="querying-model-properties">
+<h1>Querying Model Properties</h1>
+<p>This example illustrates how to query a model using a property name and then isolate the corresponding element while automatically zooming in to that element. To test it out:</p>
+<ol class="arabic simple">
+<li>From the drop-down on the top-left, select <strong>01_rac_basic_sample_project.rvt</strong>.</li>
+<li>In the text box next to the drop-down, enter <em>Single-Flush [422466]</em>.</li>
+<li>Click <strong>Search</strong>. The specified door will display clearly, with all other elements suppressed.</li>
+</ol>
+<p>The script first captures the name of the property from the text box. After that, it queries the model’s properties to obtain the node ID of the element. It then uses this ID to isolate the element and zoom in on it.</p>
+<iframe height="600" style="width: 100%;" scrolling="no" title="Querying Model Properties" src="https://codepen.io/autodesk-platform-services/embed/QWJQjyV?default-tab=js%2Cresult&amp;theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+See the Pen <a href="https://codepen.io/autodesk-platform-services/pen/QWJQjyV">
+Querying Model Properties</a> by Autodesk Platform Services (<a href="https://codepen.io/autodesk-platform-services">@autodesk-platform-services</a>)
+on <a href="https://codepen.io">CodePen</a>.
+</iframe></section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

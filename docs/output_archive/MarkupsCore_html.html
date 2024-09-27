@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkupsCore | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Markup/core/MarkupsCore.js">
+<section id="markupscore">
+<h1>MarkupsCore</h1>
+<section id="new-markupscore-viewer-options">
+<a href="#new-markupscore-viewer-options"><h2>new MarkupsCore(viewer, options)</h2></a>
+<p>Extension that allows end users to draw 2D markups on top of 2D and 3D models.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">viewer</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>Viewer instance used to operate on.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><span class="required">*</span><div class="type type--collapsable">object</div></td><td>Same Dictionary object passed into <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a>’s constructor.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">markupDisableHotkeys</span><div class="type type--collapsable">boolean</div></td><td>Disables hotkeys for copy, cut, paste, duplicate, undo, redo and deselect.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">markupToolClass</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/ToolInterface/">Autodesk.Viewing.ToolInterface</a></div></td><td>Class override for input handling. Use it to override/extend default hotkeys and/or mouse/gesture input.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="entereditmode-layerid">
+<a href="#entereditmode-layerid"><h2>enterEditMode(layerId)</h2></a>
+<p>Enables mouse interactions and mobile device gestures over the Viewer canvas to create or draw markups.</p>
+<p>Exit Edit mode by calling <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#leaveeditmode-1/">leaveEditMode()</a>.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#show/">show()</a></p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>[optional] Identifier for the layer of markups to be edited. Example “Layer1”.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Returns true if editMode is active</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id2">
+<a href="#id2"><h2>leaveEditMode()</h2></a>
+<p>Exits Edit mode.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">enterEditMode()</a>.</p>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Returns true if Edit mode has been deactivated</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="toggle">
+<a href="#toggle"><h2>toggle()</h2></a>
+<p>Toggle between visible markups, i.e., show() and hidden markups, i.e., hide().</p>
+</section>
+<section id="id4">
+<a href="#id4"><h2>show()</h2></a>
+<p>Enables loading of previously saved markups. Exit Edit mode by calling <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hide/">hide()</a>.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">enterEditMode()</a>.</p>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether it successfully entered view mode or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id7">
+<a href="#id7"><h2>hide()</h2></a>
+<p>Removes any markup currently overlaid on the viewer. It exits Edit mode if it is active.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#show/">show()</a></p>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether it successfully left view mode or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clear">
+<a href="#clear"><h2>clear()</h2></a>
+<p>Removes newly created markups in the current editing layer. Markups that were created in a specific layer will not be removed.</p>
+<p>Markups should have been added while in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">enterEditMode()</a>.</p>
+</section>
+<section id="generatedata">
+<a href="#generatedata"><h2>generateData()</h2></a>
+<p>Returns an SVG string with the markups created so far. The SVG string can be reloaded using <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#loadmarkups-markupstring-layerid/">loadMarkups()</a>.</p>
+<p>Markups should have been added while in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">enterEditMode()</a>.</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Returns an SVG element with all of the created markups in a string format.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="changeeditmode-editmode">
+<a href="#changeeditmode-editmode"><h2>changeEditMode(editMode)</h2></a>
+<p>Changes the active drawing tool. For example, from the Arrow drawing tool to the Rectangle drawing tool. Only applicable while in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">Edit Mode</a>.</p>
+<p>Supported values are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeArrow(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeRectangle(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeCircle(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeCloud(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeText(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModeFreehand(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModePolyline(MarkupsCoreInstance)</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">Autodesk.Viewing.Extensions.Markups.Core.EditModePolycloud(MarkupsCoreInstance)</span></code></li>
+</ul>
+<p>This function fires event <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Extensions.MarkupsCore.EVENT_EDITMODE_CHANGED</span></code>.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">editMode</span><span class="required">*</span><div class="type">object</div></td><td>Object instance for the drawing tool</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isnavigationallowed">
+<a href="#isnavigationallowed"><h2>isNavigationAllowed()</h2></a>
+<p>Check whether a user can perform camera navigation operations on the current loaded model. While the extension is active, the user can still draw markups. Panning and zooming are only supported for orthographic cameras.</p>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#allownavigation-allow/">allowNavigation()</a> can succeed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="allownavigation-allow">
+<a href="#allownavigation-allow"><h2>allowNavigation(allow)</h2></a>
+<p>Enables click, tap, and swipe behavior to allow camera zoom and panning operations. It is only available in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">Edit mode</a>.</p>
+<section id="id16">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">allow</span><span class="required">*</span><div class="type">boolean</div></td><td>Whether camera navigation interactions are active or not.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="disablemarkupinteractions-disable">
+<a href="#disablemarkupinteractions-disable"><h2>disableMarkupInteractions(disable)</h2></a>
+<p>Sets mouse interactions and mobile device gestures with markups. Only applicable in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">Edit mode</a>.</p>
+<section id="id18">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">disable</span><span class="required">*</span><div class="type">boolean</div></td><td>true to disable interactions with markups; false to enable interactions with markups; default false.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="copy">
+<a href="#copy"><h2>copy()</h2></a>
+<p>Standard copy operation. Applies to any selected markup.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#cut-1/">cut()</a> and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#paste-2/">paste()</a>.</p>
+</section>
+<section id="id19">
+<a href="#id19"><h2>cut()</h2></a>
+<p>Standard cut operation. Applies to any selected markup, which gets removed from the screen at call time.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#copy/">copy()</a> and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#paste-2/">paste()</a>.</p>
+</section>
+<section id="id22">
+<a href="#id22"><h2>paste()</h2></a>
+<p>Standard paste operation. This function will paste any previously copied or cut markup. Can be called repeatedly after a single copy or cut operation.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#copy/">copy()</a> and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#cut-1/">cut()</a>.</p>
+</section>
+<section id="undo">
+<a href="#undo"><h2>undo()</h2></a>
+<p>Will undo the previous operation.
+The Undo/Redo stacks will track any change done to the existing markups.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#redo-1/">redo()</a> and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#isUndoStackEmpty/">isUndoStackEmpty()</a>.</p>
+</section>
+<section id="id25">
+<a href="#id25"><h2>redo()</h2></a>
+<p>Will redo any previously undo operation.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#undo/">undo()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#isRedoStackEmpty/">isRedoStackEmpty()</a>.</p>
+</section>
+<section id="id27">
+<a href="#id27"><h2>isUndoStackEmpty()</h2></a>
+<p>Returns true when <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#undo/">undo()</a> produces no changes.</p>
+<section id="id29">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if there are no changes to undo; false if there are changes to undo.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id30">
+<a href="#id30"><h2>isRedoStackEmpty()</h2></a>
+<p>Returns true when <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#redo-1/">redo()</a> produces no changes.</p>
+<section id="id32">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if there are no changes to redo; false if there are changes to redo.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getid">
+<a href="#getid"><h2>getId()</h2></a>
+<p>Helper function for generating unique markup ids.</p>
+<section id="id33">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getmarkup-id">
+<a href="#getmarkup-id"><h2>getMarkup(id)</h2></a>
+<p>Returns a markup with the specified ID. Returns null when not found. The ID can be retrieved from the return value of getSelection().
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#getselection-1/">getSelection()</a>.</p>
+<section id="id34">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">id</span><span class="required">*</span><div class="type">string</div></td><td>Markup identifier.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id35">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Autodesk.Viewing.Extensions.Markups.Core.Markup</td>
+<td>Returns markup object.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="selectmarkup-markup">
+<a href="#selectmarkup-markup"><h2>selectMarkup(markup)</h2></a>
+<p>Selects or deselects a markup. A selected markup gets an overlayed UI that allows you to perform transformations such as resizing, rotations, and translations. To deselect a markup, send a null value.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#getmarkup-id/">getMarkup()</a>.</p>
+<section id="id36">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">markup</span><span class="required">*</span><div class="type">Autodesk.Viewing.Extensions.Markups.Core.Markup, null</div></td><td>The markup instance to select. Set the value to null to deselect a markup.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="id37">
+<a href="#id37"><h2>getSelection()</h2></a>
+<p>Returns the currently selected markup. A selected markup has a custom UI overlayed that allows you to perform resizing, rotations and translations.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#selectmarkup-markup/">selectMarkup()</a>.</p>
+<section id="id38">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Autodesk.Viewing.Extensions.Markups.Core.Markup, null</td>
+<td>Returns selected markup object; null if no markup is selected.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="deletemarkup-markup-dontaddtohistory">
+<a href="#deletemarkup-markup-dontaddtohistory"><h2>deleteMarkup(markup, dontAddToHistory)</h2></a>
+<p>Deletes a markup from the canvas. Only applies while in <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">Edit mode</a>.</p>
+<section id="id40">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">markup</span><span class="required">*</span><div class="type">Autodesk.Viewing.Extensions.Markups.Core.Markup</div></td><td>Markup object.</td></tr><tr><td><span class="name">dontAddToHistory</span><div class="type">boolean</div></td><td>Whether delete action can be <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#undo/">undone</a>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="loadmarkups-markupstring-layerid">
+<a href="#loadmarkups-markupstring-layerid"><h2>loadMarkups(markupString, layerId)</h2></a>
+<p>Loads data (SVG string) for all markups in a specified layer (layerId) to the Viewer’s canvas.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#unloadmarkups-layerid/">unloadMarkups()</a>, and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hidemarkups-layerid/">hideMarkups()</a>.</p>
+<section id="id41">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">markupString</span><span class="required">*</span><div class="type">string</div></td><td>SVG string with markups. See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#generatedata/">generateData()</a>.</td></tr><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>Identifier for the layer where the markup should be loaded to. Example “Layer1”.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id43">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the markup string was able to be loaded successfully</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="revertlayer-layerid">
+<a href="#revertlayer-layerid"><h2>revertLayer(layerId)</h2></a>
+<p>Revert any changes made to the specific layer.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#loadmarkups-markupstring-layerid/">loadMarkups()</a> and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#entereditmode-layerid/">enterEditMode()</a>.</p>
+<section id="id46">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>ID of the layer to revert any changes that were made to it.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id47">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the layer was unloaded, false if the layer was not unloaded.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unloadmarkups-layerid">
+<a href="#unloadmarkups-layerid"><h2>unloadMarkups(layerId)</h2></a>
+<p>Removes markups from the DOM (Document Object Model). This is helpful for freeing up memory.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#loadmarkups-markupstring-layerid/">loadMarkups()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#unloadmarkupsalllayers-1/">unloadMarkupsAllLayers()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#clear/">clear()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hide-1/">hide()</a>, and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hidemarkups-layerid/">hideMarkups()</a>.</p>
+<section id="id52">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>ID of the layer containing all markups to unload (from the DOM).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id53">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the operation succeeded or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id54">
+<a href="#id54"><h2>unloadMarkupsAllLayers()</h2></a>
+<p>Removes all markups loaded so far. Great for freeing up memory.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#loadmarkups-markupstring-layerid/">loadMarkups()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#unloadmarkups-layerid/">unloadMarkups()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#clear/">clear()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hide-1/">hide()</a>, and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#hidemarkups-layerid/">hideMarkups()</a>.</p>
+</section>
+<section id="hidemarkups-layerid">
+<a href="#hidemarkups-layerid"><h2>hideMarkups(layerId)</h2></a>
+<p>Hides all markups in a specified layer. Note that hidden markups will not be unloaded. Use the <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#showmarkups-layerid/">showMarkups()</a> method to make them visible again; no additional parsing is required.</p>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#showmarkups-layerid/">showMarkups()</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#unloadmarkups-layerid/">unloadMarkups()</a>, and <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MarkupsCore/#loadmarkups-markupstring-layerid/">loadMarkups()</a>.</p>
+<section id="id63">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>ID of the layer containing all markups that should be hidden (in the DOM).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id64">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the operation succeeded or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="showmarkups-layerid">
+<a href="#showmarkups-layerid"><h2>showMarkups(layerId)</h2></a>
+<p>Unhides a layer of hidden markups (<a class="reference external" href="#fixMe/">hideMarkups()</a>).</p>
+<section id="id66">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">layerId</span><span class="required">*</span><div class="type">string</div></td><td>ID of the layer containing all markups to unload (from the DOM).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id67">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the operation succeeded or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+<section id="events">
+<h1>Events</h1>
+<section id="event-editmode-changed">
+<a href="#event-editmode-changed"><h2>EVENT_EDITMODE_CHANGED</h2></a>
+<p>Fired whenever the drawing tool changes. For example, when the Arrow drawing tool changes into the Rectangle drawing tool.</p>
+</section>
+<section id="event-editmode-enter">
+<a href="#event-editmode-enter"><h2>EVENT_EDITMODE_ENTER</h2></a>
+<p>Fired when Edit mode has been enabled, which allows the end user to start drawing markups over the Viewer canvas.</p>
+</section>
+<section id="event-editmode-leave">
+<a href="#event-editmode-leave"><h2>EVENT_EDITMODE_LEAVE</h2></a>
+<p>Fired when Edit mode has been disabled, preventing the end user from drawing markups over the Viewer canvas.</p>
+</section>
+<section id="event-markup-selected">
+<a href="#event-markup-selected"><h2>EVENT_MARKUP_SELECTED</h2></a>
+<p>Fired when a drawn markup has been selected by the end user with a click command.</p>
+<section id="properties">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">markup</span><div class="type">Markup</div></td><td>The selected markup</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="event-markup-dragging">
+<a href="#event-markup-dragging"><h2>EVENT_MARKUP_DRAGGING</h2></a>
+<p>Fired when a drawn markup is being dragged over the Viewer canvas.</p>
+</section>
+<section id="event-history-changed">
+<a href="#event-history-changed"><h2>EVENT_HISTORY_CHANGED</h2></a>
+<p>Fired whenever a new undo or redo action is available.</p>
+<section id="id68">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">data</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/EventHistoryChangedData/">EventHistoryChangedData</a></div></td><td>The event data to identify the action and target</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="event-editmode-creation-begin">
+<a href="#event-editmode-creation-begin"><h2>EVENT_EDITMODE_CREATION_BEGIN</h2></a>
+<p>Fired when a markup creation begins. For example, as soon as the user starts dragging with the mouse to draw an arrow on the screen.</p>
+</section>
+<section id="event-editmode-creation-end">
+<a href="#event-editmode-creation-end"><h2>EVENT_EDITMODE_CREATION_END</h2></a>
+<p>Fired when a markup has been created. For example, as soon as the user stops dragging and releases the mouse button to finish drawing an arrow on the screen</p>
+</section>
+<section id="event-markup-deselect">
+<a href="#event-markup-deselect"><h2>EVENT_MARKUP_DESELECT</h2></a>
+<p>Fired when a markup is no longer selected.</p>
+<section id="id69">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">markupId</span><div class="type">number</div></td><td>The id of the selected markup</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="event-editframe-edition-start">
+<a href="#event-editframe-edition-start"><h2>EVENT_EDITFRAME_EDITION_START</h2></a>
+<p>The selected markup is being modified, i.e, resizing, rotating, moving around</p>
+</section>
+<section id="event-editframe-edition-end">
+<a href="#event-editframe-edition-end"><h2>EVENT_EDITFRAME_EDITION_END</h2></a>
+<p>The selected markup is no longer being modified</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

@@ -7,6 +7,21 @@ body {
   padding: 20px;
 }
 
+#nav-sidebar {
+  width: 250px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  padding: 20px;
+  position: fixed;
+}
+
+#content {
+  margin-left: 250px;
+  padding: 20px;
+  max-width: 800px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: #0696D7;
   margin-top: 30px;
@@ -39,7 +54,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .highlight pre {
   margin: 0;
+  padding: 10px;
   white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: #f8f8f8;
+}
+
+.highlight code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .copy-button {
@@ -52,6 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 3px;
   padding: 5px 10px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .copy-button:hover {
@@ -77,4 +102,85 @@ th {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb {
+  display: inline;
+}
+
+.breadcrumb-url {
+  color: #0696D7;
+  text-decoration: none;
+}
+
+.breadcrumb-separator {
+  margin: 0 5px;
+  color: #6A6A6A;
+}
+
+.title-category {
+  color: #6A6A6A;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+code {
+  background-color: #f0f0f0;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.table-section {
+  margin-bottom: 20px;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.required {
+  color: #ff0000;
+}
+
+.type {
+  color: #0696D7;
+}
+
+.text-required {
+  font-size: 12px;
+  color: #6A6A6A;
+  margin-top: 5px;
 }

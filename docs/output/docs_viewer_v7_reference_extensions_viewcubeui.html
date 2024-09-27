@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViewCubeUi | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/ViewCubeUi/ViewCubeUi.js">
+<section id="viewcubeui">
+<h1>ViewCubeUi</h1>
+<section id="new-viewcubeui-viewer-options">
+<a href="#new-viewcubeui-viewer-options"><h2>new ViewCubeUi(viewer, options)</h2></a>
+<p>Create the UI for the view cube.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.ViewCubeUi</span></code></p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>Viewer instance.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Not used.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.ViewCubeUi'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="setvisible-show">
+<a href="#setvisible-show"><h2>setVisible(show)</h2></a>
+<p>Show or hide the view cube element. This also applies to the home button.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td>If set to false, the view cube and the home button will become invisible.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="showtriad-show">
+<a href="#showtriad-show"><h2>showTriad(show)</h2></a>
+<p>Show the x,y,z axes of the view cube.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td>if set to true, the view cube axes will be shown.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setviewcube-face">
+<a href="#setviewcube-face"><h2>setViewCube(face)</h2></a>
+<p>Set the face of ViewCube and apply camera transformation according to it.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">face</span><span class="required">*</span><div class="type">string</div></td><td>The face name of ViewCube. The name can contain multiple face names, the format should be <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">"[front/back],</span> <span class="pre" style="background: none;">[top/bottom],</span> <span class="pre" style="background: none;">[left/right]"</span></code>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">(</span><span class="s1">'front top right'</span><span class="p">);</span>
+<span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">(</span><span class="s1">'bottom left'</span><span class="p">);</span>
+<span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">(</span><span class="s1">'back'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="displayhomebutton-show">
+<a href="#displayhomebutton-show"><h2>displayHomeButton(show)</h2></a>
+<p>Hides the Home button next to the ViewCube.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="displayviewcube-display-updateprefs">
+<a href="#displayviewcube-display-updateprefs"><h2>displayViewCube(display, updatePrefs)</h2></a>
+<p>Display the view cube. This will not effect the home button.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">display</span><span class="required">*</span><div class="type">boolean</div></td><td>if set to false the view cube element will be invisible</td></tr><tr><td><span class="name">updatePrefs</span><span class="required">*</span><div class="type">boolean</div></td><td>update the view cube preference</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="localize">
+<a href="#localize"><h2>localize()</h2></a>
+<p>Localize the view cube</p>
+</section>
+<section id="refreshcube">
+<a href="#refreshcube"><h2>refreshCube()</h2></a>
+<p>Refresh the view cube</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

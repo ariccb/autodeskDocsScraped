@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileLoader | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/FileLoader.js">
+<section id="fileloader">
+<h1>FileLoader</h1>
+<section id="new-fileloader-viewer">
+<a href="#new-fileloader-viewer"><h2>new FileLoader(viewer)</h2></a>
+<p>Base class for file loaders.</p>
+<p>It is highly recommended that file loaders use worker threads to perform the actual loading in order to keep the UI thread free. Once loading is complete, the loader should call viewer.impl.onLoadComplete(). During loading, the loader can use viewer.impl.signalProgress(int) to indicate how far along the process is.</p>
+<p>To add geometry to the viewer, <code class="docutils literal notranslate"><span class="pre">viewer.impl.addMeshInstance(geometry,</span> <span class="pre">meshId,</span> <span class="pre">materialId,</span> <span class="pre">matrix)</span></code> should be used. Geometry must be THREE.BufferGeometry, meshId is a number, materialId is a string, and matrix is the THREE.Matrix4 transformation matrix to be applied to the geometry.</p>
+<p>Remember to add draw calls to the BufferGeometry if the geometry has more than 65535 faces.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>The viewer instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="loadfile-url-options-onsuccess-onerror">
+<a href="#loadfile-url-options-onsuccess-onerror"><h2>loadFile(url, options, onSuccess, onError)</h2></a>
+<p>Initiates the loading of a file from the given URL.</p>
+<p>This method must be overridden.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">url</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The url for the file.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>An optional dictionary of options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ids</span><div class="type type--collapsable">string</div></td><td>A list of object id to load.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">sharedPropertyDbPath</span><div class="type type--collapsable">string</div></td><td>Optional path to shared property database.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccess</span><div class="type type--collapsable">function</div></td><td>Callback function when the file begins loading successfully. Takes no arguments.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onError</span><div class="type type--collapsable">function</div></td><td>Callback function when an error occurs. Passed an integer error code and a string description of the error.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="is3d">
+<a href="#is3d"><h2>is3d()</h2></a>
+<p>Returns true only for a 3D models FileLoader implementation.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

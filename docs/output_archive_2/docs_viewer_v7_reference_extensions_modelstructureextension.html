@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ModelStructureExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/ModelStructure/ModelStructure.js">
+<section id="modelstructureextension">
+<h1>ModelStructureExtension</h1>
+<section id="new-modelstructureextension-viewer-options">
+<a href="#new-modelstructureextension-viewer-options"><h2>new ModelStructureExtension(viewer, options)</h2></a>
+<p>Adds a toolbar button for accessing the Model Browser panel.</p>
+<p>Use its <code class="docutils literal notranslate"><span class="pre">activate()</span></code> method to open the Model Browser panel. The Model Browser is only available to 3D models.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.ModelStructure</span></code></p>
+<p><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/GuiViewer3D/">Autodesk.Viewing.GuiViewer3D</a> loads this extension by default.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.ModelStructure'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Invoked automatically when the extension is loaded.</p>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Invoked automatically when the extension is unloaded.</p>
+</section>
+<section id="ontoolbarcreated-toolbar">
+<a href="#ontoolbarcreated-toolbar"><h2>onToolbarCreated(toolbar)</h2></a>
+<p>Invoked after the Toolbar UI gets created. Adds toolbar button.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolbar</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ToolBar/">Autodesk.Viewing.UI.ToolBar</a></div></td><td>toolbar instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>Opens the Model Browser UI.</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Closes the Model Browser UI.</p>
+</section>
+<section id="isactive">
+<a href="#isactive"><h2>isActive()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the panel is visible.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setmodelstructurepanel-modelstructurepanel">
+<a href="#setmodelstructurepanel-modelstructurepanel"><h2>setModelStructurePanel(modelStructurePanel)</h2></a>
+<p>Sets the panel instance to open when clicking the toolbar button. Use the API to override the default panel with a custom one.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">modelStructurePanel</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ModelStructurePanel/">Autodesk.Viewing.UI.ModelStructurePanel</a></div></td><td>The model structure panel to use, or null.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the panel, or null, was set successfully; false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="restoredefaultpanel">
+<a href="#restoredefaultpanel"><h2>restoreDefaultPanel()</h2></a>
+<p>Removes custom panel and restores the default one.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

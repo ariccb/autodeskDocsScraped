@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossary of Terms | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="glossary-of-terms">
+<h1>Glossary of Terms</h1>
+<div class="table-section"><table><thead><tr><th>Term</th><th>Definition</th></tr></thead><tbody>
+<tr class="row-even"><td>access token</td>
+<td><div class="line-block">
+<div class="line-block">
+<div class="line">An access token (sometimes just “token” or “bearer token”) is a credential used by an application to access an API.</div>
+</div>
+<div class="line">The Authentication API returns an access token at the end of a successful authentication flow.</div>
+<div class="line"><br></div>
+<div class="line">The Viewer requires access tokens that have a scope of <code class="docutils literal notranslate"><span class="pre">viewables:read</span></code>.</div>
+<div class="line"><br></div>
+<div class="line">For more information, see the <a class="reference external" href="/en/docs/oauth/v2/overview/basics">Authentication API Basics</a> and <a class="reference external" href="/en/docs/oauth/v2/overview/scopes">Scopes</a> sections.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>canvas</td>
+<td><div class="line-block">
+<div class="line">An HTML element used as a target for rendering the Viewer SDK.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>dbid</td>
+<td><div class="line-block">
+<div class="line">The ID of an object linking it to its metadata in the properties database. The dbid is also needed to call Viewer SDK methods; for example, the function used to hide objects in the model expects a list of dbids as its argument.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>document</td>
+<td><div class="line-block">
+<div class="line">The file for the model you want to load. The doc gives access to the root and provides a method for finding elements by id. To learn more, see <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Document">Document</a>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>extensions</td>
+<td><div class="line-block">
+<div class="line">A piece of JavaScript code that is optionally loaded at runtime to extend or modify Viewer SDK’s behavior.</div>
+<div class="line"><br></div>
+<div class="line">Some extensions are bundled with Viewer SDK, and developers
+can write their own extensions for specific use cases.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>fragID</td>
+<td><div class="line-block">
+<div class="line">The ID for an individual fragment of a Viewer SDK model.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>fragment</td>
+<td><div class="line-block">
+<div class="line">A part of an object with specific geometry and material; a single object consists of one or more fragments. For example, a door object may consist of a door knob (with brass material) and a door frame (with wood material).</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>geometry node</td>
+<td><div class="line-block">
+<div class="line">The smallest selectable element of a model in Viewer SDK (e.g. a door). This is also known as an <em>object</em>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>ghosting</td>
+<td><div class="line-block">
+<div class="line">A feature that makes selected nodes in a model transparent, allowing other nodes to become more prominent.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>headless</td>
+<td><div class="line-block">
+<div class="line">Viewer SDK without UI elements; only the 3D render canvas.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>highlighting</td>
+<td><div class="line-block">
+<div class="line">The act of changing the way an object is drawn to make it standout. The Viewer SDK will highlight objects when they are selected and when the user mouses over them. Theming is another way to highlight objects available to applications.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>markup</td>
+<td><div class="line-block">
+<div class="line">An extension for annotating viewables.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>manifest</td>
+<td><div class="line-block">
+<div class="line">The result of a translation process, a structured
+collection of resources (e.g., model geometry,
+thumbnails, camera views) used by Viewer SDK.</div>
+<div class="line"><br></div>
+<div class="line">Get a manifest using the <a class="reference external" href="/en/docs/model-derivative/v2/reference/http/urn-manifest-GET/">GET :urn/manifest</a> endpoint.</div>
+<div class="line"><br></div>
+<div class="line">Viewer SDK can only render viewables.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>measure</td>
+<td><div class="line-block">
+<div class="line">An extension for measuring the distance between two points on the surface of a model.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>orbit</td>
+<td><div class="line-block">
+<div class="line">A feature that allows users to move the camera up, down, left &amp; right.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>overlay</td>
+<td><div class="line-block">
+<div class="line">A feature that allows you to add custom geometry to the loaded model. To learn more, see the  <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/custom-geometry/">Add Custom Geometry</a> tutorial.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>profile</td>
+<td><div class="line-block">
+<div class="line">A set of preferences and extensions in the Viewer SDK. Developers can create their own custom profiles and there are built-in profiles available in the Viewer SDK to bring the same user experience as Autodesk desktop products like Navisworks and Revit.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>property database</td>
+<td><div class="line-block">
+<div class="line">Metadata associated with a viewable and its parts. The property database may</div>
+<div class="line">contain metadata for each geometry node.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>scene</td>
+<td><div class="line-block">
+<div class="line">An environment where one more more models are placed. Models, cameras, and lights can be positioned or transformed in the environment’s coordinate system.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>search</td>
+<td><div class="line-block">
+<div class="line">A feature for searching the viewable’s metadata, also</div>
+<div class="line">called <em>property database</em>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>section(ing)</td>
+<td><div class="line-block">
+<div class="line">An extension for cutting 3D models and seeing inside of them.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>seed file</td>
+<td><div class="line-block">
+<div class="line">The original file that you want to visualize in Viewer SDK.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>selection</td>
+<td><div class="line-block">
+<div class="line">A feature that lets users select nodes in a model. You can use selection to specify which nodes users can select and keep track of the selected nodes.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>theming</td>
+<td><div class="line-block">
+<div class="line">A means to highlight objects by changing their color.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>viewable</td>
+<td><div class="line-block">
+<div class="line">Either a 3D model or a 2D sheet referenced by the manifest.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>viewcube</td>
+<td><div class="line-block">
+<div class="line">A tool available for 3D models that helps users orient the camera’s position.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>viewer state</td>
+<td><div class="line-block">
+<div class="line">The current view of a model based on the position of the camera system’s eye.</div>
+</div>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

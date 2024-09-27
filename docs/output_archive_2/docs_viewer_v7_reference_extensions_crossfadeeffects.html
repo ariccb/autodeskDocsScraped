@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrossFadeEffects | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/CrossFadeEffects/CrossFadeEffects.js">
+<section id="crossfadeeffects">
+<h1>CrossFadeEffects</h1>
+<p>CrossFadeEffects extension provides API for implementing smooth fading effects in LMV, e.g.</p>
+<ul class="simple">
+<li>CrossFading between models or model configurations (e.g. color theming, hiding objects etc.)</li>
+<li>Image-based “ghosting” effect, i.e. showing a semitransparent snapshot of a model on top of another one.</li>
+</ul>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.CrossFadeEffects</span></code></p>
+<p>Note:</p>
+<ul class="simple">
+<li>Note that CrossFadeEffects require 2 extra RenderTargets. So, they should only be used for optional effects that can be skipped on weak devices.</li>
+<li>CrossFade effects can only be used for one purpose at a time. When using them for a new feature, you have to make sure that they don’t conflict with existing features.</li>
+</ul>
+<section id="new-crossfadeeffects">
+<a href="#new-crossfadeeffects"><h2>new CrossFadeEffects()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.CrossFadeEffects'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Enables cross frade effects.</p>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Disables cross frade effects.</p>
+</section>
+<section id="acquirecontrol-clientid-onclientchanged">
+<a href="#acquirecontrol-clientid-onclientchanged"><h2>acquireControl(clientId, onClientChanged)</h2></a>
+<p>Fading targets may be used by different clients for different purposes. That’s okay as long as it does not happen concurrently.</p>
+<p>In case of conflicts, the last caller takes precedence.</p>
+<p>If you start an effect using this extension, always call this function to notify client code that was using it before. Vice versa, provide an onClientChanged() callback to handle the case that someone else overtakes.</p>
+<p>Example: If start a fading effect while the ghost floors of the LevelsExtension are fading out, the LevelsExtension will be notified to skip the fade-out anim to avoid conflicts.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">clientId</span><span class="required">*</span><div class="type">string</div></td><td>Some identifier unique for the code component using the effect, e.g. the name of an extension.</td></tr><tr><td><span class="name">onClientChanged</span><div class="type">function</div></td><td>Will be called if another client called acquireControl.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setmodeltargetindex-modelid-targetindex">
+<a href="#setmodeltargetindex-modelid-targetindex"><h2>setModelTargetIndex(modelId, targetIndex)</h2></a>
+<p>Only allowed if modelCrossFade is enabled. Determines to which target a RenderModel will be rendered.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">modelId</span><span class="required">*</span><div class="type">number</div></td><td>The model id</td></tr><tr><td><span class="name">targetIndex</span><span class="required">*</span><div class="type">undefined, 0, 1</div></td><td>index of the crossFade target or undefined (default) to use default color buffer</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setmodeltargetindexforall-index">
+<a href="#setmodeltargetindexforall-index"><h2>setModelTargetIndexForAll(index)</h2></a>
+<p>Only allowed if modelCrossFade is enabled. Determines to which target a RenderModel will be rendered.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">index</span><span class="required">*</span><div class="type">undefined, 0, 1</div></td><td>index of the crossFade target or undefined (default) to use default color buffer</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setcrossfadeopacity-targetindex-opacity">
+<a href="#setcrossfadeopacity-targetindex-opacity"><h2>setCrossFadeOpacity(targetIndex, opacity)</h2></a>
+<p>Only allowed if modelCrossFade is enabled. Assigns a blending opacity to a cross-fading extra target.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">targetIndex</span><span class="required">*</span><div class="type">number</div></td><td>must be &gt;0</td></tr><tr><td><span class="name">opacity</span><span class="required">*</span><div class="type">number</div></td><td>in [0,1]</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setcrossfadeenabled-enable">
+<a href="#setcrossfadeenabled-enable"><h2>setCrossFadeEnabled(enable)</h2></a>
+<p>Enable/Disable model cross-fading. Must be enabled in order to render models to different render targets for cross-fading effects (see below). If no cross-fading effects are used, it should be disabled to save GPU memory and performance.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">enable</span><span class="required">*</span><div class="type">boolean</div></td><td>Whether to enable(true) or disable(false) cross fade effects.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="fadetarget-targetindex-startopacity-endopacity-duration-onfinished">
+<a href="#fadetarget-targetindex-startopacity-endopacity-duration-onfinished"><h2>fadeTarget(targetIndex, startOpacity, endOpacity, duration, onFinished)</h2></a>
+<p>Runs a fading-animation on a cross-fading target.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">targetIndex</span><span class="required">*</span><div class="type">number</div></td><td>see setModelTargetIndex()</td></tr><tr><td><span class="name">startOpacity</span><span class="required">*</span><div class="type">number</div></td><td>in [0,1]</td></tr><tr><td><span class="name">endOpacity</span><span class="required">*</span><div class="type">number</div></td><td>in [0,1]</td></tr><tr><td><span class="name">duration</span><div class="type">number</div></td><td>in seconds</td></tr><tr><td><span class="name">onFinished</span><div class="type">function</div></td><td>optional callback triggered when animation is finished</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>AnimControl instance</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="fadetoviewerstate-applystate-duration">
+<a href="#fadetoviewerstate-applystate-duration"><h2>fadeToViewerState(applyState, duration)</h2></a>
+<p>Runs a static image fade between the current view and a modified view. (e.g. with changed model/fragment visiblity, ghosting etc.) The modified view is specified via function applyState.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">applyState</span><span class="required">*</span><div class="type">function</div></td><td>applied after rendering the fading start image.</td></tr><tr><td><span class="name">duration</span><span class="required">*</span><div class="type">number</div></td><td>in seconds</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

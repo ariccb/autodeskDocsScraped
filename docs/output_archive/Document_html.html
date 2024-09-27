@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Document.js">
+<section id="document">
+<h1>Document</h1>
+<section id="new-document-datajson-path-acmsession">
+<a href="#new-document-datajson-path-acmsession"><h2>new Document(dataJSON, path, acmsession)</h2></a>
+<p>Allows the client to load the model data from the cloud, it gives access to the root and provides a method for finding elements by id.</p>
+<p>Typically, you load the document from APS, parse it for the required content (for example, 3d geometries), then pass this on to the viewer to display.  You can also get some information about the document, such as the number of views it contains and its thumbnail image.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dataJSON</span><span class="required">*</span><div class="type">object</div></td><td>JSON data representing the document.</td></tr><tr><td><span class="name">path</span><span class="required">*</span><div class="type">string</div></td><td>Path/URL where dataJSON was fetched from.</td></tr><tr><td><span class="name">acmsession</span><div class="type">string</div></td><td>ACM session ID.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="load-documentid-onsuccesscallback-onerrorcallback-options">
+<a href="#load-documentid-onsuccesscallback-onerrorcallback-options"><h2>load(documentId, onSuccessCallback, onErrorCallback, options)</h2></a>
+<p>Static method to load the translation’s manifest data from an APS endpoint.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">documentId</span><span class="required">*</span><div class="type">string</div></td><td>The URN of the file.</td></tr><tr><td><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type">Autodesk.Viewing.Document~loadSuccessCallback</div></td><td>A function that is called when load succeeds.</td></tr><tr><td><span class="name">onErrorCallback</span><span class="required">*</span><div class="type">Autodesk.Viewing.Document~loadErrorCallback</div></td><td>A function that is called when load fails.</td></tr><tr><td><span class="name">options</span><div class="type">object</div></td><td>An optional object that allows configuring manually the manifest request attributes - such as headers, endpoint etc.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span>
+<span class="w">   </span><span class="nx">MY_URN</span><span class="p">,</span>
+<span class="w">   </span><span class="kd">function</span><span class="w"> </span><span class="nx">onSuccessCallback</span><span class="p">(</span><span class="nx">doc</span><span class="p">){</span>
+<span class="w">       </span><span class="kd">var</span><span class="w"> </span><span class="nx">bubbleRoot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">();</span>
+<span class="w">       </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bubbleRoot</span><span class="p">);</span>
+<span class="w">       </span><span class="c1">// proceed to load a viewable into the Viewer...</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="kd">function</span><span class="w"> </span><span class="nx">onErrorCallback</span><span class="p">(</span><span class="nx">errCode</span><span class="p">,</span><span class="w"> </span><span class="nx">errMsg</span><span class="p">){</span>
+<span class="w">       </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed to load manifest ['</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">errCode</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'] '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">errMsg</span><span class="p">);</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getroot">
+<a href="#getroot"><h2>getRoot()</h2></a>
+<p>Returns a BubbleNode instance, encapsulating the current document manifest JSON.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

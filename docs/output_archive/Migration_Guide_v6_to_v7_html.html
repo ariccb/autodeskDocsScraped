@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migration Guide v6 to v7 | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="migration-guide-v6-to-v7">
+<h1>Migration Guide v6 to v7</h1>
+<section id="description">
+<a href="#description"><h2>Description</h2></a>
+<p>This guide is intended for developers who have been using <code class="docutils literal notranslate"><span class="pre">v6</span></code> and are upgrading to <code class="docutils literal notranslate"><span class="pre">v7</span></code>.</p>
+<p>The tables indicate changes from <code class="docutils literal notranslate"><span class="pre">v6</span></code> to <code class="docutils literal notranslate"><span class="pre">v7</span></code>. Developers should review the changes and update their code based on the changes noted in <code class="docutils literal notranslate"><span class="pre">v7</span></code>. Refer to the final column for instructions and description of the changes.</p>
+<p>The code below assumes that symbol <code class="docutils literal notranslate"><span class="pre">av</span></code> stands for <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing</span></code> namespace global variable.</p>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+<section id="api-changes">
+<a href="#api-changes"><h2>API Changes</h2></a>
+<hr class="docutils">
+<p>Changes in <code class="docutils literal notranslate"><span class="pre">options</span></code> object passed into <code class="docutils literal notranslate"><span class="pre">av.Initializer(options,callback)</span></code>:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">options=av.createInitializerOptions()</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">options={env:'AutodeskProduction'};</span></code></td>
+<td>Developers need to create the object themselves.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">options.loglevel=1</span></code> or <code class="docutils literal notranslate"><span class="pre">options.logLevel=1</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">options.logLevel=1</span></code></td>
+<td>Only uppercase <code class="docutils literal notranslate"><span class="pre">Level</span></code> is supported.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p><code class="docutils literal notranslate"><span class="pre">Viewer</span></code> related changes:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">config3d=av.createViewerConfig()</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">config3d={};</span></code></td>
+<td>Developers need to create the object themselves. Empty object yields the same result.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.Private.GuiViewer3D</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.GuiViewer3D</span></code></td>
+<td>Class is now available from outside the Private namespace.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.load</span></code> (svfURN, sharedPropertyDbPath, onSuccess, onError, acmSessionId, loadOptions)</td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><dl>
+<dt>var options = {</dt><dd><blockquote>
+<div><p>sharedPropertyDbPath,
+acmSessionId,
+loadOptions</p>
+</div></blockquote>
+<p>};</p>
+<p><code class="docutils literal notranslate"><span class="pre">viewer.loadModel</span></code> (svfURN,options,onSuccess,onError);</p>
+</dd>
+</dl>
+</td>
+<td>Replace with new method.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.loadModel(...):bool</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.loadModel(...):Promise</span></code></td>
+<td>The function now returns a <code class="docutils literal notranslate"><span class="pre">Promise</span></code> which resolves with the <code class="docutils literal notranslate"><span class="pre">bool</span></code> returned in v6.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.isolateById(idArray)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.isolate(idArray)</span></code></td>
+<td>Replace with new method.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.getMemoryInfo()</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.getExtension('Autodesk.MemoryLimited').getMemoryInfo()</span></code></td>
+<td>Functionality has been encapsulated into an extension.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>The ViewCube apis have been moved out of <code class="docutils literal notranslate"><span class="pre">Viewer3D</span></code> instance and into the <code class="docutils literal notranslate"><span class="pre">Autodesk.ViewCubeUi</span></code> extension.</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.displayViewCubeUI(display)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.setVisible(display);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.displayViewCube(display)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.displayViewCube(display);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.setViewCube(display)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.setViewCube(display);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.showViewCubeUI(show)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.setVisible(show);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.showViewCubeTriad(show)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.showTriad(show);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.displayHomeButton(show)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.displayHomeButton(show);</span></code></td>
+<td>Functionality available in extension.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Changes to <code class="docutils literal notranslate"><span class="pre">Document</span></code> class:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">Document.getSubitemsWithProperties(...)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">BubbleNode.search(...)</span></code></td>
+<td>Replaced by member function in <code class="docutils literal notranslate"><span class="pre">BubbleNode</span></code>.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">getItemById(id)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">bubbleNode.findByGuid(id)</span></code></td>
+<td>Replaced by member function in <code class="docutils literal notranslate"><span class="pre">BubbleNode</span></code>.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">getRootItem():Object</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">bubbleNode.getRoot():BubbleNode</span></code></td>
+<td>Replaced by member function in <code class="docutils literal notranslate"><span class="pre">BubbleNode</span></code>. The return value also changes. Get the raw object by using <code class="docutils literal notranslate"><span class="pre">bubbleNode.data</span></code>.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">getViewableItems():Array</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">bubbleNode.getRoot().findAllViewables():Array</span></code></td>
+<td>Replaced by member function in <code class="docutils literal notranslate"><span class="pre">BubbleNode</span></code>. Make sure to use the root node before using the function.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">Document.getPropertyDbPath():string</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">Document.getFullPath(bubbleNode.getRoot().findPropertyDbPath())</span></code></td>
+<td>Use in case you are calling <code class="docutils literal notranslate"><span class="pre">Viewer3D.loadModel</span></code> directly and not using <code class="docutils literal notranslate"><span class="pre">Viewer3D.loadDocuementNode</span></code>, which populates the property automatically.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Changes to <code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code> class:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.loadDocumentNode()</span></code></td>
+<td>The <code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code> class provided a way to keep a reference to the <code class="docutils literal notranslate"><span class="pre">Document</span></code> instance and provided methods to change the model in the scene. The class is no longer required now that the <code class="docutils literal notranslate"><span class="pre">Viewer3D</span></code> instance provides the same functionality. Refer to <code class="docutils literal notranslate"><span class="pre">loadDocumentNode()</span></code> documentation for usage details.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<p>If you are not ready to move out of using <code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code>, you may still continue using it with version 7 by fetching the code from <code class="docutils literal notranslate"><span class="pre">&lt;script</span> <span class="pre">src=https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/legacy/ViewingApplication.js&gt;</span></code>.</p>
+<hr class="docutils">
+<p><strong>On-Demand Loading</strong> is the feature that allows to visualize models that require more memory than the available in the browser. The trade off is that loading times will be longer. This feature has been repackaged into the <code class="docutils literal notranslate"><span class="pre">Autodesk.MemoryLimited</span></code> extension.</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><strong>Enabled</strong> by default</td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><strong>Disabled</strong> by default</td>
+<td>To enable memory limited mode you must configure LMV to use the <code class="docutils literal notranslate"><span class="pre">Autodesk.MemoryLimited</span></code> extension
+to load large SVF models on memory limited devices.
+This is done by adding an object to the options you pass the Viewer3D or GuiViewer3D constructor.</td>
+</tr></tbody></table></div>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config3d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="nx">loaderExtensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">svf</span><span class="o">:</span><span class="w"> </span><span class="s2">"Autodesk.MemoryLimited"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">av</span><span class="p">.</span><span class="nx">Viewer3D</span><span class="p">(</span><span class="nx">domCanvasContainer</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span><span class="w"> </span><span class="c1">// or</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">av</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">domCanvasContainer</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">GEOMETRY_LOADED_EVENT</span></code> may include property <code class="docutils literal notranslate"><span class="pre">onDemandLoad</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">GEOMETRY_LOADED_EVENT</span></code> no longer includes property <code class="docutils literal notranslate"><span class="pre">onDemandLoad</span></code></td>
+<td>The event’s payload no longer contains property <code class="docutils literal notranslate"><span class="pre">onDemandLoad</span></code>. Use <code class="docutils literal notranslate"><span class="pre">getMemoryInfo()</span></code> on the <code class="docutils literal notranslate"><span class="pre">Autodesk.MemoryLimited</span></code>
+extension to determine whether a model is using on demand loading.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Detecting Toolbar creation:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.getToolbarPromise():Promise</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">Extension.prototype.onToolbarCreated(toolbar)</span></code></td>
+<td>Extensions may now override method <code class="docutils literal notranslate"><span class="pre">onToolbarCreated</span></code> to be notified when the toolbar is instantiated.
+The <code class="docutils literal notranslate"><span class="pre">TOOLBAR_CREATED_EVENT</span></code> is still present without modifications.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Animation API changes:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.playAnimation(callback)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.addEventListener(av.ANIMATION_TRACK_UPDATE_EVENT,</span> <span class="pre">callback)</span></code>
+<code class="docutils literal notranslate"><span class="pre">viewer.getExtension('Autodesk.Fusion360.Animation').play()</span></code></td>
+<td>Animation API is not concentrated in the <code class="docutils literal notranslate"><span class="pre">Autodesk.Fusion360.Animation</span></code> extension.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Non-Photorealistic Rendering (NPR) changes:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.impl.setPostProcessParameter('style','cel')</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.loadExtension('Autodesk.NPR');</span></code>
+<code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">ext=viewer.getExtension('Autodesk.NPR');</span></code>
+<code class="docutils literal notranslate"><span class="pre">ext.setParameter('style','cel')</span></code></td>
+<td>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.NPR</span></code> provides the API method.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">viewer.impl.preloadPostProcessStyle</span> <span class="pre">('style')</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td>No replacement</td>
+<td>The functionality has been folded into <code class="docutils literal notranslate"><span class="pre">ext.setParameter()</span></code>.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p><code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Extension.PushPin</span></code> changes:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.createItem(data)</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">extension.loadItems([data])</span></code></td>
+<td>Replacement wraps data into an Array.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Moved symbols from between namespaces:</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.getScreenShot()</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.ScreenShot.getScreenShot()</span></code></td>
+<td>Screenshot-related static functions have been moved into their own namespace.</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.Viewer3D.ScreenMode</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.ScreenMode</span></code></td>
+<td>Moved into the <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing</span></code> namespace.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Function <code class="docutils literal notranslate"><span class="pre">BubbleNode.prototype.getAecModelData()</span></code> may require an additional server request to fetch the data.</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">aecData=bubbleNode.getAecModelData()</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">av.Document.getAecModelData(bubbleNode).then(aecData=&gt;...)</span></code></td>
+<td>The addded static function in  <code class="docutils literal notranslate"><span class="pre">Document</span></code> guarantees that an additional server request will be performed (when needed) before attempting to access the model’s AEC data.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+<p>Version global variable.</p>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td><strong>v6</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">LMV_VIEWER_PATCH</span></code></td>
+<td></td>
+</tr><tr><td><strong>v7</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">LMV_VIEWER_VERSION</span></code></td>
+<td>The value of <code class="docutils literal notranslate"><span class="pre">LMV_VIEWER_PATCH</span></code> has been folded into <code class="docutils literal notranslate"><span class="pre">LMV_VIEWER_VERSION</span></code>, which will contain a proper Semanic Version string value.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<hr class="docutils">
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

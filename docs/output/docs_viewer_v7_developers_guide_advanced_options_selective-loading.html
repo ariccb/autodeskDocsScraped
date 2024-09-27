@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selective Loading Using Queries | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="selective-loading-using-queries">
+<h1>Selective Loading Using Queries</h1>
+<p>Selective Loading uses spatial and property queries to filter the model geometry and load only what you need.
+It allows you to provide a better experience interacting with the 3D scene by:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Improving the load time</li>
+<li>Loading only the portion of the model required</li>
+</ul>
+</div></blockquote>
+<p>Currently, the API focuses on load-time optimizations and only load-time filtering is supported.
+Minor, known issues in the progressive rendering and the delay in time-to-first-pixel when using spatial filters will be addressed in future releases.</p>
+<p>Example:</p>
+<img alt="../../../../_images/selective-loading-hyperlink1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/selective-loading-hyperlink1.png">
+<p>The image on the left shows a model without the loading filters applied.
+The middle image shows an axis-aligned box (blue) being used as the spatial filter to define the portion of the model to load.
+The image on the right shows the model loaded with the filter load-option passed to <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#loaddocumentnode-avdocument-manifestnode-options">loadDocumentNode</a>.
+The same option can be provided to <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#loadmodel-url-options-onsuccesscallback-onerrorcallback">viewer.loadModel</a>.</p>
+<section id="quickstart-example-for-load-time-filtering">
+<a href="#quickstart-example-for-load-time-filtering"><h2>Quickstart Example for Load-time Filtering</h2></a>
+<p>To restrict model loading to certain areas or types of geometry, use queries to filter what to load using <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#loaddocumentnode-avdocument-manifestnode-options">loadDocumentNode</a> options.
+A load-time filter can be set by specifying a spatial and/or a property query using the <code class="docutils literal notranslate"><span class="pre">filter</span></code> load-option.</p>
+<p>The following example creates a load-time filter using a <code class="docutils literal notranslate"><span class="pre">spatial_query</span></code>.
+It describes a condition for testing an axis-aligned bounding box (<code class="docutils literal notranslate"><span class="pre">aabbox</span></code>) against the given axis-aligned box (<code class="docutils literal notranslate"><span class="pre">aabox</span></code>).
+Objects that do not fulfill the condition are not loaded and only the objects in the shaded area are loaded.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'viewer'</span><span class="p">));</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">documentID</span><span class="p">,</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">,</span>
+<span class="w">        </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed to fetch the manifest.'</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">onDocumentLoadSuccess</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">defaultModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerDocument</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">getDefaultGeometry</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultModel</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...options</span>
+<span class="w">        </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="s2">"spatial_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="s2">"$encloses"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="mf">21.0</span><span class="p">,</span><span class="w"> </span><span class="mf">37.0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span><span class="w"> </span><span class="mf">46.0</span><span class="p">,</span><span class="w"> </span><span class="mf">59.0</span><span class="p">,</span><span class="w"> </span><span class="mf">21.0</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="try-it-out">
+<a href="#try-it-out"><h2>Try it out</h2></a>
+<p>You can interact and experiment with the viewer in the following example (the blue box shows the boundary of a simple, spatial query):</p>
+ <iframe height="600" style="width: 100%;" scrolling="no" title="Viewer SDK - Selective Loading" src="https://codepen.io/autodesk-platform-services/embed/JjmwrWp?default-tab=result&amp;theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+See the Pen <a href="https://codepen.io/autodesk-platform-services/pen/JjmwrWp">
+Viewer SDK - Selective Loading</a> by Autodesk Platform Services (<a href="https://codepen.io/autodesk-platform-services">@autodesk-platform-services</a>)
+on <a href="https://codepen.io">CodePen</a>.
+ </iframe><p><strong>Tip</strong>: To experiment with the Viewer click EDIT ON CODEPEN at upper right in the example.</p>
+</section>
+<section id="spatial-query-language">
+<a href="#spatial-query-language"><h2>Spatial Query Language</h2></a>
+<p><em>Spatial conditions</em> are specified using a spatial query language.
+A spatial query comprises a <em>spatial condition</em> (<code class="docutils literal notranslate"><span class="pre">&lt;scondition&gt;</span></code>).</p>
+<section id="scondition">
+<h3><code class="docutils literal notranslate"><span class="pre">&lt;scondition&gt;</span></code></h3>
+<p>Spatial conditions are composed of building blocks that determine whether an object should be loaded or not. Usually these are an expression, a primitive, an optional proxy, and in some cases additional parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Primitives define what to test objects against. In the example above, all objects are tested against an axis-aligned box.</li>
+<li>Proxies define how to represent objects when testing them against the primitive. This could be the object’s axis-aligned bounding box, or a bounding sphere, for example. The proxy part of a condition is optional and defaults to the object’s bounding box, which is the only proxy that is currently supported.</li>
+<li>Expressions define how to interpret the proxy-primitive check. For example, an object could pass the condition if its bounding box intersects the given primitive, or it could be required to be fully enclosed.</li>
+</ul>
+</div></blockquote>
+<p>Conditions can be negated, combined and nested as illustrated below.</p>
+<div class="table-section"><table><thead><tr><th>Condition</th><th>Description</th></tr></thead><tbody>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$intersects":</span> <span class="pre">[</span> <span class="pre">&lt;sprimitive&gt;</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+<td>True, if the primitive intersects with the objects’s axis-aligned bounding box.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$encloses":</span> <span class="pre">[</span> <span class="pre">&lt;sprimitive&gt;,</span> <span class="pre">&lt;sproxy&gt;?,</span> <span class="pre">epsilon?</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+<td>True, if the primitive has a volume and fully encloses the objects’s axis-aligned bounding box. <code class="docutils literal notranslate"><span class="pre">sproxy</span></code> (optional) defines the type of the bounding box. Defaults to <code class="docutils literal notranslate"><span class="pre">aabbox</span></code> if not provided. <code class="docutils literal notranslate"><span class="pre">epsilon</span></code> (optional) is a scalar that expands each dimension of the primitive. Defaults to 0.0 if not provided.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$extent":</span> <span class="pre">[</span> <span class="pre">&lt;threshold&gt;</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+<td>True, if the volume of the objects’s axis-aligned bounding box (world space) passes the threshold.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$not":</span> <span class="pre">&lt;scondition&gt;</span> <span class="pre">}</span></code></td>
+<td>Inverts the given condition.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$or":</span> <span class="pre">[</span> <span class="pre">&lt;scondition1&gt;,</span> <span class="pre">&lt;scondition2&gt;,</span> <span class="pre">...</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+<td>Any of the given conditions must be fulfilled.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"$and":</span> <span class="pre">[</span> <span class="pre">&lt;scondition1&gt;,</span> <span class="pre">&lt;scondition2&gt;,</span> <span class="pre">...</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+<td>All of the given conditions must be fulfilled.</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="sprimitive">
+<h3><code class="docutils literal notranslate"><span class="pre">&lt;sprimitive&gt;</span></code></h3>
+<p>Spatial primitives are basic geometries such as points, lines, planes, spheres, and axis-aligned boxes that can be used to create spatial conditions. Currently, only the axis-aligned box is supported.</p>
+<div class="table-section"><table><thead><tr><th>Primitive</th><th>Specification</th><th>Example</th></tr></thead><tbody>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">aabox</span></code></td>
+<td>[ <cite>min</cite><sub>x</sub>, <cite>min</cite><sub>y</sub>, <cite>min</cite><sub>z</sub>, <cite>max</cite><sub>x</sub>, <cite>max</cite><sub>y</sub>, <cite>max</cite><sub>z</sub> ]</td>
+<td><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">"aabox":</span> <span class="pre">[</span> <span class="pre">-3.3,</span>&nbsp; <span class="pre">1.1,</span>&nbsp; <span class="pre">0.4,</span> <span class="pre">-1.8,</span>&nbsp; <span class="pre">3.9,</span>&nbsp; <span class="pre">2.7</span> <span class="pre">]</span> <span class="pre">}</span></code></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="sproxy">
+<h3><code class="docutils literal notranslate"><span class="pre">&lt;sproxy&gt;</span></code></h3>
+<p>Spatial proxies describe the type of a <em>simplified geometrical representations of objects</em> that are used for the evaluation of a spatial condition. Currently, only axis-aligned bounding box is supported and the parameter is not explicitly required.</p>
+<div class="table-section"><table><thead><tr><th>Proxy</th><th>Description</th></tr></thead><tbody>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">aabbox</span></code></td>
+<td>Axis-Aligned Bounding Box</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="spatial-query-examples">
+<h3>Spatial Query Examples</h3>
+<p>Simple Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="s2">"spatial_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"$encloses"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">3.3</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">4.9</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">3.2</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">2.1</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Complex Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="s2">"spatial_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"$or"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+
+<span class="w">        </span><span class="cm">/* two regions of interest where objects should be loaded */</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$encloses"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="mf">168.99</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">226.19</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">739.92</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">133.78</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">192.75</span><span class="p">,</span><span class="w"> </span><span class="mf">978.69</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$encloses"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="mf">389.19</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">368.12</span><span class="p">,</span><span class="w">  </span><span class="mf">836.04</span><span class="p">,</span><span class="w">  </span><span class="mf">382.63</span><span class="p">,</span><span class="w">  </span><span class="mf">140.48</span><span class="p">,</span><span class="w"> </span><span class="mf">978.69</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$and"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+
+<span class="w">            </span><span class="cm">/* two regions that should remain empty (not intersecting with the scene objects) */</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s2">"$not"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"$or"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="s2">"$intersects"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">  </span><span class="o">-</span><span class="mf">88.49</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">331.87</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">536.42</span><span class="p">,</span><span class="w"> </span><span class="mf">486.78</span><span class="p">,</span><span class="w"> </span><span class="mf">350.62</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">314.62</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="s2">"$intersects"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"aabox"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">-</span><span class="mf">285.78</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">170.97</span><span class="p">,</span><span class="w">  </span><span class="mf">119.58</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">10.78</span><span class="p">,</span><span class="w"> </span><span class="mf">353.67</span><span class="p">,</span><span class="w">  </span><span class="mf">581.08</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">            </span><span class="cm">/* objects should pass a minimal world-space volume */</span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="s2">"$extent"</span><span class="o">:</span><span class="w"> </span><span class="mf">100000.0</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="immediate-spatial-evaluation">
+<h3>Immediate Spatial Evaluation</h3>
+<p>Spatial queries are evaluated per object as soon as all objects and their exact bounding volumes are available.
+For large models consisting of lots of individual objects, this can introduce a minor but notable offset to the loading time.
+In this case, the spatial evaluation behavior can be changed to <cite>immediate evaluation</cite> using the <code class="docutils literal notranslate"><span class="pre">spatial_behavior</span></code> filter option.
+Here, preliminary, approximate bounding volumes are used for spatial evaluation once an object is known to the loader, likely leading to inaccuracies in filter evaluation:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultModel</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...options</span>
+<span class="w">    </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"spatial_behavior"</span><span class="o">:</span><span class="w"> </span><span class="s2">"immediate"</span><span class="p">,</span><span class="w"> </span><span class="c1">// or "exact" (default)</span>
+<span class="w">        </span><span class="s2">"spatial_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="property-query-language">
+<a href="#property-query-language"><h2>Property Query Language</h2></a>
+<p>The property queries use a simplified version of the <a class="reference external" href="/en/docs/acc/v1/tutorials/model-properties/query-ref/">ACC Model Property Service Query Language</a>, but with a reduced feature set.
+Only <code class="docutils literal notranslate"><span class="pre">$or</span></code>, <code class="docutils literal notranslate"><span class="pre">$and</span></code>, <code class="docutils literal notranslate"><span class="pre">$not</span></code>, <code class="docutils literal notranslate"><span class="pre">$in</span></code>, <code class="docutils literal notranslate"><span class="pre">$eq</span></code>, <code class="docutils literal notranslate"><span class="pre">$ne</span></code>, <code class="docutils literal notranslate"><span class="pre">$like</span></code>, <code class="docutils literal notranslate"><span class="pre">$isnull</span></code>, <code class="docutils literal notranslate"><span class="pre">$notnull</span></code>, and <code class="docutils literal notranslate"><span class="pre">$coalesce</span></code> expressions are currently supported.</p>
+<section id="property-query-examples">
+<h3>Property Query Examples</h3>
+<p>Simple Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="s2">"property_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"$and"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$notnull"</span><span class="o">:</span><span class="w"> </span><span class="s2">"s.props.p20d8441e"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$notnull"</span><span class="o">:</span><span class="w"> </span><span class="s2">"s.props.p30db51f9"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="s2">"$notnull"</span><span class="o">:</span><span class="w"> </span><span class="s2">"s.props.p13b6b3a0"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Complex Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="s2">"property_query"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'VALV'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'FBLI'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'TUBI'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'INST'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'ELBO'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'REDU'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'ATTA'"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"s.props.p4735026f"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'FLAN'"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="how-to-get-property-hashes">
+<h3>How to Get Property Hashes</h3>
+<p>Currently, property queries rely on property hashes. There are two ways to acquire these, either directly or indirectly.</p>
+<p><strong>Direct Enumeration of Property Hashes</strong>: To obtain the available properties and their hashes, you can enumerate them as soon as the property database is loaded using the following command:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">propertyHashes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">getPropertyHashes</span><span class="p">();</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Hash Lookup Syntax</strong>: Instead of using the <code class="docutils literal notranslate"><span class="pre">s.props.p...</span></code> syntax, you can utilize a preliminary property lookup syntax to perform implicit property hash lookups:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Match basic walls (by name property) and all objects that have CENTRIFUGE in their LTS description</span>
+<span class="s2">"property_query"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="c1">// instead of { "s.props.p153cb174": "'Basic Wall'" },</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"?name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'Basic Wall'"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// note the ? indicating a look-up</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="s2">"?Base Constraint"</span><span class="o">:</span><span class="w"> </span><span class="s2">"'Level 1'"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>A hash lookup currently requires an exact match of the property name to produce valid query results. If no objects are loaded, consider modifying the property query for better search outcomes.</p>
+</section>
+</section>
+<section id="top-level-filter-condition">
+<a href="#top-level-filter-condition"><h2>Top-level Filter Condition</h2></a>
+<p>When both <code class="docutils literal notranslate"><span class="pre">spatial_query</span></code> and <code class="docutils literal notranslate"><span class="pre">property_query</span></code> are set, an object passes filtering if both conditions are met.
+This behavior can be specified in the filter load option by specifying the <code class="docutils literal notranslate"><span class="pre">root_condition</span></code> to be either <code class="docutils literal notranslate"><span class="pre">and</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">or</span></code>:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadDocumentNode</span><span class="p">(</span><span class="nx">viewerDocument</span><span class="p">,</span><span class="w"> </span><span class="nx">defaultModel</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...options</span>
+<span class="w">    </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"root_condition"</span><span class="o">:</span><span class="w"> </span><span class="s2">"or"</span><span class="p">,</span><span class="w"> </span><span class="c1">// or "and" (default)</span>
+<span class="w">        </span><span class="s2">"spatial_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="s2">"property_query"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">and</span></code> is specified, filtering cannot start immediately but needs to wait until all object bounds are known and properties are loaded.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

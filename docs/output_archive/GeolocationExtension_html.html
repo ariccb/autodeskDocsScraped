@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeolocationExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Geolocation/index.js">
+<section id="geolocationextension">
+<h1>GeolocationExtension</h1>
+<p>Provides functions for converting GPS coordinates in WGS-84 format { x: Longitude, y: Latitude, z: Height(m) } into Viewer scene coordinates, and back. Supports a single model loaded into the scene.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Geolocation</span></code></p>
+<section id="new-geolocationextension-viewer-options">
+<a href="#new-geolocationextension-viewer-options"><h2>new GeolocationExtension(viewer, options)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>The Viewer instance</td></tr><tr><td><span class="name">options</span><div class="type">object</div></td><td>Not used</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Geolocation'</span><span class="p">)</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>When active, the extension will detect clicks on the model and will place a marker on the model. A panel will be displayed containing vertices clicked on the model. Each point-entry will also contain GPS its associated GPS position.</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Stops detecting click events on the canvas and closes the Panel.</p>
+</section>
+<section id="isactive">
+<a href="#isactive"><h2>isActive()</h2></a>
+<p>Whether the extension is active. When the extension is active, click events will be processed and added into a Panel.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the extension is active.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hasgeolocationdata">
+<a href="#hasgeolocationdata"><h2>hasGeolocationData()</h2></a>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the model contains geolocation data.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="lmvtolonlat-lmvpoint">
+<a href="#lmvtolonlat-lmvpoint"><h2>lmvToLonLat(lmvPoint)</h2></a>
+<p>Converts viewer coordinates (obtained with something like <code class="docutils literal notranslate"><span class="pre">viewer.clientToWorld()</span></code>) into { x: Longitude, y: Latitude, z: Height (meters) } in WGS-84 format.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">lmvPoint</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>3D point in the scene</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>GPS coordinate in WGS-84 format: { x: Longitude, y: Latitude, z: Height }</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="lonlattolmv-lonlat">
+<a href="#lonlattolmv-lonlat"><h2>lonLatToLmv(lonLat)</h2></a>
+<p>Converts coordinates from { x: Longitude, y: Latitude, z: Height (meters) } in WGS-84 format into viewer scene coordinates.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">lonLat</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>GPS coordinate in WGS-84 format: { x: Longitude, y: Latitude, z: Height }</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>3D point in the scene</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="opengooglemaps-pointll84">
+<a href="#opengooglemaps-pointll84"><h2>openGoogleMaps(pointLL84)</h2></a>
+<p>Returns a Google Maps URL with a PIN on the specified GPS location. When no argument is provided, the URL will use the Model’s geolocation if available.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">pointLL84</span><div class="type">THREE.Vector3</div></td><td>GPS location in WGS-84 format: { x: Longitude, y: Latitude }. Height is ignored.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="getcurrentpositionlmv">
+<a href="#getcurrentpositionlmv"><h2>getCurrentPositionLmv()</h2></a>
+<p>Returns a Promise that resolves with a position in Viewer-space coordinates based on the device’s real world GPS position.</p>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td>that resolves with a THREE.Vector3 containing Viewer-space coordinates. It rejects if device’s real world GPS position is not available.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

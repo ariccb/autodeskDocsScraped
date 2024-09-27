@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tree | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.UI</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/gui/Tree.js">
+<section id="tree">
+<h1>Tree</h1>
+<section id="new-tree-delegate-root-parentcontainer-options">
+<a href="#new-tree-delegate-root-parentcontainer-options"><h2>new Tree(delegate, root, parentContainer, options)</h2></a>
+<p>Tree view control</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">delegate</span><span class="required">*</span><div class="type">object</div></td><td>TreeDelegate instance</td></tr><tr><td><span class="name">root</span><span class="required">*</span><div class="type">object</div></td><td>A node in the model Document</td></tr><tr><td><span class="name">parentContainer</span><span class="required">*</span><div class="type">HTMLElement, string</div></td><td>Or parentContainerId</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="destroy">
+<a href="#destroy"><h2>destroy()</h2></a>
+<p>Remove tree from DOM.</p>
+</section>
+<section id="show-show">
+<a href="#show-show"><h2>show(show)</h2></a>
+<p>Show/hide the tree control</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td>true to show the tree control, false to hide it</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getrootcontainer">
+<a href="#getrootcontainer"><h2>getRootContainer()</h2></a>
+<p>Get the root container</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getelementfornode-node">
+<a href="#getelementfornode-node"><h2>getElementForNode(node)</h2></a>
+<p>Get DOM element for a given logical tree node (or its integer id)</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">object</div></td><td>Tree node element</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>HTMLElement</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="delegate">
+<a href="#delegate"><h2>delegate()</h2></a>
+<p>Get the tree delegate</p>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>TreeDelegate instance</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="iscollapsed-group">
+<a href="#iscollapsed-group"><h2>isCollapsed(group)</h2></a>
+<p>Is the given group node in the tree collapsed?</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">group</span><span class="required">*</span><div class="type">object</div></td><td>The group node</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if group node is collapsed, false if expanded</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setcollapsed-group-collapsed-recursive">
+<a href="#setcollapsed-group-collapsed-recursive"><h2>setCollapsed(group, collapsed, recursive)</h2></a>
+<p>Collapse/expand the given group node in the tree</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">group</span><span class="required">*</span><div class="type">object</div></td><td>the group node</td></tr><tr><td><span class="name">collapsed</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true to collapse the group node, false to expand it</td></tr><tr><td><span class="name">recursive</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true to make it recursive</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setallcollapsed-collapsed">
+<a href="#setallcollapsed-collapsed"><h2>setAllCollapsed(collapsed)</h2></a>
+<p>Collapse/expand all group nodes in the tree</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">collapsed</span><span class="required">*</span><div class="type">boolean</div></td><td>true to collapse tree, false to expand it</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="addtoselection-nodes">
+<a href="#addtoselection-nodes"><h2>addToSelection(nodes)</h2></a>
+<p>Add the given nodes to the current selection</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodes</span><span class="required">*</span><div class="type">Array.&lt;object&gt;</div></td><td>nodes to add to the current selection</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="removefromselection-nodes">
+<a href="#removefromselection-nodes"><h2>removeFromSelection(nodes)</h2></a>
+<p>Remove the given nodes from the current selection</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodes</span><span class="required">*</span><div class="type">Array.&lt;object&gt;</div></td><td>The nodes to remove from the current selection</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setselection-nodes">
+<a href="#setselection-nodes"><h2>setSelection(nodes)</h2></a>
+<p>Set the current selection</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodes</span><span class="required">*</span><div class="type">Array.&lt;object&gt;</div></td><td>nodes to make currently selected</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getselection">
+<a href="#getselection"><h2>getSelection()</h2></a>
+<p>Get the current selection</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;object&gt;</td>
+<td>selected nodes.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clearselection">
+<a href="#clearselection"><h2>clearSelection()</h2></a>
+<p>Clear the current selection</p>
+</section>
+<section id="isselected-node">
+<a href="#isselected-node"><h2>isSelected(node)</h2></a>
+<p>Is the given node selected?</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">object</div></td><td>The tree node</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if node is selected, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="scrollto-node">
+<a href="#scrollto-node"><h2>scrollTo(node)</h2></a>
+<p>Scrolls the container to reveal the node’s DOM element.</p>
+<section id="id15">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">object</div></td><td>the Tree node</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="addclass-node-classname-recursive">
+<a href="#addclass-node-classname-recursive"><h2>addClass(node, className, recursive)</h2></a>
+<p>Add a CSS class to a node</p>
+<section id="id16">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">number, object</div></td><td>The tree node</td></tr><tr><td><span class="name">className</span><span class="required">*</span><div class="type">string</div></td><td></td></tr><tr><td><span class="name">recursive</span><span class="required">*</span><div class="type"></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id17">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the class was added, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removeclass-node-classname-recursive">
+<a href="#removeclass-node-classname-recursive"><h2>removeClass(node, className, recursive)</h2></a>
+<p>Remove a class from a node</p>
+<section id="id18">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">number, object</div></td><td>The tree node or its dbId</td></tr><tr><td><span class="name">className</span><span class="required">*</span><div class="type">string</div></td><td>Class name</td></tr><tr><td><span class="name">recursive</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true to make it recursive</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id19">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the class was removed, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hasclass-node-classname">
+<a href="#hasclass-node-classname"><h2>hasClass(node, className)</h2></a>
+<p>Does the node have the given class?</p>
+<section id="id20">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">number, object</div></td><td>The node or its dbId</td></tr><tr><td><span class="name">className</span><span class="required">*</span><div class="type">string</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the node has the given class, false otherwise</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clear">
+<a href="#clear"><h2>clear()</h2></a>
+<p>Clears the contents of the tree</p>
+</section>
+<section id="iterate-node-callback">
+<a href="#iterate-node-callback"><h2>iterate(node, callback)</h2></a>
+<p>Iterates through nodes in the tree in pre-order.</p>
+<section id="id22">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">object, number</div></td><td>node at which to start the iteration.</td></tr><tr><td><span class="name">callback</span><span class="required">*</span><div class="type">function</div></td><td>invoked for each iterated node with (Object, HTMLElement)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

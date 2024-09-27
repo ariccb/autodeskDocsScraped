@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapResult | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.MeasureCommon</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/measurement/SnapResult.js">
+<section id="snapresult">
+<h1>SnapResult</h1>
+<section id="new-snapresult">
+<a href="#new-snapresult"><h2>new SnapResult()</h2></a>
+<p>Encapsulates the result of a Snap operation performed by the <a class="reference external" href="/en/docs/viewer/v7/reference/Snapping/Snapper/">Snapper</a>.</p>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="clear">
+<a href="#clear"><h2>clear()</h2></a>
+<p>Resets the object to its non-snapping state.</p>
+</section>
+<section id="copyto-destiny">
+<a href="#copyto-destiny"><h2>copyTo(destiny)</h2></a>
+<p>Copies the current state of the object into another.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">destiny</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/MeasureCommon/SnapResult/">SnapResult</a></div></td><td>target for the copy operation.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="clone">
+<a href="#clone"><h2>clone()</h2></a>
+<p>Creates a new instance and copies the current state into it.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/MeasureCommon/SnapResult/">SnapResult</a></td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isempty">
+<a href="#isempty"><h2>isEmpty()</h2></a>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true only when snapping information is available.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getface">
+<a href="#getface"><h2>getFace()</h2></a>
+<p>Gets the snapped face, when available.</p>
+</section>
+<section id="getedge">
+<a href="#getedge"><h2>getEdge()</h2></a>
+<p>Gets the snapped edge, when available.</p>
+</section>
+<section id="getvertex">
+<a href="#getvertex"><h2>getVertex()</h2></a>
+<p>Gets the snapped vertex, when available.</p>
+</section>
+<section id="getgeometry">
+<a href="#getgeometry"><h2>getGeometry()</h2></a>
+<p>Gets the snapped element, which differs depending on what kind of element it was snapped to, see <a class="reference external" href="#fixMe/">SnapType</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

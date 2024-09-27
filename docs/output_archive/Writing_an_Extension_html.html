@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing an Extension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="writing-an-extension">
+<h1>Writing an Extension</h1>
+<section id="what-is-an-extension">
+<a href="#what-is-an-extension"><h2>What is an Extension?</h2></a>
+<p>An extension is JavaScript code that extends or modifies the Viewer’s behavior. You can use extensions to add specialized functionality to the Viewer SDK.</p>
+<p>Many extensions are bundled with the Viewer. For a complete list of included extensions, see the API Reference section for <a class="reference external" href="https://aps.autodesk.com/en/docs/viewer/v7/reference/Extensions/" target="_blank">Extensions</a>. If the functionality you need is not included, you can write your own extensions.</p>
+<p>Writing extensions is best explained with an example. The following example    creates a Viewer extension named <code class="docutils literal notranslate"><span class="pre">MyAwesomeExtension</span></code>.</p>
+<p>There will be two HTML buttons that interact with the added extension. They will be placed below and outside the Viewer canvas.</p>
+<p>One of the buttons will be used to lock the camera. Once locked you will not be able to orbit (rotate), pan, or zoom.
+The next button will be used to unlock the camera, re-enabling mouse and touch interactions.</p>
+</section>
+<section id="step-1-include-extension-file">
+<a href="#step-1-include-extension-file"><h2>Step 1: Include extension file</h2></a>
+<p>Extensions must be defined after all core classes for the Viewer have been defined.
+This example uses a file named <code class="docutils literal notranslate"><span class="pre">my-awesome-extension.js</span></code> and the following snippet shows how to include it in the HTML.</p>
+<div class="highlight-html notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"my-awesome-extension.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-write-the-extension-code">
+<a href="#step-2-write-the-extension-code"><h2>Step 2: Write the extension code</h2></a>
+<p>An extension consists of the following interface points:</p>
+<ol class="arabic simple">
+<li>Inherits from <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Extension</span></code>.</li>
+<li>Defines method <code class="docutils literal notranslate"><span class="pre">load()</span></code> that returns a <code class="docutils literal notranslate"><span class="pre">boolean</span></code>.</li>
+<li>Defines method <code class="docutils literal notranslate"><span class="pre">unload()</span></code> that also returns a <code class="docutils literal notranslate"><span class="pre">boolean</span></code>.</li>
+<li>Registers itself with a unique <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">id</span></code>.</li>
+</ol>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Content for 'my-awesome-extension.js'</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">(</span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="kr">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">;</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">'MyAwesomeExtension is loaded!'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">'MyAwesomeExtension is now unloaded!'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">theExtensionManager</span><span class="p">.</span><span class="nx">registerExtension</span><span class="p">(</span><span class="s1">'MyAwesomeExtension'</span><span class="p">,</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>An extension will successfully get loaded into The Viewer’s lifecycle only if <code class="docutils literal notranslate"><span class="pre">load()</span></code> returns <code class="docutils literal notranslate"><span class="pre">true</span></code>.
+Likewise, an extension will get successfully unloaded if <code class="docutils literal notranslate"><span class="pre">unload()</span></code> returns <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>Notice that the string <code class="docutils literal notranslate"><span class="pre">'MyAwesomeExtension'</span></code> used in <code class="docutils literal notranslate"><span class="pre">registerExtension()</span></code> doesn’t need to match the
+function name declaration.</p>
+<p><strong>Note:</strong> The extension does not get loaded when refreshing the HTML page.</p>
+</section>
+<section id="step-3-load-the-extension">
+<a href="#step-3-load-the-extension"><h2>Step 3: Load the extension</h2></a>
+<p>To instruct the Viewer instance to load the extension:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config3d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'MyAwesomeExtension'</span><span class="p">],</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">};</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">htmlDiv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'forgeViewer'</span><span class="p">)</span>
+<span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">htmlDiv</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="p">...</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadModel</span><span class="p">(...);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Refreshing the HTML page displays the <code class="docutils literal notranslate"><span class="pre">alert()</span></code> message found in the extension’s <code class="docutils literal notranslate"><span class="pre">load()</span></code> method.</p>
+</section>
+<section id="step-4-add-html-buttons">
+<a href="#step-4-add-html-buttons"><h2>Step 4: Add HTML buttons</h2></a>
+<p>Add two simple HTML buttons after the Viewer div:</p>
+<div class="highlight-html notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"forgeViewer"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">"MyAwesomeLockButton"</span><span class="p">&gt;</span>Lock it!<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">"MyAwesomeUnlockButton"</span><span class="p">&gt;</span>Unlock it!<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-5-add-button-handlers">
+<a href="#step-5-add-button-handlers"><h2>Step 5: Add button handlers</h2></a>
+<p>To enhance the extension’s <code class="docutils literal notranslate"><span class="pre">load()</span></code> method to handle the HTML buttons’ click events:
+Notice our extension has property <code class="docutils literal notranslate"><span class="pre">this.viewer</span></code>, the main access point for most of The Viewer’s features and customizations.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// alert('MyAwesomeExtension is loaded!');</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">lockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'MyAwesomeLockButton'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">lockBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setNavigationLock</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">unlockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'MyAwesomeUnlockButton'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">unlockBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setNavigationLock</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Note:</strong> The extension property <code class="docutils literal notranslate"><span class="pre">this.viewer</span></code> is the main access point for most of the Viewer’s features and customizations.</p>
+<p>Reload the HTML and use the mouse to move the camera around. Then click <code class="docutils literal notranslate"><span class="pre">Lock</span> <span class="pre">it!</span></code> and notice how you can
+no longer modify the camera with the mouse. You will notice that some UI buttons get hidden as well.</p>
+<p>Now click the <code class="docutils literal notranslate"><span class="pre">Unlock</span> <span class="pre">it!</span></code> button to enable camera interactions once again.</p>
+</section>
+<section id="step-6-cleanup-on-unload">
+<a href="#step-6-cleanup-on-unload"><h2>Step 6: Cleanup on unload</h2></a>
+<p>It’s a good practice to remove added event listeners to DOM elements when the extension is unloaded.</p>
+<p>To perform all cleanup operations in the <cite>unload</cite> method:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">(</span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// Preserve "this" reference when methods are invoked by event handlers.</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">lockViewport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lockViewport</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">unlockViewport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">unlockViewport</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="kr">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">;</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lockViewport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setNavigationLock</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlockViewport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setNavigationLock</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// alert('MyAwesomeExtension is loaded!');</span>
+
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">_lockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'MyAwesomeLockButton'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">_lockBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lockViewport</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">_unlockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'MyAwesomeUnlockButton'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">_unlockBtn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">unlockViewport</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// alert('MyAwesomeExtension is now unloaded!');</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_lockBtn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_lockBtn</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">lockViewport</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">_lockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_unlockBtn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">_unlockBtn</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">unlockViewport</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">_unlockBtn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-7-test-the-extension">
+<a href="#step-7-test-the-extension"><h2>Step 7: Test the Extension</h2></a>
+<p>To fully test that the extension is working as expected, you can manually force the
+extension to be loaded and unloaded.</p>
+<p>From the browser’s console type the following to check whether your extension is loaded or not.
+At this point, the extension should be loaded and the function call should return <code class="docutils literal notranslate"><span class="pre">true</span></code>:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">isExtensionLoaded</span><span class="p">(</span><span class="s1">'MyAwesomeExtension'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Note the use of the global variable <code class="docutils literal notranslate"><span class="pre">NOP_VIEWER</span></code>, defined by the Viewer SDK after developers create a Viewer instance.</p>
+<p>Now type the following to <code class="docutils literal notranslate"><span class="pre">unload</span></code> the extension:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">unloadExtension</span><span class="p">(</span><span class="s1">'MyAwesomeExtension'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>If all goes as expected, the added buttons should no longer work. Click on them to validate.</p>
+<p>You can then load the extension again by calling</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'MyAwesomeExtension'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Now the added buttons will again work as expected.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

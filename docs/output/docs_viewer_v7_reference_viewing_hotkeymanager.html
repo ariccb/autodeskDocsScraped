@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HotkeyManager | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/tools/HotkeyManager.js">
+<section id="hotkeymanager">
+<h1>HotkeyManager</h1>
+<section id="new-hotkeymanager">
+<a href="#new-hotkeymanager"><h2>new HotkeyManager()</h2></a>
+<p>Management of hotkeys for the viewer.</p>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="getnames">
+<a href="#getnames"><h2>getNames()</h2></a>
+<p>Return name of the tool returned as an array</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td>[“hotkeys”]</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getname">
+<a href="#getname"><h2>getName()</h2></a>
+<p>Return name of HotkeyManager tool</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>“hotkeys”</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="pushhotkeys-id-hotkeys-options">
+<a href="#pushhotkeys-id-hotkeys-options"><h2>pushHotkeys(id, hotkeys, options)</h2></a>
+<p>Pushes new hotkeys onto the stack.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">id</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The id for this hotkey set.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">hotkeys</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;Autodesk.Viewing.HotkeyManager~Hotkey&gt;</div></td><td>The list of hotkeys.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>An optional dictionary of options for this hotkey set.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">tryUntilSuccess</span><div class="type type--collapsable">boolean</div></td><td>When true, the onPress callback will be called until it returns true or the hotkey state changes. The onRelease callback will be called until it returns true or until the combination is reengaged. Stops propagation through the stack. Non-blocking.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the hotkeys were successfully pushed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="pophotkeys-id">
+<a href="#pophotkeys-id"><h2>popHotkeys(id)</h2></a>
+<p>Removes hotkeys associated with an ID from the stack.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">id</span><span class="required">*</span><div class="type">string</div></td><td>The id associated with the hotkeys.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the hotkeys were successfully popped.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlekeydown-event-keycode">
+<a href="#handlekeydown-event-keycode"><h2>handleKeyDown(event, keyCode)</h2></a>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type"></div></td><td>Event to handle</td></tr><tr><td><span class="name">keyCode</span><span class="required">*</span><div class="type"></div></td><td>Key code</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="handlekeyup-event-keycode">
+<a href="#handlekeyup-event-keycode"><h2>handleKeyUp(event, keyCode)</h2></a>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type"></div></td><td>Event to handle</td></tr><tr><td><span class="name">keyCode</span><span class="required">*</span><div class="type"></div></td><td>Key code</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="handleblur">
+<a href="#handleblur"><h2>handleBlur()</h2></a>
+<p>Handle blur by releasing all current keys</p>
+</section>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>No-op</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>No-op</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

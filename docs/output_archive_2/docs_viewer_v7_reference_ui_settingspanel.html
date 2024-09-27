@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SettingsPanel | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.UI</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/gui/SettingsPanel.js">
+<section id="settingspanel">
+<h1>SettingsPanel</h1>
+<blockquote>
+<div><p>Extends <a class="reference external" href="/en/docs/viewer/v7/reference/UI/SettingsPanel">Autodesk.Viewing.UI.SettingsPanel</a></p>
+</div></blockquote>
+<section id="new-settingspanel-parentcontainer-id-title-options">
+<a href="#new-settingspanel-parentcontainer-id-title-options"><h2>new SettingsPanel(parentContainer, id, title, options)</h2></a>
+<p>UI panel specifically designed for application settings.</p>
+<p>The user can add new options to each of the tabs.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">parentContainer</span><span class="required">*</span><div class="type type--collapsable">HTMLElement</div></td><td>The container for this panel.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">id</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The id to assign this panel.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">title</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The title of this panel.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>An optional dictionary of options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">width</span><div class="type type--collapsable">number</div></td><td>Override panel’s minimum width</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">heightAdjustment</span><div class="type type--collapsable">number</div></td><td>Override panel’s extra content height, to account for non-scrolling elements.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="setvisible-show">
+<a href="#setvisible-show"><h2>setVisible(show)</h2></a>
+<p>Sets the new visibility state of this SettingsPanel.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td>The desired visibility state.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="addtab-tabid-tabtitle-options">
+<a href="#addtab-tabid-tabtitle-options"><h2>addTab(tabId, tabTitle, options)</h2></a>
+<p>Adds a new tab to the panel.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>id for the tab (DOM element will have an extended ID to ensure uniqueness).</td></tr><tr><td><span class="name">tabTitle</span><span class="required">*</span><div class="type">string</div></td><td></td></tr><tr><td><span class="name">options</span><div class="type">object</div></td><td>optional parameter that allows for additional options for the tab: * tabClassName - class name for the Dom elements* minWidth - min width for the tab* index - index if the tab should be inserted instead of added at the end.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tab was added to the panel, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removetab-tabid">
+<a href="#removetab-tabid"><h2>removeTab(tabId)</h2></a>
+<p>Removes the given tab from the panel.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tab was successfully removed, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hastab-tabid">
+<a href="#hastab-tabid"><h2>hasTab(tabId)</h2></a>
+<p>Returns true if a tab with given id exists.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab id.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tab with given id exists, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="selecttab-tabid">
+<a href="#selecttab-tabid"><h2>selectTab(tabId)</h2></a>
+<p>Makes a given tab visible and hides the other ones.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to select.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tab was selected, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="istabselected-tabid">
+<a href="#istabselected-tabid"><h2>isTabSelected(tabId)</h2></a>
+<p>Returns true if the given tab is selected (visible).</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to check.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tab is selected, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addlabel-tabid-name">
+<a href="#addlabel-tabid-name"><h2>addLabel(tabId, name)</h2></a>
+<p>Adds a label to the panel.</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Id of the tab that will contain the button.</td></tr><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>User facing text.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>the label control</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addbutton-tabid-label">
+<a href="#addbutton-tabid-label"><h2>addButton(tabId, label)</h2></a>
+<p>Adds a button to the panel.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Id of the tab that will contain the button.</td></tr><tr><td><span class="name">label</span><span class="required">*</span><div class="type">string</div></td><td>User facing text.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of a new control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addcheckbox-tabid-caption-initialstate-onchange-description-options">
+<a href="#addcheckbox-tabid-caption-initialstate-onchange-description-options"><h2>addCheckbox(tabId, caption, initialState, onchange, description, options)</h2></a>
+<p>Creates a checkbox control and adds it to a given tab.</p>
+<section id="id15">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new checkbox.</td></tr><tr><td><span class="name">caption</span><span class="required">*</span><div class="type">string</div></td><td>The text associated with the checkbox.</td></tr><tr><td><span class="name">initialState</span><span class="required">*</span><div class="type">boolean</div></td><td>Initial value for the checkbox (checked or not).</td></tr><tr><td><span class="name">onchange</span><span class="required">*</span><div class="type">function</div></td><td>Callback that is called when the checkbox is changed.</td></tr><tr><td><span class="name">description</span><span class="required">*</span><div class="type"></div></td><td></td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional options: * insertAtIndex - index at which to insert a new checkbox* i18nOptions - additional translation options forwarded to i18n.t</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of a new control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addrow-tabid-caption-description-options">
+<a href="#addrow-tabid-caption-description-options"><h2>addRow(tabId, caption, description, options)</h2></a>
+<p>Creates a row control and adds it to a given tab. A row only contains a caption and a descriptions</p>
+<section id="id17">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new row.</td></tr><tr><td><span class="name">caption</span><span class="required">*</span><div class="type">string</div></td><td>The text associated with the row.</td></tr><tr><td><span class="name">description</span><span class="required">*</span><div class="type">string</div></td><td>Description</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional options: * insertAtIndex - index at which to insert a new row</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of a new control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addslider-tabid-caption-min-max-initialvalue-onchange-options">
+<a href="#addslider-tabid-caption-min-max-initialvalue-onchange-options"><h2>addSlider(tabId, caption, min, max, initialValue, onchange, options)</h2></a>
+<p>Creates a slider control and adds it to a given tab.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new slider.</td></tr><tr><td><span class="name">caption</span><span class="required">*</span><div class="type">string</div></td><td>The text associated with the slider</td></tr><tr><td><span class="name">min</span><span class="required">*</span><div class="type">number</div></td><td>Min value of the slider.</td></tr><tr><td><span class="name">max</span><span class="required">*</span><div class="type">number</div></td><td>Max value of the slider.</td></tr><tr><td><span class="name">initialValue</span><span class="required">*</span><div class="type">number</div></td><td>Initial value for the slider.</td></tr><tr><td><span class="name">onchange</span><span class="required">*</span><div class="type">function</div></td><td>Callback that is called when the slider value is changed.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional options: * insertAtIndex - index at which to insert a new slider</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of a new control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addsliderv2-tabid-caption-description-min-max-initialvalue-onchange-options">
+<a href="#addsliderv2-tabid-caption-description-min-max-initialvalue-onchange-options"><h2>addSliderV2(tabId, caption, description, min, max, initialValue, onchange, options)</h2></a>
+<p>Creates a row control and a slider control and adds it to a given tab. The slider does not contain the caption or the stepper.</p>
+<section id="id21">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new slider.</td></tr><tr><td><span class="name">caption</span><span class="required">*</span><div class="type">string</div></td><td>The text associated with the slider</td></tr><tr><td><span class="name">description</span><span class="required">*</span><div class="type">string</div></td><td>The description for the slider</td></tr><tr><td><span class="name">min</span><span class="required">*</span><div class="type">number</div></td><td>Min value of the slider.</td></tr><tr><td><span class="name">max</span><span class="required">*</span><div class="type">number</div></td><td>Max value of the slider.</td></tr><tr><td><span class="name">initialValue</span><span class="required">*</span><div class="type">number</div></td><td>Initial value for the slider.</td></tr><tr><td><span class="name">onchange</span><span class="required">*</span><div class="type">function</div></td><td>Callback that is called when the slider value is changed.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional options: * insertAtIndex - index at which to insert a new slider</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id22">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td><ul class="simple">
+<li>an array of control ids</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="adddropdownmenu-tabid-caption-items-initialitemindex-onchange-options">
+<a href="#adddropdownmenu-tabid-caption-items-initialitemindex-onchange-options"><h2>addDropDownMenu(tabId, caption, items, initialItemIndex, onchange, options)</h2></a>
+<section id="id23">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new slider.</td></tr><tr><td><span class="name">caption</span><span class="required">*</span><div class="type">string</div></td><td>The text associated with the slider.</td></tr><tr><td><span class="name">items</span><span class="required">*</span><div class="type">Array</div></td><td>List of items for the menu.</td></tr><tr><td><span class="name">initialItemIndex</span><span class="required">*</span><div class="type">number</div></td><td>Initial choice.</td></tr><tr><td><span class="name">onchange</span><span class="required">*</span><div class="type">function</div></td><td>Callback that is called when the menu selection is changed.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional options: * insertAtIndex - index at which to insert a new drop down menu</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id24">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of a new control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addcontrol-tabid-control-options">
+<a href="#addcontrol-tabid-control-options"><h2>addControl(tabId, control, options)</h2></a>
+<p>Adds a new control to a given tab.</p>
+<section id="id25">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">tabId</span><span class="required">*</span><div class="type">string</div></td><td>Tab to which to add a new.</td></tr><tr><td><span class="name">control</span><span class="required">*</span><div class="type">object, HTMLElement</div></td><td>Control to add to the given tab.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object, undefined</div></td><td>Additional parameters: * insertAtIndex - index at which to insert a new control* caption - caption for the control</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>ID of the added control.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removebutton-buttonid">
+<a href="#removebutton-buttonid"><h2>removeButton(buttonId)</h2></a>
+<p>Removes a given button from the settings panel.</p>
+<section id="id27">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">buttonId</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>button, or button id, to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id28">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the button was removed, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removecheckbox-checkboxid">
+<a href="#removecheckbox-checkboxid"><h2>removeCheckbox(checkboxId)</h2></a>
+<p>Removes a given checkbox from the settings panel.</p>
+<section id="id29">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">checkboxId</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>Checkbox to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id31">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the checkbox was removed, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removeslider-sliderid">
+<a href="#removeslider-sliderid"><h2>removeSlider(sliderId)</h2></a>
+<p>Removes a given slider from the settings panel.</p>
+<section id="id32">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">sliderId</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>Slider control to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id34">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the slider control was removed, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removedropdownmenu-dropdownmenuid">
+<a href="#removedropdownmenu-dropdownmenuid"><h2>removeDropdownMenu(dropdownMenuId)</h2></a>
+<p>Removes a given dropdown menu from the settings panel.</p>
+<section id="id35">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dropdownMenuId</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>Dropdown to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id37">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the dropdown was removed, false if the dropdown was not removed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removecontrol-controlid">
+<a href="#removecontrol-controlid"><h2>removeControl(controlId)</h2></a>
+<p>Removes a given control from the settings panel.</p>
+<section id="id38">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">controlId</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>The control ID or control instance to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id40">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the control was removed, false if the control was not removed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcontrol-controlid">
+<a href="#getcontrol-controlid"><h2>getControl(controlId)</h2></a>
+<p>Returns a control with a given id.</p>
+<section id="id41">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">controlId</span><span class="required">*</span><div class="type">string</div></td><td>Checkbox id to return.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id42">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Control object if found, null otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcontentsize">
+<a href="#getcontentsize"><h2>getContentSize()</h2></a>
+<p>Returns the width and height to be used when resizing the panel to the content.</p>
+<section id="id43">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td><code class="docutils literal notranslate"><span class="pre">{height:</span> <span class="pre">number,</span> <span class="pre">width:</span> <span class="pre">number}</span></code>.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="sizetocontent-container">
+<a href="#sizetocontent-container"><h2>sizeToContent(container)</h2></a>
+<p>Resizes panel vertically to wrap around the content. It will always leave some room at the bottom to display the toolbar.</p>
+<section id="id44">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">container</span><span class="required">*</span><div class="type">HTMLElement</div></td><td>parent container of settings panel</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

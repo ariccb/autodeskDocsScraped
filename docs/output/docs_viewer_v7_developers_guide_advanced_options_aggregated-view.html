@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Using Aggregated View | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="using-aggregated-view-to-load-a-model">
+<h1>Using Aggregated View to Load a Model</h1>
+<p>AggregatedView implements a viewing application based on Viewer3D. The purpose of Aggregated View is to provide functionality around Viewer3D to facilitate implementation of viewer application workflows like switching between different views or toggling models on or off dynamically.</p>
+<p>Examples of AggregatedView functionality include:</p>
+<ul>
+<li>React compatibility: You can set an array of nodes from React property and AggregatedView takes care of loading and showing or hiding models as needed.</li>
+<li>LRU-Caching of models: Keep models in memory for fast switches, but unload unused models if memory is critical.</li>
+<li>Extensions: You can specify which extensions to load or load the following defaults: <code class="docutils literal notranslate"><span class="pre">Autodesk.CrossFadeEffects</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.LevelsExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.ModelStructure</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.HyperlinkExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.Minimap3DExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.CanvasBookmarkExtension</span></code> and <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.DropMeExtension</span></code>.</li>
+<li>Home camera: All models are considered when calculating the shared home view.</li>
+<li>Application State management: Facilitates some state management. For example,<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>You can set a camera before or after the model is loaded.</li>
+<li>You can start Walk-mode before or after the BIMWalk extension loaded.</li>
+<li>You can toggle visibility of a model regardless of loading state of the model.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>GlobalOffsets: Choose globalOffset automatically, but identically for all models to make sure that they are placed consistently.</li>
+<li>View Switches: Allow visibility toggling (<cite>hide</cite>/<cite>show</cite>) versus full view switches (<cite>switchView(nodes)</cite>), the latter including proper reset of camera, UI, and extensions.</li>
+<li>Diff Setups: Use diffOptions to view changes between aggregated views.</li>
+</ul>
+<p>For more information, see: <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView">AggregatedView</a></p>
+</section>
+<section id="initialize-and-load-a-model-with-aggregated-view">
+<h1>Initialize and load a model with Aggregated View</h1>
+<p>Loading a model with Aggregated View follows the same steps as the <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D</span></code> class. Initialize and load your document from a URN using <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Initializer</span></code> and <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Document.load</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// AggregatedView instance</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">AggregatedView</span><span class="p">();</span>
+
+<span class="c1">// Initialize and load a document.</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">onInitialized</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Get the Viewer DIV</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">htmlDiv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'forgeViewer'</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Initialize the AggregatedView view</span>
+<span class="w">    </span><span class="nx">view</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">htmlDiv</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">documentId</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Set the nodes from the doc</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">search</span><span class="p">({</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'geometry'</span><span class="w"> </span><span class="p">});</span>
+<span class="w">            </span><span class="c1">// Load the first bubble node. This assumes that a bubbleNode was successfully found</span>
+<span class="w">            </span><span class="nx">view</span><span class="p">.</span><span class="nx">setNodes</span><span class="p">(</span><span class="nx">nodes</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="w">        </span><span class="p">},</span><span class="w"> </span><span class="p">(</span><span class="nx">errorCode</span><span class="p">,</span><span class="w"> </span><span class="nx">errorMsg</span><span class="p">,</span><span class="w"> </span><span class="nx">messages</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Do something with the failed document.</span>
+<span class="w">            </span><span class="c1">// ...</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="loading-multiple-models">
+<h1>Loading multiple models</h1>
+<p><code class="docutils literal notranslate"><span class="pre">AggregatedView</span></code> makes it easy for you to load multiple models. Use <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Document.load</span></code> to load each document.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">bubbleNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="c1">// docs is an array of loaded documents</span>
+<span class="nx">docs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">doc</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">getRoot</span><span class="p">().</span><span class="nx">search</span><span class="p">({</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'geometry'</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="nx">bubbleNodes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">nodes</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="p">});</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">setNodes</span><span class="p">(</span><span class="nx">bubbleNodes</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="switching-between-views">
+<h1>Switching between views</h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">switchView</span></code> function resets the extension, tools, and camera before loading the specified bubble nodes.</p>
+<p>The following snippet finds all 3D bubble nodes from a loaded document and loads a 3D bubble node. This example also gets the model instance that is loaded.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Get all of the 3D bubble nodes in a loaded document</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nodes3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">docRoot</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">'3d'</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"geometry"</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// The switchView function will load the model</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">switchView</span><span class="p">(</span><span class="nx">nodes3D</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+
+<span class="c1">// Get the model after it is fully loaded</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getModelAndWait</span><span class="p">(</span><span class="nx">nodes3D</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>After the first model is loaded, you can switch to other views by using the same method.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Get all of the 2D bubble nodes in a loaded document</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">nodes2D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">docRoot</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">'2d'</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"geometry"</span><span class="w"> </span><span class="p">});</span>
+
+<span class="c1">// Now lets load two 2D models</span>
+<span class="c1">// This will reset the UI, the extensions, the tools and the camera before a new node is loaded</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">switchView</span><span class="p">([</span><span class="nx">nodes2D</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">nodes2D</span><span class="p">[</span><span class="mf">1</span><span class="p">]]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The following snippet demonstrates how you can unload a single bubble node.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Unload a model</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">unload</span><span class="p">(</span><span class="nx">nodes2D</span><span class="p">[</span><span class="mf">1</span><span class="p">]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>To unload all current models use:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Unload all of the loaded models</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">unloadAll</span><span class="p">();</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>For an Interactive Example, see <a class="reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_6/">Aggregated View</a>.</p>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

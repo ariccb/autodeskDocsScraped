@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExtensionManager | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/ExtensionManager.js">
+<section id="extensionmanager">
+<h1>ExtensionManager</h1>
+<p>The ExtensionManager manages all the extensions available to the viewer. Register, retrieve, and unregister your extension using the singleton <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.theExtensionManager</span></code>.</p>
+<p>You can load/unload your registered extension into a Viewer by invoking <a class="reference external" href="#loadExtension/">viewer.loadExtension(id, options)</a> and       <a class="reference external" href="#unloadExtension/">viewer.unloadExtension(id)</a>, respectively.</p>
+<section id="new-extensionmanager">
+<a href="#new-extensionmanager"><h2>new ExtensionManager()</h2></a>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="registerextension-extensionid-extensionclass">
+<a href="#registerextension-extensionid-extensionclass"><h2>registerExtension(extensionId, extensionClass)</h2></a>
+<p>Registers a new extension with the given id.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr><tr><td><span class="name">extensionClass</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Extension/">Extension</a></div></td><td>The Extension-derived class representing the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the extension was successfully registered.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getextension-extensionid">
+<a href="#getextension-extensionid"><h2>getExtension(extensionId)</h2></a>
+<p>Returns the class representing the extension with the given id.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Extension/">Extension</a>, null</td>
+<td><ul class="simple">
+<li>The Extension-derived class if one was registered; null otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unregisterextension-extensionid">
+<a href="#unregisterextension-extensionid"><h2>unregisterExtension(extensionId)</h2></a>
+<p>Unregisters an existing extension with the given id.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the extension was successfully unregistered.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="registerexternalextension-extensionid-urlpathorcallback-dependencies">
+<a href="#registerexternalextension-extensionid-urlpathorcallback-dependencies"><h2>registerExternalExtension(extensionId, urlPathOrCallback, dependencies)</h2></a>
+<p>Registers an extension that needs to be downloaded before using it. The Viewer ships with some extensions that are not bundled, but can be runtime-fetched.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr><tr><td><span class="name">urlPathOrCallback</span><span class="required">*</span><div class="type">string, function</div></td><td>The url from where it needs to be pulled from. Can be a relative or an absolute path. Optionally, this can be a callback function that defers the loading to the client application. Useful for webpack import style loading. Callback must return a promise that resolves when loading is finished.</td></tr><tr><td><span class="name">dependencies</span><span class="required">*</span><div class="type">Array.&lt;string&gt;</div></td><td>Optional list of extension IDs, whose bundles are needed before this extension can be built.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the extension was successfully registered.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getexternalpath-extensionid">
+<a href="#getexternalpath-extensionid"><h2>getExternalPath(extensionId)</h2></a>
+<p>Returns the url path from where to download the extension; null if not registered through registerExternalExtension().</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>url, null</td>
+<td><ul class="simple">
+<li>The url from where to download the extension; null if not download is needed.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getregisteredextensions">
+<a href="#getregisteredextensions"><h2>getRegisteredExtensions()</h2></a>
+<p>Gets a list of all the extensions that are available for usage. Some are already available in memory, while others may require an additional file to be downloaded prior to its usage.</p>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="downloadextension-extensionid">
+<a href="#downloadextension-extensionid"><h2>downloadExtension(extensionId)</h2></a>
+<p>Download the extension and return its downloading promise</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td>resolves when the extension class is ready for usage.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isdownloading-extensionid">
+<a href="#isdownloading-extensionid"><h2>isDownloading(extensionId)</h2></a>
+<p>Is the extension being downloaded?</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isavailable-extensionid">
+<a href="#isavailable-extensionid"><h2>isAvailable(extensionId)</h2></a>
+<p>Is the extension class available?</p>
+<section id="id14">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

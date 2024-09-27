@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v6 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v6-changelog">
+<h1>V6 Changelog</h1>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="important">
+<a href="#important"><h2>IMPORTANT</h2></a>
+<section id="next-major-release-lmv-7-0">
+<h3>Next major release: LMV 7.0</h3>
+<p>BREAKING CHANGES:  The next major release, LMV 7.0 is expected to contain breaking changes to better accommodate upstream merges, specify new file loaders, reduce package size, and improve performance.</p>
+<p>We strongly recommend that you specify the version of Viewer code you are using for web applications deployed in production. By including a specific version number, you can update your application as necessary to accommodate breaking changes and dictate when to migrate to the next version. To learn how to load version-specific Viewer libraries, refer to the section “Getting the Code” in <a class="reference external" href="/en/docs/viewer/v6/developers_guide/basics/#getting-the-code">Developer’s Guide Basics</a> .</p>
+</section>
+</section>
+<section id="id1">
+<a href="#id1"><h2>6.6.4</h2></a>
+<p><em>Release Date: 2019-06-12</em></p>
+<section id="fixed">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4744 Non-photoreal Rendering causes black screen in Chrome v75</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id2">
+<a href="#id2"><h2>6.6.3</h2></a>
+<p><em>Release Date: 2019-06-07</em></p>
+<section id="id3">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-2958  2D annotations obscured by opaque selection highlight.</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="changed">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-2958  2D selection opacity is now configurable through argument in existing Viewer API <code class="docutils literal notranslate"><span class="pre">set2dSelectionColor()</span></code></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id4">
+<a href="#id4"><h2>6.6.2</h2></a>
+<p><em>Release Date: 2019-06-05</em></p>
+<section id="id5">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4720 Hyperlinks do not work in 6.6.1</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id6">
+<a href="#id6"><h2>6.6.1</h2></a>
+<p><em>Release Date: 2019-05-20</em></p>
+<section id="id7">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4634 Objects are not isolating properly in large NWD models</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id8">
+<a href="#id8"><h2>6.6.0</h2></a>
+<p><em>Release Date: 2019-04-23</em></p>
+<section id="id9">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4399: Section tool will now take into account the camera’s viewport during initialization</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="added">
+<h3>Added</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Support for <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.LevelsExtension</span></code> on mobile platforms.</li>
+<li>Support for <code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Extension.PushPin</span></code> (pushpins) and <code class="docutils literal notranslate"><span class="pre">Autodesk.PDF</span></code> (vector PDF).</li>
+<li>Pushpin thumbnail &amp; screenshots enhancements.</li>
+<li>Method <code class="docutils literal notranslate"><span class="pre">rearrangeByPriorities</span></code> to <code class="docutils literal notranslate"><span class="pre">toolController</span></code> API.</li>
+<li>Handler for swipe gesture.</li>
+<li>LMV-4218: <code class="docutils literal notranslate"><span class="pre">config3d.modelBrowserIsolateSelectedNodes</span></code> to configure the Model Browser to isolate the selected nodes or not (default is set to not isolate it).</li>
+<li><code class="docutils literal notranslate"><span class="pre">DockingPanel.bringToFront()</span></code></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="removed">
+<h3>Removed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4218: Transparent selection highlighting</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id10">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-2958: Selection highlights for 2D are not transparent and obscured annotations</li>
+<li>LMV-4308: Section tool cuts plane partially if state was saved with <code class="docutils literal notranslate"><span class="pre">viewer.getState()</span></code></li>
+<li>LMV-4338: Rendering of rotated images in PDF Extension</li>
+<li>LMV-4308: Section tool cuts plane partially after using <code class="docutils literal notranslate"><span class="pre">viewer.restoreState()</span></code></li>
+<li>LMV-4150: Dialog title gets truncated</li>
+<li>LMV-4140: The camera cannot be tilted in first person mode if the initial point of view is looking straight down or up at the model</li>
+<li>LMV-4428: Reduce hitTest when mouse hovering on the canvas</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="id11">
+<a href="#id11"><h2>6.5.0</h2></a>
+<p><em>Release Date: 2019-03-04</em></p>
+<section id="id12">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4003: To properly support models with animation, <em>on-demand-loading</em> is <em>disabled</em> in <code class="docutils literal notranslate"><span class="pre">viewer.loadDocumentNode()</span></code> when <code class="docutils literal notranslate"><span class="pre">Autodesk.Fusion360.Animation</span></code> is present in BubbleNode’s extensions.</li>
+<li>LMV-3886: UI code for the Explode slider has been moved out of <code class="docutils literal notranslate"><span class="pre">GuiViewer3D</span></code> and into extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Explode</span></code>.</li>
+<li>LMV-4069: Settings Panel (which had been locked in a fixed location since being updated in 4.1.0) is now floating and can again be moved around the canvas.</li>
+<li>BLMV-3048: Code for section planes from <code class="docutils literal notranslate"><span class="pre">LevelsExtension</span></code> was moved out of <code class="docutils literal notranslate"><span class="pre">viewerState.cutplanes</span></code> and into <code class="docutils literal notranslate"><span class="pre">viewerState.floorGuid</span></code>.</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id13">
+<h3>Added</h3>
+<blockquote>
+<div><ul>
+<li>Model Browser displays child element count in parentheses.<p></p>
+<div class="table-section"><table><thead><tr><th>New child element count</th><th>Original behavior</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Model Browser (latest)" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/6.5_model_browser.JPG"></td>
+<td><img alt="Model Browser (earlier versions)" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/6.4_older_model_browser.JPG"></td>
+</tr>
+</tbody></table></div>
+</li>
+<li>WebGLRenderer can now use a WebGL2 context</li>
+<li>LMV-4201: New methods to Fusion Animation extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Fusion360.Animation</span></code> to optionally decouple cameras from animation:</li>
+</ul>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">setFollowCamera(bool)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">isFollowingCamera():bool</span></code></p>
+<p>When setFollowCamera(false) is invoked, playing an animation will not affect the camera state. Likewise, the animation will not stop when the user orbits the model.  The default behavior remains unchanged. The UI also remains unchanged, so the feature can only be activated via javascript.</p>
+</div></blockquote>
+<ul>
+<li>recursive flag to viewer.setThemingColor function:<p></p>
+<p><code class="docutils literal notranslate"><span class="pre">setThemingColor(</span> <span class="pre">dbId,</span> <span class="pre">color</span> <span class="pre">[,</span> <span class="pre">model</span> <span class="pre">[,</span> <span class="pre">recursive</span> <span class="pre">]</span> <span class="pre">]</span> <span class="pre">)</span></code></p>
+</li>
+</ul>
+<blockquote>
+<div><div class="table-section"><table><thead></thead><tbody><tr><td></td>
+<td><code class="docutils literal notranslate"><span class="pre">dbId</span></code></td>
+<td><em>number</em></td>
+<td></td>
+<td></td>
+</tr><tr><td></td>
+<td><code class="docutils literal notranslate"><span class="pre">color</span></code></td>
+<td><em>THREE.Vector4</em></td>
+<td></td>
+<td>(r, g, b, intensity), all in [0,1].</td>
+</tr><tr><td></td>
+<td><code class="docutils literal notranslate"><span class="pre">model</span></code></td>
+<td><em>Autodesk.Viewing.Model</em></td>
+<td>&lt;optional&gt;</td>
+<td></td>
+</tr><tr><td><strong>NEW!</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">recursive</span></code></td>
+<td><em>boolean</em></td>
+<td>&lt;optional&gt;</td>
+<td>Should apply theming color recursively to all child nodes.</td>
+</tr></tbody></table></div>
+</div></blockquote>
+<ul class="simple">
+<li>LMV-3934: <code class="docutils literal notranslate"><span class="pre">model.getPropertyDb().executeUserFunction():Promise</span></code></li>
+</ul>
+<blockquote>
+<div><p>Allows executing user supplied function code on the worker thread against the <em>PropertyDatabase</em> instance. The returned value from the supplied function will be used to resolve the returned Promise.</p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">executeUserFunction</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="nx">userFunction</span><span class="p">(</span><span class="nx">pdb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="kd">var</span><span class="w"> </span><span class="nx">dbId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">     </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumObjectProperties</span><span class="p">(</span><span class="nx">dbId</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">propId</span><span class="p">,</span><span class="w"> </span><span class="nx">valueId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">           </span><span class="c1">// do stuff</span>
+<span class="w">     </span><span class="p">});</span>
+<span class="p">})</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Get started with the step-by-step <a class="reference external" href="/en/docs/viewer/v6/tutorials/propdb-queries">Property Database Queries</a> tutorial.</p>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4174: new <code class="docutils literal notranslate"><span class="pre">totalRasterPixels</span></code> property to decide when to render PDFs using the new vector renderer.  (Once this property is enabled in Derivative Services,) PDF pages that contain less than about 1 megapixel of raster images will be rendered with the vector renderer; otherwise the Leaflet renderer is still used.</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id14">
+<h3>Removed</h3>
+<p>None</p>
+</section>
+<section id="id15">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4064: Screenshot includes overlays, SAO and antialiasing</li>
+<li>BLMV-2790: Icons get mixed with lowercase letter font in IE/Edge</li>
+<li>BLMV-2918: Use DPI data embedded in markups/pushpins to scale them according to the DPI of the current version</li>
+<li>LMV-4131: shadow maps which were broken after 3.3</li>
+<li>BLMV-2978: Shift+Click selects object while selector is disabled</li>
+<li>LMV-3886: Explode slider doesn’t work on Android mobile devices</li>
+<li>LMV-4004: Improper selection color on theming colored items</li>
+<li>BLMV-2977: navigation lock race condition with touch devices.</li>
+<li>DropMeTool logic to resolve overlapping viewports</li>
+<li>Viewcube triad sometimes vanishes when aligned to axis</li>
+<li><code class="docutils literal notranslate"><span class="pre">fitBounds</span></code> now takes into account camera rotation (roll)</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="id16">
+<a href="#id16"><h2>6.4.2</h2></a>
+<p><em>Release Date: 2019-02-06</em></p>
+<section id="id17">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4237: Runtime error when invoking <code class="docutils literal notranslate"><span class="pre">viewer.finish()</span></code></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="id18">
+<a href="#id18"><h2>6.4.1</h2></a>
+<p><em>Release Date: 2019-01-23</em></p>
+<section id="id19">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4064: Include overlays and SAO in screen shot</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="id20">
+<a href="#id20"><h2>6.4.0</h2></a>
+<p><em>Release Date: 2019-01-22</em></p>
+<section id="id21">
+<h3>Added</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4020: Danish locale support</li>
+<li>Leaflet support to viewer.impl.getScreenshotProgressive</li>
+<li>Support ghosted object in getScreenshotProgressive</li>
+<li>LMV-3511: Support for undo in the markups extension to automatically select the next markup item available to undo.</li>
+<li>Support different dpi leaflet-pdf file compare</li>
+<li>BIM color theme via viewer.setTheme(‘bim-theme’).</li>
+<li>LMV-4123: Method BubbleNode.useAsDefault():Boolean</li>
+</ul>
+</div></blockquote>
+<section id="crossfadeeffects-extension">
+<h4>CrossFadeEffects extension</h4>
+<p>CrossFade effects are an optional LMV feature that supports rendering into multiple color targets and blending between them. This addition moves the implementation from the viewer core to a new extension “CrossFadeEffects”.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.CrossFadeEffects</span></code></p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">extName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Autodesk.CrossFadeEffects'</span><span class="p">;</span>
+<span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="nx">extName</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">setCameraToRoom</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">cam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">fov</span><span class="o">:</span><span class="w">          </span><span class="mf">53.13010235415598</span><span class="p">,</span>
+<span class="w">       </span><span class="nx">isPerspective</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">       </span><span class="nx">orthoScale</span><span class="o">:</span><span class="w">   </span><span class="mf">6.442020414517138</span><span class="p">,</span>
+<span class="w">       </span><span class="nx">position</span><span class="o">:</span><span class="w">     </span><span class="p">{</span><span class="nx">x</span><span class="o">:-</span><span class="mf">23.63091853857176</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">0.9033896546012906</span><span class="p">,</span><span class="w"> </span><span class="nx">z</span><span class="o">:-</span><span class="mf">4.261154219883789</span><span class="p">},</span>
+<span class="w">       </span><span class="nx">target</span><span class="o">:</span><span class="w">       </span><span class="p">{</span><span class="nx">x</span><span class="o">:-</span><span class="mf">20.871083468967406</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">6.520671770079398</span><span class="p">,</span><span class="w"> </span><span class="nx">z</span><span class="o">:-</span><span class="mf">5.787286273399167</span><span class="p">},</span>
+<span class="w">       </span><span class="nx">up</span><span class="o">:</span><span class="w">           </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="mf">0.10446560472788749</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">0.21262602957092375</span><span class="p">,</span><span class="w"> </span><span class="nx">z</span><span class="o">:</span><span class="mf">0.9715333802694284</span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">setViewFromCamera</span><span class="p">(</span><span class="nx">cam</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">fadeExample</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// apply fade transition</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NOP_VIEWER</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="nx">extName</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">ext</span><span class="p">.</span><span class="nx">fadeToViewerState</span><span class="p">(</span><span class="nx">setCameraToRoom</span><span class="p">,</span><span class="w"> </span><span class="mf">1.5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="geolocation-extension">
+<h4>Geolocation extension</h4>
+<p>Provides functions for converting GPS coordinates in WGS-84 format { x: Longitude, y: Latitude, z: Height(m) } into
+Viewer scene coordinates and back. Supports a single 3D model loaded into the scene.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Geolocation</span></code></p>
+<p>Example:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">viewer.loadExtension('Autodesk.Geolocation')</span></code></p>
+</div></blockquote>
+<p>Functions:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">hasGeolocationData()</span></code></p>
+<blockquote>
+<div><p>Does the model contain geolocation data?</p>
+<p>returns <em>boolean</em>  (true when the model contains geolocation data)</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">lmvToLonLat(</span> <span class="pre">lmvPoint</span> <span class="pre">)</span></code></p>
+<blockquote>
+<div><p>Converts viewer coordinates (obtained with something like viewer.clientToWorld()) into { x: Longitude, y: Latitude, z: Height (meters) } in WGS-84 format.</p>
+<p>returns <em>{THREE.Vector3}</em>:  (GPS coordinate in WGS-84 format: { x: Longitude, y: Latitude, z: Height } )</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">lonLatToLmv(</span> <span class="pre">lonLat</span> <span class="pre">)</span></code></p>
+<blockquote>
+<div><p>Converts coordinates from { x: Longitude, y: Latitude, z: Height (meters) } in WGS-84 format into viewer scene coordinates.</p>
+<p>returns <em>{THREE.Vector3}</em>:  (3D point in the scene)</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">openGoogleMaps(</span> <span class="pre">[</span> <span class="pre">pointLL84</span> <span class="pre">]</span> <span class="pre">)</span></code></p>
+<blockquote>
+<div><p>Returns a Google Maps URL with a PIN on the specified GPS location. When no argument is provided, the URL will use the Model’s geolocation if available.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">activate()</span></code></p>
+<blockquote>
+<div><p>Click the model to set points and see optional panel UI for testing and debugging
+<img alt="Geolocation Extension" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/geolocation_panel.png"></p>
+</div></blockquote>
+</div></blockquote>
+</section>
+</section>
+<section id="id22">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Redesigned Environments UI in Settings Panel.</li>
+<li>BLMV-2115: [PushPin extension] Save external IDs along with LMV IDs</li>
+<li>BLMV-2525: [PushPin extension] Save globalOffset to viewerState</li>
+<li>FloorSelector: Avoid using crossFade effects when running on mobile</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id23">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-3606: Restore topology highlight in measure tool for Fusion models</li>
+<li>LMV-3196: Transparent object loses transparency and becomes opaque on focus.</li>
+<li>LMV-3722: Selected transparent objects become opaque when the view is orbited, panned or zoomed.</li>
+<li>LMV-3967: First Person extension does not properly initialize FOV from ortho view</li>
+<li>LMV-3975: Crash with F2D files missing rcv_offsets and rcvs property DB files</li>
+<li>Improve bubbleNode.search docs</li>
+<li>BLMV-2644: [Markups extension] Fix canvg import on IE11 and Edge</li>
+<li>BLMV-2685: [Pixel Compare] sensitivity of threshold</li>
+<li>Some PDF text characters failing to get filled</li>
+<li>LMV-4067: JsDocs search function</li>
+<li>LMV-4076: Animation scrub for opacity</li>
+<li>LMV-4043: DocumentBrowser extension lists an empty “folder” entry</li>
+<li>LMV-4133: Inconsistent appearance of Phong material with mirror transform. Backfacing normals now face the camera in this case</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-5">
+<a href="#version-6-3-5"><h2>Version 6.3.5</h2></a>
+<p><em>Release Date: 2018-12-14</em></p>
+<section id="id24">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4075: Issue with loading models from manifests where the view-node isn’t a child of a geometry node.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-4">
+<a href="#version-6-3-4"><h2>Version 6.3.4</h2></a>
+<p><em>Release Date: 2018-12-05</em></p>
+<section id="id25">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-4049: Issue of MarkupCore’s <code class="docutils literal notranslate"><span class="pre">renderToCanvas()</span></code> displaying upside-down.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-3">
+<a href="#version-6-3-3"><h2>Version 6.3.3</h2></a>
+<p><em>Release Date: 2018-11-27</em></p>
+<section id="id26">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Issue in 6.1 and later where incompatible libraries caused 2D sheets to render black. URLs for dependencies are now set to load matching versions.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-2-broken">
+<a href="#version-6-3-2-broken"><h2>Version 6.3.2 BROKEN</h2></a>
+<p><em>Release Date: 2018-11-26</em></p>
+<section id="broken">
+<h3>Broken</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Regression error introduced in version number handling when attempting to prevent issue where incompatible libraries caused 2D sheets to render black. SEE FIX IN PATCH 6.3.3.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-1">
+<a href="#version-6-3-1"><h2>Version 6.3.1</h2></a>
+<p><em>Release Date: 2018-11-20</em></p>
+<section id="id27">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Restore function <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Private.getHtmlTemplate</span></code> for compatibility.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-3-0">
+<a href="#version-6-3-0"><h2>Version 6.3.0</h2></a>
+<p><em>Release Date: 2018-11-19</em></p>
+<section id="id28">
+<h3>Added</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-3766 Support for leaflet pyramid output with missing levels</li>
+</ul>
+</div></blockquote>
+<section id="autodesk-pdf-extension">
+<h4>Autodesk.PDF extension</h4>
+<p>Prototype vector rendering loader for PDF files.</p>
+<p>Sample code:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Create Viewer instance and load PDF file on page 1</span>
+<span class="w">    </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Viewer3D</span><span class="p">(</span><span class="nx">div</span><span class="p">,</span><span class="nx">config3d</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+<span class="w">        </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.PDF'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// URL parameter `page` will override value passed to loadModel</span>
+<span class="w">            </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadModel</span><span class="p">(</span><span class="s1">'path/to/file.pdf'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">page</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">});</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">});</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="autodesk-documentbrowser-extension">
+<h4>Autodesk.DocumentBrowser extension</h4>
+<p>Toolbar button and panel for viewing all 2D and 3D models available in a JSON manifest.</p>
+<p><img alt="Document Browser Extension" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/document_browser.PNG">
+Document Browser Extension</p>
+</section>
+<section id="viewer-loaddocumentnode">
+<h4>viewer.loadDocumentNode</h4>
+<p>New model loading API:
+<code class="docutils literal notranslate"><span class="pre">viewer.loadDocumentNode(lmvDocument,</span> <span class="pre">bubbleNode,</span> <span class="pre">options)</span></code></p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">lmvDocument</span><div class="type"></div></td><td>The Document instance, which owns the model being loaded</td></tr><tr><td><span class="name">bubbleNode</span><div class="type"></div></td><td>The specific manifest node to load (within the Document)</td></tr><tr><td><span class="name">options</span><div class="type">&lt;optional&gt;</div></td><td>Options to pass to Autodesk.Viewing.Viewer3D#loadModel. Will be initialized internally if not specified. Leave empty in most cases.</td></tr></tbody></table></div>
+</section>
+<section id="loadoptions">
+<h4>loadOptions</h4>
+<p><code class="docutils literal notranslate"><span class="pre">loadOptions.skipHiddenFragments:bool</span></code> to skip initially hidden meshes</p>
+</section>
+</section>
+<section id="id29">
+<h3>Changed</h3>
+<section id="property-panel">
+<h4>Property Panel</h4>
+<p>Property Panel’s title will now display the name of the selected node.</p>
+<div class="table-section"><table><thead><tr><th>Properties: Older versions</th><th>Properties: 6.3 updated title</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Properties - original behavior" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/props_old.PNG"></td>
+<td><img alt="Properties - 6.3 improved title" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/props_6.3.PNG"></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="other">
+<h4>Other:</h4>
+<blockquote>
+<div><ul class="simple">
+<li>Default value for BlendShader’s AO opacity</li>
+<li>Default values for SAOShader’s radius and intensity.</li>
+<li>All documentation URLs referencing <code class="docutils literal notranslate"><span class="pre">forge.autodesk.com</span></code> are now referencing <code class="docutils literal notranslate"><span class="pre">forge.developer.com</span></code></li>
+<li>Model loading UI will now be removed as soon as geometry is ready for rendering</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id30">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>SplitScreen: Fix pan speed in SplitScreen when using 3 or 4 viewports</li>
+<li>SplitScreen: Roll tool no longer jumps when dragging across viewports</li>
+<li>LMV-3823: Missing <code class="docutils literal notranslate"><span class="pre">Uint8Array.prototype.slice</span></code> in IE11 while loading Leaflet PDFs</li>
+<li>Keep View Cube’s triad oriented correctly when top/front/etc. changes</li>
+<li>Incorrect selection color for wide lines</li>
+<li>Let <code class="docutils literal notranslate"><span class="pre">avp.ENABLE_INLINE_WORKER</span></code> be changed at run time</li>
+<li>LMV-3783: <code class="docutils literal notranslate"><span class="pre">viewer.clearSelection</span></code> no longer fires an event when nothing is selected</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-2-3">
+<a href="#version-6-2-3"><h2>Version 6.2.3</h2></a>
+<p><em>Release Date: 2018-11-26</em></p>
+<section id="id31">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Issue in 6.1 and later where incompatible libraries caused 2D sheets to render black. URLs for dependencies are now set to load matching versions.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-2-2">
+<a href="#version-6-2-2"><h2>Version 6.2.2</h2></a>
+<p><em>Release Date: 2018-10-17</em></p>
+<section id="id32">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-3726 WebVR extension not working</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-2-1">
+<a href="#version-6-2-1"><h2>Version 6.2.1</h2></a>
+<p><em>Release Date: 2018-10-12</em></p>
+<section id="id33">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-3809 DWFx embedded images have low resolution</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-2-0">
+<a href="#version-6-2-0"><h2>Version 6.2.0</h2></a>
+<p><em>Release Date: 2018-09-12</em></p>
+<section id="id34">
+<h3>Added</h3>
+<section id="probing">
+<h4>Probing</h4>
+<p>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.OMV</span></code> for On Machine Verification flows.</p>
+<p><img alt="On-machine Verification - Probing" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/OMV_confetti.png">
+Display of measurement/probe points</p>
+<p><img alt="Probing - Confetti setting" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/OMV_probing_confetti_setting.png">
+Setting confetti diameter</p>
+</section>
+</section>
+<section id="id35">
+<h3>Changed</h3>
+<section id="split-screen-extension">
+<h4>Split Screen Extension</h4>
+<p>Support for up to 4 views in SplitScreenExt</p>
+<p><img alt="Split Screen Extension" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/splitScreen_x4.png">
+Split Screen Extension - up to 4 linked views</p>
+</section>
+</section>
+<section id="id36">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>BLMV-2463: Unable to close sub-menu. (Centers toolbar only with text-align: center)</li>
+<li>Incorrectly named property - RenderContext.getConfig().clearColorBottom</li>
+<li>BLMV-2458: Viewer runs out of memory when loading large textures</li>
+<li>LMV-3703:  Model Browser becomes empty after unloading a non-primary model</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-1-2">
+<a href="#version-6-1-2"><h2>Version 6.1.2</h2></a>
+<p><em>Release Date: 2018-11-26</em></p>
+<section id="id37">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Issue in 6.1 and later where incompatible libraries caused 2D sheets to render black. URLs for dependencies are now set to load matching versions.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-1-1">
+<a href="#version-6-1-1"><h2>Version 6.1.1</h2></a>
+<p><em>Release Date: 2018-08-21</em></p>
+<section id="id38">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>LMV-3689 - Selection not working correctly</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-1-0">
+<a href="#version-6-1-0"><h2>Version 6.1.0</h2></a>
+<p><em>Release Date: 2018-08-21</em></p>
+<section id="id39">
+<h3>Changed</h3>
+<ul class="simple">
+<li><cite>MEASUREMENT_CHANGED_EVENT</cite> to contain <cite>type</cite> &amp; <cite>id</cite></li>
+</ul>
+</section>
+<section id="id40">
+<h3>Added</h3>
+<ul class="simple">
+<li>Handling new paper transform for 2d files.</li>
+<li>Support for png based leaflets</li>
+<li>Function <code class="docutils literal notranslate"><span class="pre">viewer.getVisibleModels()</span></code></li>
+<li>Allow meta keys (CMD) to be used on mac. Applies to Markup’s copy/paste/undo/redo commands. All tools benefit from this change, too.</li>
+</ul>
+</section>
+<section id="id41">
+<h3>Removed</h3>
+<ul class="simple">
+<li>Global variable <code class="docutils literal notranslate"><span class="pre">LMV_RESOURCE_VERSION</span></code></li>
+</ul>
+</section>
+<section id="id42">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>zoomWindowTool issue on window resize</li>
+<li>Markup’s text input height when zooming</li>
+<li>iOS10 device keyboard now hides after editing a text markup</li>
+<li>Top right area is now clickable when viewcube is disabled (ex: 2D documents)</li>
+<li>“Calibration required” dialog displays as expected</li>
+<li>Path to markups output files in string replace</li>
+<li>Editing markup in IE11 (update canvg third party to address)</li>
+<li>Environment Background image visiblity while in 2D file compare</li>
+<li>Visibility of measuring axes on mobile devices</li>
+<li>Camera view when loading Navisworks saved views</li>
+<li>Bump map heuristics overwriting the specified bumpScale / <cite>“generic_bump_amount”</cite> in certain cases.</li>
+<li>Measure button behavior when pressing for the second time</li>
+<li>Duplication of focal length and edit frame elements when changing sheets</li>
+<li>3D section missing capping in the view saved with a pushpin</li>
+<li>Text markup jumps after finishing editing on iOS</li>
+<li>World up tool (roll) for extension <code class="docutils literal notranslate"><span class="pre">Autodesk.SplitScreen</span></code></li>
+<li>BimWalk guide missing title: Run</li>
+<li>Zoom tool when <code class="docutils literal notranslate"><span class="pre">Autodesk.SplitScreen</span></code> extension is active.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-0-2">
+<a href="#version-6-0-2"><h2>Version 6.0.2</h2></a>
+<p><em>Release Date: 2018-08-13</em></p>
+<section id="id43">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Filter functions for extension <code class="docutils literal notranslate"><span class="pre">Autodesk.SplitScreen</span></code></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-0-1">
+<a href="#version-6-0-1"><h2>Version 6.0.1</h2></a>
+<p><em>Release Date: 2018-07-25</em></p>
+<section id="id44">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Avoid dispatching events when <code class="docutils literal notranslate"><span class="pre">viewer.getScreenShot()</span></code> is invoked.</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-6-0-0">
+<a href="#version-6-0-0"><h2>Version 6.0.0</h2></a>
+<p><em>Release Date: 2018-07-24</em></p>
+<p><strong>NOTE:</strong>  This release includes breaking changes described below.  As a workaround, affected users may include a version number to the CDN url. Please visit <a class="reference external" href="/en/docs/viewer/v6/overview/basics#getting-the-code">Basics</a> page for details.</p>
+<section id="id45">
+<h3>Changed</h3>
+<section id="screenshots">
+<h4>Screenshots</h4>
+<p>BREAKING CHANGE: <code class="docutils literal notranslate"><span class="pre">getScreenShotBuffer()</span></code> has been removed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">getScreenShot(width,</span> <span class="pre">height,</span> <span class="pre">onComplete)</span></code> has been improved to allow arbitrary sized screenshots.  In addtion, the parameters are now optional (defaults to the canvas size)</p>
+<div class="table-section"><table><thead><tr><th>Viewer Canvas  (350px x 400px)</th><th>getScreenShot ()  (350px x 400px)</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Viewer Canvas (350 x 400)" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/canvas.png"></td>
+<td><img alt="Low Fidelity (350 x 400)" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/lowres.png"></td>
+</tr>
+</tbody></table></div>
+<div class="table-section"><table><thead><tr><th>getScreenShot (3500,4000)</th><th>Blow-up of getScreenShot(3500,4000)</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="High Fidelity (3500 x 4000)" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/highres.jpg"></td>
+<td><img alt="Magnification" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/blow-up.png"></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="other-changes">
+<h4>Other Changes</h4>
+<blockquote>
+<div><ul class="simple">
+<li>Several performance improvements for loading PDF and 2D models.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="id46">
+<h3>Added</h3>
+<section id="api-endpoints-for-emea-eu-data-center-support">
+<h4>API endpoints for EMEA (eu) Data Center Support</h4>
+<p>Note that in some cases you may wish to determine if the bucketKey is from EMEA or US.
+Start by base64 decoding the URN, then check if it contains <code class="docutils literal notranslate"><span class="pre">urn:adsk.wipemea:xxx</span></code> (for EMEA) or <code class="docutils literal notranslate"><span class="pre">urn:adsk.wipprod:xxx</span></code> (for US).
+Read more in the blog about <a class="reference external" href="/blog/bim-360-docs-api-changes-access-data-european-data-center">European data center support</a>.</p>
+</section>
+<section id="splitscreen-extension">
+<h4>SplitScreen Extension</h4>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">Autodesk.SplitScreen</span></code> extension</li>
+<li>Added optional params to facilitate multi-viewport rendering.</li>
+</ul>
+<dl class="docutils">
+<dt>More:</dt><dd><ul class="simple">
+<li>Vertex array objects default to false on mobile devices to save memory</li>
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Extension.PushPin</span></code> extension</li>
+<li>Panning with middle button when editing markup is now allowed</li>
+<li>Added layerOrder support</li>
+<li>Added <code class="docutils literal notranslate"><span class="pre">viewer.impl.cancelLeafletScreenshot()</span></code> to cancel time-consuming PDF screenshots</li>
+<li>More render settings can be controlled via metadata: <code class="docutils literal notranslate"><span class="pre">renderEnvironmentDisplayEdges</span></code>, <code class="docutils literal notranslate"><span class="pre">renderEnvironmentDisplayPoints</span></code> and additional parameters for <code class="docutils literal notranslate"><span class="pre">renderEnvironmentAmbientShadows</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id47">
+<h3>Removed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Removed <code class="docutils literal notranslate"><span class="pre">viewer.getScreenShotBuffer()</span></code>. Please use <code class="docutils literal notranslate"><span class="pre">viewer.getScreenShot()</span></code>, instead.</li>
+<li><code class="docutils literal notranslate"><span class="pre">window.Hammer</span></code> removed in favor of <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Hammer</span></code></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id48">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed ray intersection fixes aggregated views</li>
+<li><code class="docutils literal notranslate"><span class="pre">fragmentList.getOriginalWorldBounds()</span></code> no longer crashes in 2D</li>
+<li>AGD/Scalaris files without stress data are now handled properly</li>
+<li>Issue with text markup being cut after saving</li>
+<li>Issue with callbacks when ending markup creation on mobile.</li>
+<li><code class="docutils literal notranslate"><span class="pre">getCameraUpVector()</span></code> case where up and direction vectors are colinear</li>
+<li>Issues with Moldflow visualization extension seen in <em>Edge/IE11</em></li>
+<li>Inability to load certain files from <code class="docutils literal notranslate"><span class="pre">modelderivative/v2/</span></code> endpoint.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropDbLoader | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Private</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/file-loaders/main/PropDbLoader.js">
+<section id="propdbloader">
+<h1>PropDbLoader</h1>
+<p>Per model property database interface, talks to the worker thread behind the scenes.</p>
+<section id="new-propdbloader-shareddbpath-model-eventtarget">
+<a href="#new-propdbloader-shareddbpath-model-eventtarget"><h2>new PropDbLoader(sharedDbPath, model, eventTarget)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">sharedDbPath</span><span class="required">*</span><div class="type"></div></td><td></td></tr><tr><td><span class="name">model</span><span class="required">*</span><div class="type"></div></td><td></td></tr><tr><td><span class="name">eventTarget</span><span class="required">*</span><div class="type"></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="getproperties-dbid-onsuccess-onerror">
+<a href="#getproperties-dbid-onsuccess-onerror"><h2>getProperties(dbId, onSuccess, onError)</h2></a>
+<p>Gets the properties for an ID.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The database identifier.</td></tr><tr><td><span class="name">onSuccess</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onPropertiesSuccess/">Callbacks#onPropertiesSuccess</a></div></td><td>Callback for when the properties are fetched.</td></tr><tr><td><span class="name">onError</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Callback for when the properties are not found or another error occurs.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getproperties2-dbid-onsuccess-onerror-options">
+<a href="#getproperties2-dbid-onsuccess-onerror-options"><h2>getProperties2(dbId, onSuccess, onError, options)</h2></a>
+<p>Gets the properties for an ID. New version of getProperties() that avoids loading of externalId table unless really needed.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbId</span><span class="required">*</span><div class="type type--collapsable">number</div></td><td>The database identifier.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccess</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onPropertiesSuccess/">Callbacks#onPropertiesSuccess</a></div></td><td>Callback for when the properties are fetched.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onError</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Callback for when the properties are not found or another error occurs.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>If true, we enforce loading of externalIDs if necessary. ExternalIds may significantly increase memory consumption and should only be loaded if unavoidable.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getbulkproperties-dbids-propfilter-onsuccess-onerror-ignorehidden">
+<a href="#getbulkproperties-dbids-propfilter-onsuccess-onerror-ignorehidden"><h2>getBulkProperties(dbIds, propFilter, onSuccess, onError, ignoreHidden)</h2></a>
+<p>Bulk property retrieval with property name filter.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbIds</span><span class="required">*</span><div class="type">Array.&lt;number&gt;</div></td><td>array of object dbIds to return properties for.</td></tr><tr><td><span class="name">propFilter</span><div class="type">object</div></td><td>array of property names to retrieve values for. If empty, all properties are returned.</td></tr><tr><td><span class="name">onSuccess</span><span class="required">*</span><div class="type">function</div></td><td>Callback function for when results are ready.</td></tr><tr><td><span class="name">onError</span><span class="required">*</span><div class="type">function</div></td><td>Callback function for when something went wrong.</td></tr><tr><td><span class="name">ignoreHidden</span><div class="type">boolean</div></td><td>true to ignore hidden properties.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getbulkproperties2-dbids-options-onsuccess-onerror">
+<a href="#getbulkproperties2-dbids-options-onsuccess-onerror"><h2>getBulkProperties2(dbIds, options, onSuccess, onError)</h2></a>
+<p>Bulk property retrieval with property name filter.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;number&gt;</div></td><td>array of object dbIds to return properties for.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>array of property names to retrieve values for. If empty, all properties are returned.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">categoryFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>array of category names to retrieve values for. If empty, all properties are returned.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>true to ignore hidden properties.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>If true, it is ensured that externalId table is loaded before doing the property query.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccess</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>Callback function for when results are ready.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onError</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>Callback function for when something went wrong.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getpropertyset-dbids-options-onsuccess-onerror">
+<a href="#getpropertyset-dbids-options-onsuccess-onerror"><h2>getPropertySet(dbIds, options, onSuccess, onError)</h2></a>
+<p>Retrieves properties related to the specified dbIds. The results object that is passed into the onSuccess callback contains the displayName and displayCategory separated by a ‘/’ as the key and all of the related properties as the entry’s value. The results can be used to create a new <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">PropertySet</a> instance.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;number&gt;</div></td><td>array of object dbIds to return properties for.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>array of property names to retrieve values for. If empty, all properties are returned.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>true to ignore hidden properties.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>If true, it is ensured that externalId table is loaded before doing the property query.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccess</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>Callback function for when results are ready.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onError</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>Callback function for when something went wrong.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="executeuserfunction-code-userdata">
+<a href="#executeuserfunction-code-userdata"><h2>executeUserFunction(code, userData)</h2></a>
+<p>Allows executing user supplied function code on the worker thread against the <a class="reference external" href="/en/docs/viewer/v7/reference/globals/Classes/PropertyDatabase/">PropertyDatabase</a> instance. The returned value from the supplied function will be used to resolve the returned Promise. The function must be named <code class="docutils literal notranslate"><span class="pre">userFunction</span></code>.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">code</span><span class="required">*</span><div class="type">function, string</div></td><td>Function takes 1 argument, the <a class="reference external" href="/en/docs/viewer/v7/reference/globals/Classes/PropertyDatabase/">PropertyDatabase</a> instance.</td></tr><tr><td><span class="name">userData</span><span class="required">*</span><div class="type"><ul class="simple">
+<li></li>
+</ul>
+</div></td><td>A value that will get passed to the <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">code</span></code> function when run in the property worker context. it needs to be serializable.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Resolves with the return value of user function.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">userFunction</span><span class="p">(</span><span class="nx">pdb</span><span class="p">,</span><span class="w"> </span><span class="nx">userData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="kd">const</span><span class="w"> </span><span class="nx">dbId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">       </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumObjectProperties</span><span class="p">(</span><span class="nx">dbId</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">propId</span><span class="p">,</span><span class="w"> </span><span class="nx">valueId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">             </span><span class="c1">// do stuff</span>
+<span class="w">       </span><span class="p">});</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="mf">42</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">userData</span><span class="p">;</span><span class="w"> </span><span class="c1">// userData will be 2 in this example</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">executeUserFunction</span><span class="p">(</span><span class="nx">userFunction</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span><span class="w"> </span><span class="c1">// result === 84 === 42 * 2</span>
+<span class="w">  </span><span class="p">})</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>This example, however, only works on non-minfied/non-uglified code. Minification or other
+obfuscation techniques that change the function name will cause an error, with the userFunction
+not found. In that cases, a string must be used.</p>
+<hr class="docutils">
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="k">await</span><span class="w"> </span><span class="nx">executeUserFunction</span><span class="p">(</span><span class="s1">'function userFunction(pdb, userData) { ... }'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getloadprogress">
+<a href="#getloadprogress"><h2>getLoadProgress()</h2></a>
+<p>Estimated load progress in percent.</p>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>in the range 0..100</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isloaddone">
+<a href="#isloaddone"><h2>isLoadDone()</h2></a>
+<p>Returns true if loading is finished (either with success or with error)</p>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

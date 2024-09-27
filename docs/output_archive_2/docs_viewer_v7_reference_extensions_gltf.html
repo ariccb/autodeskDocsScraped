@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>glTF | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/glTF/index.js">
+<section id="gltf">
+<h1>glTF</h1>
+<p>Extension description</p>
+<p>The glTF extension lets you view glTF 2.0 models in the Viewer. This extension lets you have efficient glTF 2.0 models in your application.</p>
+<p>The extension id is: ‘Autodesk.glTF’</p>
+<section id="new-gltf-viewer-options">
+<a href="#new-gltf-viewer-options"><h2>new glTF(viewer, options)</h2></a>
+<p>Autodesk.glTFExtension constructor</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">viewer</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>Viewer instance.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Options for the glTFExtension</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">someOption</span><div class="type type--collapsable">boolean</div></td><td>This is how options should be documented</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="w"> </span><span class="c1">// Use this viewer option to load the glTF extension</span>
+<span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">'AutodeskProduction'</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'derivativeV2'</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">documentId</span><span class="o">:</span><span class="w"> </span><span class="s1">'tests/unittest/models/gltf/duck.gltf'</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="activate-mode">
+<a href="#activate-mode"><h2>activate(mode)</h2></a>
+<p>Override the activate method to enable the functionality of the extension.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><div class="type"></div></td><td>An optional mode that indicates a different way the extension can function.</td></tr></tbody></table></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the extension activation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Override the deactivate method to disable the functionality of the extension.</p>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the extension deactivation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

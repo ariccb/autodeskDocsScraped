@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v5 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v5-changelog">
+<h1>V5 Changelog</h1>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-5-0-0">
+<a href="#version-5-0-0"><h2>Version 5.0.0</h2></a>
+<p><em>Release Date: 2018-06-19</em></p>
+<section id="changed">
+<h3>Changed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Refactored to incorporate forked changes. Some breaking changes were introduced and identified (see below). If there are additional breaking changes we didn’t spot, please let us know!</li>
+<li><code class="docutils literal notranslate"><span class="pre">three.min.js</span></code> and <code class="docutils literal notranslate"><span class="pre">three.js</span></code> are no longer required. These libraries are now bundled into <code class="docutils literal notranslate"><span class="pre">viewer3D.min.js</span></code> and <code class="docutils literal notranslate"><span class="pre">viewer3D.js</span></code> respectively.</li>
+<li>Improved display and sizing of Settings Panel</li>
+<li>Reflectivity is reduced at grazing angles in phong shader for some Protein materials.</li>
+<li>Can now zoom more than 100% in PNG/JPG image files</li>
+<li>default value is now false for <code class="docutils literal notranslate"><span class="pre">applyRefPoint</span></code> option</li>
+<li>Replaced <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.theHotkeyManager</span></code> with <code class="docutils literal notranslate"><span class="pre">viewer.getHotkeyManager()</span></code></li>
+<li>Replaced <code class="docutils literal notranslate"><span class="pre">HotkeyManager.KEYCODES</span></code> with <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.KeyCode</span></code></li>
+<li>IFC tranlsations are treated as AEC models</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="added">
+<h3>Added</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Added monochrome mode for 2D models: <code class="docutils literal notranslate"><span class="pre">viewer.setGrayscale(true)</span></code></li>
+<li><dl class="docutils">
+<dt>Added AEC Extension</dt><dd><ul>
+<li>This submission is an initial file dump, and adaptation will be needed to SectionTool and BlendShader to make the extensions fully functional.</li>
+<li>It also shows how to build an LMV extension using modern JavaScript and package it with webpack.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Adding various cross-fade logic used by view transitions</li>
+<li>Added option to disable node box caching</li>
+<li>Added preference value <code class="docutils literal notranslate"><span class="pre">wheelSetsPivot</span></code> along with <code class="docutils literal notranslate"><span class="pre">Navigation</span></code> methods</li>
+<li>Added edge color/opacity for ghosted shapes</li>
+<li>Add spatial filter support to RenderContext and blend_frag.glsl</li>
+<li>Localization strings for recently added IBLs and for Scalaris extension</li>
+<li>Expose <code class="docutils literal notranslate"><span class="pre">config3d.modelBrowserExcludeRoot</span></code> to configure whether the Model Browser will display the model’s root node or not (default is to not display it)</li>
+<li>Expose <code class="docutils literal notranslate"><span class="pre">config3d.modelBrowserStartCollapsed</span></code> to configure whether the Model Browser will have the topmost node collapsed or not (default is no, aka: expanded)</li>
+<li>Added version to Settings Panel, bottom right</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="fixed">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>A360 Preview tab images are now loaded</li>
+<li>Pressing the ESC key in the LMV window no longer confuses which state the icons are in</li>
+<li>Choosing specific environments now forces “Environment Image Visible” to enabled or disabled</li>
+<li>After enabling the zoom tool holding the ALT key now enables the orbit tool as expected</li>
+<li>Property Panel now shows the root-node properties when nothing is selected.</li>
+<li>Search is no longer shown for PDF bubble</li>
+<li>Selected object is now highlighted properly</li>
+<li>2D and 3D selection color settings are decoupled</li>
+<li>Fixed loading problem with models that use memory optimized mode</li>
+<li>Fixed loading problem with Animation extension</li>
+<li>Prevent renaming <code class="docutils literal notranslate"><span class="pre">window.name</span></code> to “user_info”</li>
+<li>Screen is no longer temporarily black at startup</li>
+<li>Fixed missing highlight</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="removed">
+<h3>Removed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Removed Comments and Billboard extensions</li>
+<li>Removed code that was only used for debugging</li>
+<li>Removed in-viewer search extension</li>
+<li>Removed old First Person tool toggle.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

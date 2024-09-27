@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intersection | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Type Definitions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Viewer3D.js"><section id="intersection">
+<h1>Intersection</h1>
+<p>Object that is returned by the ray cast and hit test methods for each scene object under the given canvas coordinates.</p>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><div class="type">number</div></td><td>Internal ID of the scene object.</td></tr><tr><td><span class="name">distance</span><div class="type">number</div></td><td>Distance of the intersection point from camera. All intersections returned by the ray casting method are sorted from the smallest distance to the largest.</td></tr><tr><td><span class="name">face</span><div class="type">THREE.Face3</div></td><td>THREE.Face3 object representing the triangular mesh face that has been intersected.</td></tr><tr><td><span class="name">faceIndex</span><div class="type">number</div></td><td>Index of the intersected face, if available.</td></tr><tr><td><span class="name">fragId</span><div class="type">number</div></td><td>ID of Viewer SDK fragment that was intersected.</td></tr><tr><td><span class="name">point</span><div class="type">THREE.Vector3</div></td><td>THREE.Vector3 point of intersection.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>Model instance the dbId belongs to.</td></tr></tbody></table></div>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RadioButtonGroup | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.UI</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/gui/controls/RadioButtonGroup.js">
+<section id="radiobuttongroup">
+<h1>RadioButtonGroup</h1>
+<blockquote>
+<div><p>Extends <a class="reference external" href="/en/docs/viewer/v7/reference/UI/ControlGroup">Autodesk.Viewing.UI.ControlGroup</a></p>
+</div></blockquote>
+<section id="new-radiobuttongroup-id-options">
+<a href="#new-radiobuttongroup-id-options"><h2>new RadioButtonGroup(id, options)</h2></a>
+<p>Group of controls that act like a radio group.</p>
+<p>I.e., only one button may be active at a time. Only accepts <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Button/">Autodesk.Viewing.UI.Button</a>.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">id</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The id for this control group.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>An optional dictionary of options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">collapsible</span><div class="type type--collapsable">boolean</div></td><td>Whether this control group is collapsible.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="addcontrol-control-options">
+<a href="#addcontrol-control-options"><h2>addControl(control, options)</h2></a>
+<p>Adds a control to this radio button group. The control must be a <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Button/">button</a>.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">control</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Button/">Autodesk.Viewing.UI.Button</a></div></td><td>The button to add.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>An option dictionary of options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">index</span><div class="type type--collapsable">object</div></td><td>The index to insert the control at.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the button was successfully added.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removecontrol-control">
+<a href="#removecontrol-control"><h2>removeControl(control)</h2></a>
+<p>Removes a control from this control group.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">control</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>The control ID or control instance to remove.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the control was successfully removed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getactivebutton">
+<a href="#getactivebutton"><h2>getActiveButton()</h2></a>
+<p>Returns the active button in this radio button group.</p>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Button/">Autodesk.Viewing.UI.Button</a></td>
+<td>The active button. Null if no button is active.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="indexof-control">
+<a href="#indexof-control"><h2>indexOf(control)</h2></a>
+<p>Returns the index of a control in this group. -1 if the item isn’t found.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">control</span><span class="required">*</span><div class="type">string, <a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></div></td><td>The control ID or control instance to find.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>Index of a successfully removed control, otherwise -1.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcontrol-controlid">
+<a href="#getcontrol-controlid"><h2>getControl(controlId)</h2></a>
+<p>Returns the control with the corresponding ID if it is in this control group.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">controlId</span><span class="required">*</span><div class="type">string</div></td><td>The ID of the control.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/">Autodesk.Viewing.UI.Control</a></td>
+<td>The control or null if it doesn’t exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcontrolid-index">
+<a href="#getcontrolid-index"><h2>getControlId(index)</h2></a>
+<p>Returns the control ID with for corresponding index if it is in this control group.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">index</span><span class="required">*</span><div class="type">number</div></td><td>Index of the control.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The ID of the control or null if it doesn’t exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnumberofcontrols">
+<a href="#getnumberofcontrols"><h2>getNumberOfControls()</h2></a>
+<p>Returns the number of controls in this control group.</p>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>The number of controls.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setcollapsed-collapsed">
+<a href="#setcollapsed-collapsed"><h2>setCollapsed(collapsed)</h2></a>
+<p>Sets the collapsed state of this control group. Iterates over the child controls and calls child.setCollapsed(collapsed).</p>
+<section id="id16">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">collapsed</span><span class="required">*</span><div class="type">boolean</div></td><td>The collapsed value to set.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id17">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if at least one collapsible child’s state changes.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getid">
+<a href="#getid"><h2>getId()</h2></a>
+<p>Gets this control’s ID.</p>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The control’s ID.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setvisible-visible">
+<a href="#setvisible-visible"><h2>setVisible(visible)</h2></a>
+<p>Sets the visibility of this control.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">visible</span><span class="required">*</span><div class="type">boolean</div></td><td>The visibility value to set.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the control’s visibility changed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isvisible">
+<a href="#isvisible"><h2>isVisible()</h2></a>
+<p>Gets the visibility of this control.</p>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the this control is visible.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="settooltip-tooltiptext">
+<a href="#settooltip-tooltiptext"><h2>setToolTip(toolTipText)</h2></a>
+<p>Sets the tooltip text for this control.</p>
+<section id="id22">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolTipText</span><span class="required">*</span><div class="type">string</div></td><td>The text for the tooltip.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id23">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the tooltip was successfully set.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="gettooltip">
+<a href="#gettooltip"><h2>getToolTip()</h2></a>
+<p>Returns the tooltip text for this control.</p>
+<section id="id24">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The tooltip text. Null if it’s not set.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="iscollapsed">
+<a href="#iscollapsed"><h2>isCollapsed()</h2></a>
+<p>Gets the collapsed state of this control.</p>
+<section id="id25">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this control is collapsed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="iscollapsible">
+<a href="#iscollapsible"><h2>isCollapsible()</h2></a>
+<p>Returns whether or not this control is collapsible.</p>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this control can be collapsed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addclass-cssclass">
+<a href="#addclass-cssclass"><h2>addClass(cssClass)</h2></a>
+<p>Adds a CSS class to this control.</p>
+<section id="id27">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cssClass</span><span class="required">*</span><div class="type">string</div></td><td>The name of the CSS class.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="removeclass-cssclass">
+<a href="#removeclass-cssclass"><h2>removeClass(cssClass)</h2></a>
+<p>Removes a CSS class from this control.</p>
+<section id="id28">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cssClass</span><span class="required">*</span><div class="type">string</div></td><td>The name of the CSS class.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getposition">
+<a href="#getposition"><h2>getPosition()</h2></a>
+<p>Returns the position of this control relative to the canvas.</p>
+<section id="id29">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>The <code class="docutils literal notranslate"><span class="pre">top</span></code> and <code class="docutils literal notranslate"><span class="pre">left</span></code> values of the toolbar.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdimensions">
+<a href="#getdimensions"><h2>getDimensions()</h2></a>
+<p>Returns the dimensions of this control.</p>
+<section id="id30">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>The <code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code> of the toolbar.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setdisplay-value">
+<a href="#setdisplay-value"><h2>setDisplay(value)</h2></a>
+<p>Sets the CSS <code class="docutils literal notranslate"><span class="pre">display</span></code> style value.</p>
+<section id="id31">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">string</div></td><td>CSS display value</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="removefromparent">
+<a href="#removefromparent"><h2>removeFromParent()</h2></a>
+<p>Removes current control from its parent container.</p>
+<section id="id32">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the control was successfully removed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+<section id="events">
+<h1>Events</h1>
+<section id="active-button-changed">
+<a href="#active-button-changed"><h2>ACTIVE_BUTTON_CHANGED</h2></a>
+<p>Event fired when active button for this radio group changes.</p>
+<section id="properties">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">button</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Button/">Autodesk.Viewing.UI.Button</a></div></td><td>The button whose state is changing.</td></tr><tr><td><span class="name">isActiveButton</span><div class="type">boolean</div></td><td>Is the event target the currently active button.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="control-added">
+<a href="#control-added"><h2>CONTROL_ADDED</h2></a>
+<p>Event fired a control is added to the control group.</p>
+<section id="id34">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">control</span><div class="type">string</div></td><td>The control that was added.</td></tr><tr><td><span class="name">index</span><div class="type">number</div></td><td>The index at which the control was added.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="control-removed">
+<a href="#control-removed"><h2>CONTROL_REMOVED</h2></a>
+<p>Event fired when a control is removed from the control group.</p>
+<section id="id35">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">control</span><div class="type">string</div></td><td>The control that was removed.</td></tr><tr><td><span class="name">index</span><div class="type">number</div></td><td>The index at which the control was removed.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="size-changed">
+<a href="#size-changed"><h2>SIZE_CHANGED</h2></a>
+<p>Event fired when the size of the control group changes.</p>
+<section id="id36">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">childEvent</span><div class="type">object</div></td><td>The event that the child fired.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="visibility-changed">
+<a href="#visibility-changed"><h2>VISIBILITY_CHANGED</h2></a>
+<p>Event fired when the visibility of the control changes.</p>
+<section id="id37">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">controlId</span><div class="type">string</div></td><td>The ID of the control that fired this event.</td></tr><tr><td><span class="name">isVisible</span><div class="type">boolean</div></td><td>True if the control is now visible.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="collapsed-changed">
+<a href="#collapsed-changed"><h2>COLLAPSED_CHANGED</h2></a>
+<p>Event fired when the collapsed state of the control changes.</p>
+<section id="id38">
+<h3>Properties</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">controlId</span><div class="type">string</div></td><td>The ID of the control that fired this event.</td></tr><tr><td><span class="name">isCollapsed</span><div class="type">boolean</div></td><td>True if the control is now collapsed.</td></tr></tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

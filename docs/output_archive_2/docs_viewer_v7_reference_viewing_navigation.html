@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/tools/Navigation.js">
+<section id="navigation">
+<h1>Navigation</h1>
+<section id="new-navigation-camera">
+<a href="#new-navigation-camera"><h2>new Navigation(camera)</h2></a>
+<p>This is the core interface to camera controls and navigation. The active navigation object can normally be obtained from the “navigation” property of the Viewer3D instance. Client implementations should not normally instantiate this class directly.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">THREE.Camera</div></td><td>The main camera object used to render the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="setcamera-camera">
+<a href="#setcamera-camera"><h2>setCamera(camera)</h2></a>
+<p>Set or unset the current camera used for navigation. Normally set via the constructor. The camera should be of type Autodesk.Viewing.UnifiedCamera.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">Autodesk.Viewing.UnifiedCamera</div></td><td>the current camera object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getcamera">
+<a href="#getcamera"><h2>getCamera()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Camera</td>
+<td><ul class="simple">
+<li>the current camera object.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setscreenviewport-viewport">
+<a href="#setscreenviewport-viewport"><h2>setScreenViewport(viewport)</h2></a>
+<p>Set the current canvas viewport in screen coordinates. Invoked internally on canvas resize.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewport</span><span class="required">*</span><div class="type">object</div></td><td>Rectangle with properties left, top, width, height.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getscreenviewport">
+<a href="#getscreenviewport"><h2>getScreenViewport()</h2></a>
+<p>Get the current canvas viewport in screen coordinates.</p>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>with properties left, top, width, height.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setview-from-to-up">
+<a href="#setview-from-to-up"><h2>setView(from, to, up)</h2></a>
+<p>Sets the current view to the given LookAt, while keeping other camera properties as is. Jumps to the new location, without camera path animation.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">from</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>The desired camera position in world space.</td></tr><tr><td><span class="name">to</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>The desired camera target in world space.</td></tr><tr><td><span class="name">up</span><div class="type">THREE.Vector3</div></td><td>The desired camera up direction in world space.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="orientcameraup-force">
+<a href="#orientcameraup-force"><h2>orientCameraUp(force)</h2></a>
+<p>Orient the camera’s up direction with the current world up direction</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">force</span><span class="required">*</span><div class="type">boolean</div></td><td>if true, will orient camera up direction regardless of navigation lock</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getpivotpoint">
+<a href="#getpivotpoint"><h2>getPivotPoint()</h2></a>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>the world space position of the pivot point for orbit navigation.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setpivotpoint-pivot">
+<a href="#setpivotpoint-pivot"><h2>setPivotPoint(pivot)</h2></a>
+<p>Sets the Vector3 world space position of the pivot point for orbit navigation.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">pivot</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>the new pivot position.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getposition">
+<a href="#getposition"><h2>getPosition()</h2></a>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>the world space position of the camera.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setposition-pos">
+<a href="#setposition-pos"><h2>setPosition(pos)</h2></a>
+<p>Sets the Vector3 world space position of camera.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">pos</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>the new camera position.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="settarget-target">
+<a href="#settarget-target"><h2>setTarget(target)</h2></a>
+<p>Sets the Vector3 world space position towards which the camera should be pointing.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">target</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>the new camera look at point.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="gettarget">
+<a href="#gettarget"><h2>getTarget()</h2></a>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>the world space position towards which the camera is pointing.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="geteyevector">
+<a href="#geteyevector"><h2>getEyeVector()</h2></a>
+<p>Get the current camera view vector. This vector is not normalized and its length is the distance between the camera position and the camera look at point.</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>the current camera view vector in world space.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="geteyetocenterofboundsvec-bounds">
+<a href="#geteyetocenterofboundsvec-bounds"><h2>getEyeToCenterOfBoundsVec(bounds)</h2></a>
+<p>Get a vector from the camera location to the center of the input bounding box.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bounds</span><span class="required">*</span><div class="type">THREE.Box3</div></td><td>Bounding box.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td><ul class="simple">
+<li>The vector from the camera location to the center of the input bounds.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfovmin">
+<a href="#getfovmin"><h2>getFovMin()</h2></a>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>the minimum allowed vertical field of view in degrees.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfovmax">
+<a href="#getfovmax"><h2>getFovMax()</h2></a>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>the maximum allowed vertical field of view in degrees.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setzoominlimitfactor-factor">
+<a href="#setzoominlimitfactor-factor"><h2>setZoomInLimitFactor(factor)</h2></a>
+<p>Limits zoom in to show 1/factor-th of the entire 2D page. Applies only on 2D vectorized models.</p>
+<section id="id17">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">factor</span><span class="required">*</span><div class="type">number</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getzoominlimitfactor">
+<a href="#getzoominlimitfactor"><h2>getZoomInLimitFactor()</h2></a>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>the current limit when zooming into 2D vectorized models.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setzoomoutlimitfactor-factor">
+<a href="#setzoomoutlimitfactor-factor"><h2>setZoomOutLimitFactor(factor)</h2></a>
+<p>Limits zoom out to a multiplier of the model’s bounding box dimensions. Applies only on 2D vectorized models.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">factor</span><span class="required">*</span><div class="type">number</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getzoomoutlimitfactor">
+<a href="#getzoomoutlimitfactor"><h2>getZoomOutLimitFactor()</h2></a>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>the current limit when zooming out 2D vectorized models.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ispointvisible-point">
+<a href="#ispointvisible-point"><h2>isPointVisible(point)</h2></a>
+<p>Returns true if the point is visible.</p>
+<section id="id21">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">point</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>The point in world coordinates.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id22">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the point is within the camera’s frustum.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setverticalfov-fov-adjustposition">
+<a href="#setverticalfov-fov-adjustposition"><h2>setVerticalFov(fov, adjustPosition)</h2></a>
+<p>Set the current vertical field of view.</p>
+<section id="id23">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">fov</span><span class="required">*</span><div class="type">number</div></td><td>the new field of view in degrees (value is clamped to the minimum and maximum field of view values).</td></tr><tr><td><span class="name">adjustPosition</span><span class="required">*</span><div class="type">boolean</div></td><td>If true, the camera position will be modified to keep either the world space area of the view at the pivot point unchanged (if it is set and visible) or the world space area of view at the camera look at point unchanged.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="applyrotation-point-angle-pivot-viewvec">
+<a href="#applyrotation-point-angle-pivot-viewvec"><h2>applyRotation(point, angle, pivot, viewVec)</h2></a>
+<p>Applies a rotation on a single point</p>
+<section id="id24">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">point</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Point to rotate</td></tr><tr><td><span class="name">angle</span><span class="required">*</span><div class="type">number</div></td><td>Angle of rotation (in radians)</td></tr><tr><td><span class="name">pivot</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Pivot of rotation</td></tr><tr><td><span class="name">viewVec</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Front vector</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getsignedangle-v1-v2-viewvec">
+<a href="#getsignedangle-v1-v2-viewvec"><h2>getSignedAngle(v1, v2, viewVec)</h2></a>
+<p>Computes a signed angle between two vectors</p>
+<section id="id25">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">v1</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Vector #1</td></tr><tr><td><span class="name">v2</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Vector #2</td></tr><tr><td><span class="name">viewVec</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Front vector</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>Signed angle between two vectors</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="computefit-oldpos-oldcoi-fov-bounds-aspect">
+<a href="#computefit-oldpos-oldcoi-fov-bounds-aspect"><h2>computeFit(oldpos, oldcoi, fov, bounds, aspect)</h2></a>
+<p>Compute camera position and look at point which will fit the given bounding box in the view frustum at the given field of view angle.</p>
+<section id="id27">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">oldpos</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>existing camera position</td></tr><tr><td><span class="name">oldcoi</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>existing camera look at point</td></tr><tr><td><span class="name">fov</span><span class="required">*</span><div class="type">number</div></td><td>field of view (in degrees) to use for fit calculation in degrees</td></tr><tr><td><span class="name">bounds</span><span class="required">*</span><div class="type">THREE.Box3</div></td><td>bounding box to fit</td></tr><tr><td><span class="name">aspect</span><span class="required">*</span><div class="type">number</div></td><td>optional aspect ratio of window, horizontal/vertical</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id28">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Object with properties “position” and “target”.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="computeorthogonalup-pos-coi">
+<a href="#computeorthogonalup-pos-coi"><h2>computeOrthogonalUp(pos, coi)</h2></a>
+<p>Compute a vector which is orthogonal to the given view and aligned with the world up direction.</p>
+<section id="id29">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">pos</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>view position</td></tr><tr><td><span class="name">coi</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>center of interest (view look at point)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id30">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>up direction orthogonal to the given view</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="fitbounds-immediate-bounds-reorient-force">
+<a href="#fitbounds-immediate-bounds-reorient-force"><h2>fitBounds(immediate, bounds, reorient, force)</h2></a>
+<p>Causes the current camera position to be changed in order to fit the given bounds into the current view frustum.</p>
+<section id="id31">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">immediate</span><span class="required">*</span><div class="type">boolean</div></td><td>if false the camera position will animate to the new location.</td></tr><tr><td><span class="name">bounds</span><span class="required">*</span><div class="type">THREE.Box3</div></td><td>bounding box to fit</td></tr><tr><td><span class="name">reorient</span><span class="required">*</span><div class="type">boolean</div></td><td>if true the camera up direction will be reoriented with the world up.</td></tr><tr><td><span class="name">force</span><span class="required">*</span><div class="type">boolean</div></td><td>if true will perform regardless of gotoview enabled or not.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id32">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Object with properties “position” and “target”.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="updatecamera">
+<a href="#updatecamera"><h2>updateCamera()</h2></a>
+<p>Update the current camera projection matrix and orient the camera to the current look at point. Invoked internally prior to rendering a new frame with the current camera.</p>
+</section>
+<section id="setconstraints2d-viewregion-maxpixelperunit">
+<a href="#setconstraints2d-viewregion-maxpixelperunit"><h2>setConstraints2D(viewRegion, maxPixelPerUnit)</h2></a>
+<p>Applies zooming and panning restrictions when viewing 2D models. Invoke without parameters to clear any previous setting.</p>
+<section id="id33">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewRegion</span><div class="type">THREE.Box3</div></td><td>in world space. If specified, navigation is restricted so that this region always spans &gt;= half of the screen extent in x and y.</td></tr><tr><td><span class="name">maxPixelPerUnit</span><div class="type">number</div></td><td>Restrict zoom-In, so that a single unit in world-space never exceeds maxPixelPerUnit on screen.</td></tr></tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

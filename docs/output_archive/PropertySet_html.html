@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertySet | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/PropertySet.js">
+<section id="propertyset">
+<h1>PropertySet</h1>
+<p>The PropertySet class allows for aggregation of properties with the same names and categories. To get an instance of this class use <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/#getPropertySet/">Autodesk.Viewing.Model#getPropertySet</a>.</p>
+<section id="new-propertyset-result">
+<a href="#new-propertyset-result"><h2>new PropertySet(result)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">result</span><span class="required">*</span><div class="type">Object</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">dbIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getSelection</span><span class="p">();</span>
+<span class="c1">// Use the model's getPropertySet to get the PropertySet instance for the specified dbIds</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getPropertySet</span><span class="p">(</span><span class="nx">dbIds</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">propSet</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="c1">// iterate, aggregate, etc</span>
+<span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="foreach-callback">
+<a href="#foreach-callback"><h2>forEach(callback)</h2></a>
+<p>Iterates over all of the common properties. The callback is invoked on each key in the property map.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">callback</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/forEachCallback/">forEachCallback</a></div></td><td>Called for each entry in the map</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getaggregation-properties">
+<a href="#getaggregation-properties"><h2>getAggregation(properties)</h2></a>
+<p>Returns an object containing aggregated values. see <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/#forEach/">Autodesk.Viewing.PropertySet#forEach</a></p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">properties</span><span class="required">*</span><div class="type">Array.&lt;Object&gt;, String</div></td><td>either the key in the object or an array of properties</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/AggregatedResult/">AggregatedResult</a></td>
+<td><ul class="simple">
+<li>Object with all aggregated values</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="id3">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">propertySet</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">properties</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">aggregation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">propertySet</span><span class="p">.</span><span class="nx">getAggregation</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getvalue2propertiesmap-properties">
+<a href="#getvalue2propertiesmap-properties"><h2>getValue2PropertiesMap(properties)</h2></a>
+<p>Returns an object with a key representing the property’s displayValue and the value being all of the property names associated with it.</p>
+<p>see <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/#forEach/">Autodesk.Viewing.PropertySet#forEach</a> see <a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/PropertyResult/">PropertyResult</a></p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">properties</span><span class="required">*</span><div class="type">Array.&lt;Object&gt;, String</div></td><td>either the key in the object or an array of properties</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object</td>
+<td><ul class="simple">
+<li>The key representing a common displayValue and the value representing all of the PropertyResult sharing that displaValue</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="id7">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">propertySet</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">properties</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">commonValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">propertySet</span><span class="p">.</span><span class="nx">getValue2PropertiesMap</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getvalidids-displayname-displaycategory">
+<a href="#getvalidids-displayname-displaycategory"><h2>getValidIds(displayName, displayCategory)</h2></a>
+<p>Searches all of the keys in the map object and returns all valid keys that either match the displayName or categoryName.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">displayName</span><span class="required">*</span><div class="type">String</div></td><td>the display name</td></tr><tr><td><span class="name">displayCategory</span><span class="required">*</span><div class="type">String</div></td><td>the category name</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;String&gt;</td>
+<td><ul class="simple">
+<li>an array of valid map ids</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdbids">
+<a href="#getdbids"><h2>getDbIds()</h2></a>
+<p>Get the dbIds that are associated with the propertySet</p>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td><ul class="simple">
+<li>an array of dbids associated with the PropertySet</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getvisiblekeys">
+<a href="#getvisiblekeys"><h2>getVisibleKeys()</h2></a>
+<p>Returns an array of keys that contain visible properties</p>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td><ul class="simple">
+<li>array of keys</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getkeyswithcategories">
+<a href="#getkeyswithcategories"><h2>getKeysWithCategories()</h2></a>
+<p>Returns an array of keys that have properties with displayCategories</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td><ul class="simple">
+<li>array of keys</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="merge-propertyset">
+<a href="#merge-propertyset"><h2>merge(propertySet)</h2></a>
+<p>Merges the passed in PropertySet map with the current PropertySet’s map.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">propertySet</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">Autodesk.Viewing.PropertySet</a></div></td><td>A PropertySet instance</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">Autodesk.Viewing.PropertySet</a></td>
+<td><ul class="simple">
+<li>returns from the passed in propertySet merged</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

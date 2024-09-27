@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Extension.js">
+<section id="extension">
+<h1>Extension</h1>
+<section id="new-extension-viewer-options">
+<a href="#new-extension-viewer-options"><h2>new Extension(viewer, options)</h2></a>
+<p>Base class for extending the functionality of the viewer.</p>
+<p>Derive from this class and implement methods <code class="docutils literal notranslate"><span class="pre">load()</span></code> and <code class="docutils literal notranslate"><span class="pre">unload()</span></code>.</p>
+<p>Register this extension by calling: <a href="#id1"><span class="problematic" id="id2">``</span></a>Autodesk.Viewing.theExtensionManager.registerExtension(‘your_extension_id’, YOUR_EXTENSION_CLASS); ``</p>
+<p>Extensions are registered and loaded automatically by adding the Extension ID to the config object passed to the viewer constructor.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>The viewer to be extended.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>An optional dictionary of options for this extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Override the load method to add functionality to the viewer. Use the Viewer’s APIs to add/modify/replace/delete UI, register event listeners, etc.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean, Promise</td>
+<td>True if the load was successful. Optionally, the function can return a Promise which resolves when load succeeds and rejects in case of failure.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Override the unload method to perform some cleanup of operations that were done in load.</p>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the unload was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="activate-mode">
+<a href="#activate-mode"><h2>activate(mode)</h2></a>
+<p>Override the activate method to enable the functionality of the extension.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><div class="type">string</div></td><td>An optional mode that indicates a different way the extension can function.</td></tr></tbody></table></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the extension activation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Override the deactivate method to disable the functionality of the extension.</p>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the extension deactivation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setactive-enable-mode">
+<a href="#setactive-enable-mode"><h2>setActive(enable, mode)</h2></a>
+<p>Activates the extension if the enable parameter is set to true. Deactivates the extension if the enable parameter is set to true.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">enable</span><span class="required">*</span><div class="type">boolean</div></td><td>flag to activate or deactivate the extension.</td></tr><tr><td><span class="name">mode</span><div class="type">string</div></td><td>An optional mode that indicates a different way the extension can function.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getname">
+<a href="#getname"><h2>getName()</h2></a>
+<p>Gets the name of the extension.</p>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Returns the name of the extension.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getmodes">
+<a href="#getmodes"><h2>getModes()</h2></a>
+<p>Gets an array of modes available for the extension.</p>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array</td>
+<td>Returns an array of modes.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isactive-mode">
+<a href="#isactive-mode"><h2>isActive(mode)</h2></a>
+<p>Check if the extension is active and optionally check if the specified mode is active for that extension.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><span class="required">*</span><div class="type"></div></td><td>An optional mode that indicates a different way the extension can function.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Default - True if the extension is active. When optional argument mode is specified, returns true if both extension and the mode are active, false otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getstate-viewerstate">
+<a href="#getstate-viewerstate"><h2>getState(viewerState)</h2></a>
+<p>Gets the extension state as a plain object. Intended to be called when viewer state is requested.</p>
+<section id="id12">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewerState</span><span class="required">*</span><div class="type">object</div></td><td>Object to inject extension values.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="restorestate-viewerstate-immediate">
+<a href="#restorestate-viewerstate-immediate"><h2>restoreState(viewerState, immediate)</h2></a>
+<p>Restores the extension state from a given object.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewerState</span><span class="required">*</span><div class="type">object</div></td><td>Viewer state.</td></tr><tr><td><span class="name">immediate</span><span class="required">*</span><div class="type">boolean</div></td><td>Whether the new view is applied with (true) or without transition (false).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if restore operation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="extendlocalization-locales">
+<a href="#extendlocalization-locales"><h2>extendLocalization(locales)</h2></a>
+<p>Add localization strings to the viewer. This method can override localization keys already loaded. There is no API method to remove localization strings added with this method.</p>
+<section id="id15">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">locales</span><span class="required">*</span><div class="type">object</div></td><td>The set of localized strings keyed by language</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if localization was successfully updated</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">locales</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">en</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">my_tooltip</span><span class="o">:</span><span class="w"> </span><span class="s2">"CUSTOM_TOOLTIP"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nx">de</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">my_tooltip</span><span class="o">:</span><span class="w"> </span><span class="s2">"BENUTZERDEFINIERTE_TOOLTIP"</span><span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="p">};</span>
+<span class="w"> </span><span class="nx">ext</span><span class="p">.</span><span class="nx">extendLocalization</span><span class="p">(</span><span class="nx">locales</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getcache">
+<a href="#getcache"><h2>getCache()</h2></a>
+<p>Returns an object that persists throughout an extension’s unload-&gt;load operation sequence. Cache object is kept by the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a> instance. Cache object lives only in RAM, there is no localStorage persistence.</p>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>The cache object for a given extension.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ontoolbarcreated-toolbar">
+<a href="#ontoolbarcreated-toolbar"><h2>onToolbarCreated(toolbar)</h2></a>
+<p>Invoked after the Toolbar UI gets created. Extensions can extend (or remove) its content from this point forward. The method is invoked after <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing#TOOLBAR_CREATED_EVENT/">TOOLBAR_CREATED_EVENT</a> gets fired. It is also invoked right after <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Extension/#load/">Autodesk.Viewing.Extension#load</a> if the toolbar was already created.</p>
+<p>Must be overriden by subclasses.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolbar</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ToolBar/">Autodesk.Viewing.UI.ToolBar</a></div></td><td>toolbar instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

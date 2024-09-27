@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToolInterface | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/tools/ToolInterface.js">
+<section id="toolinterface">
+<h1>ToolInterface</h1>
+<section id="new-toolinterface">
+<a href="#new-toolinterface"><h2>new ToolInterface()</h2></a>
+<p>Base class for new interaction tools.</p>
+<p>Can also be used simply as a template for creating a new tool.</p>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="getnames">
+<a href="#getnames"><h2>getNames()</h2></a>
+<p>This method should return an array containing the names of all tools implemented by this class. Often this would be a single name but it is possible to support multiple interactions with a single tool. When this tool is registered with the ToolController each name gets registered as an available tool.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array</td>
+<td>Array of strings. Should not be empty.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getname">
+<a href="#getname"><h2>getName()</h2></a>
+<p>This is an optional convenience method to obtain the first name of this tool.</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The tools default name.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getpriority">
+<a href="#getpriority"><h2>getPriority()</h2></a>
+<p>This method should return the priority of the tool inside the tool stack. A tool with higher priority will get events first.</p>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>The tool’s priority.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="register">
+<a href="#register"><h2>register()</h2></a>
+<p>This method is called by <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/ToolController/#registerTool/">Autodesk.Viewing.ToolController#registerTool</a>. Use this for initialization.</p>
+</section>
+<section id="deregister">
+<a href="#deregister"><h2>deregister()</h2></a>
+<p>This method is called by <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/ToolController/#deregisterTool/">Autodesk.Viewing.ToolController#deregisterTool</a>. Use this to clean up your tool.</p>
+</section>
+<section id="activate-name-viewerapi">
+<a href="#activate-name-viewerapi"><h2>activate(name, viewerApi)</h2></a>
+<p>The activate method is called by the ToolController when it adds this tool to the list of those to receive event handling calls. Once activated, a tool’s “handle*” methods may be called if no other higher priority tool handles the given event. Each active tool’s “update” method also gets called once during each redraw loop.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>The name under which the tool has been activated.</td></tr><tr><td><span class="name">viewerApi</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>Viewer instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="deactivate-name">
+<a href="#deactivate-name"><h2>deactivate(name)</h2></a>
+<p>The deactivate method is called by the ToolController when it removes this tool from the list of those to receive event handling calls. Once deactivated, a tool’s “handle*” methods and “update” method will no longer be called.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>The name under which the tool has been deactivated.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="update-highrestimestamp">
+<a href="#update-highrestimestamp"><h2>update(highResTimestamp)</h2></a>
+<p>The update method is called by the ToolController once per frame and provides each tool with the oportunity to make modifications to the scene or the view.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">highResTimestamp</span><span class="required">*</span><div class="type">number</div></td><td>The process timestamp passed to requestAnimationFrame by the web browser.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>A state value indicating whether the tool has modified the view or the scene and a full refresh is required.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlesingleclick-event-button">
+<a href="#handlesingleclick-event-button"><h2>handleSingleClick(event, button)</h2></a>
+<p>This method is called when a single mouse button click occurs.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">MouseEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">button</span><span class="required">*</span><div class="type">number</div></td><td>The button number that was clicked (0, 1, 2 for Left, Middle, Right respectively). Note that the button parameter value may be different that the button value indicated in the event object due to button re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handledoubleclick-event-button">
+<a href="#handledoubleclick-event-button"><h2>handleDoubleClick(event, button)</h2></a>
+<p>This method is called when a double mouse button click occurs.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">MouseEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">button</span><span class="required">*</span><div class="type">number</div></td><td>The button number that was clicked (0, 1, 2 for Left, Middle, Right respectively). Note that the button parameter value may be different that the button value indicated in the event object due to button re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlesingletap-event">
+<a href="#handlesingletap-event"><h2>handleSingleTap(event)</h2></a>
+<p>This method is called when a single tap on a touch device occurs.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/#Event/">Event</a></div></td><td>The triggering event. For tap events the canvasX, canvasY properties contain the canvas relative device coordinates of the tap and the normalizedX, normalizedY properties contain the tap coordinates in the normalized [-1, 1] range. The event.pointers array will contain either one or two touch events depending on whether the tap used one or two fingers.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handledoubletap-event">
+<a href="#handledoubletap-event"><h2>handleDoubleTap(event)</h2></a>
+<p>This method is called when a double tap on a touch device occurs.</p>
+<section id="id12">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/#Event/">Event</a></div></td><td>The triggering event. For tap events the canvasX, canvasY properties contain the canvas relative device coordinates of the tap and the normalizedX, normalizedY properties contain the tap coordinates in the normalized [-1, 1] range. The event.pointers array will contain either one or two touch events depending on whether the tap used one or two fingers.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlekeydown-event-keycode">
+<a href="#handlekeydown-event-keycode"><h2>handleKeyDown(event, keyCode)</h2></a>
+<p>This method is called when a keyboard button is depressed.</p>
+<section id="id15">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">KeyboardEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">keyCode</span><span class="required">*</span><div class="type">number</div></td><td>The numerical key code identifying the key that was depressed. Note that the keyCode parameter value may be different that the value indicated in the event object due to key re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlekeyup-event-keycode">
+<a href="#handlekeyup-event-keycode"><h2>handleKeyUp(event, keyCode)</h2></a>
+<p>This method is called when a keyboard button is released.</p>
+<section id="id17">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">KeyboardEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">keyCode</span><span class="required">*</span><div class="type">number</div></td><td>The numerical key code identifying the key that was released. Note that the keyCode parameter value may be different that the value indicated in the event object due to key re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlewheelinput-delta">
+<a href="#handlewheelinput-delta"><h2>handleWheelInput(delta)</h2></a>
+<p>This method is called when a mouse wheel event occurs.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">delta</span><span class="required">*</span><div class="type">number</div></td><td>A numerical value indicating the amount of wheel motion applied. Note that this value may be modified from the orignal event values so as to provide consistent results across browser families.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlebuttondown-event-button">
+<a href="#handlebuttondown-event-button"><h2>handleButtonDown(event, button)</h2></a>
+<p>This method is called when a mouse button is depressed.</p>
+<section id="id21">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">MouseEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">button</span><span class="required">*</span><div class="type">number</div></td><td>The button number that was depressed (0, 1, 2 for Left, Middle, Right respectively). Note that the button parameter value may be different that the button value indicated in the event object due to button re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id22">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlebuttonup-event-button">
+<a href="#handlebuttonup-event-button"><h2>handleButtonUp(event, button)</h2></a>
+<p>This method is called when a mouse button is released.</p>
+<section id="id23">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">MouseEvent</div></td><td>The event object that triggered this call.</td></tr><tr><td><span class="name">button</span><span class="required">*</span><div class="type">number</div></td><td>The button number that was released (0, 1, 2 for Left, Middle, Right respectively). Note that the button parameter value may be different that the button value indicated in the event object due to button re-mapping preferences that may be applied. This value should be respected over the value in the event object.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id24">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlemousemove-event">
+<a href="#handlemousemove-event"><h2>handleMouseMove(event)</h2></a>
+<p>This method is called when a mouse motion event occurs.</p>
+<section id="id25">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">MouseEvent</div></td><td>The event object that triggered this call.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handlegesture-event">
+<a href="#handlegesture-event"><h2>handleGesture(event)</h2></a>
+<p>This method is called when a touch gesture event occurs.</p>
+<section id="id27">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/Control/#Event/">Event</a></div></td><td>The event object that triggered this call. The event.type attribute will indicate the gesture event type. This will be one of: dragstart, dragmove, dragend, panstart, panmove, panend, pinchstart, pinchmove, pinchend, rotatestart, rotatemove, rotateend, drag3start, drag3move, drag3end. The event.canvas[XY] attributes will contain the coresponding touch position. The event.scale and event.rotation attributes contain pinch scaling and two finger rotation quantities respectively. The deltaX and deltaY attributes will contain drag offsets.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id29">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handleblur-event">
+<a href="#handleblur-event"><h2>handleBlur(event)</h2></a>
+<p>This method is called when the canvas area loses focus.</p>
+<section id="id30">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">FocusEvent</div></td><td>The event object that triggered this call.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id31">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this tool wishes to consume the event and false to continue to pass the event to lower priority active tools.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="handleresize">
+<a href="#handleresize"><h2>handleResize()</h2></a>
+<p>This method is called on every active tool whenever the screen area changes. The new canvas area can be obtained from the Navigation interface via the getScreenViewport method.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

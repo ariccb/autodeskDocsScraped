@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Querying the Property Database | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="querying-the-property-database">
+<h1>Querying the Property Database</h1>
+<p>The <a class="reference external" href="/en/docs/viewer/v7/reference/globals/PropertyDatabase">Property Database</a> contains all of the BIM data for a construction model and the manufacturing data for manufacturing models. The Property Database is kept on a dedicated <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" target="_blank">web worker</a> and accessing it is done via asynchronous messages.</p>
+<p>In this example we’ll be writing a function that queries the Property Database of the model directly inside the web worker execution context.</p>
+<section id="step-1-writing-a-custom-query-function">
+<a href="#step-1-writing-a-custom-query-function"><h2>Step 1: Writing a custom query function</h2></a>
+<p>The query function <strong>must</strong> be named <code class="docutils literal notranslate"><span class="pre">userFunction</span></code>. Let’s start by writing a trivial query function for the Property Database.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">userFunction</span><span class="p">(</span><span class="nx">pdb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">42</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The trivial query function doesn’t interact with <code class="docutils literal notranslate"><span class="pre">pdb</span></code>, the Property Database, yet. We’ll implement rhw interaction in Step 3. For now we’ll have it return a fixed value of <code class="docutils literal notranslate"><span class="pre">42</span></code>.</p>
+</section>
+<section id="step-2-executing-the-custom-query-function">
+<a href="#step-2-executing-the-custom-query-function"><h2>Step 2: Executing the custom query function</h2></a>
+<p>Use <code class="docutils literal notranslate"><span class="pre">viewer.model.getPropertyDb().executeUserFunction(userFunction)</span></code> which returns a <code class="docutils literal notranslate"><span class="pre">Promise</span></code> that resolves with the return value of <code class="docutils literal notranslate"><span class="pre">userFunction</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">thePromise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getPropertyDb</span><span class="p">().</span><span class="nx">executeUserFunction</span><span class="p">(</span><span class="w"> </span><span class="nx">userFunction</span><span class="w"> </span><span class="p">);</span>
+<span class="nx">thePromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">retValue</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'retValue is: '</span><span class="p">,</span><span class="w"> </span><span class="nx">retValue</span><span class="p">);</span><span class="w"> </span><span class="c1">// prints 'retValue is: 42'</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Something didn't go right..."</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>After executing this code snippet, you’ll see the message <strong>retValue is: 42</strong> in the browser’s developer console.</p>
+</section>
+<section id="step-3-querying-the-property-database">
+<a href="#step-3-querying-the-property-database"><h2>Step 3: Querying the Property Database</h2></a>
+<p>Now it’s time to modify our <code class="docutils literal notranslate"><span class="pre">userFunction</span></code> to have it interact with the Property Database.</p>
+<p>The objective of the custom query function is to return the ids of the heaviest parts in the model. To do this, we’ll iterate over all part-ids in the model and check their <em>Mass</em> property value.</p>
+<p>Due to the Property Database data layout, we’ll first need to identify the index for the “Mass” property.
+Update the custom query function as follows:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">userFunction</span><span class="p">(</span><span class="nx">pdb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">//return 42;</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">attrIdMass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Iterate over all attributes and find the index to the one we are interested in</span>
+<span class="w">    </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumAttributes</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">attrDef</span><span class="p">,</span><span class="w"> </span><span class="nx">attrRaw</span><span class="p">){</span>
+
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">attrDef</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'Mass'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">attrIdMass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">i</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// to stop iterating over the remaining attributes.</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>If the value of <code class="docutils literal notranslate"><span class="pre">attrIdMass</span></code> is different than <code class="docutils literal notranslate"><span class="pre">-1</span></code>, then we know that the model’s Property Database contains “Mass” data for its parts. Next we’ll have the function iterate over all parts and their properties, to find out which one is the largest.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">userFunction</span><span class="p">(</span><span class="nx">pdb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">//return 42;</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">attrIdMass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Iterate over all attributes and find the index to the one we are interested in</span>
+<span class="w">    </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumAttributes</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">attrDef</span><span class="p">,</span><span class="w"> </span><span class="nx">attrRaw</span><span class="p">){</span>
+
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">attrDef</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'Mass'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">attrIdMass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">i</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// to stop iterating over the remaining attributes.</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Early return is the model doesn't contain data for "Mass".</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">attrIdMass</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Now iterate over all parts to find out which one is the largest.</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">maxValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">maxValId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumObjects</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">dbId</span><span class="p">){</span>
+
+<span class="w">        </span><span class="c1">// For each part, iterate over their properties.</span>
+<span class="w">        </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumObjectProperties</span><span class="p">(</span><span class="nx">dbId</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">attrId</span><span class="p">,</span><span class="w"> </span><span class="nx">valId</span><span class="p">){</span>
+
+<span class="w">            </span><span class="c1">// Only process 'Mass' property.</span>
+<span class="w">            </span><span class="c1">// The word "Property" and "Attribute" are used interchangeably.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">attrId</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">attrIdMass</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pdb</span><span class="p">.</span><span class="nx">getAttrValue</span><span class="p">(</span><span class="nx">attrId</span><span class="p">,</span><span class="w"> </span><span class="nx">valId</span><span class="p">);</span>
+
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">maxValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nx">maxValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+<span class="w">                    </span><span class="nx">maxValId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">dbId</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// Stop iterating over additional properties when "Mass" is found.</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Return results</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">maxValId</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">mass</span><span class="o">:</span><span class="w"> </span><span class="nx">maxValue</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>And finally, the Promise’s <code class="docutils literal notranslate"><span class="pre">resolve</span></code> function from Step 2 will have to be updated, too. In this case, we’ll have the viewer select and focus (zoom) on the largest part.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">thePromise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getPropertyDb</span><span class="p">().</span><span class="nx">executeUserFunction</span><span class="p">(</span><span class="w"> </span><span class="nx">userFunction</span><span class="w"> </span><span class="p">);</span>
+<span class="nx">thePromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">retValue</span><span class="p">){</span>
+
+<span class="w">    </span><span class="c1">//if (retValue === 42) {</span>
+<span class="w">    </span><span class="c1">//  console.log('We got the expected value back.');</span>
+<span class="w">    </span><span class="c1">//}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">retValue</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Model doesn't contain property 'Mass'."</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">mostMassiveId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">retValue</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">mostMassiveId</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">fitToView</span><span class="p">([</span><span class="nx">mostMassiveId</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Most massive part is'</span><span class="p">,</span><span class="w"> </span><span class="nx">mostMassiveId</span><span class="p">,</span><span class="w"> </span><span class="s1">'with Mass:'</span><span class="p">,</span><span class="w"> </span><span class="nx">retValue</span><span class="p">.</span><span class="nx">mass</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="final-thoughts">
+<a href="#final-thoughts"><h2>Final thoughts</h2></a>
+<p>When writing your own <code class="docutils literal notranslate"><span class="pre">userFunction</span></code>, make sure that you avoid referencing objects that live outside the function’s scope. This is because the function gets serialized when messaged to the web worker.</p>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s next?</h2></a>
+<p>To view an interactive example, see <a class="reference external" href="/en/docs/viewer/v7/developers_guide/interactive_examples/example_3/">Querying Model Properties</a>.</p>
+<p>See <a class="reference external" href="/en/docs/viewer/v7/reference/globals/PropertyDatabase">Property Database</a> for  the instance methods available for your custom query function.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

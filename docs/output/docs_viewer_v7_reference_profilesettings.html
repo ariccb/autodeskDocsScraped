@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProfileSettings | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  
+<section id="profilesettings">
+<h1>ProfileSettings</h1>
+<p>ProfileSettings are used to set the viewer’s profile.</p>
+<p>To generate a profile from the supplied profile settings, please reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a>. To set the viewer’s profile, use <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setProfile/">viewer.setProfile(profile)</a>.</p>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">clone</span><div class="type">function</div></td><td>This function is used to clone an existing ProfileSetting.</td></tr></tbody></table></div>
+</section>
+<section id="constants">
+<h1>Constants</h1>
+<section id="default">
+<a href="#default"><h2>Default</h2></a>
+<p>Default profile settings. It uses the preferences described in <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing#DefaultSettings/">Autodesk.Viewing.DefaultSettings</a>. The following preferences will be persisted: alwaysUsePivot, zoomTowardsPivot, reverseHorizontalLookDirection, reverseVerticalLookDirection, orbitPastWorldPoles, clickToSetCOI, ghosting, optimizeNavigation, ambientShadows, antialiasing, groundShadows, groundReflections, firstPersonToolPopup, bimWalkToolPopup, swapBlackAndWhite, openPropertiesOnSelect, reverseMouseZoomDir, leftHandedMouseSetup, wheelSetsPivot</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="aec">
+<a href="#aec"><h2>AEC</h2></a>
+<p>AEC profile settings. It inherits the settings from <a class="reference external" href="/en/docs/viewer/v7/reference/ProfileSettings#Default/">Autodesk.Viewing.ProfileSettings.Default</a>. The following preferences differ from the Default settings: { edgeRendering: true, // on desktop, false on mobile. lightPreset: ‘Boardwalk’, envMapBackground: true }</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="fluent">
+<a href="#fluent"><h2>Fluent</h2></a>
+<p>Design Collaboration profile settings. Inherits the settings from <a class="reference external" href="/en/docs/viewer/v7/reference/ProfileSettings#AEC/">Autodesk.Viewing.ProfileSettings.AEC</a>. The following preferences differ from the AEC settings: { reverseMouseZoomDir: true, wheelSetsPivot: true, alwaysUsePivot: true, enableCustomOrbitToolCursor: false }</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="navis">
+<a href="#navis"><h2>Navis</h2></a>
+<p>Navisworks profile settings. Inherits the settings from <a class="reference external" href="/en/docs/viewer/v7/reference/ProfileSettings#AEC/">Autodesk.Viewing.ProfileSettings.AEC</a>. The following preferences differ from the AEC settings: { bimWalkToolPopup: false, bimWalkNavigatorType: ‘aec’, defaultNavigationTool3D: ‘extractor_defined’ }</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

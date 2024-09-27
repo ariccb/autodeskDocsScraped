@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Profile.js">
+<section id="profile">
+<h1>Profile</h1>
+<section id="new-profile-profilesettings">
+<a href="#new-profile-profilesettings"><h2>new Profile(profileSettings)</h2></a>
+<p>Profiles encapsulate viewer settings, extensions to unload, and extensions to load.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">profileSettings.settings</span></code> parameter will override the existing  <a class="reference external" href="/en/docs/viewer/v7/reference/Private/Preferences/">preferences</a> upon calling the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/#apply/">apply</a> method. The <code class="docutils literal notranslate"><span class="pre">profileSettings.extensions.load</span></code> and <code class="docutils literal notranslate"><span class="pre">profileSettings.extensions.unload</span></code> arrays are used to load and unload extensions. Make sure to set the profile by using the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setProfile/">Autodesk.Viewing.Viewer3D#setProfile</a> method.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">profileSettings</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a></div></td><td>the profile settings.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">profileSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"mySettings"</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"My personal settings."</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">settings</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nx">ambientShadows</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">groundShadows</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="nx">persistent</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'ambientShadows'</span><span class="p">],</span>
+<span class="w"> </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nx">load</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Autodesk.BimWalk"</span><span class="p">],</span><span class="w">   </span><span class="c1">// Extensions to load</span>
+<span class="w">     </span><span class="nx">unload</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Autodesk.ViewCubeUi"</span><span class="p">]</span><span class="w">  </span><span class="c1">// Extensions to unload and to not load</span>
+<span class="w"> </span><span class="p">}</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>};
+const profile = new Autodesk.Viewing.Profile(profileSettings);</p>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="apply-prefs-override">
+<a href="#apply-prefs-override"><h2>apply(prefs, override)</h2></a>
+<p>Applies the profile’s settings to the viewer preferences. To make the viewer react to the updated preferences please reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setProfile/">Autodesk.Viewing.Viewer3D#setProfile</a>.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">prefs</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Private/Preferences/">Autodesk.Viewing.Private.Preferences</a></div></td><td>preferences instance.</td></tr><tr><td><span class="name">override</span><div class="type">boolean</div></td><td>Override all existing preferences with the profile’s preferences.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

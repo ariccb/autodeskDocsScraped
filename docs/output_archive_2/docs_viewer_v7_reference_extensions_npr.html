@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPR | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/NPR/index.js">
+<section id="npr">
+<h1>NPR</h1>
+<section id="new-npr-viewer-options">
+<a href="#new-npr-viewer-options"><h2>new NPR(viewer, options)</h2></a>
+<p>Provides UI controls for NPR settings</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.NPR</span></code></p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td>Viewer instance.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">Object</div></td><td>Not used.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.NPR'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="ontoolbarcreated">
+<a href="#ontoolbarcreated"><h2>onToolbarCreated()</h2></a>
+<p>Invoked by the viewer when the toolbar UI is available. Adds a button to the Settings panel.</p>
+</section>
+<section id="openpanel">
+<a href="#openpanel"><h2>openPanel()</h2></a>
+<p>Opens the NPR Render Options panel.</p>
+</section>
+<section id="setparameter-param-value">
+<a href="#setparameter-param-value"><h2>setParameter(param, value)</h2></a>
+<p>Changes post-processing setting parameters. The supported param/value combinations are:</p>
+<ul class="simple">
+<li>“style”: either “edging”, “cel”, “graphite”, “pencil” or <code class="docutils literal notranslate"><span class="pre">null</span></code> to turn post-processing off.</li>
+<li>“edges”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“idEdges”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“normalEdges”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“depthEdges”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“brightness”: <code class="docutils literal notranslate"><span class="pre">Number</span></code></li>
+<li>“contrast”: <code class="docutils literal notranslate"><span class="pre">Number</span></code></li>
+<li>“grayscale”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“preserveColor”: <code class="docutils literal notranslate"><span class="pre">boolean</span></code></li>
+<li>“levels”: <code class="docutils literal notranslate"><span class="pre">Number</span></code></li>
+<li>“repeats”: <code class="docutils literal notranslate"><span class="pre">Number</span></code></li>
+<li>“rotation”: <code class="docutils literal notranslate"><span class="pre">Number</span></code> between 0 and 1, around circle (e.g. 0.5 == pi radians, 1.0 == 2*pi)</li>
+</ul>
+<p>Fires event <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/#render-option-changed-event/">RENDER_OPTION_CHANGED_EVENT</a>.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">param</span><span class="required">*</span><div class="type">string</div></td><td>Either “style”, “edges”, “idEdges”, “normalEdges”, “depthEdges”, “brightness”, “contrast”, “grayscale”, “preserveColor”, “levels”, “repeats” or “rotation”.</td></tr><tr><td><span class="name">value</span><span class="required">*</span><div class="type"><ul class="simple">
+<li></li>
+</ul>
+</div></td><td>type depends on the specified <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">param</span></code>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

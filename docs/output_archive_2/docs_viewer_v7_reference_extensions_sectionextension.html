@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SectionExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Section/Section.js">
+<section id="sectionextension">
+<h1>SectionExtension</h1>
+<section id="new-sectionextension-viewer-options">
+<a href="#new-sectionextension-viewer-options"><h2>new SectionExtension(viewer, options)</h2></a>
+<p>The SectionExtension provides ways to cut the geometry using planes or a cube. The extension adds a toolbar button to access the feature.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Section</span></code></p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Section'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="toggle">
+<a href="#toggle"><h2>toggle()</h2></a>
+<p>Toggles activeness of section planes.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the section plane is active or not.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getsectionstyle">
+<a href="#getsectionstyle"><h2>getSectionStyle()</h2></a>
+<p>Returns the current type of plane that will cut-though the geometry.</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>null, string</td>
+<td>Either “X” or “Y” or “Z” or “BOX” or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setsectionstyle-style-preservesection">
+<a href="#setsectionstyle-style-preservesection"><h2>setSectionStyle(style, preserveSection)</h2></a>
+<p>Sets the Section plane style.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">style</span><span class="required">*</span><div class="type">string</div></td><td>Accepted values are ‘X’, ‘Y’, ‘Z’ and ‘BOX’ (in Caps)</td></tr><tr><td><span class="name">preserveSection</span><div class="type">boolean</div></td><td>Whether sending the current style value resets the cut planes.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getstate-viewerstate">
+<a href="#getstate-viewerstate"><h2>getState(viewerState)</h2></a>
+<p>Gets the extension state as a plain object. Invoked automatically by viewer.getState()</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewerState</span><span class="required">*</span><div class="type">object</div></td><td>Object to inject extension values.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="restorestate-viewerstate">
+<a href="#restorestate-viewerstate"><h2>restoreState(viewerState)</h2></a>
+<p>Restores the extension state from a given object. Invoked automatically by viewer.restoreState()</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewerState</span><span class="required">*</span><div class="type">object</div></td><td>Viewer state.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if restore operation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setsectionbox-box">
+<a href="#setsectionbox-box"><h2>setSectionBox(box)</h2></a>
+<p>Set a section box around the passed in THREE.Box3. This method will also enable the section tool.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">box</span><span class="required">*</span><div class="type">THREE.Box3</div></td><td>used to set the section box.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setsectionplane-normal-point-enablerotationgizmo">
+<a href="#setsectionplane-normal-point-enablerotationgizmo"><h2>setSectionPlane(normal, point, enableRotationGizmo)</h2></a>
+<p>Place a section plane on the Intersection. This method will also enable the section tool.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">normal</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>plane normal.</td></tr><tr><td><span class="name">point</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>position to place the plane.</td></tr><tr><td><span class="name">enableRotationGizmo</span><span class="required">*</span><div class="type"></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="activate-mode">
+<a href="#activate-mode"><h2>activate(mode)</h2></a>
+<p>Activates a section plane for user to interact with. It performs the same action as the UI button.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><span class="required">*</span><div class="type">string</div></td><td>Accepted values are ‘x’, ‘y’, ‘z’ and ‘box’ (in lowercase)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the activation was successful.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="deactivate-keepcutplanes">
+<a href="#deactivate-keepcutplanes"><h2>deactivate(keepCutPlanes)</h2></a>
+<p>Removes the section plane/box from the 3D canvas.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">keepCutPlanes</span><span class="required">*</span><div class="type"></div></td><td>keep existing cut planes when deactivating the tool. Default is false.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>returns true if deactivated, false otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

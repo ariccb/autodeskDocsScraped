@@ -1,0 +1,1396 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v2 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v2-changelog">
+<h1>V2 Changelog</h1>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-2-17">
+<a href="#version-2-17"><h2>Version 2.17</h2></a>
+<p><em>Release Date: 2017-08-22</em></p>
+<section id="changed">
+<h3>Changed</h3>
+<section id="default-memory-management">
+<h4>Default Memory Management</h4>
+<p>We introducted the memory management options feature in Viewer v2.15 where we allowed users to specify a memory budget for the Viewer to work with in order to address the problem with browser crashing when it doesn’t have enough memory access to allocate for BIM 360 construction models containing too much geometry data.</p>
+<p>This release includes a default memory limit.</p>
+<p><strong>How it works?</strong></p>
+<p>By default, the memory limit for the Viewer is set to:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name"><strong>Desktop</strong></span></td><td><div class="display--table"><span class="name"><em>600 MB</em></span></div></td></tr><tr><td><span class="name"><strong>Mobile</strong></span></td><td><div class="display--table"><span class="name"><em>195 MB</em></span></div></td></tr></tbody></table></div>
+<p>Developers can override these values:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config3d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">memory</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">1024</span><span class="w"> </span><span class="c1">// in MB</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Viewer3D</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadModel</span><span class="p">(</span><span class="w"> </span><span class="nx">modelUrl</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>In addition, we are exposing a URL parameter that overrides all other memory limit settings:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><a class="reference external" href="http://lmv.ninja.autodesk.com/?viewermemory=200" target="_blank">http://lmv.ninja.autodesk.com/?viewermemory=200</a></td>
+</tr></tbody></table></div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">viewer.getMemoryInfo()</span></code> method to check whether the Viewer makes use of the memory limit.</p>
+<p>If it returns <code class="docutils literal notranslate"><span class="pre">null</span></code>, the specified memory limit is enough to contain all the geometry data in the memory. Otherwise, it will return an object with additional memory data, such as:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"limit"</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"effectiveLimit"</span><span class="o">:</span><span class="w"> </span><span class="mf">22.238370895385742</span>
+<span class="w">    </span><span class="s2">"loaded"</span><span class="o">:</span><span class="w"> </span><span class="mf">24.898095417022706</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="model-browser-ui">
+<h4>Model Browser UI</h4>
+<p>The look and feel of the Model Browser remains the same. However, changes have been made under the hood.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_17_modelBrowser_UI.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_17_modelBrowser_UI.png">
+</td>
+</tr></tbody></table></div>
+<p><strong>Reduced Memory Consumption</strong></p>
+<p>This change aims at reducing memory consumption on very large models.</p>
+<p>Here’s an example of a model that has 1,582,736 nodes available on the Model Browser.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td></td>
+<td><strong>Before</strong></td>
+<td><strong>Now</strong></td>
+</tr><tr><td><strong>Memory Consumption</strong></td>
+<td><strong>212 MB</strong></td>
+<td><strong>3 MB</strong></td>
+</tr><tr><td><strong>Image</strong></td>
+<td><img alt="../../_images/2_17_memoryConsumption_before.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_17_memoryConsumption_before.png">
+</td>
+<td><img alt="../../_images/2_17_memoryConsumption_after.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_17_memoryConsumption_after.png">
+</td>
+</tr></tbody></table></div>
+<p><strong>UX Changes</strong></p>
+<p>Clicking on nodes in the Model Browser now produces different results.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name"><strong>Before</strong></span></td><td><div class="display--table"><span class="name"><strong>Now</strong></span></div></td></tr><tr><td><span class="name"><ul class="simple">
+<li>Isolation</li>
+</ul>
+</span></td><td><div class="display--table"><span class="name"><ul class="simple">
+<li>Selection</li>
+<li>Focus</li>
+</ul>
+</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_17_uxChange_before.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_17_uxChange_before.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_17_uxChange_after.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_17_uxChange_after.png">
+</span></div></td></tr><tr><td><span class="name"></span></td><td><div class="display--table"><span class="name">You can still get Isolation by right clicking anywhere on
+the canvas to open the Context Menu, then select Isolate.</span></div></td></tr></tbody></table></div>
+<p>Some other changes include:</p>
+<ul class="simple">
+<li>Removed the root node of the Model Browser.<p></p>
+<ul>
+<li>To access properties of the root node, open the Property Panel without any selection.</li>
+</ul>
+</li>
+<li>Opening the Context Menu retains everything you select. Clicking outside the Context Menu closes the menu but retains everything you select.</li>
+</ul>
+</section>
+</section>
+<section id="fixed">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed issue where Fusion 360 background color would not propagate correctly to the Viewer.</li>
+<li>Fixed issue where the Properties Panel would not update its content after changing model selection.</li>
+<li>Fixed issue where measurement precision was incorrectly rounding up.</li>
+<li>Reduce excessive analytics requests during model initialization.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-2-16">
+<h4>Version 2.16</h4>
+<p><em>Release Date: 2017-07-26</em></p>
+</section>
+</section>
+<section id="id1">
+<h3>Changed</h3>
+<section id="removed-reliance-on-browser-cookies-to-authenticate-requests">
+<h4>Removed Reliance on Browser Cookies to Authenticate Requests</h4>
+<p>The Viewer will no longer rely on browser cookies when authenticating with Forge API REST endpoints.
+This change was implemented to protect against CSRF attacks on the Forge platform. No changes are necessary to the code.</p>
+<p>However, developers might encounter a potential thumbnail problem if they initialize an <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tag with a <code class="docutils literal notranslate"><span class="pre">src</span></code> value that points to a thumbnail (PNG/JPEG/JPG) generated by the Model Derivative service. The cookie change included in this release will prevent those images from loading the thumbnail, resulting in a 401 Unauthorized error.</p>
+<p><em>Solution to this problem</em></p>
+<p>The first step is to identify whether this change will affect you.
+Since <a class="reference external" href="/en/docs/viewer/v5/overview/changelog/2.7/">version 2.7</a>, the Viewer exposes a global variable <code class="docutils literal notranslate"><span class="pre">window.LMV_THIRD_PARTY_COOKIE</span></code> which when set to <code class="docutils literal notranslate"><span class="pre">false</span></code> will avoid setting and leveraging the browser cookie for authentication with Forge API endpoints.</p>
+<p>You will need to fetch images using <a class="reference external" href="https://developer.mozilla.org/en-US/docs/AJAX/Getting_Started" target="_blank">Ajax</a>.</p>
+<p><em>Populating HTML Images</em></p>
+<p>The usual method of displaying images retrieved from the Model Derivative service is to create an HTML Image element and set its src property to the URL of the image you want to display. The browser handles making the request to retrieve the image. The problem is that there is no way to tell the browser to add an authorization header. This approach only works if the cookie is defined.</p>
+<p>The solution is to make an XHR request from JavaScript to retrieve the image as a blob and then use <code class="docutils literal notranslate"><span class="pre">createObjectUrl</span></code> to create a URL that refers to the image in memory. Finally use that URL as the src of the image. You need to be careful to make sure that you call <code class="docutils literal notranslate"><span class="pre">revokeObjectUrl</span></code> after the image has been loaded otherwise you end up with a resource leak.</p>
+<p>If you’re using a UI framework like Angular, there are modules that you can include that wrap this pattern in an easy to use form. For example, <a class="reference external" href="https://github.com/dougmoscrop/angular-img-http-src" target="_blank">angular-img-http-src</a>.</p>
+<p>Integrate the module, then all you need to do is change the code so that the image URL is assigned to the <code class="docutils literal notranslate"><span class="pre">http-src</span></code> property instead of the <code class="docutils literal notranslate"><span class="pre">src</span></code> property. Behind the scenes the image will be loaded using the Angular <code class="docutils literal notranslate"><span class="pre">http_service</span></code>, which you will already have configured to add to the authorization header for any request.</p>
+<p>Take a look at <a class="reference external" href="https://jsfiddle.net/dbmdjudL/5/" target="_blank">this example</a> to see these strategies in action. Note that you need to generate an access token for this example.</p>
+<p>See this <a class="reference external" href="https://stackoverflow.com/questions/21613534/angular-http-how-to-call-images-with-custom-headers" target="_blank">Stack Overflow question</a> for more information about how to use Angular to call images with custom headers.</p>
+</section>
+<section id="decoupled-markupscore-extension-from-the-main-bundle">
+<h4>Decoupled MarkupsCore Extension from the Main Bundle</h4>
+<p>In our previous release notes for Viewer v2.15, we introduced a change to decouple some of the extension code from the main build artifact (viewer3D.min.js) into their own ones.
+With Viewer v2.16, the <code class="docutils literal notranslate"><span class="pre">MarkupsCore</span></code> extension is supported with independent build artifact.</p>
+<p>Note, code using the MarkupsCore extension will have to be updated to accommodate this change.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Before</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.MarkupsCore'</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">extension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.MarkupsCore'</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'MarkupsCore extension is ready to be used!'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Now</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.MarkupsCore'</span><span class="p">);</span><span class="w"> </span><span class="c1">// async fetch from server</span>
+<span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">extension</span><span class="p">){</span>
+<span class="w">   </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'MarkupsCore extension is ready to be used!'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+</section>
+</section>
+<section id="added">
+<h3>Added</h3>
+<section id="new-first-person-walk-experience">
+<h4>New First Person Walk Experience</h4>
+<p>This release includes a new version of the First Person Walking tool called the New First Person Walking tool.</p>
+<p>The New First Person Walking tool has additional features such as, floor detection, navigation between floors, teleportation (use double-click) and a new UI to display changes in speed.</p>
+<p><strong>How to use it</strong></p>
+<p>The New First Person Walking tool can be enabled by end users through the Navigation Settings checkbox:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_newFirstPerson_settings.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_newFirstPerson_settings.png">
+</td>
+</tr></tbody></table></div>
+<p>The checkbox settings will persist across sessions.</p>
+<p>From there, the same Toolbar icon will now enable the New First Person Walking tool. The tooltip will be different:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_newFirstPerson_toolbar.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_newFirstPerson_toolbar.png">
+</td>
+</tr></tbody></table></div>
+<p>On first usage, end users will be prompted with a navigation guide to them get started:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_newFirstPerson_guide.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_newFirstPerson_guide.png">
+</td>
+</tr></tbody></table></div>
+<p>You can access the guide any time by pressing the top right info button while the <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">First</span> <span class="pre">Person</span></code> Walk tool is active:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_newFirstPerson_infoIcon.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_newFirstPerson_infoIcon.png">
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="markup-editing-api">
+<h4>Markup Editing API</h4>
+<p>In an effort to continue supporting BIM Docs, the Markup extension API has been extended to support editing of loaded markups.</p>
+<p><strong>How it works</strong></p>
+<p>The MarkupsCore extension exposes the <code class="docutils literal notranslate"><span class="pre">enterEditMode()</span></code> method, which has been enhanced to allow editing a layer that contains loaded markups.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// string with markups data generated with markupsExt.generateData()</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">modelMarkups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'...'</span><span class="p">;</span>
+
+<span class="c1">// Load the markups extension</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.MarkupsCore'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">markupsExt</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">markupsExt</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">markupsExt</span><span class="p">.</span><span class="nx">loadMarkups</span><span class="p">(</span><span class="nx">modelMarkups</span><span class="p">,</span><span class="w"> </span><span class="s2">"layerA"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Load markups onto "layerA"</span>
+<span class="w">    </span><span class="nx">markupsExt</span><span class="p">.</span><span class="nx">enterEditMode</span><span class="p">(</span><span class="s2">"layerA"</span><span class="p">);</span><span class="w">             </span><span class="c1">// Allow editing of markups in "layerA"</span>
+<span class="p">})</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>With this change, an end user will be able to modify markups!</p>
+<p>Developers can get the modified markups data by doing the following:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">modifiedMarkups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">markupsExt</span><span class="p">.</span><span class="nx">generateData</span><span class="p">();</span>
+<span class="nx">markupsExt</span><span class="p">.</span><span class="nx">leaveEditMode</span><span class="p">();</span><span class="w"> </span><span class="c1">// Prevent further modifications to the markups onscreen</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>You can revert all the changes done to the loaded set of markups using the <code class="docutils literal notranslate"><span class="pre">markupsExt.revertLayer("layerA");</span></code> method</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">markupsExt</span><span class="p">.</span><span class="nx">revertLayer</span><span class="p">(</span><span class="s2">"layerA"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Restores markups from "layerA" to their loaded state</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="viewcube-triad">
+<h4>ViewCube Triad</h4>
+<p>A new method has been added to the the ViewCube, to display labeled axis lines. This code is available at the GuiViewer3D level:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">showViewCubeTriad</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_viewCube_beforeAndafter.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_viewCube_beforeAndafter.png">
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="viewcube-reflects-camera-projection">
+<h4>ViewCube Reflects Camera Projection</h4>
+<p>The ViewCube will get rendered using the same camera projection as the Viewer</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_16_viewCube_cameraProjection.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_viewCube_cameraProjection.png">
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="pivot-customization">
+<h4>Pivot Customization</h4>
+<p>Whenever a user orbits (rotates) the camera, it is centered at a point called the “pivot point”.
+This pivot point is displayed as a green dot (small sphere) while the rotation is taking place.
+With Viewer v2.16, new functions have been added to customize the pivot point.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Customization</td>
+<td>Code</td>
+<td>Notes</td>
+</tr><tr><td>Size</td>
+<td>viewer.utilities.setPivotSize(2)</td>
+<td>A size of 1 maps to the default size.</td>
+</tr><tr><td>Color</td>
+<td>viewer.utilities.setPivotColor(0xFF0000, 1)</td>
+<td>Separate arguments for RGB-color and opacity</td>
+</tr></tbody></table></div>
+<p>Below is an image comparing the default pivot with a customized pivot using the functions mentioned above.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">Before</span></td><td><div class="display--table"><span class="name">Now</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_16_defaultPivot.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_defaultPivot.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_16_customizedPivot.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_16_customizedPivot.png">
+</span></div></td></tr></tbody></table></div>
+</section>
+<section id="added-support-for-run-time-loaded-locale-files">
+<h4>Added Support for Run-time Loaded Locale Files</h4>
+<p>A new function is being exposed, to allow 3rd party extensions to add additional localization strings for the Viewer to use.
+You can make use of this function <code class="docutils literal notranslate"><span class="pre">extendLocalization()</span></code> in your extension code.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Create a custom extension</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">(</span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">viewer</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Extension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="kr">constructor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">MyAwesomeExtension</span><span class="p">;</span>
+
+<span class="c1">// Define what are the localization strings to add...</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">locales</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nx">en</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"Hello"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Hello!"</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">es</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">"Hello"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Hola!"</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">};</span>
+
+<span class="c1">// Add locales during extension's loading phase</span>
+<span class="nx">MyAwesomeExtension</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">extendLocalization</span><span class="p">(</span><span class="nx">locales</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+</section>
+</section>
+<section id="id2">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed some issues with z-fighting</li>
+<li>Fixed missing info button.</li>
+<li>Fixed navigation issue where a pan command would result in very big jumps.</li>
+<li>Fixed issue with sectioning where the 3D UI would incorrectly change size.</li>
+<li>Fixed issue where some transparent objects disappear on zoom.</li>
+<li>Fixed issue where some transparent objects would display as opaque right after loading the model.</li>
+<li>Fixed issue in iOS where rotating the phone while in Fullscreen mode would result in an inconsistent state.</li>
+<li>Fixed issue where turning ambient shadows on would result in some faraway geometry to disappear.</li>
+<li>Fixed some rendering issues related to ambient occlusion.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-2-15">
+<h4>Version 2.15</h4>
+<p><em>Release Date: 2017-06-08</em></p>
+</section>
+</section>
+<section id="id3">
+<h3>Changed</h3>
+<section id="extension-decoupling">
+<h4>Extension Decoupling</h4>
+<p>Up until now all extensions were bundled with the main build artifact: viewer3D.min.js. We have begun to decouple extension code from the main build artifcact, starting with the <code class="docutils literal notranslate"><span class="pre">InViewerSearch.min.js</span></code> extension. We will decouple more extensions for future releases.</p>
+<p>Note that as a result of this change, the <code class="docutils literal notranslate"><span class="pre">viewer.loadExtension()</span></code> function now returns a promise instead of a boolean value.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Before</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.InViewerSearch'</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">extension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.InViewerSearch'</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Extension loaded: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">extension</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Now</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.InViewerSearch'</span><span class="p">);</span><span class="w"> </span><span class="c1">// async fetch from server</span>
+<span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">extension</span><span class="p">){</span>
+<span class="w">   </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Extension loaded: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">extension</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>Note that we have not changed the <code class="docutils literal notranslate"><span class="pre">viewer.getExtension()</span></code> and <code class="docutils literal notranslate"><span class="pre">viewer.unloadExtension()</span></code> methods.</p>
+</section>
+<section id="new-default-lighting-for-aec-models">
+<h4>New Default Lighting for AEC Models</h4>
+<p>BIM 360 models now have a new default lighting.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">Before</span></td><td><div class="display--table"><span class="name">Now / New!</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_15_defaultLighting_aec_before_1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_defaultLighting_aec_before_1.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_15_defaultLighting_aec_after_1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_defaultLighting_aec_after_1.png">
+</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_15_defaultLighting_aec_before_2.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_defaultLighting_aec_before_2.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_15_defaultLighting_aec_after_2.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_defaultLighting_aec_after_2.png">
+</span></div></td></tr></tbody></table></div>
+</section>
+</section>
+<section id="id4">
+<h3>Added</h3>
+<section id="memory-management-options">
+<h4>Memory Management Options</h4>
+<p>You can set your browser to allocate enough memory for displaying all the 3D geometry for a 3D design.   s online so that all the 3D geometry.</p>
+<p>Note that this feature is disabled by default.</p>
+<p>Here’s how to enable the feature:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config3d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">memory</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">400</span><span class="c1">// in MB</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Viewer3D</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">loadModel</span><span class="p">(</span><span class="w"> </span><span class="nx">modelUrl</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>Another way of enabling the feature on a per-design basis, is to append a <code class="docutils literal notranslate"><span class="pre">viewermemory=&lt;value&gt;</span></code> string parameter to the browser’s URL.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Example</td>
+</tr><tr><td><a class="reference external" href="https://mywebsite.com/viewer/document-id-here?viewermemory=400" target="_blank">https://mywebsite.com/viewer/document-id-here?viewermemory=400</a></td>
+</tr></tbody></table></div>
+<p>Note that the query string parameter will override memory limitations you define in the code.</p>
+<p>You can check if the feature is active or not, using the new <code class="docutils literal notranslate"><span class="pre">viewer.getMemoryInfo()</span></code> method, that is available in the Viewer instance.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">memInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getMemoryInfo</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">memInfo</span><span class="p">.</span><span class="nx">limit</span><span class="p">);</span><span class="w">          </span><span class="c1">// == 400 MB</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">memInfo</span><span class="p">.</span><span class="nx">effectiveLimit</span><span class="p">);</span><span class="w"> </span><span class="c1">// &gt;= 400 MB</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">memInfo</span><span class="p">.</span><span class="nx">loaded</span><span class="p">);</span><span class="w">         </span><span class="c1">// &lt;= 400 MB</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>This method will return <code class="docutils literal notranslate"><span class="pre">null</span></code> when the feature is not enabled.</p>
+</section>
+<section id="viewingapplication-enhancements">
+<h4>ViewingApplication Enhancements</h4>
+<p>The ViewingApplication class is a utility class that we recommend using when initializing the Viewer from a manifest (converted file).</p>
+<p>This version includes 3 enhancements:</p>
+<ol class="arabic simple">
+<li><em>setDocument() - new method</em></li>
+</ol>
+<p>You can now pass a plain JavaScript object to the <code class="docutils literal notranslate"><span class="pre">ViewingApplication:</span> <span class="pre">setDocument()</span></code> method to initialize the Viewer, rather than using a URN.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Fetch JSON from https://developer.api.autodesk.com/modelderivative/v2/designdata/:urn/manifest</span>
+<span class="c1">// and store it as an object</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">manifestObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{...};</span>
+
+<span class="c1">// After Autodesk.Viewing.Initializer() succeeds</span>
+<span class="nx">viewerApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">ViewingApplication</span><span class="p">(</span><span class="s1">'MyViewerDiv'</span><span class="p">);</span>
+<span class="nx">viewerApp</span><span class="p">.</span><span class="nx">registerViewer</span><span class="p">(</span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">k3D</span><span class="p">,</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Private</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">);</span>
+<span class="nx">viewerApp</span><span class="p">.</span><span class="nx">setDocument</span><span class="p">(</span><span class="nx">manifestObject</span><span class="p">);</span><span class="w"> </span><span class="c1">// Not an async method!</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">bubble</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span><span class="s1">'type'</span><span class="o">:</span><span class="s1">'geometry'</span><span class="p">})</span>
+<span class="nx">viewerApp</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">(</span><span class="nx">viewables</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">onItemLoadSuccess</span><span class="p">,</span><span class="w"> </span><span class="nx">onItemLoadFail</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<ol class="arabic simple" start="2">
+<li><em>selectItem() - enhancement</em></li>
+</ol>
+<p>selectItem() now supports BubbleNode objects.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">viewables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">bubble</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span><span class="s1">'type'</span><span class="o">:</span><span class="s1">'geometry'</span><span class="p">});</span>
+<span class="nx">viewerApp</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">(</span><span class="nx">viewables</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">onItemLoadSuccess</span><span class="p">,</span><span class="w"> </span><span class="nx">onItemLoadFail</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<ol class="arabic simple" start="3">
+<li><em>getNamedViews() - new method</em></li>
+</ol>
+<p>This helper method can be used to get all the named views from a 3D viewable. Named views are obtained from the document’s manifest which contains camera information and a string identifier.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Usage</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">namedViews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">getNamedViews</span><span class="p">(</span><span class="nx">viewables</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">data</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="s1">'Selecting named view: '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">namedViews</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="nx">viewerApp</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">(</span><span class="nx">namedViews</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">onItemLoadSuccess</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<p>Here’s how named views shows up in the manifest:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><img alt="../../_images/2_15_namedViews_manifest.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_namedViews_manifest.png">
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="edge-rendering">
+<h4>Edge Rendering</h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">viewer.setDisplayEdges(true)</span></code> method renders all the edge-related parts of the model, such as borders and frames.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name"><img alt="../../_images/2_15_edgeRendering_disabled.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_edgeRendering_disabled.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_15_edgeRendering_enabled.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_15_edgeRendering_enabled.png">
+</span></div></td></tr></tbody></table></div>
+</section>
+</section>
+<section id="id5">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed decal rendering issues.</li>
+<li>Fixed issue affecting rendering of arcs and circles in 2D models.</li>
+<li>Fixed full screen issues that were occuring in several browsers.</li>
+<li>Fixed issue where end users would sometimes be unable to select transparent objects.</li>
+<li>The Measure, calibration dialog now closes when you press the ESC key.</li>
+<li>Fixed issue where environment background would flip orientation when reflections were turned on.</li>
+<li>Fixed issue where a rectangle markup would render in the wrong place when created from a snapped location.</li>
+<li>Fixed issue where <code class="docutils literal notranslate"><span class="pre">viewer.search()</span></code> would not work on 2D Models with properties.</li>
+<li>Updated WebVR polyfill to comply with latest Chrome version.</li>
+<li>Fixed iOS issue where a pinch gesture would result in a full page zoom.</li>
+<li>Fixed issue where the CSS rule .header would affect the functionality of the Properties panel.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-14">
+<a href="#version-2-14"><h2>Version 2.14</h2></a>
+<p><em>Release Date: 2017-05-28</em></p>
+<section id="id6">
+<h3>Changed</h3>
+<section id="improved-time-to-first-pixel-for-fusion-models">
+<h4>Improved Time To First Pixel for Fusion Models</h4>
+<p>Fusion models typically contain topology data that is used for precise measuring and snapping.
+A new method (<code class="docutils literal notranslate"><span class="pre">viewer.model.fetchTopology()</span></code>) has been added to the <code class="docutils literal notranslate"><span class="pre">model</span></code> object, which delays downloading topology data until after the measure tool opens. This enables end users to perform non-topology related measurements while they are waiting for the topology data to download, and speeds up the process of downloading the model to the Viewer.</p>
+<p>It is invoked by the measure extension.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// returns a promise that resolves when the topology data is available in memory</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">fetchTopology</span><span class="p">();</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Note that you can use the <code class="docutils literal notranslate"><span class="pre">viewer.model.hasTopology()</span></code> method to verify whether the topology data is available in the Viewer.</p>
+</section>
+</section>
+<section id="id7">
+<h3>Added</h3>
+<section id="model-derivative-api-support">
+<h4>Model Derivative API Support</h4>
+<p>Developers can now set up the Viewer to communicate directly with the <a class="reference external" href="/en/docs/model-derivative/v2/overview/">Model Derivative API</a>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">initOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createInitializerOptions</span><span class="p">();</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'modelDerivativeV2'</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">(</span><span class="w"> </span><span class="nx">initOptions</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span><span class="w"> </span><span class="nx">onSuccess</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The following code snippet is an example of setting a secure proxy.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">initOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createInitializerOptions</span><span class="p">();</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">api</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'modelDerivativeV2'</span><span class="p">;</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">endpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'/lmv-proxy'</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">(</span><span class="w"> </span><span class="nx">initOptions</span><span class="p">.</span><span class="nx">api</span><span class="p">,</span><span class="w"> </span><span class="nx">onSuccess</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Why should you use it?</strong></p>
+<p>Since the Model Derivative API supports loading models referenced by the <a class="reference external" href="/en/docs/data/v2/overview/">Data Management API</a>, developers do not need to add the following request headers when the Viewer retrieves referenced model data.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// no longer needed for accessing models referenced by the Data Management API.</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">HTTP_REQUEST_HEADERS</span><span class="p">[</span><span class="s1">'x-ads-acm-namespace'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'WIPDM'</span><span class="p">;</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">HTTP_REQUEST_HEADERS</span><span class="p">[</span><span class="s1">'x-ads-acm-check-groups'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'true'</span><span class="p">;</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed issue where <code class="docutils literal notranslate"><span class="pre">config.wantInfoButton</span></code> had no effect.</li>
+<li>Fixed issue where the measure snapper and the markup snapper (green big dot) would snap to the Viewer’s edges.</li>
+<li>Fixed issue with consolidated geometry where point and line primitive types didn’t render correctly.</li>
+<li>Fixed null pointer reference issue when unloading a model.</li>
+<li>Fixed issue where a section plane would remain visible when isolation was active.</li>
+<li>Fixed issue in the measure panel where the measurement’s precision would sometimes not match the one specified.</li>
+<li>Fixed first person drag mode dialog message.</li>
+<li>Fixed issue with setting “Reverse mouse zoom direction”.</li>
+<li>Fixed issue where undoing an arrow markup would invert its direction.</li>
+<li>Fixed issue where loading the <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.ZoomWindow</span></code> extension would result in having 2 Zoom buttons in the toolbar UI.</li>
+<li>Fixed issue where reflections would render partially when “Progressive model display” settings option was active.</li>
+<li>Fixed issue with the <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.ZoomWindow</span></code> extension where it would incorrectly zoom when there was no geometry at the rectangle’s center point.</li>
+<li>Fixed issue with the measure panel where the cursor changed to a text icon when hovering over UI elements.</li>
+<li>Fixed issue in IE11 where the exact position on the animation timeline was not selectable.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-13">
+<a href="#version-2-13"><h2>Version 2.13</h2></a>
+<p><em>Release Date: 2017-02-07</em></p>
+<section id="id9">
+<h3>Changed</h3>
+<section id="webvr-extension">
+<h4>WebVR Extension</h4>
+<p>The VR extension is now narrowing down its support for mobile cardboard usage. As such, we will no longer fully support Vive and Oculus headsets. However, given that the extension uses the browser’s webVR API, those devices may still benefit from the extension’s functionality.</p>
+<p>The VR extension was renamed from <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.webVR</span></code> to <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.WebVR</span></code>.</p>
+<p>The extension will now automatically download the WebVR polyfill when needed. The downloaded polyfill is hosted along with the Viewer.</p>
+</section>
+</section>
+<section id="id10">
+<h3>Added</h3>
+<section id="supported-configuration-values">
+<h4>Supported Configuration Values</h4>
+<p>To help developers customize the Viewer new static methods have been added that show which configuration options are available.</p>
+<p>The following shows the default values for those configurations:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Method</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createInitializerOptions</span><span class="p">()</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Usage Example</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Get a default object</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">initOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createInitializerOptions</span><span class="p">();</span>
+
+<span class="c1">// Customize it!</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'AutodeskProduction'</span><span class="p">;</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'es'</span><span class="p">;</span>
+<span class="nx">initOptions</span><span class="p">.</span><span class="nx">getAccessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">myAccessTokenFunction</span><span class="p">;</span>
+
+<span class="c1">// And use it</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">(</span><span class="w"> </span><span class="nx">initOptions</span><span class="p">,</span><span class="w"> </span><span class="nx">onInitCallback</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Object <code class="docutils literal notranslate"><span class="pre">initOptions</span></code></td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="p">{</span>
+<span class="w"> </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s2">"AutodeskProduction"</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">getAccessToken</span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">language</span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span>
+<span class="w"> </span><span class="nx">webGLHelpLink</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Method</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createViewerConfig</span><span class="p">()</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Usage Example</td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Get default Viewer3D config</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">createViewerConfig</span><span class="p">();</span>
+
+<span class="c1">// Customize it!</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">extensions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">'MyAwesomeExtension'</span><span class="p">);</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">startOnInitialize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="nx">config</span><span class="p">.</span><span class="nx">experimental</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">'webVR_orbitModel'</span><span class="p">);</span>
+
+<span class="c1">// And use it</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Private</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td>Object <code class="docutils literal notranslate"><span class="pre">config</span></code></td>
+</tr><tr><td><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nx">canvasConfig</span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">disabledExtensions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nx">hyperlink</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">measure</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">section</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nx">experimental</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">   </span><span class="nx">inViewerSearchConfig</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">   </span><span class="nx">sharedPropertyDbPath</span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">startOnInitialize</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">wantInfoButton</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr></tbody></table></div>
+</section>
+<section id="webvr-extension-experimental-feature-orbit">
+<h4>WebVR Extension Experimental Feature Orbit</h4>
+<p>The experimental flag enables the VR extension to change behavior so that moving the cardboard goggles will result in the VR camera orbiting around the model.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td colspan="2"><p>How to use</p></td>
+</tr><tr><td colspan="2"><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">'Autodesk.Viewing.WebVR'</span><span class="w"> </span><span class="p">],</span>
+<span class="w">   </span><span class="nx">experimental</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">'webVR_orbitModel'</span><span class="w"> </span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Viewer3D</span><span class="p">(</span><span class="w"> </span><span class="nx">container</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</td>
+</tr><tr><td><span class="name">Default VR experience</span></td><td><div class="display--table"><span class="name">With <code class="docutils literal notranslate"><span class="pre">webVR_orbitModel</span></code> flag enabled</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_13_vr-mobile-2.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_13_vr-mobile-2.gif">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_13_vr-orbit.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_13_vr-orbit.gif">
+</span></div></td></tr></tbody></table></div>
+<p><strong>Usability Warning</strong></p>
+<p>This experimental feature may result in a negative experience for end users, given that the real world head motion will not match the virtual one.</p>
+<p><strong>Support</strong></p>
+<p>We may drop support for the experimental flag in upcoming versions, in favor of a non-experimental mechanism to enable it.</p>
+</section>
+<section id="measure-calibration">
+<h4>Measure Calibration</h4>
+<p>The Calibration feature allows you to specify the exact distance between two points. Subsequent measurements get adjusted based on the specified calibration.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Calibration Button</td>
+</tr><tr><td><img alt="../../_images/2_13_calibrate.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_13_calibrate.png">
+<p>You can find it in the panel that opens when selecting the Measure button.</p>
+</td>
+</tr><tr><td>Usage</td>
+</tr><tr><td><img alt="../../_images/2_13_calibration.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_13_calibration.gif">
+<p>In this example a user measures a distance between two points that measures 100mm.
+However, the user knows that the actual distance is 50cm.
+The user can use the calibration tool to specify the correct value.</p>
+</td>
+</tr></tbody></table></div>
+<p><strong>Support</strong></p>
+<p>This feature is available for 2D and 3D models.</p>
+<p><strong>Limitations</strong></p>
+<p>Calibration is only available with the Measure tool.</p>
+</section>
+<section id="multi-model-fast-show-hide">
+<h4>Multi-Model Fast Show/Hide</h4>
+<p>New methods have been added to fully hide/show a model in the scene.
+This is specially useful in multi-model scenarios.</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Hide model using id</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">hideModel</span><span class="p">(</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="p">);</span>
+
+<span class="c1">// Show model using id</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">showModel</span><span class="p">(</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</div></blockquote>
+<p>This feature removes the need to invoke <code class="docutils literal notranslate"><span class="pre">viewer.hide()</span></code> to every node in the model.</p>
+</section>
+<section id="others">
+<h4>Others</h4>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">PROGRESS_UPDATE_EVENT</span></code> has a new attribute, <strong>state</strong>, with a value from <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.ProgressState</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">SHOW_EVENT</span></code> and <code class="docutils literal notranslate"><span class="pre">HIDE_EVENT</span></code> have a new attribute, <strong>model</strong>, useful for multi-model scenarios.</li>
+</ul>
+</section>
+</section>
+<section id="id11">
+<h3>Fixed</h3>
+<section id="general">
+<h4>General</h4>
+<ul class="simple">
+<li>Fixed crash on Microsoft Edge browser.</li>
+<li>Fixed issue where viewing a 3D model from the bottom when ground reflections is active resulted in ghosted objects not rendering.</li>
+<li>Fixed issue where reflections would disappear when the 3D model was viewed from certain angles.</li>
+<li>Fixed issue in the circular orbit UI where the camera roll operation was incorrect.</li>
+<li>Fixed issue where fit-to-view operations would get delayed soon after changing between orthographic and perspective cameras.</li>
+<li>Fixed issues with fit-to-view in 2D models.</li>
+<li>Fixed issue where materials would not get loaded/rendered when loading a model hosted in AWS S3 (or similar static hosting).</li>
+</ul>
+</section>
+<section id="mobile">
+<h4>Mobile</h4>
+<ul class="simple">
+<li>Fixed issue where <code class="docutils literal notranslate"><span class="pre">viewer.model.isLoadDone()</span></code> would never return true, even after the model was fully loaded.</li>
+<li>Fixed issue where transparent objects would render incorrect dark reflections.</li>
+<li>Fixed issue where the ViewCube would get rendered while the model was being loaded.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-12">
+<a href="#version-2-12"><h2>Version 2.12</h2></a>
+<p><em>Release Date: 2017-08-10</em></p>
+<section id="id12">
+<h3>Changed</h3>
+<p>The <strong>Fit-To-View</strong> action has been changed to make 2D models cover more canvas surface area.</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">Before</span></td><td><div class="display--table"><span class="name">Now</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_12_fittoview_before.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_fittoview_before.png">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_12_fittoview_after.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_fittoview_after.png">
+</span></div></td></tr></tbody></table></div>
+</section>
+<section id="id13">
+<h3>Added</h3>
+<section id="id14">
+<h4>WebVR Extension</h4>
+<p>With the webVR extension, users will be able to visualize 3D models in a virtual reality scene from their desktop and mobile browsers.</p>
+<p>To use, developers will have to load the extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.webVR</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">initializerOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">'AutodeskProduction'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">'Autodesk.Viewing.webVR'</span><span class="w"> </span><span class="p">]</span>
+<span class="p">}</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="w"> </span><span class="nx">initializerOptions</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>HTML running in browsers that have not yet conformed to the <a class="reference external" href="https://webvr.info/" target="_blank">webVR spec</a> will have to include a <a class="reference external" href="https://github.com/googlevr/webvr-polyfill" target="_blank">polyfill</a>.</p>
+<p>For mobile VR usage, the minimum recommended devices are:</p>
+<ul class="simple">
+<li>iPhone 5s</li>
+<li>Samsung Galaxy S6</li>
+</ul>
+<div class="table-section"><table><thead></thead><tbody><tr><td>Click the VR button on the toolbar…</td>
+</tr><tr><td><img alt="../../_images/2_12_mobilevr_1.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_mobilevr_1.gif">
+</td>
+</tr><tr><td>…then change phone orientation to landscape.</td>
+</tr><tr><td><img alt="../../_images/2_12_mobilevr_2.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_mobilevr_2.gif">
+</td>
+</tr></tbody></table></div>
+<p>Though technically the VR extension can be enabled on any loaded model, the framerate and overall user experience will degrade when visualizing very big models, specially on mobile devices.</p>
+<p>Consider using desktop VR solutions for big model VR experiences.</p>
+<p>Finally, check out our next new feature, <strong>Model Consolidation</strong>, which brings performance enhancements that also apply to VR!</p>
+</section>
+<section id="model-consolidation">
+<h4>Model Consolidation</h4>
+<div class="line-block">
+<div class="line">The Model Consolidation feature optimizes a model for faster rendering by using mesh consolidation and hardware instancing.</div>
+<div class="line">An optional value can be specified to control the amount of GPU memory spent for mesh merging. The default value is 100 MB.</div>
+</div>
+<div class="line-block">
+<div class="line">Consolidation requires the full model to be in memory first. I.e., progressive rendering will have the unoptimized speed until loading is finished and the consolidation step is run.</div>
+<div class="line">The optimization step is most effective for models where the large shape count is the main bottleneck. E.g., models like Navisworks (NWD) models can be rendered several times faster.</div>
+</div>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">initializerOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">'AutodeskProduction'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">useConsolidation</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">consolidationMemoryLimit</span><span class="o">:</span><span class="w"> </span><span class="mf">150</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1024</span><span class="w"> </span><span class="c1">// 150MB - Optional, defaults to 100 MB</span>
+<span class="p">}</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="w"> </span><span class="nx">initializerOptions</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Limitations with model consolidation include:</p>
+<ul class="simple">
+<li>It requires a significant amount of extra memory (CPU-side and GPU-side).</li>
+<li>Consolidation will be turned off automatically when playing animations or exploding the model.</li>
+<li>Currently, per-fragment modifications, such as ghosting and theming only work with a simple fallback. We use normal (unoptimized) rendering if any special per-fragment customization is applied.</li>
+<li>Consolidation reduces the granularity of the scene, which conflicts with existing techniques like progressive rendering, fine-grained frustum culling, and sorting (e.g., for transparency). Although we try to achieve a good trade-off here, we cannot preserve everything 100%.</li>
+</ul>
+</section>
+<section id="focus-in-2d-models">
+<h4>Focus in 2D Models</h4>
+<div class="line-block">
+<div class="line">Some 2D models allow the user to select elements in them, such as lines.</div>
+<div class="line">However, until now, users did not have the option to focus on a selected element from a 2D model.</div>
+</div>
+<p>This feature is now available and can be used by either:</p>
+<ul class="simple">
+<li>Double-clicking the element</li>
+<li>Using the keyboard hotkey <code class="docutils literal notranslate"><span class="pre">F</span></code></li>
+<li>Using the toolbar button <code class="docutils literal notranslate"><span class="pre">Focus</span></code></li>
+</ul>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">Before</span></td><td><div class="display--table"><span class="name">Now</span></div></td></tr><tr><td><span class="name"><img alt="../../_images/2_12_focus_before.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_focus_before.gif">
+</span></td><td><div class="display--table"><span class="name"><img alt="../../_images/2_12_focus_after.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_12_focus_after.gif">
+</span></div></td></tr></tbody></table></div>
+<p>Notice that in previous versions, attempting to focus on a 2D element would result in a full-model focus operation.</p>
+</section>
+<section id="model-getbulkproperties-can-be-configured-to-ignore-hidden-properties">
+<h4><code class="docutils literal notranslate"><span class="pre">Model.getBulkProperties()</span></code> can be configured to ignore hidden properties</h4>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">getBulkProperties()</span></code> allows fetching properties of several node-ids at the same time. Properties for each id are grouped into visible and hidden.</div>
+<div class="line">Only visible properties will show up in the Property Panel UI. With this new option, developers can avoid filtering hidden properties after the properties are fetched, which reduces the memory required to complete the operation.</div>
+</div>
+<div class="line-block">
+<div class="line">To support this enhancement, the second function argument is changing from <code class="docutils literal notranslate"><span class="pre">propFilter:Array</span></code> to <code class="docutils literal notranslate"><span class="pre">options:Object</span></code>.</div>
+<div class="line">Even though the signature has changed, the function still supports receiving an <code class="docutils literal notranslate"><span class="pre">Array</span></code> as the second parameter.</div>
+</div>
+<p>Developers are <strong>not required</strong> to make changes to code that uses the <code class="docutils literal notranslate"><span class="pre">getBulkProperties()</span></code> function.</p>
+<p>Example:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">dbIds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">];</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">propFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'dimensions'</span><span class="p">];</span>
+
+<span class="c1">// Before, and still supported in 2.12 //</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getBulkProperties</span><span class="p">(</span><span class="w"> </span><span class="nx">dbIds</span><span class="p">,</span><span class="w"> </span><span class="nx">propFilter</span><span class="p">,</span><span class="w"> </span><span class="nx">onSuccessCallback</span><span class="p">,</span><span class="w"> </span><span class="nx">onFailureCallback</span><span class="w"> </span><span class="p">);</span>
+
+<span class="c1">// Now as of 2.12 //</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">propFilter</span><span class="o">:</span><span class="w"> </span><span class="nx">propFilter</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ignoreHidden</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getBulkProperties</span><span class="p">(</span><span class="w"> </span><span class="nx">dbIds</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="nx">onSuccessCallback</span><span class="p">,</span><span class="w"> </span><span class="nx">onFailureCallback</span><span class="w"> </span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="id15">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed issue where texts in a 2D model were drawn as an outline without fill color.</li>
+<li>Focus will now work when loading more than one model into the scene.</li>
+<li>Shift-clicking on empty 3D canvas will no longer clear accumulated selection.</li>
+<li>Fixed Animation UI glitch in IE11.</li>
+<li>Fixed issue in IE11 where the Measure Panel’s <code class="docutils literal notranslate"><span class="pre">Unit</span> <span class="pre">Type</span></code> dropdown would display “Unknown”.</li>
+<li>Fixed issue in IE11 where Setting Panel’s <code class="docutils literal notranslate"><span class="pre">Reset</span> <span class="pre">Settings</span></code> button would not be displayed.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-11">
+<a href="#version-2-11"><h2>Version 2.11</h2></a>
+<p><em>Release Date: 2016-09-27</em></p>
+<section id="id16">
+<h3>Changed</h3>
+<p>This release contains no breaking changes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">viewer.getProperties()</span></code> will now return both <code class="docutils literal notranslate"><span class="pre">attributeName</span></code> and <code class="docutils literal notranslate"><span class="pre">displayName</span></code> (if available).
+The <code class="docutils literal notranslate"><span class="pre">attributeName</span></code> can be use as a filter for <code class="docutils literal notranslate"><span class="pre">viewer.search()</span></code> calls.</p>
+</section>
+<section id="id17">
+<h3>Added</h3>
+<p><strong>Markup Snapping:</strong>  Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.MarkupsCore</span></code> has been enhanced with snapping functionality when used to markup 2D models.
+The feature’s behavior is similar to the snapping currently available in the <code class="docutils literal notranslate"><span class="pre">Autodesk.Measure</span></code> extension.</p>
+<p>While mouse-hovering over geometry, a green indicator will appear over snapped geometry.</p>
+<p>Key snapping locations include
+- the two edge points along a segment
+- the segment’s mid point
+- all other points along the segment</p>
+<img alt="../../_images/2_11_snap-locations.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_11_snap-locations.gif">
+<p>From there, a user can start drawing a markup.</p>
+<p>The <strong>Arrow markup</strong> has been enhanced to be drawn <strong>parallel</strong> or <strong>perpendicular</strong> to the segment being snapped.</p>
+<img alt="../../_images/2_11_snap-parallel.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_11_snap-parallel.gif">
+<p>Snapping can be applied to segments with a <strong>slope</strong>.</p>
+<img alt="../../_images/2_11_snap-slope.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_11_snap-slope.gif">
+<p>The <strong>Rectangle</strong> markup has also been enhanced with segment awareness.</p>
+<img alt="../../_images/2_11_snap-rect.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_11_snap-rect.gif">
+<p>The <strong>PolyLine</strong> markup also benefits from snapping.</p>
+<img alt="../../_images/2_11_snap-polyline.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_11_snap-polyline.gif">
+<p><strong>FreeHand</strong> markup will not snap to geometry.</p>
+</section>
+<section id="id18">
+<h3>Fixed</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">viewer.restoreState()</span></code> will no longer re-render the scene when is not necessary.</li>
+<li>Fixed issue where hotkeys would no longer work after the Viewer was initialized a second time.</li>
+<li>Settings option <em>Switch sheet color white to black</em> will now work in 2D sheets where it previously didn’t.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-10">
+<a href="#version-2-10"><h2>Version 2.10</h2></a>
+<p><em>Release Date: 2016-08-17</em></p>
+<section id="id19">
+<h3>Changed</h3>
+<ul class="simple">
+<li>The Toolbar settings button no longer displays a popup on click.</li>
+<li><em>Background and lighting</em> dropdown and <em>Display lines</em> checkbox are now available in the <em>Performance and Appearance</em> Tab in Settings Panel.</li>
+<li>The <em>Performance and Appearance</em> Tab in Settings Panel has been redesigned:</li>
+</ul>
+<img alt="../../_images/2_10_settings_panel.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_settings_panel.png">
+<ul class="simple">
+<li>Models loaded into the scene that specify a variation of an environment and lighting preset will now be displayed in the dropdown as a new entry: <code class="docutils literal notranslate"><span class="pre">(model</span> <span class="pre">settings)</span></code>. This avoids confusing users that switch environments after loading a model that forces the Viewer to use specific render settings.</li>
+</ul>
+<img alt="../../_images/2_10_model_settings.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_model_settings.png">
+</section>
+<section id="id20">
+<h3>Added</h3>
+<ul class="simple">
+<li>New Hyperlink User Experience.</li>
+<li>Geometry tagged for hyperlinking will now receive a specialized visual treatment.</li>
+</ul>
+<p>For 2d sheets, geometry that contains hyperlinks will get highlighted in a light blue box.</p>
+<img alt="../../_images/2_10_hyperlinks_1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_hyperlinks_1.png">
+<p>Clicking on an hyperlink that links to another sheet will present a popup with a thumbnail of the referenced sheet.</p>
+<img alt="../../_images/2_10_hyperlinks_2.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_hyperlinks_2.png">
+<p>Open the hyperlinked sheet by clicking the <code class="docutils literal notranslate"><span class="pre">View</span></code> button. The Viewer will unload the current sheet and load the linked one.
+When a model gets loaded due to an hyperlink, a <code class="docutils literal notranslate"><span class="pre">Back</span></code> button will get added to the Viewer’s top left. Click on it to navigate back to the previous sheet.
+The button can be dismissed with the <code class="docutils literal notranslate"><span class="pre">x</span></code> button next to it.</p>
+<img alt="../../_images/2_10_hyperlinks_3.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_hyperlinks_3.png">
+<p>Hyperlinks to external web resources will also show up in the popup. Click on <code class="docutils literal notranslate"><span class="pre">View</span></code> to have your browser open a new tab to the linked resource.</p>
+<img alt="../../_images/2_10_hyperlinks_4.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_hyperlinks_4.png">
+<ul class="simple">
+<li>New Extension: <code class="docutils literal notranslate"><span class="pre">Autodesk.InViewerSearch</span></code></li>
+</ul>
+<p>Extension must be explicitly loaded by developers.
+Extension will add a button to the toolbar.</p>
+<img alt="../../_images/2_10_search_1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_search_1.png">
+<p>Click on the button to open the Search Panel. The panel may include previously searched strings.</p>
+<img alt="../../_images/2_10_search_2.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_search_2.png">
+<p>Search results are placed into tabs <code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">View</span></code> and <code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">Item</span></code>.</p>
+<img alt="../../_images/2_10_search_3.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_search_3.png">
+<p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">View</span></code> refers to the currently loaded model.
+<code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">Item</span></code> will display results across all viewables from the loaded Document (requires usage of <code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code>).</p>
+<p>Click on a search result to have its corresponding node isolated in the Viewer. The Properties Panel will show up, as well.</p>
+<img alt="../../_images/2_10_search_4.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_10_search_4.png">
+<p>Additional configuration options can be specified through <code class="docutils literal notranslate"><span class="pre">inViewerSearchConfig</span></code>:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">config3d</span><span class="p">.</span><span class="nx">inViewerSearchConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">relatedItemsTab</span><span class="o">:</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">  </span><span class="c1">//if false we hide the tab</span>
+<span class="w">        </span><span class="nx">displayName</span><span class="o">:</span><span class="w"> </span><span class="s1">'This Item'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">pageSize</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">loadedModelTab</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">enabled</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">  </span><span class="c1">//if false we hide the tab</span>
+<span class="w">        </span><span class="nx">displayName</span><span class="o">:</span><span class="w"> </span><span class="s1">'This View'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">pageSize</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">config3d</span></code> needs to be passed into <code class="docutils literal notranslate"><span class="pre">viewerApp.registerViewer</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">registerViewer</span><span class="p">(</span><span class="nx">viewerApp</span><span class="p">.</span><span class="nx">k3D</span><span class="p">,</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Private</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">,</span><span class="w"> </span><span class="nx">config3d</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Refer to <a class="reference external" href="/en/docs/viewer/v5/tutorials/basic-viewer">Basic Viewer</a> Step-by-Step tutorial for more information on <code class="docutils literal notranslate"><span class="pre">viewerApp.registerViewer</span></code>.</p>
+</section>
+<section id="id21">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix issue where ghosted objects disappeared when changing a setting until some action is performed in the canvas.</li>
+<li>Fix issue where an isolation operation triggered through Model Browser item would fail on some files.</li>
+<li>Fix issue where some model files may never finish loading (the progress bar would never go away).</li>
+<li>Fix issue where the Property Panel would stop working after switching sheets.</li>
+<li>Fix issue where <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.SELECTION_CHANGED_EVENT</span></code> would get fired twice after clearing current selection.</li>
+<li>Minor text fixes.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-9">
+<a href="#version-2-9"><h2>Version 2.9</h2></a>
+<p><em>Release Date: 2017-08-10</em></p>
+<section id="id22">
+<h3>Changed</h3>
+<ul class="simple">
+<li><strong>API CHANGE</strong>: <code class="docutils literal notranslate"><span class="pre">viewer.getScreenShot()</span></code> must always receive the 3rd argument, a callback function, and no longer returns a string. See Fixes section below on why this change was required.</li>
+</ul>
+<p>So far, developers would get a url to a non-resized image of the Viewer the following way:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// old way, up until 2.8</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">blobUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getScreenShot</span><span class="p">();</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">blobUrl</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Now in 2.9 the same can be achieved as follows:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// new way as of 2.9</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">currentWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">clientWidth</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">currentHeight</span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">container</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">;</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">getScreenShot</span><span class="p">(</span><span class="nx">currentWidth</span><span class="p">,</span><span class="w"> </span><span class="nx">currentHeight</span><span class="p">,</span><span class="w"> </span><span class="nx">onImageReady</span><span class="p">);</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onImageReady</span><span class="p">(</span><span class="nx">blobUrl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">blobUrl</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="id23">
+<h3>Added</h3>
+<ul class="simple">
+<li>When available, render settings from loaded model will override default and user-defined preferences, in order to provide an initial load that is consistent throughout sessions.</li>
+<li>Developers can bypass this behavior with the following code in an Extension’s <code class="docutils literal notranslate"><span class="pre">load()</span></code> method:</li>
+</ul>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">prefs</span><span class="p">.</span><span class="nx">tag</span><span class="p">(</span><span class="s1">'ignore-producer'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<ul class="simple">
+<li>Render settings applied from loaded model file will now have a distinctive appearance in Settings Panel:</li>
+</ul>
+<img alt="../../_images/2_9_ignore_producer.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_9_ignore_producer.png">
+<ul class="simple">
+<li>An error message will be displayed when loading an empty SVF.</li>
+<li>Add extension ZoomWindow, which allows to zoom into a region of the canvas by drawing a rectangular area. Extension is not loaded by default, developers must do so explicitly.</li>
+</ul>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.ZoomWindow'</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>A button will get added to the toolbar when <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.ZoomWindow</span></code> extension is loaded:</p>
+<img alt="../../_images/2_9_zoom_A.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_9_zoom_A.png">
+<p>It will allow a user to draw a rectangular region (click, drag, release):</p>
+<img alt="../../_images/2_9_zoom_B.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_9_zoom_B.png">
+<p>On release, the camera will change focus to the rectangular region drawn:</p>
+<img alt="../../_images/2_9_zoom_C.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_9_zoom_C.png">
+</section>
+<section id="id24">
+<h3>Fixed</h3>
+<ul class="simple">
+<li><strong>API CHANGE</strong>: <code class="docutils literal notranslate"><span class="pre">viewer.getScreenShot()</span></code> no longer returns a vertically-flipped image in Safari.</li>
+<li>Image Based Lighting (IBL) looks different on load than on selection of same IBL.</li>
+<li>Some models that used to have their Model Browsers empty, will now have it populated.</li>
+<li>Isolation was not reflected in the model browser when isolating before open it.</li>
+<li>Model Properties of Chinese (and other Unicode) characters would render incorrectly.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-2-8">
+<a href="#version-2-8"><h2>Version 2.8</h2></a>
+<p><em>Release Date: 2016-06-06</em></p>
+<section id="id25">
+<h3>Changed</h3>
+<ul class="simple">
+<li>None</li>
+</ul>
+</section>
+<section id="id26">
+<h3>Added</h3>
+<ul class="simple">
+<li>Add node coloring APIs. Can be used with 2D and 3D dbIds</li>
+</ul>
+<img alt="../../_images/2_8_node_color.jpg" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_8_node_color.jpg">
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Set color</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">];</span><span class="w"> </span><span class="c1">// Array of dbIds</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector4</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// r, g, b, intensity</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setThemingColor</span><span class="p">(</span><span class="nx">ids</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="p">);</span>
+
+<span class="c1">// Reset colors</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">clearThemingColors</span><span class="p">();</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<ul class="simple">
+<li>Swap background color of a 2D sheet from white to black; activated in Settings, Performance and appearance Tab</li>
+</ul>
+<img alt="../../_images/2_8_sheet_color.jpg" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/2_8_sheet_color.jpg">
+</section>
+<section id="id27">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>[Mobile] Drop down menu arrow of the viewcube is not visible</li>
+<li>[Mobile] Improved performance when “Smooth Navigation” option is active on devices such as Samsung S5</li>
+<li>Fix issue where Ground shadows were not rendered for a particular combination of settings</li>
+<li>Some arcs were missing in 2D drawings</li>
+<li>IE11: Show/hide this layer didn’t work after you hide then show the layer once</li>
+<li>Property Panel would sometimes not display any data</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="id28">
+<a href="#id28"><h2>Version 2.7</h2></a>
+<p><em>Release Date: 2016-04-25</em></p>
+<section id="id29">
+<h3>Changed</h3>
+<ul class="simple">
+<li><strong>API CHANGE</strong>: Removed file extensions/MarkupsCore.min.js</li>
+<li><strong>API CHANGE</strong>: Removed file extensions/CommentsExt.min.js</li>
+<li><strong>API CHANGE</strong>: viewer3D.min.js will now include the content from
+MarkupsCore.min and CommentsExt.min.js.  There is no longer need to download those two files separately.</li>
+<li><strong>POTENTIAL BREAKING CHANGE</strong> Avoid ultra-long frames by spreading initialization over several frames – this makes the loading animation smoother and there is no two second frame blockage. In particular, notice that:
+- UI creation is delayed
+- extension loading is delayed
+- ViewCube initialization is delayed
+- shared buffer initialization is delayed</li>
+<li>WebSocket logger has been turned off</li>
+<li>We now kick off data loading before WebGL initialization, so that data loading happens in parallel with the renderer initialization.</li>
+<li>Hyperlinks pointing to another viewable within the Document will now display the Label instead of the guid whenever possible</li>
+<li>Buttons no longer fire click event when disabled</li>
+</ul>
+</section>
+<section id="id30">
+<h3>Added</h3>
+<ul class="simple">
+<li>Hyperlink support</li>
+<li>Support hosting app to instantiate multiple viewers, each with different ACM namespace</li>
+<li>Poli-Line Markup</li>
+<li>Poli-Cloud Markup</li>
+<li>Measuring time to first pixel</li>
+<li>Add ViewCube API
+- It is now possible to change camera orientation through code in the same way users are able to by clicking on the ViewCube’s faces, edges and corners.</li>
+</ul>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// format is "[front/back], [top/bottom], [left/right]"</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">([</span><span class="s1">'front'</span><span class="p">]);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">([</span><span class="s1">'top, right'</span><span class="p">]);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setViewCube</span><span class="p">([</span><span class="s1">'back, bottom, left'</span><span class="p">]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<ul class="simple">
+<li>LMV will now only write error logs into the console by default
+- Developers can customize the <em>error level</em> used by LMV:</li>
+</ul>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="w"> </span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">avp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Private</span><span class="p">;</span>
+<span class="w">   </span><span class="nx">avp</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="w"> </span><span class="nx">avp</span><span class="p">.</span><span class="nx">LogLevels</span><span class="p">.</span><span class="nx">NONE</span><span class="w"> </span><span class="p">);</span>
+<span class="w">   </span><span class="c1">// or</span>
+<span class="w">   </span><span class="nx">avp</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">setLevel</span><span class="p">(</span><span class="w"> </span><span class="nx">avp</span><span class="p">.</span><span class="nx">LogLevels</span><span class="p">.</span><span class="nx">DEBUG</span><span class="w"> </span><span class="p">);</span>
+<span class="w">   </span><span class="c1">// avp.LogLevels has additional constants</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<ul class="simple">
+<li>The ViewCube can now be used when using a Viewer3D instance</li>
+<li>viewerWebView now uses non-UI lmv library (firefly.js instead of viewer3D.js) to reduce memory footprint and javascript parsing time.</li>
+<li>Use cache.manifest in native mobile integration HTML for faster load times.</li>
+<li><em>viewer.search()</em> will now take into account property database’s display value in addition to the key string.</li>
+<li>Add <em>viewer.model.getDocumentNode()</em> which returns a typed object wrapping manifest definition for the loaded model.</li>
+<li>Increased Markup hit areas for easier mobile usage</li>
+</ul>
+</section>
+<section id="id31">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Improved Cloud Markup graphics and behaviour</li>
+<li>Fixed Text Markup glitches in Firefox</li>
+<li>Fixed some issues with Markup’s <em>renderToCanvas()</em></li>
+<li>Fix toolbar alignment when leaving markup mode</li>
+<li>Z depth computation for orthographic view</li>
+<li>Improved Ambient Occlusion (SSAO) on very large models</li>
+<li>Disabled Camera Roll when drawing Markups in mobile</li>
+<li>Improve line selection of 2d models in mobile</li>
+<li>Fixed assert in IE when switching from zoom to pan tool</li>
+<li>First Person tool - MessageBox not showing key control directions</li>
+<li>2D measure: Fix selection when 2 lines were overlapping the same pixel</li>
+<li>No longer sends ‘fps’ data to ADP before it collects enough samples</li>
+<li>OrbiDollyPanTool is no longer added twice to ToolController’s tool stack</li>
+<li>Performance and Navigation Settings Panel is no longer empty when more than one viewer is present</li>
+<li>The first time an object is selected in the canvas, it was not selected in the model browser</li>
+<li>SAO support in Firefox 45</li>
+<li>Removed warnings due to upgraded ADP 1.0.1 usage</li>
+<li>Ghosted nodes no longer disappear after isolating a node while reflections are active</li>
+<li>Double tap was not recognized as a double click in Firefox when using markups</li>
+<li>Fixed <em>Invalid CSS property declaration</em> in Safari</li>
+<li>Memory management enhancements for Web mobile and Native mobile</li>
+<li>SAO working on iOS / most-android</li>
+<li>Transparent materials</li>
+<li>Fix ACM usage in native iOS integration</li>
+<li>Fusion drawings with animation crash on low end IOS</li>
+<li>Fix an undefined reference problem in model iterator and correct removeOverlayScene on selection2d</li>
+</ul>
+</section>
+<section id="known-issues">
+<h3>Known issues</h3>
+<ul class="simple">
+<li>As of Chrome 50, multiple WebGL warning are being flushed into the browser’s console. This happens with this version of the viewer, and previous ones as well.</li>
+<li>Drawing an Arrow Markup (or similar) using a finger swipe-up gesture in Firefox for Windows on a Surface Pro 3 triggers a browser-scroll operation instead of actually drawing the markup. We suggest using another browser to work around this limitation</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

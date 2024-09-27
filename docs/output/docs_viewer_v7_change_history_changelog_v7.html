@@ -1,0 +1,3405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v7 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v7-changelog">
+<h1>V7 Changelog</h1>
+<section id="id1">
+<a href="#id1"><h2>7.100.0</h2></a>
+<p><em>Release Date: 09/25/2024</em></p>
+<section id="added">
+<h3>Added</h3>
+<ul class="simple">
+<li>Improved time budget management for progressive rendering</li>
+</ul>
+<ul>
+<li>Interface to add custom measurement tools</li>
+<li><em>Large Model Experience</em> (Beta) related additions:<p></p>
+<ul class="simple">
+<li>Caching of the optimized bounding volume hierarchy</li>
+</ul>
+<ul class="simple">
+<li>Support for multiple models</li>
+</ul>
+<ul class="simple">
+<li>Improved GPU memory management</li>
+</ul>
+<ul class="simple">
+<li>Improved handling of minimap and multi-viewer use cases</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Renamed <code class="docutils literal notranslate"><span class="pre">APAC</span></code> endpoints to <code class="docutils literal notranslate"><span class="pre">AUS</span></code></li>
+</ul>
+<ul class="simple">
+<li>Made <code class="docutils literal notranslate"><span class="pre">streamingV2</span></code> (SVF2) the default in the documentation of the API initialization</li>
+</ul>
+<ul class="simple">
+<li>Improved bounding volume hierarchy construction for faster raycasting in large models, e.g., when using BimWalk</li>
+</ul>
+<ul class="simple">
+<li>Switched to GPU-based geometry pre-processing (transform feedback) and improved buffer management<p></p>
+<ul>
+<li>Disabled for Firefox on macOS (no support for transform feedback)</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="fixed">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>An exception occurring when the viewer is destroyed during asynchronous operations</li>
+</ul>
+<ul class="simple">
+<li>Transparency issues with nwd files with consolidated model</li>
+</ul>
+<ul class="simple">
+<li>Node visibility state in Model Browser when isolating and then hiding the node</li>
+</ul>
+<ul class="simple">
+<li>Crash in PowerBI, <code class="docutils literal notranslate"><span class="pre">&lt;iframes&gt;</span></code>, and Android WebView due to <code class="docutils literal notranslate"><span class="pre">localStorage</span></code> access</li>
+</ul>
+<ul class="simple">
+<li>Missing <code class="docutils literal notranslate"><span class="pre">getBoundingBox</span></code> Model API in the Viewer SDK</li>
+</ul>
+<ul class="simple">
+<li>An issue where Fusion-style orbit is not loaded correctly</li>
+</ul>
+<ul class="simple">
+<li>A measurement issue in Edit2D tools</li>
+</ul>
+<ul class="simple">
+<li>An issue when pushpin is deselected, the section tool should stay activated</li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<a href="#id2"><h2>7.99.1</h2></a>
+<p><em>Release Date: 08/07/2024</em></p>
+</section>
+<section id="id3">
+<a href="#id3"><h2>7.99.0</h2></a>
+<p><em>Release Date: 07/31/2024</em></p>
+<section id="id4">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Renamed “Smooth Navigation” setting to “Disable shadow effect” to clarify its purpose</li>
+</ul>
+<ul class="simple">
+<li>When “Large Model Experience” is enabled, this adds a label to the progressbar indicating the current operation (<code class="docutils literal notranslate"><span class="pre">Loading</span></code>, <code class="docutils literal notranslate"><span class="pre">Optimizing</span></code>, <code class="docutils literal notranslate"><span class="pre">Rendering</span></code>)</li>
+</ul>
+</section>
+<section id="id5">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D#setAggregateIsolation()</span></code> to isolate across multiple models</li>
+</ul>
+<ul>
+<li>“Large model experience” preference allowing users to perform a beta test of large model rendering optimizations, which are currently in development. By default, the option is toggled off and users will have to explicitly enable it to see the optimizations.<p></p>
+<p>Since these optimizations are still in beta and not ready for all use cases (e.g. rendering aggregates of many models), we provide a feature flag to hide the option from users:</p>
+<div class="highlight-default notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="n">Autodesk</span><span class="o">.</span><span class="n">Viewing</span><span class="o">.</span><span class="n">FeatureFlags</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'HIDE_LARGE_MODEL_EXPERIENCE'</span><span class="p">,</span> <span class="n">true</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>A bug where some PDF annotations are not rendered due to incorrect bbox calculation</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D#isolate()</span></code> behavior for multiple models (bug introduced in 7.98)</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D#isolate()</span></code> not resetting the isolation</li>
+</ul>
+<ul class="simple">
+<li>Vector &lt;&gt; Raster switch behavior for hypermodeling</li>
+</ul>
+<ul class="simple">
+<li>Issues which could prevent internationalization from being correctly applied</li>
+</ul>
+<ul class="simple">
+<li>An issue occurring when right clicking part of a model early during startup</li>
+</ul>
+<ul class="simple">
+<li>Occasional crashes on initialization when using the LeechViewer (multiple viewers)</li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<a href="#id7"><h2>7.98.0</h2></a>
+<p><em>Release Date: 06/26/2024</em></p>
+<section id="id8">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improved layer visibility and isolation toggling responsiveness</li>
+</ul>
+<ul class="simple">
+<li>Enabled the OPFS cache by default, greatly improving cached model loading performance. See <a class="reference external" href="https://aps.autodesk.com/blog/viewer-performance-update-part-2-3-opfs-caching" target="_blank">this blog post</a> for more information.</li>
+</ul>
+</section>
+<section id="id9">
+<h3>Added</h3>
+<ul class="simple">
+<li>Central Feature Flag management</li>
+</ul>
+<ul class="simple">
+<li>Introduced adaptive streaming for SVF2, speeding up geometry loading</li>
+<li>Reduced loading time of OPFS-cached models by up to 20%</li>
+</ul>
+<ul class="simple">
+<li>API to search the InstanceTree by node names</li>
+</ul>
+<ul class="simple">
+<li>Optimizations in SVF2 initialization decreasing the time to first pixel by 0.2s</li>
+</ul>
+</section>
+<section id="id10">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>An issue where Markups are not rendered correctly to the canvas (WebKit)</li>
+</ul>
+<ul class="simple">
+<li>View cube not rendering correctly with multiple viewers</li>
+</ul>
+<ul class="simple">
+<li>Changing models in PDFs with <code class="docutils literal notranslate"><span class="pre">loadNextModel</span></code> and <code class="docutils literal notranslate"><span class="pre">loadPrevModel</span></code> methods of the <code class="docutils literal notranslate"><span class="pre">Autodesk.DocumentBrowser</span></code> extension</li>
+<li>Type <code class="docutils literal notranslate"><span class="pre">resource</span></code> instead of <code class="docutils literal notranslate"><span class="pre">geometry</span></code> for bubble nodes having the <code class="docutils literal notranslate"><span class="pre">pdf-page</span></code> role</li>
+</ul>
+<ul class="simple">
+<li>GPU memory deallocation issue</li>
+</ul>
+<ul class="simple">
+<li>Occasional false positives returned by <code class="docutils literal notranslate"><span class="pre">isLoadDone</span></code> and its dependant <code class="docutils literal notranslate"><span class="pre">waitForLoadDone</span></code> of the Viewer3D API</li>
+</ul>
+<ul class="simple">
+<li>Pushpins placed at incorrect locations if the first of multiple loaded models was a flat plane</li>
+</ul>
+<ul class="simple">
+<li>An issue with the ground reflection</li>
+</ul>
+<ul class="simple">
+<li>The visibility status in the model browser when multiple models are loaded</li>
+</ul>
+<ul class="simple">
+<li>A regression where the rendering prioritization with multiple models would not work</li>
+</ul>
+<ul class="simple">
+<li>A potential race condition in <code class="docutils literal notranslate"><span class="pre">Autodesk.Filter</span></code> extension</li>
+</ul>
+<ul class="simple">
+<li>Incorrect area measurements in <code class="docutils literal notranslate"><span class="pre">Autodesk.Measure</span></code> not taking PDF viewport units into account</li>
+</ul>
+<ul class="simple">
+<li>ACC PDFs not correctly routing to APAC</li>
+</ul>
+<ul class="simple">
+<li>Selection Plane option being unavailable in the context menus of some selections</li>
+</ul>
+<ul class="simple">
+<li>CVE-2024-4367 security issue (”Arbitrary JavaScript execution in PDF.js”)</li>
+</ul>
+<ul class="simple">
+<li>An issue in the Model Browser with some nodes not denoting the number of child nodes</li>
+</ul>
+<ul class="simple">
+<li>SmartSection button and panel not being removed after unloading the extension</li>
+</ul>
+<ul class="simple">
+<li>Context submenu sometimes not showing up</li>
+</ul>
+<ul class="simple">
+<li>Unintended sanitization of <code class="docutils literal notranslate"><span class="pre">'</span></code> character from BIM360 text markup</li>
+</ul>
+<ul class="simple">
+<li>A few missing translations</li>
+</ul>
+</section>
+</section>
+<section id="id11">
+<a href="#id11"><h2>7.97.0</h2></a>
+<p><em>Release Date: 05/13/2024</em></p>
+<section id="id12">
+<h3>Added</h3>
+<ul class="simple">
+<li>Introduce a color theming veto mechanism for Model Alignment</li>
+</ul>
+<ul class="simple">
+<li>Introduce Raster &lt;&gt; Vector render switch for PDF</li>
+</ul>
+<ul class="simple">
+<li>Filtering non-loaded fragments from the model browser</li>
+</ul>
+<ul class="simple">
+<li>Performance optimizations when loading models from cache. Loading time improved by up to 20%, time to first pixel improved by up to 50%</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">disableTheming</span></code> material parameter to disable theming per material. This allows to use simple highlights (e.g. when using the <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.SelectionType.REGULAR</span></code> node selection type) also when theming colors are being set.</li>
+</ul>
+</section>
+<section id="id13">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>An issue where the preliminary property lookup syntax in property queries (selective loading) did not work for names containing special characters</li>
+</ul>
+<ul class="simple">
+<li>Issue where elements in NW viewpoints were still hidden after switching views</li>
+</ul>
+<ul class="simple">
+<li>Enable vector viewing settings for ACC Sheets</li>
+</ul>
+<ul class="simple">
+<li>Correctly free memory when unloading a mesh</li>
+</ul>
+<ul class="simple">
+<li>Load progress bar was hidden too early</li>
+<li>Redundant computation of optimization data structures for first person navigation mode</li>
+</ul>
+<ul class="simple">
+<li>Gizmo height calculation for perspective camera. Gizmo offset is now considered when calculating distance to the camera.</li>
+</ul>
+<ul class="simple">
+<li>Support of mixed topology models and support of shared DBID models in the Autodesk.Measure extension</li>
+</ul>
+<ul class="simple">
+<li>Caching of options in <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D#loadDocumentNode</span></code> led to unexpected side-effects, e.g., a wrong data in the Document Browser.</li>
+</ul>
+<ul class="simple">
+<li>Some preferences were not properly restored, e.g., hidden minimap.</li>
+</ul>
+<ul class="simple">
+<li>Issue where SVF2 viewpoints loading could result in material loading errors</li>
+</ul>
+<ul class="simple">
+<li>A crash of the SVGs when using special characters in the Autodesk.BIM360.Markups extension</li>
+</ul>
+<ul class="simple">
+<li>A crash of the Autodesk.CAM360 extension</li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<a href="#id14"><h2>7.96.0</h2></a>
+<p><em>Release Date: 03/21/2024</em></p>
+<section id="id15">
+<h3>Added</h3>
+<ul class="simple">
+<li>New and improved geometry cache that can be enabled using the URL parameter <code class="docutils literal notranslate"><span class="pre">useOPFS=true</span></code></li>
+</ul>
+</section>
+<section id="id16">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>An issue where sheet alignment was sometimes mirrored, making it difficult to align correctly</li>
+</ul>
+<ul class="simple">
+<li>An issue in the Place-Me tool where teleporting to floor plans added an incorrect height offset</li>
+</ul>
+<ul class="simple">
+<li>An issue with models having empty layer names in the property database</li>
+</ul>
+<ul class="simple">
+<li>[Regression] UV texture transformations should be applied to the existing matrix, but not overwrite it.</li>
+</ul>
+<ul class="simple">
+<li>Out-of-memory crashes on certain PDF documents</li>
+</ul>
+<ul class="simple">
+<li>Wrong data shown due to a section view not being reset when switching between markups in the Autodesk.Vault.Markups extension</li>
+</ul>
+<ul class="simple">
+<li>Handling of corrupted PDF layers</li>
+</ul>
+</section>
+<section id="removed">
+<h3>Removed</h3>
+<ul class="simple">
+<li>[Rollback] Fix view cube orientation when loading svf files originated from Navisworks Coordination.</li>
+</ul>
+</section>
+</section>
+<section id="id17">
+<a href="#id17"><h2>7.95.1</h2></a>
+<p><em>Release Date: 03/01/2024</em></p>
+<section id="id18">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Regression related to <code class="docutils literal notranslate"><span class="pre">env</span></code> not being set to <code class="docutils literal notranslate"><span class="pre">AutodeskProduction</span></code> by default</li>
+</ul>
+</section>
+</section>
+<section id="id19">
+<a href="#id19"><h2>7.95.0</h2></a>
+<p><em>Release Date: 02/14/2024</em></p>
+<section id="id20">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Client streaming parameters to improve model load time</li>
+</ul>
+<ul class="simple">
+<li>Attribute properties will no longer be inherited from non-graphical parent objects in the Autodesk.Filter extension.</li>
+</ul>
+</section>
+<section id="id21">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Loading of property db for 2D layers supplied as PDFs by the translation service</li>
+</ul>
+<ul class="simple">
+<li>Green screen overlay flickering on some devices when using the Autodesk.Viewing.PixelCompare extension</li>
+</ul>
+<ul class="simple">
+<li>Add condition to transform functions in the Autodesk.BIM360.Extension.PushPin extension to protect it from failing.</li>
+</ul>
+</section>
+<section id="id22">
+<h3>Removed</h3>
+<ul class="simple">
+<li>[BREAKING] Support for WebGL1, now requires WebGL2. Since all supported browsers already support WebGL2, the effective browser requirements do not change.</li>
+</ul>
+</section>
+</section>
+<section id="id23">
+<a href="#id23"><h2>7.94.0</h2></a>
+<p><em>Release Date: 01/24/2024</em></p>
+<section id="id24">
+<h3>Added</h3>
+<ul class="simple">
+<li>Add flag to ignore extra viewpoint data in <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Viewer3D#setView</span></code>.</li>
+</ul>
+<ul class="simple">
+<li>Add support of glTFs extensions <code class="docutils literal notranslate"><span class="pre">EXT_meshopt_compression</span></code>, <code class="docutils literal notranslate"><span class="pre">KHR_mesh_quantization</span></code>, and <code class="docutils literal notranslate"><span class="pre">KHR_texture_transform</span></code>.</li>
+</ul>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">parentId</span></code> parameter to the <code class="docutils literal notranslate"><span class="pre">InstanceTree.enumNodeChildren</span></code> callback.</li>
+</ul>
+</section>
+<section id="id25">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix spurious line rendering of some PDF documents.</li>
+</ul>
+<ul class="simple">
+<li>Fix error log and geometry load delay when switching views.</li>
+</ul>
+<ul class="simple">
+<li>Fix incorrect rendering of gradient fills in some PDF documents.</li>
+</ul>
+<ul class="simple">
+<li>Fix loading of models that use <code class="docutils literal notranslate"><span class="pre">UNSIGNED_BYTE</span></code> indices.</li>
+</ul>
+<ul class="simple">
+<li>Fix missing fragments when using selective loading with property queries.</li>
+</ul>
+<ul class="simple">
+<li>Fix view cube orientation on restore.</li>
+</ul>
+<ul class="simple">
+<li>Fix view cube orientation when loading svf files originated from Navisworks Coordination.</li>
+</ul>
+<ul class="simple">
+<li>Fix PixelCompare overlay state.</li>
+</ul>
+</section>
+<section id="id26">
+<h3>Removed</h3>
+<ul class="simple">
+<li>Remove IE11 polyfills and workarounds.</li>
+</ul>
+<ul class="simple">
+<li>Remove <code class="docutils literal notranslate"><span class="pre">legacy/ViewingApplication.js</span></code>.</li>
+</ul>
+</section>
+</section>
+<section id="id27">
+<a href="#id27"><h2>7.93.1</h2></a>
+<p><em>Release Date: 10/20/2023</em></p>
+<section id="id28">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix loading of geometry when switching views.</li>
+</ul>
+</section>
+</section>
+<section id="id29">
+<a href="#id29"><h2>7.93.0</h2></a>
+<p><em>Release Date: 10/05/2023</em></p>
+<section id="id30">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improve model load time by 5-10% and prioritize on relevant geometry the first few seconds loading.</li>
+</ul>
+<ul class="simple">
+<li>[BREAKING] Model.dispose() made private.</li>
+</ul>
+<ul class="simple">
+<li>Support hiding of overlay scenes from model rendering.</li>
+<li>[BREAKING] Custom overlay targets may no longer be passed to getScreenshot() options.</li>
+</ul>
+<ul class="simple">
+<li>Improve load speed of large PDF documents.</li>
+</ul>
+</section>
+<section id="id31">
+<h3>Added</h3>
+<ul class="simple">
+<li>Add invert option for section boxes in Autodesk.SmartSection extension.</li>
+</ul>
+<ul class="simple">
+<li>Add documentation for the NPR extension.</li>
+</ul>
+<ul class="simple">
+<li>Add documentation for MarkupEvents.</li>
+</ul>
+</section>
+<section id="id32">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix markup context menu overlaps with text markup in Autodesk.Vault.Markups extension.</li>
+</ul>
+<ul class="simple">
+<li>Fix occasional error in PushPin3D when accessing its marker.</li>
+</ul>
+<ul class="simple">
+<li>Fix occasional synchronization issue in the section plane panel.</li>
+</ul>
+<ul class="simple">
+<li>Fix auto-resize of markups when mouse is not moving in Autodesk.Viewing.MarkupsCore extension.</li>
+</ul>
+<ul class="simple">
+<li>Fix loading viewpoints tree in document browser (affects nwd, nwc, and ifc files).</li>
+</ul>
+<ul class="simple">
+<li>Fix loading of textures from DWF models.</li>
+</ul>
+<ul class="simple">
+<li>Fix explode slider positioning in multi-viewer scenarios.</li>
+</ul>
+<ul class="simple">
+<li>Fix display of some characters in PDF documents.</li>
+</ul>
+<ul class="simple">
+<li>Enable iOS 15.x work-around to prevent browser crashes on iOS 17 and future versions as well.</li>
+</ul>
+</section>
+</section>
+<section id="id33">
+<a href="#id33"><h2>7.92.0</h2></a>
+<p><em>Release Date: 08/15/2023</em></p>
+<section id="id34">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Update @adsk/recap-extension from 7.2.8 to 7.3.17.</li>
+</ul>
+<ul class="simple">
+<li>Disable initial visibility handling after model load to avoid browser tab freeze.</li>
+</ul>
+<ul class="simple">
+<li>Autodesk.Viewing.Initializer now allows specifying an option to set the root path for LMV resources (lmvResourceRoot).</li>
+</ul>
+</section>
+<section id="id35">
+<h3>Added</h3>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">Viewer3D.hideHiddenObjects</span></code> as a fallback to trigger initial visibility handling.</li>
+</ul>
+</section>
+<section id="id36">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Avoid console warnings that occur when closing WebSockets during their opening process.</li>
+</ul>
+</section>
+</section>
+<section id="id37">
+<a href="#id37"><h2>7.91.0</h2></a>
+<p><em>Release Date: 07/17/2023</em></p>
+<section id="id38">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improved performance of Autodesk.Viewing.PixelCompare extension.</li>
+</ul>
+</section>
+<section id="id39">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Alignment of models when comparing different versions of the same DWG model in the Autodesk.Viewing.PixelCompare extension</li>
+</ul>
+<ul class="simple">
+<li>Autodesk.Viewing.PixelCompare extension now renders with the same color and brightness as regular viewing</li>
+</ul>
+<ul class="simple">
+<li>Exception when unloading a model while the measure tool is active</li>
+</ul>
+<ul class="simple">
+<li>Rare endless loop in PDF loader</li>
+</ul>
+<ul class="simple">
+<li>Resolved Chrome 114+ crash issue in DWF texture loading. Affected models now load but with some or all textures missing.</li>
+</ul>
+<ul class="simple">
+<li>Navisworks Viewpoints section boxes were not applied in all cases</li>
+</ul>
+</section>
+</section>
+<section id="id40">
+<a href="#id40"><h2>7.90.0</h2></a>
+<p><em>Release Date: 06/20/2023</em></p>
+<section id="id41">
+<h3>Changed</h3>
+<ul class="simple">
+<li>When loading the Autodesk.PixelCompare extension, there is now an option to specify the default visibility of the UI.</li>
+</ul>
+</section>
+<section id="id42">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added support for Navisworks Viewpoints in SVF2 format</li>
+</ul>
+<ul class="simple">
+<li>Documentation for the MarkupsCore extension for v7</li>
+</ul>
+</section>
+<section id="id43">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Leaving an empty diff view in AggregatedView shows all models in ghosted mode</li>
+</ul>
+<ul class="simple">
+<li>Measurements don’t follow objects when the model is exploded</li>
+</ul>
+<ul class="simple">
+<li>Using BoxSelection with a mouse on touch-enabled devices didn’t work</li>
+</ul>
+<ul class="simple">
+<li>An issue with Model.getPropertyHashes in minified builds</li>
+</ul>
+<ul class="simple">
+<li>A rare issue that caused some missing objects when loading SVF2 data</li>
+</ul>
+</section>
+</section>
+<section id="id44">
+<a href="#id44"><h2>7.89.0</h2></a>
+<p><em>Release Date: 06/02/2023</em></p>
+<section id="id45">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension Autodesk.PixelCompare allows rendering the same model for both main and secondary models.</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.PixelCompare now allows clients to control the main and secondary document colours in overlay compare mode.</li>
+</ul>
+<ul class="simple">
+<li>Improved snapper performance</li>
+</ul>
+<ul class="simple">
+<li>Improve SVF2 load performance (already cached designs loaded with an older version won’t benefit from this change)</li>
+</ul>
+</section>
+<section id="id46">
+<h3>Added</h3>
+<ul class="simple">
+<li>A <code class="docutils literal notranslate"><span class="pre">filter</span></code> option (<code class="docutils literal notranslate"><span class="pre">loadDocomentNode</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">loadModel</span></code>) that allows to only load subsets of designs via spatial and property filter queries.</li>
+</ul>
+<ul class="simple">
+<li>Added mainOverlayColor, secondaryOverlayColor, and blendedOverlayColor options in the PixelCompare extension, along with default colors to show overlay diff when in model overlay compare mode</li>
+</ul>
+</section>
+<section id="id47">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Added substitutions for Japanese fonts KozMinPr6N-Regular, MS Gothic, MS Mincho, Meiryo</li>
+</ul>
+<ul class="simple">
+<li>Rendering of some annotations in PDF documents.</li>
+</ul>
+</section>
+<section id="id48">
+<h3>Removed</h3>
+<ul class="simple">
+<li>The previously deprecated and non-functional Collaboration extension</li>
+</ul>
+</section>
+</section>
+<section id="id49">
+<a href="#id49"><h2>7.88.0</h2></a>
+<p><em>Release Date: 04/18/2023</em></p>
+<section id="id50">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improved loading speed of very large SVF2 models on Chrome</li>
+</ul>
+<ul class="simple">
+<li>Loading very large SVF2 models consumes less memory during the load process, reducing the risk of crashes</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.PixelCompare now allows hiding all models when rendering overlay scenes</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.DiffTool now also supports the file type <code class="docutils literal notranslate"><span class="pre">application/vnd.autodesk.composite</span></code></li>
+</ul>
+<ul class="simple">
+<li>Replaced includeMainModelOverlayScenes option in the PixelCompare extension with mainOverlayScenes and secondaryOverlayScenes options to render overlay scenes associated with the main and secondary models.</li>
+</ul>
+</section>
+<section id="id51">
+<h3>Added</h3>
+<ul class="simple">
+<li>Support for “butt” line caps in PDF drawings</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D allows specifying a custom overlay scene to the Edit2dContext to draw shapes to</li>
+</ul>
+</section>
+<section id="id52">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>A crash when camera data in SVF derivatives is ill-defined</li>
+</ul>
+<ul class="simple">
+<li>BoxSelection does not work on touch devices (e.g. mobile)</li>
+</ul>
+<ul class="simple">
+<li>A rare error when rendering measurements</li>
+</ul>
+</section>
+</section>
+<section id="id53">
+<a href="#id53"><h2>7.87.0</h2></a>
+<p><em>Release Date: 02/23/2023</em></p>
+<section id="id54">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Loading an SVF model doesn’t crash if the embedded camera information is corrupted</li>
+</ul>
+</section>
+</section>
+<section id="id55">
+<a href="#id55"><h2>7.86.0</h2></a>
+<p><em>Release Date: 02/09/2023</em></p>
+<section id="id56">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Section box created via context menu is consistently oriented with those created via the toolbar</li>
+</ul>
+<ul class="simple">
+<li>Error when resizing the viewer element to very small dimensions (&lt;32 pixel) while ambient shadows are enabled</li>
+</ul>
+<ul class="simple">
+<li>Small helper geometries, e.g. measure snapping indicator, are not disposed properly</li>
+</ul>
+<ul class="simple">
+<li>Secondary UV channels override the primary channel in SVF2 designs</li>
+</ul>
+<ul class="simple">
+<li>Unable to change sheet background color in Macbook (M1)</li>
+</ul>
+<ul class="simple">
+<li>404 (not found) error for <code class="docutils literal notranslate"><span class="pre">/en-US/allstrings.json</span></code></li>
+</ul>
+<ul class="simple">
+<li>StandardSurface Extension: Simple Environments can be used now</li>
+</ul>
+</section>
+</section>
+<section id="id57">
+<a href="#id57"><h2>7.85.0</h2></a>
+<p><em>Release Date: 01/26/2023</em></p>
+<section id="id58">
+<h3>Added</h3>
+<ul class="simple">
+<li>PDF: added Symbol as built-in font</li>
+</ul>
+</section>
+<section id="id59">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Corrected a misspelled variable name in the Edit2D tutorial</li>
+</ul>
+<ul class="simple">
+<li>Crash on iOS 15+ if WebGL2 is explicitly disabled in the browser</li>
+</ul>
+</section>
+</section>
+<section id="id60">
+<a href="#id60"><h2>7.84.0</h2></a>
+<p><em>Release Date: 12/29/2022</em></p>
+<section id="id61">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improved ground shadow computation for faster startup and better sectioning</li>
+</ul>
+</section>
+<section id="id62">
+<h3>Added</h3>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D now supports snapping with miter line segments</li>
+</ul>
+<ul class="simple">
+<li>Added ZapfDingbats as a built-in font for PDF viewing</li>
+</ul>
+</section>
+<section id="id63">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Wide line rendering, when two or more objects use the same wide line material</li>
+</ul>
+<ul class="simple">
+<li>Resource cache to be freed up correctly for unloaded SVF2 models</li>
+</ul>
+<ul class="simple">
+<li>Section plane gizmo positioning when created via SectionExtension.setSectionPlane or context menu</li>
+</ul>
+<ul class="simple">
+<li>Display of wrong characters in some pdfs.</li>
+</ul>
+<ul class="simple">
+<li>Textures of decal materials are loaded for SVF2 designs</li>
+</ul>
+<ul class="simple">
+<li>Some small objects are not rendered when they should</li>
+</ul>
+<ul class="simple">
+<li>Broken characters in PDFs with non-embedded Japanese fonts</li>
+</ul>
+<ul class="simple">
+<li>Missing checkmarks in some PDF forms</li>
+</ul>
+<ul class="simple">
+<li>Missing Chinese characters in some PDFs</li>
+</ul>
+</section>
+</section>
+<section id="id64">
+<a href="#id64"><h2>7.83.0</h2></a>
+<p><em>Release Date: 12/15/2022</em></p>
+<section id="id65">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension Autodesk.DiffTool raises an error with a better message if not all models have the same dimensionality.</li>
+</ul>
+<ul class="simple">
+<li>Rebranded the Forge Viewer to the Viewer SDK (Forge -&gt; Autodesk Platform Services)</li>
+</ul>
+</section>
+</section>
+<section id="id66">
+<a href="#id66"><h2>7.82.0</h2></a>
+<p><em>Release Date: 12/01/2022</em></p>
+<section id="id67">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D replaced “filled line” feature with “miter line” for improved performance and visuals.</li>
+</ul>
+<ul class="simple">
+<li>Reduced re-rendering frequency of PDFs while loading</li>
+</ul>
+<ul class="simple">
+<li>Reduced viewer’s memory footprint</li>
+</ul>
+<ul class="simple">
+<li>Improved rendering to be more energy-efficient</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.PixelCompare now allows rendering overlay scenes in primary and/or secondary models.</li>
+</ul>
+<ul class="simple">
+<li>Enable iOS 15.x work-around to prevent browser crashes on iOS 16 as well</li>
+</ul>
+</section>
+<section id="id68">
+<h3>Added</h3>
+<ul class="simple">
+<li>DiffTool: Added a <code class="docutils literal notranslate"><span class="pre">propertyFilter</span></code> option that allows to exclude properties from the diff calculation.</li>
+</ul>
+</section>
+<section id="id69">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Model flips by 90° when clicking the home button, if the model does not contain a dedicated home view.</li>
+</ul>
+<ul class="simple">
+<li>Progressive rendering for large PDFs</li>
+</ul>
+<ul class="simple">
+<li>Selection highlighting in 2D models while loading</li>
+</ul>
+<ul class="simple">
+<li>Adding a SceneBuilder model to an AggregatedView was causing an exception</li>
+</ul>
+<ul class="simple">
+<li>PDF viewport / model transformation for affine viewport transformations</li>
+</ul>
+</section>
+</section>
+<section id="id70">
+<a href="#id70"><h2>7.81.0</h2></a>
+<p><em>Release Date: 11/17/2022</em></p>
+<section id="id71">
+<h3>Changed</h3>
+<ul class="simple">
+<li>DiffTool will not use “Source File” property for comparison for IFC and NWD format.</li>
+</ul>
+</section>
+<section id="id72">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix to extract externalIds for SVF2 models that use regular Diff Comparison.</li>
+</ul>
+<ul class="simple">
+<li>Rendering artifacts in some pdf files</li>
+</ul>
+</section>
+</section>
+<section id="id73">
+<a href="#id73"><h2>7.80.0</h2></a>
+<p><em>Release Date: 11/03/2022</em></p>
+<section id="id74">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Measurements in PDFs created by Revit and AutoCAD will use units as specified in the design applications</li>
+</ul>
+<ul class="simple">
+<li>Measuring precision presets for PDF files created from .rvt or .dwg files are taken into account</li>
+</ul>
+</section>
+<section id="id75">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Navisworks viewpoint loading code could fail when loading SVFs without viewpoints</li>
+</ul>
+<ul class="simple">
+<li>Unicode layer names in PDFs</li>
+</ul>
+</section>
+</section>
+<section id="id76">
+<a href="#id76"><h2>7.79.0</h2></a>
+<p><em>Release Date: 10/20/2022</em></p>
+<section id="id77">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Retry model data requests that fail with CORS errors a few times before giving up on them</li>
+</ul>
+</section>
+<section id="id78">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Memory leak after destroying a viewer instance</li>
+</ul>
+</section>
+</section>
+<section id="id79">
+<a href="#id79"><h2>7.78.0</h2></a>
+<p><em>Release Date: 10/06/2022</em></p>
+<section id="id80">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Reduced unnecessary minimap refreshes if camera is unchanged</li>
+</ul>
+</section>
+<section id="id81">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.LOADER_REPAINT_REQUEST_EVENT</span></code> indicating that a loader wants to rerender</li>
+</ul>
+</section>
+<section id="id82">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Respect navigation lock settings in side-by-side view in the DiffTool extension</li>
+</ul>
+<ul class="simple">
+<li>PDF rendering of repeating image patterns</li>
+</ul>
+<ul class="simple">
+<li>Enable color themes for all diff modes in the DiffTool extension</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D now render filled lines correctly on an edge-case of nearly straight lines.</li>
+</ul>
+</section>
+</section>
+<section id="id83">
+<a href="#id83"><h2>7.77.0</h2></a>
+<p><em>Release Date: 09/22/2022</em></p>
+<section id="id84">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Section planes and boxes align with project north if load options contains applyRefPoint=true</li>
+</ul>
+</section>
+<section id="id85">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Section planes positioning in some cases</li>
+</ul>
+<ul class="simple">
+<li>Avoid distortion of wide lines when the browser window and the viewer canvas don’t have the same aspect ratio.</li>
+</ul>
+<ul class="simple">
+<li>PDF: some entities were missing when enabling a (disabled by default) layer for the first time</li>
+</ul>
+<ul class="simple">
+<li>PDF: Error when switching views</li>
+</ul>
+</section>
+</section>
+<section id="id86">
+<a href="#id86"><h2>7.76.0</h2></a>
+<p><em>Release Date: 09/08/2022</em></p>
+<section id="id87">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>PDF: Fixed measuring lines inside a layer</li>
+</ul>
+</section>
+</section>
+<section id="id88">
+<a href="#id88"><h2>7.75.0</h2></a>
+<p><em>Release Date: 08/25/2022</em></p>
+<section id="id89">
+<h3>Added</h3>
+<ul class="simple">
+<li>Translations for European Portuguese (pt-PT)</li>
+</ul>
+</section>
+<section id="id90">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Raycasting/selection for scenes created with Scene Builder</li>
+</ul>
+<ul class="simple">
+<li>Incorrect rendering of consolidated meshes when using the LeechViewer (e.g. Minimap)</li>
+</ul>
+</section>
+</section>
+<section id="id91">
+<a href="#id91"><h2>7.74.0</h2></a>
+<p><em>Release Date: 08/11/2022</em></p>
+<section id="id92">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed transparent surfaces hiding opaque surfaces in aggregated models</li>
+</ul>
+</section>
+</section>
+<section id="id93">
+<a href="#id93"><h2>7.73.0</h2></a>
+<p><em>Release Date: 07/28/2022</em></p>
+<section id="id94">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Update @adsk/recap-extension from 7.1.2 to 7.1.26-alpha.1</li>
+</ul>
+</section>
+<section id="id95">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added geometry type filtering to ray intersection tests</li>
+</ul>
+<ul class="simple">
+<li>Added MeasureEvents.SELECT_MEASUREMENT event</li>
+</ul>
+</section>
+<section id="id96">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed loading of some PDFs</li>
+</ul>
+<ul class="simple">
+<li>Fixed loading of PDF documents with unexpected optional content</li>
+</ul>
+<ul class="simple">
+<li>Browser detection in IOS web views</li>
+</ul>
+</section>
+</section>
+<section id="id97">
+<a href="#id97"><h2>7.72.0</h2></a>
+<p><em>Release Date: 07/14/2022</em></p>
+<section id="id98">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added support for Viewpoint overrides from Navisworks</li>
+</ul>
+</section>
+<section id="id99">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Floor intersection test in BimWalk extension to avoid user falling through the floor to the level underneath</li>
+</ul>
+<ul class="simple">
+<li>Incorrect camera movement when reactivating the BimWalk extension</li>
+</ul>
+</section>
+</section>
+<section id="id100">
+<a href="#id100"><h2>7.71.0</h2></a>
+<p><em>Release Date: 06/30/2022</em></p>
+<section id="id101">
+<h3>Changed</h3>
+<ul class="simple">
+<li>In Autodesk.AEC.ViewportsExtension returned viewports are now ordered by creation time, oldest to newest.</li>
+</ul>
+</section>
+<section id="id102">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Sensor sprites in DataViz extension were not rendered on mobile devices anymore.</li>
+</ul>
+<ul class="simple">
+<li>Extensions with an asynchronous load function are handled as expected in applications that polyfill ES6 Promises.</li>
+</ul>
+</section>
+</section>
+<section id="id103">
+<a href="#id103"><h2>7.70.0</h2></a>
+<p><em>Release Date: 06/16/2022</em></p>
+<section id="id104">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Drop IE11 support</li>
+</ul>
+<ul class="simple">
+<li>Deprecate Autodesk.Viewing.Collaboration extension</li>
+<li>Deprecate Autodesk.Viewing.WebVR extension</li>
+</ul>
+</section>
+<section id="id105">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>ComboButton.removeControl actually removes a button from the group</li>
+</ul>
+<ul class="simple">
+<li>Fail gracefully when encountering unsupported <code class="docutils literal notranslate"><span class="pre">strokeStyle</span></code> types in vector PDFs.</li>
+</ul>
+</section>
+</section>
+<section id="id106">
+<a href="#id106"><h2>7.69.0</h2></a>
+<p><em>Release Date: 06/02/2022</em></p>
+<section id="id107">
+<h3>Changed</h3>
+<ul class="simple">
+<li>No triangulation calculated for open contours in section tool</li>
+</ul>
+</section>
+<section id="id108">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Unloading the DataVisualization extension disables textures</li>
+</ul>
+<ul class="simple">
+<li>Section box outlines computation.</li>
+</ul>
+</section>
+</section>
+<section id="id109">
+<a href="#id109"><h2>7.68.0</h2></a>
+<p><em>Release Date: 05/19/2022</em></p>
+<section id="id110">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Update default endpoint from <code class="docutils literal notranslate"><span class="pre">https://developer[-env].api.autodesk.com</span></code> to <code class="docutils literal notranslate"><span class="pre">https://cdn[-env].derivative.autodesk.com</span></code></li>
+</ul>
+</section>
+<section id="id111">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Tab to freeze or reload on IOS 15 devices when loading large models</li>
+</ul>
+<ul class="simple">
+<li>Explode slider could not be manipulated on windows devices using a touchscreen.</li>
+</ul>
+</section>
+</section>
+<section id="id112">
+<a href="#id112"><h2>7.67.0</h2></a>
+<p><em>Release Date: 05/05/2022</em></p>
+<section id="id113">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Localize “Document Browser” text</li>
+</ul>
+</section>
+<section id="id114">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix dynamic loading of localized string for extensions</li>
+</ul>
+<ul class="simple">
+<li>Combo box button arrow icon sometimes renders as an invalid character</li>
+</ul>
+</section>
+</section>
+<section id="id115">
+<a href="#id115"><h2>7.66.0</h2></a>
+<p><em>Release Date: 04/21/2022</em></p>
+<section id="id116">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D with filled lines now draws near right angles correctly.</li>
+</ul>
+<ul class="simple">
+<li>Incorrect display of some PDF documents</li>
+</ul>
+<ul class="simple">
+<li>Unloading  errors for Autodesk.DataVisualization extension.</li>
+</ul>
+<ul class="simple">
+<li>Prevent selection hits on mobile devices if selection is disabled</li>
+</ul>
+<ul class="simple">
+<li>Fix MC model transform overrides being applied when no transform exists on either; take the most recent in that case.</li>
+</ul>
+</section>
+</section>
+<section id="id117">
+<a href="#id117"><h2>7.65.0</h2></a>
+<p><em>Release Date: 04/07/2022</em></p>
+<section id="id118">
+<h3>Added</h3>
+<ul class="simple">
+<li>Introduce <code class="docutils literal notranslate"><span class="pre">BEFORE_MODEL_UNLOAD</span></code> event on the viewer instance.</li>
+</ul>
+</section>
+<section id="id119">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Lines in pdf documents render with correct widths</li>
+</ul>
+<ul class="simple">
+<li>Avoid parsing PDF data twice.</li>
+</ul>
+<ul class="simple">
+<li>Always check for multiple render targets (MRT) support for RGBA8 targets, to enable MRT rendering on supported mobile devices.</li>
+</ul>
+<ul class="simple">
+<li>Prevent duplicated pushpin activated event on mobile devices</li>
+</ul>
+<ul class="simple">
+<li>Use correct set of rendering features on devices that only support WebGL1.</li>
+</ul>
+</section>
+</section>
+<section id="id120">
+<a href="#id120"><h2>7.64.0</h2></a>
+<p><em>Release Date: 03/24/2022</em></p>
+<section id="id121">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Make better use of model precision to improve the measure tool</li>
+</ul>
+<ul class="simple">
+<li>Avatar’s rotation disabled while gyro is on</li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D now allows polylines to be drawn as polygons for a smoother and more accurate display on a sheet</li>
+</ul>
+<ul class="simple">
+<li>Improved image handling in PDF viewing.</li>
+</ul>
+</section>
+<section id="id122">
+<h3>Added</h3>
+<ul class="simple">
+<li>Example to Autodesk.Fusion360.Animation documentation</li>
+</ul>
+<ul class="simple">
+<li>Enum documentation for instance tree’s node type</li>
+</ul>
+</section>
+<section id="id123">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Make sure that the <code class="docutils literal notranslate"><span class="pre">ANIMATION_READY_EVENT</span></code> is only fired once animations are ready to play.</li>
+</ul>
+<ul class="simple">
+<li>Prevent that operations run on a property database (e.g. <code class="docutils literal notranslate"><span class="pre">userFunctions</span></code>) are executed based on another model’s loading state, which causes errors.</li>
+</ul>
+<ul class="simple">
+<li>Misplaced images in PDF documents now display correctly.</li>
+<li>Less dropouts when navigating PDF documents with complex images.</li>
+</ul>
+<ul class="simple">
+<li>Keep PDF line width consistent when using a perspective camera in a 3D view</li>
+</ul>
+</section>
+</section>
+<section id="id124">
+<a href="#id124"><h2>7.63.0</h2></a>
+<p><em>Release Date: 03/10/2022</em></p>
+<section id="id125">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed levels not working in IFC files</li>
+</ul>
+<ul class="simple">
+<li>THREE.Line mesh is now correctly rendered</li>
+</ul>
+<ul class="simple">
+<li>Fix measurements on large PDF pages (&gt;200 inches)</li>
+</ul>
+<ul class="simple">
+<li>Mark-up paperclips are not displayed correctly on mobile application</li>
+</ul>
+</section>
+</section>
+<section id="id126">
+<a href="#id126"><h2>7.62.0</h2></a>
+<p><em>Release Date: 02/24/2022</em></p>
+<section id="id127">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improve PDF rendering quality for all desktop browsers except Firefox (due to technical limitations)</li>
+</ul>
+</section>
+<section id="id128">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Position of menu button tooltips in vertical toolbars</li>
+</ul>
+<ul class="simple">
+<li>PDF with specific fonts rendering with defects in LMV</li>
+</ul>
+<ul class="simple">
+<li>Minimap3DExtension got stuck while loading</li>
+</ul>
+</section>
+</section>
+<section id="id129">
+<a href="#id129"><h2>7.61.0</h2></a>
+<p><em>Release Date: 02/10/2022</em></p>
+<section id="id130">
+<h3>Added</h3>
+<ul class="simple">
+<li>Initial version for a filter extension. Under Construction</li>
+</ul>
+</section>
+<section id="id131">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>FusionSim panel gets cloned when a new model is loaded reusing the same viewer.</li>
+</ul>
+<ul class="simple">
+<li>Thumbnails of PDF sheets not loading in Document Browser</li>
+</ul>
+</section>
+</section>
+<section id="id132">
+<a href="#id132"><h2>7.60.0</h2></a>
+<p><em>Release Date: 01/27/2022</em></p>
+<section id="id133">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Deprecate <code class="docutils literal notranslate"><span class="pre">renderTarget</span></code> parameter in WebGLRenderer</li>
+</ul>
+<ul class="simple">
+<li>Ensure unit change handler in Edit2dContext is removed when context is destroyed.</li>
+</ul>
+<ul class="simple">
+<li>Set <code class="docutils literal notranslate"><span class="pre">LOADING_ANIMATION</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> by default</li>
+</ul>
+</section>
+</section>
+<section id="id134">
+<a href="#id134"><h2>7.59.0</h2></a>
+<p><em>Release Date: 01/13/2022</em></p>
+<section id="id135">
+<h3>Changed</h3>
+<ul class="simple">
+<li>scale emissive values for DWFx and DWF files</li>
+</ul>
+<ul class="simple">
+<li>Gyroscope movement improvements.</li>
+</ul>
+<ul class="simple">
+<li>Skip empty models when calculating the ray - line intersection threshold for the scene</li>
+</ul>
+</section>
+<section id="id136">
+<h3>Added</h3>
+<ul class="simple">
+<li>The DiffTool extension’s <code class="docutils literal notranslate"><span class="pre">onInitialized</span></code> callback configuration option can now be used in hot mode, too</li>
+</ul>
+</section>
+<section id="id137">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>In case of an error withing SVF2 loader code the real error will be logged instead of an invalid “Uncaught ReferenceError: comment is not defined”.</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue when the memory consumption of an unloaded model was calculated.</li>
+</ul>
+<ul class="simple">
+<li>Errors in adding ElementIds to names in PropertySets for SVF2 will no longer prevent the PropertySet from being created.</li>
+</ul>
+<ul class="simple">
+<li>Fixed incorrectly rendered glTFs using vertex colors</li>
+</ul>
+<ul class="simple">
+<li>Regression for DocumentBrowser toggleOverlayedSelection action</li>
+</ul>
+<ul class="simple">
+<li>hiding the diff popup threw errors when the diff extension was used with external UIs</li>
+</ul>
+</section>
+</section>
+<section id="id138">
+<a href="#id138"><h2>7.58.0</h2></a>
+<p><em>Release Date: 12/09/2021</em></p>
+<section id="id139">
+<h3>Changed</h3>
+<ul class="simple">
+<li>turn off fresnel reflection for phong material when reflectivity is set exactly to 0.0</li>
+</ul>
+<ul class="simple">
+<li>Move prism material shader customisation out of <code class="docutils literal notranslate"><span class="pre">WebGLProgram</span></code> and <code class="docutils literal notranslate"><span class="pre">WebGLRenderer</span></code> to <code class="docutils literal notranslate"><span class="pre">PrismMaterial.onBeforeCompile</span></code></li>
+</ul>
+<ul class="simple">
+<li>Extension Autodesk.Aec.LevelsExtension loads the AecModelData when <code class="docutils literal notranslate"><span class="pre">autoDetectAecModelData=true</span></code> to add entries to the levels extension levels panel.</li>
+</ul>
+</section>
+<section id="id140">
+<h3>Added</h3>
+<ul class="simple">
+<li>intermediary function <code class="docutils literal notranslate"><span class="pre">Material.onBuild</span></code> for compatibility with latest Three.js renderer</li>
+</ul>
+</section>
+<section id="id141">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Resolved issue with the <code class="docutils literal notranslate"><span class="pre">Display</span> <span class="pre">Units</span></code> preference value being reset in later viewer sessions.</li>
+</ul>
+<ul class="simple">
+<li>Fix a null reference exception in LevelsExtension when model alignment got loaded but the model data isn’t available, yet.</li>
+</ul>
+<ul class="simple">
+<li>Fix a possible null reference in Model.getDocumentNode()</li>
+</ul>
+<ul class="simple">
+<li>Fix null reference exceptions in MeasureTool when snapper is inactive</li>
+</ul>
+<ul class="simple">
+<li>Levels Panel remains empty when no extra call is done when <code class="docutils literal notranslate"><span class="pre">autoDetectAecModelData=true</span></code></li>
+</ul>
+<ul class="simple">
+<li>Fixed sudden camera movements after unlocking viewer navigation during BimWalk mode.</li>
+</ul>
+<ul class="simple">
+<li>Minimap3D: Fix incorrect frustum shape on some Android devices</li>
+</ul>
+</section>
+<section id="id142">
+<h3>Removed</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">GetPrismMapSampleChunk</span></code>, <code class="docutils literal notranslate"><span class="pre">GetPrismMapUniformChunk</span></code> from Autodesk.Private.Viewing</li>
+</ul>
+</section>
+</section>
+<section id="id143">
+<a href="#id143"><h2>7.57.0</h2></a>
+<p><em>Release Date: 11/25/2021</em></p>
+<section id="id144">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Added a Traditional Chinese fallback font to improve PDF text rendering</li>
+</ul>
+<ul class="simple">
+<li>Deprecate <code class="docutils literal notranslate"><span class="pre">createPrismMaterial</span></code> and <code class="docutils literal notranslate"><span class="pre">clonePrismMaterial</span></code> in Autodesk.Viewing.MaterialConverterPrism</li>
+</ul>
+</section>
+<section id="id145">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">PrismMaterial</span></code> in Autodesk.Viewing.MaterialConverterPrism</li>
+</ul>
+<ul class="simple">
+<li>Default display units will match the setting in Revit</li>
+</ul>
+</section>
+<section id="id146">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Cleaned up residual data from the VisualClusters extension that was previously present on the screen when the extension was unloaded.</li>
+</ul>
+<ul class="simple">
+<li>Fixed Property Panel title in multi-selection scenario</li>
+</ul>
+<ul class="simple">
+<li>Various SVF2 loader issues that could lead to incomplete scenes</li>
+</ul>
+</section>
+</section>
+<section id="id147">
+<a href="#id147"><h2>7.56.0</h2></a>
+<p><em>Release Date: 11/11/2021</em></p>
+<section id="id148">
+<h3>Changed</h3>
+<ul class="simple">
+<li>UnifiedCamera.applyMatrix4 to use Objecct3D.applyMatrix4</li>
+</ul>
+</section>
+<section id="id149">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">from</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">viewer.properties</span></code> analytics.</li>
+<li><code class="docutils literal notranslate"><span class="pre">file_2d_extension</span></code>, <code class="docutils literal notranslate"><span class="pre">file_3d_extension</span></code> parameters to <code class="docutils literal notranslate"><span class="pre">viewer.place_me</span></code> analytics.</li>
+</ul>
+</section>
+<section id="id150">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Model cameras set in the SVF2 loader would sometimes use data objects instead of vector instances as their properties.</li>
+</ul>
+<ul class="simple">
+<li>Account ids are tracked and set properly when loading multiple SVF2 models simultaneously.</li>
+</ul>
+<ul class="simple">
+<li>Authorize SVF2 urns in the web socket if the socket is reused for multiple models.</li>
+</ul>
+</section>
+</section>
+<section id="id151">
+<a href="#id151"><h2>7.55.0</h2></a>
+<p><em>Release Date: 10/29/2021</em></p>
+<section id="id152">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Profiles and Preferences are stored in separated JSON objects in Local Store. Overriding one attribute in one profile doesn’t impact the others when switching between them.</li>
+</ul>
+</section>
+<section id="id153">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Enabled localization for some ModelAlignment strings and also for some other extensions</li>
+</ul>
+<ul class="simple">
+<li>Fix Simplified &amp; Traditional Chinese localization on case-sensitive web services</li>
+</ul>
+<ul class="simple">
+<li>Enforce that all access to preferences are done using the correct method.</li>
+</ul>
+<ul class="simple">
+<li>Enabled localization of a few strings in diff panel</li>
+</ul>
+<ul class="simple">
+<li>Fixed missing DocumentBrowser icon</li>
+</ul>
+</section>
+</section>
+<section id="id154">
+<a href="#id154"><h2>7.54.0</h2></a>
+<p><em>Release Date: 10/14/2021</em></p>
+<section id="id155">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Preferences are saved in different local storage entries according to the profile they belong.</li>
+</ul>
+</section>
+<section id="id156">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Autodesk.Viewing.MarkupsCore’s rendering markups upside-down in Safari.</li>
+</ul>
+<ul class="simple">
+<li>Preferences stored for one profile are not cleared/overridden by preferences of another profile.</li>
+</ul>
+</section>
+</section>
+<section id="id157">
+<a href="#id157"><h2>7.53.0</h2></a>
+<p><em>Release Date: 09/30/2021</em></p>
+<section id="id158">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Interpolation for av.i18n.translate() doesnt use <code class="docutils literal notranslate"><span class="pre">postProcess</span></code> option</li>
+</ul>
+</section>
+</section>
+<section id="id159">
+<a href="#id159"><h2>7.52.0</h2></a>
+<p><em>Release Date: 09/16/2021</em></p>
+<section id="id160">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix a crash in <code class="docutils literal notranslate"><span class="pre">Viewer3DImpl.fitToView()</span></code> respectively <code class="docutils literal notranslate"><span class="pre">Viewer3DImpl._fitToView2d()</span></code> when <code class="docutils literal notranslate"><span class="pre">aggregateSelection</span></code> parameter is empty.</li>
+</ul>
+<ul class="simple">
+<li>Add missing null check before accessing units method of the viewer model (handle 0 model case)</li>
+</ul>
+</section>
+</section>
+<section id="id161">
+<a href="#id161"><h2>7.51.0</h2></a>
+<p><em>Release Date: 08/24/2021</em></p>
+<section id="id162">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Remove the inverting of the last frustum plane used for culling in BoxSelection</li>
+</ul>
+<ul class="simple">
+<li>Toggling rooms in the model browser did not work for SVF2 models</li>
+</ul>
+</section>
+<section id="id163">
+<h3>Removed</h3>
+<ul class="simple">
+<li>Removed redundant block for perspective camera, the orthogonal path should work with any camera.</li>
+</ul>
+</section>
+</section>
+<section id="id164">
+<a href="#id164"><h2>7.49.0</h2></a>
+<p><em>Release Date: 08/05/2021</em></p>
+<section id="id165">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Disabled “Show Edges” toggle switch if model is loaded without edges</li>
+</ul>
+</section>
+<section id="id166">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Extension Autodesk.BoxSelection: Intersection mode no longer selects elements outside of selection box.</li>
+</ul>
+</section>
+</section>
+<section id="id167">
+<a href="#id167"><h2>7.48.0</h2></a>
+<p><em>Release Date: 07/22/2021</em></p>
+<section id="id168">
+<h3>Changed</h3>
+<ul class="simple">
+<li>SVF2 <code class="docutils literal notranslate"><span class="pre">env</span></code> and <code class="docutils literal notranslate"><span class="pre">api</span></code> values have been updated. The possible values are env=<code class="docutils literal notranslate"><span class="pre">AutodeskDevelopment2</span> <span class="pre">/</span> <span class="pre">AutodeskStaging2</span> <span class="pre">/</span> <span class="pre">AutodeskProduction2</span></code> and api=<code class="docutils literal notranslate"><span class="pre">streamingV2</span> <span class="pre">/</span> <span class="pre">streamingV2_EU</span></code>. The existing <code class="docutils literal notranslate"><span class="pre">MD20xxx</span></code> and <code class="docutils literal notranslate"><span class="pre">D3S</span></code> values for env and api are deprecated and will result in a console warning, but it would still work.</li>
+</ul>
+</section>
+<section id="id169">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed an issue where Chinese characters were not rendered in some PDFs</li>
+</ul>
+</section>
+</section>
+<section id="id170">
+<a href="#id170"><h2>7.47.0</h2></a>
+<p><em>Release Date: 07/08/2021</em></p>
+<section id="id171">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Update the section tool button states when using the <code class="docutils literal notranslate"><span class="pre">setSectionPlane</span></code> API</li>
+</ul>
+<ul class="simple">
+<li>Fixed console error when displaying a context menu with a divider and sub items on the far right of the screen.</li>
+</ul>
+<ul class="simple">
+<li>Fixed surface shading for the Safari browser in the <code class="docutils literal notranslate"><span class="pre">DataVisualization</span></code> extension</li>
+</ul>
+</section>
+</section>
+<section id="id172">
+<a href="#id172"><h2>7.46.0</h2></a>
+<p><em>Release Date: 06/24/2021</em></p>
+<section id="id173">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Existing calls to <code class="docutils literal notranslate"><span class="pre">model.remapDbId()</span></code>and <code class="docutils literal notranslate"><span class="pre">model.reverseMapDbId()</span></code> now use the new <code class="docutils literal notranslate"><span class="pre">model.remapDbIdFor2D()</span></code> and <code class="docutils literal notranslate"><span class="pre">model.reverseMapDbIdFor2D()</span></code> calls wherever the existing behaviour appeared to depend on <code class="docutils literal notranslate"><span class="pre">model.idRemap</span></code> only being available for 2D sheets.</li>
+</ul>
+</section>
+<section id="id174">
+<h3>Added</h3>
+<ul class="simple">
+<li>New Stamp markup type available</li>
+<li>Extension Autodesk.Viewing.MarkupsCore supports a new text-data field for markups.</li>
+</ul>
+<ul class="simple">
+<li>added methods to fire transition events for the Visual Cluster extension</li>
+</ul>
+<ul class="simple">
+<li>New <code class="docutils literal notranslate"><span class="pre">loadOptions.needsDbIdRemap</span></code> boolean flag, which forces generating the <code class="docutils literal notranslate"><span class="pre">model.idRemap</span></code> map for 3D models (only in SVF2).</li>
+<li>Added <code class="docutils literal notranslate"><span class="pre">model.remapDbIdFor2D()</span></code> and <code class="docutils literal notranslate"><span class="pre">model.reverseMapDbIdFor2D()</span></code>, which act like <code class="docutils literal notranslate"><span class="pre">model.remapDbId()</span></code> and <code class="docutils literal notranslate"><span class="pre">model.reverseMapDbId()</span></code> except they will always return their argument unchanged if the model is not 2D. These have been added to provide the effective behaviour of the old methods since <code class="docutils literal notranslate"><span class="pre">model.idRemap</span></code> would previously never be available on 3D models.</li>
+</ul>
+<ul class="simple">
+<li>Context menus now support dividers</li>
+</ul>
+</section>
+<section id="id175">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Enabling needsDbIdRemap for a 3D model no longer restructures the object tree accordingly, as this behaviour is only relevant for 2D sheets. Previously this restructuring would break object selection, highlighting, and other internal object identification by dbId. Arguably this isn’t really a “fix” since you previously couldn’t try and do this for 3D models anyway.</li>
+</ul>
+<ul class="simple">
+<li>Margins of the calibration panel are now correct in all browsers</li>
+</ul>
+</section>
+</section>
+<section id="id176">
+<a href="#id176"><h2>7.45.0</h2></a>
+<p><em>Release Date: 06/10/2021</em></p>
+<section id="id177">
+<h3>Changed</h3>
+<ul class="simple">
+<li>cross-site requests to PDF files now default to <code class="docutils literal notranslate"><span class="pre">withCredentials=false</span></code> (previously true) unless explicitly set by <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.endpoint.setUseCookie(true)</span></code></li>
+</ul>
+<ul class="simple">
+<li>Return the loading promises for <code class="docutils literal notranslate"><span class="pre">AggregatedView.setNodes()</span></code> and also <code class="docutils literal notranslate"><span class="pre">.switchView()</span></code></li>
+</ul>
+<ul class="simple">
+<li>DataVisualization Extension: When mouse cursor moves off a sprite, the corresponding <code class="docutils literal notranslate"><span class="pre">MOUSE_HOVERING</span></code> now has the <code class="docutils literal notranslate"><span class="pre">dbId</span></code> set to the <code class="docutils literal notranslate"><span class="pre">dbId</span></code> of sprite that mouse cursor moves off of, instead of being <code class="docutils literal notranslate"><span class="pre">0</span></code>.</li>
+<li>DataVisualization Extension: <code class="docutils literal notranslate"><span class="pre">renderSurfaceShading</span></code> API now takes an optional <code class="docutils literal notranslate"><span class="pre">heatmapConfig</span></code> parameter instead of <code class="docutils literal notranslate"><span class="pre">confidenceSize</span></code>. Existing code that passes in <code class="docutils literal notranslate"><span class="pre">number</span></code> for <code class="docutils literal notranslate"><span class="pre">confidenceSize</span></code> will continue to work, but the use of <code class="docutils literal notranslate"><span class="pre">HeatmapConfig</span></code> options is encouraged. See documentation for <code class="docutils literal notranslate"><span class="pre">HeatmapConfig</span></code> for more details.</li>
+<li>DataVisualization Extension: The <code class="docutils literal notranslate"><span class="pre">options.position:</span> <span class="pre">string</span></code> parameter for planar heatmap in <code class="docutils literal notranslate"><span class="pre">setupSurfaceShading</span></code> has been replaced by <code class="docutils literal notranslate"><span class="pre">options.slicingPosition:</span> <span class="pre">number</span></code>. While the old <code class="docutils literal notranslate"><span class="pre">options.position</span></code> continues to work, the use of <code class="docutils literal notranslate"><span class="pre">options.slicingPosition</span></code> is strongly encouraged. See <code class="docutils literal notranslate"><span class="pre">setupSurfaceShading</span></code> API for details of this option.</li>
+<li>DataVisualization Extension: The <code class="docutils literal notranslate"><span class="pre">options.placePosition:</span> <span class="pre">string</span></code> parameter for planar heatmap in <code class="docutils literal notranslate"><span class="pre">setupSurfaceShading</span></code> has been replaced by <code class="docutils literal notranslate"><span class="pre">options.placementPosition:</span> <span class="pre">number</span></code>. While the old <code class="docutils literal notranslate"><span class="pre">options.placePosition</span></code> continues to work, the use of <code class="docutils literal notranslate"><span class="pre">options.placementPosition</span></code> is strongly encouraged. See <code class="docutils literal notranslate"><span class="pre">setupSurfaceShading</span></code> API for details of this option.</li>
+</ul>
+</section>
+<section id="id178">
+<h3>Added</h3>
+<ul class="simple">
+<li>DataVisualization Extension: <code class="docutils literal notranslate"><span class="pre">updateSurfaceShading</span></code> API now takes an optional <code class="docutils literal notranslate"><span class="pre">heatmapConfig</span></code> parameter. See documentation for <code class="docutils literal notranslate"><span class="pre">HeatmapConfig</span></code> for more details.</li>
+</ul>
+</section>
+<section id="id179">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed an issue where some PDFs would freeze the browser when loading.</li>
+</ul>
+<ul class="simple">
+<li>fixed incorrectly drawn “4” character in vector pdfs</li>
+</ul>
+<ul class="simple">
+<li>Fixed the free measure mode in the Measure extension</li>
+</ul>
+</section>
+</section>
+<section id="id180">
+<a href="#id180"><h2>7.44.0</h2></a>
+<p><em>Release Date: 05/27/2021</em></p>
+<section id="id181">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Model Browser panel has a reasonable size when the toolbar is hidden.</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue when destroying the ForgeLogoSpinner</li>
+</ul>
+<ul class="simple">
+<li>fixed texture load error when loading some dwf files</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue where the property panel would freeze the viewer for models containing internal references.</li>
+</ul>
+<ul class="simple">
+<li>Fixes margins and layout in the calibration dialog from the Autodesk.Measure extension</li>
+</ul>
+<ul class="simple">
+<li>Fixed the av.ScreenShot.getScreenShotWithBounds API while editing markups</li>
+</ul>
+<ul class="simple">
+<li>Fixed double byte character displays when loading a dwf</li>
+</ul>
+</section>
+</section>
+<section id="id182">
+<a href="#id182"><h2>7.43.0</h2></a>
+<p><em>Release Date: 05/13/2021</em></p>
+<section id="id183">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>fixed flipped images when rendering some pdf files</li>
+</ul>
+<ul class="simple">
+<li>Fixed the loading of a model’s property database that contained invalid unicode characters</li>
+</ul>
+</section>
+</section>
+<section id="id184">
+<a href="#id184"><h2>7.42.0</h2></a>
+<p><em>Release Date: 04/29/2021</em></p>
+<section id="id185">
+<h3>Changed</h3>
+<ul class="simple">
+<li>av.Document.downloadAecModelData adds the bearer token to the request if AECModelData.json gets downloaded from Forge API (instead of OTG service).</li>
+</ul>
+</section>
+<section id="id186">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Edit2D: when calling ext.registerDefaultTools() the browser would freeze for large models</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue when generating stats for a document. Handle the case if a parent geometry for a node can’t be found.</li>
+</ul>
+<ul class="simple">
+<li>Fixed line width in PDFs that have a very large different in the width and height</li>
+</ul>
+<ul class="simple">
+<li>Consider orthoScale when transforming home cameras. It may affect start views of some clients when they use unit scaling, but the result now is correct and matches original view.</li>
+</ul>
+</section>
+</section>
+<section id="id187">
+<a href="#id187"><h2>7.41.0</h2></a>
+<p><em>Release Date: 04/15/2021</em></p>
+<section id="id188">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed restoring of custom Autodesk.Viewing.Private.Prefs.DISPLAY_UNITS preference</li>
+</ul>
+</section>
+</section>
+<section id="id189">
+<a href="#id189"><h2>7.40.0</h2></a>
+<p><em>Release Date: 04/01/2021</em></p>
+<section id="id190">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added localization for British English</li>
+</ul>
+</section>
+<section id="id191">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed image rendering in PDFs</li>
+</ul>
+<ul class="simple">
+<li>Documentation fixes for Autodesk.Viewing.Viewer</li>
+</ul>
+<ul class="simple">
+<li>selecting a parent node in the model browser does not select its children correctly</li>
+</ul>
+<ul class="simple">
+<li>Regression related to duplicate i18n calls on Edit2D</li>
+</ul>
+</section>
+</section>
+<section id="id192">
+<a href="#id192"><h2>7.39.0</h2></a>
+<p><em>Release Date: 03/18/2021</em></p>
+<section id="id193">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Show element ID on OTG Compare<p></p>
+<ul>
+<li>Show element ID in a Properties window title, on selected object for OTG documents</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id194">
+<h3>Added</h3>
+<ul class="simple">
+<li>retry requests on intermittent failures</li>
+</ul>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">viewer.</span> <span class="pre">setAggregateSelection</span></code> api to select across models</li>
+</ul>
+</section>
+<section id="id195">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed string localization for polygon error message.</li>
+</ul>
+<ul class="simple">
+<li>Support leaflet highlight in ACC Files section</li>
+</ul>
+</section>
+</section>
+<section id="id196">
+<a href="#id196"><h2>7.38.0</h2></a>
+<p><em>Release Date: 03/04/2021</em></p>
+<section id="id197">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added “Show Properties” option in the context menu</li>
+</ul>
+</section>
+<section id="id198">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Extension Autodesk.Fusion360.Simulation now supports showing non-linear simulation results.</li>
+</ul>
+<ul class="simple">
+<li>Fixed rendering of PDF files</li>
+</ul>
+<ul class="simple">
+<li>Improve PDF rendering performance</li>
+</ul>
+<ul class="simple">
+<li>Fixed TypeError in Hyperlink extension</li>
+</ul>
+</section>
+</section>
+<section id="id199">
+<a href="#id199"><h2>7.37.0</h2></a>
+<p><em>Release Date: 02/18/2021</em></p>
+<section id="id200">
+<h3>Changed</h3>
+<ul class="simple">
+<li>AnimationToolbar styles to be more specific to guarantee precedence.</li>
+</ul>
+</section>
+<section id="id201">
+<h3>Added</h3>
+<ul class="simple">
+<li>BoxSelection extension is loaded by default</li>
+</ul>
+<ul class="simple">
+<li>fetching string properties as height, character width and string width for F2D and PDF.js documents</li>
+<li>search sub-strings for partial search query occurrences.</li>
+</ul>
+<ul class="simple">
+<li>Localization for the Edit2D extension.</li>
+</ul>
+<ul class="simple">
+<li>Property panel: support multi-selection</li>
+</ul>
+<ul class="simple">
+<li>New option <code class="docutils literal notranslate"><span class="pre">escapeOssObjects</span></code> will escape OSS object keys before sending requests to OSS.</li>
+</ul>
+<ul class="simple">
+<li>added cmd(mac) or ctrl hotkey for turning on box selection</li>
+</ul>
+<ul class="simple">
+<li>Added D3SLocalUS and D3SLocalEU environments for offline serving of SVF2 and 2D content.</li>
+</ul>
+</section>
+<section id="id202">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed endless pan/zoom/rotate when using Command/Control + Arrow keys on Mac</li>
+</ul>
+<ul class="simple">
+<li>Box Selection not selecting correct objects in some cases</li>
+</ul>
+<ul class="simple">
+<li>changed <code class="docutils literal notranslate"><span class="pre">THREE.REVISION</span></code> back into a string</li>
+</ul>
+<ul class="simple">
+<li>Profile settings dialog strings not translated</li>
+</ul>
+<ul class="simple">
+<li>Fixed states of navigation tools.</li>
+</ul>
+<ul class="simple">
+<li>Rendering of cropped images in PDFs</li>
+</ul>
+</section>
+</section>
+<section id="id203">
+<a href="#id203"><h2>7.36.0</h2></a>
+<p><em>Release Date: 02/04/2021</em></p>
+<section id="id204">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Allows full transformation matrix to be used–not just translation.</li>
+</ul>
+<ul class="simple">
+<li>Autodesk.BimWalk extension: Set gravity on mobile to <code class="docutils literal notranslate"><span class="pre">false</span></code> by default, until joystick interaction</li>
+</ul>
+</section>
+<section id="id205">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added glTF 2.0 loader extension</li>
+</ul>
+<ul class="simple">
+<li>Added documentation and tutorial for AggregatedView</li>
+</ul>
+<ul class="simple">
+<li>documentation to SnapperIndicator render methods</li>
+</ul>
+<ul class="simple">
+<li>added Autodesk.Viewing.PropertySet and Autodesk.Viewing.Model#getPropertySet</li>
+</ul>
+</section>
+<section id="id206">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Incorrect units displayed in the properties panel for new revit files</li>
+</ul>
+<ul class="simple">
+<li>Error clicking viewcube arrow for some models</li>
+</ul>
+</section>
+</section>
+<section id="id207">
+<a href="#id207"><h2>7.35.0</h2></a>
+<p><em>Release Date: 01/21/2021</em></p>
+<section id="id208">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added the following events: av.EXTENSION_PRE_ACTIVATED_EVENT, av.EXTENSION_ACTIVATED_EVENT, av.EXTENSION_PRE_DEACTIVATED_EVENT, av.EXTENSION_DEACTIVATED_EVENT, av.EXTENSION_PRE_LOADED_EVENT, av.EXTENSION_PRE_UNLOADED_EVENT</li>
+</ul>
+<ul class="simple">
+<li>added support for a variety of additional units used by Revit 2022</li>
+</ul>
+<ul class="simple">
+<li>Setting to turn section plane hatches on and off. This setting does not apply to the section box.</li>
+</ul>
+<ul class="simple">
+<li>Make the avp.Prefs.DISPLAY_UNITS and avp.Prefs.DISPLAY_UNITS_PRECISION preferences persistent between browser sessions.</li>
+</ul>
+</section>
+<section id="id209">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>DWF: Some images are not rendered and appear as black boxes</li>
+<li>DWF: Some dwfs with complex clipping is not rendered correctly</li>
+</ul>
+<ul class="simple">
+<li>Fixed searchbox behavior on model browser. It will only search when query string has 3 characters or more.</li>
+</ul>
+<ul class="simple">
+<li>URLs with parentheses are now correctly hyperlinked in the Properties panel</li>
+</ul>
+<ul class="simple">
+<li>fixed a memory leak on <code class="docutils literal notranslate"><span class="pre">viewer.finish()</span></code></li>
+</ul>
+</section>
+</section>
+<section id="id210">
+<a href="#id210"><h2>7.34.0</h2></a>
+<p><em>Release Date: 01/07/2021</em></p>
+<section id="id211">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>DWF: Some images are not rendered and appear as black boxes</li>
+<li>DWF: Some dwfs with complex clipping is not rendered correctly</li>
+</ul>
+</section>
+</section>
+<section id="id212">
+<a href="#id212"><h2>7.33.1</h2></a>
+<p><em>Release Date: 12/08/2020</em></p>
+</section>
+<section id="id213">
+<a href="#id213"><h2>7.33.0</h2></a>
+<p><em>Release Date: 12/07/2020</em></p>
+<section id="id214">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Updated the Visual Clusters button tooltip.</li>
+</ul>
+<ul class="simple">
+<li>Changed how Edit2D polygons and polylines can be moved, by allowing them to be selected and moved with one click and drag instead of needing to be selected first, and then dragged with a second click.</li>
+</ul>
+</section>
+<section id="id215">
+<h3>Added</h3>
+<ul class="simple">
+<li>Localization strings for ZH-HK</li>
+</ul>
+</section>
+<section id="id216">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Format distance units in the difftool ui</li>
+</ul>
+</section>
+</section>
+<section id="id217">
+<a href="#id217"><h2>7.32.0</h2></a>
+<p><em>Release Date: 11/19/2020</em></p>
+<section id="id218">
+<h3>Added</h3>
+<ul class="simple">
+<li>new search option <code class="docutils literal notranslate"><span class="pre">includeInherited</span></code> for e.g., <code class="docutils literal notranslate"><span class="pre">viewer.search('search</span> <span class="pre">text',</span> <span class="pre">console.log,</span> <span class="pre">console.error,</span> <span class="pre">null,</span> <span class="pre">{includeInherited:</span> <span class="pre">true})</span></code>. When set to true, nodes that inherit the property will be returned, mimicking the property panel.</li>
+</ul>
+<ul class="simple">
+<li>New beta extension  <code class="docutils literal notranslate"><span class="pre">Autodesk.BoxSelection</span></code> for selection within a rectangle area</li>
+</ul>
+</section>
+<section id="id219">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Speedup pdf rendering with single line JPEG images</li>
+</ul>
+<ul class="simple">
+<li>Fix avp.Prefs3D.FORCE_DOUBLE_SIDED when turning cut planes on and off.</li>
+</ul>
+<ul class="simple">
+<li>Fix MSDF text in PDFs</li>
+</ul>
+<ul class="simple">
+<li>crash when loading empty scenebuilder model in aggregate view</li>
+</ul>
+<ul class="simple">
+<li>Some PDFs were being drawn as rasters instead of vectors</li>
+</ul>
+</section>
+</section>
+<section id="id220">
+<a href="#id220"><h2>7.31.0</h2></a>
+<p><em>Release Date: 11/05/2020</em></p>
+<section id="id221">
+<h3>Changed</h3>
+<ul class="simple">
+<li>BimWalk: When focusing on an element ignore gravity</li>
+</ul>
+</section>
+<section id="id222">
+<h3>Added</h3>
+<ul class="simple">
+<li>Arc measure mode in the measure tool to measure circular arcs</li>
+</ul>
+</section>
+<section id="id223">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed markups initialized with large stroke width</li>
+</ul>
+<ul class="simple">
+<li>Fixed snapping in PDF child groups</li>
+</ul>
+<ul class="simple">
+<li>Theming color not applied on Android</li>
+</ul>
+</section>
+</section>
+<section id="id224">
+<a href="#id224"><h2>7.30.0</h2></a>
+<p><em>Release Date: 10/22/2020</em></p>
+<section id="id225">
+<h3>Changed</h3>
+<ul class="simple">
+<li>The native DWF loader is now published as a separate npm package. Internal customers who consume LMV from Artifactory and wish to include the native DWF loader extension must include the <code class="docutils literal notranslate"><span class="pre">@adsk/lmv-ext-dwf</span></code> dependency and incorporate it into their builds. CDN customers are unaffected by this change.</li>
+</ul>
+</section>
+<section id="id226">
+<h3>Added</h3>
+<ul class="simple">
+<li>Added an event which will be triggered every time delete button in measurement panel is clicked</li>
+</ul>
+<ul class="simple">
+<li>Added APIs to the tool controller to set the tool modalities</li>
+</ul>
+</section>
+<section id="id227">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed SceneBuilder empty model error.</li>
+</ul>
+</section>
+</section>
+<section id="id228">
+<a href="#id228"><h2>7.29.0</h2></a>
+<p><em>Release Date: 10/08/2020</em></p>
+<section id="id229">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Fix settings panel drop down item width</li>
+</ul>
+<ul class="simple">
+<li>Do not show the full screen button if document.fullscreenEnabled is set to false.</li>
+</ul>
+<ul class="simple">
+<li>Forge Viewer will start collecting usage analytics not tied to a particular user from version 7.29 onwards for purposes of supporting and improving the Forge Viewer_._  If you do not wish to participate, you may opt-out of this feature using <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Private.analytics.optOut()</span></code> method.</li>
+</ul>
+</section>
+<section id="id230">
+<h3>Added</h3>
+<ul class="simple">
+<li>Getter for measure tools isolate mode</li>
+</ul>
+<ul class="simple">
+<li>Add Search Text capability for Vector PDF documents.</li>
+</ul>
+</section>
+<section id="id231">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Restore 3D light preset after switching from 3D -&gt; 2D -&gt; 2D -&gt; 3D</li>
+</ul>
+<ul class="simple">
+<li>Speed up the execution of the Hide Selected context menu item.</li>
+</ul>
+<ul class="simple">
+<li>Fix PDFs containing isolated groups.</li>
+</ul>
+<ul class="simple">
+<li>Fixed opaque markups in native PDFs.</li>
+</ul>
+</section>
+</section>
+<section id="id232">
+<a href="#id232"><h2>7.28.0</h2></a>
+<p><em>Release Date: 09/24/2020</em></p>
+<section id="id233">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Use Forge logo as the loading spinner.</li>
+</ul>
+</section>
+<section id="id234">
+<h3>Added</h3>
+<ul class="simple">
+<li>The gizmo in SectionBox is centered when it is out of bounds</li>
+</ul>
+<ul class="simple">
+<li>Tracked event when an extension is loaded</li>
+<li>Tracked event when an extension is unloaded</li>
+</ul>
+<ul class="simple">
+<li>Added option parameter to <code class="docutils literal notranslate"><span class="pre">viewer.search</span></code> API. The only option supported now is <code class="docutils literal notranslate"><span class="pre">searchHidden:</span> <span class="pre">true/false</span></code> to search for hidden properties</li>
+</ul>
+<ul class="simple">
+<li>Text Search provider for searching text with 2D files by filtering user’s search query</li>
+<li>Add StringExtractor extension for retrieving and formatting text from 2D files</li>
+</ul>
+</section>
+<section id="id235">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Preserve preferences in localStorage for each viewer instance.</li>
+</ul>
+</section>
+</section>
+<section id="id236">
+<a href="#id236"><h2>7.27.0</h2></a>
+<p><em>Release Date: 09/14/2020</em></p>
+<section id="id237">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Use Forge logo as the loading spinner.</li>
+</ul>
+<ul class="simple">
+<li>Moved Mixpanel to MixpanelProvider extension.</li>
+</ul>
+</section>
+<section id="id238">
+<h3>Added</h3>
+<ul class="simple">
+<li>Auto-choose endpoint based on model URN.</li>
+</ul>
+</section>
+<section id="id239">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Regression in <code class="docutils literal notranslate"><span class="pre">v7.25</span></code> where some pdfs opens blank</li>
+</ul>
+<ul class="simple">
+<li>Selection for PDFs containing more than 4096 dbIds.</li>
+</ul>
+<ul class="simple">
+<li>Fixed docking panel resize after a viewer resize</li>
+</ul>
+<ul class="simple">
+<li>Wrong properties displayed for PDFs when they are loaded from OTG/Fluent endpoint</li>
+</ul>
+</section>
+</section>
+<section id="id240">
+<a href="#id240"><h2>7.26.1</h2></a>
+<p><em>Release Date: 08/28/2020</em></p>
+<section id="id241">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed an error when restoring a state with cutplanes without enabling the section tool</li>
+<li>Fixed an error with the contextual sub menus</li>
+</ul>
+</section>
+</section>
+<section id="id242">
+<a href="#id242"><h2>7.26.0</h2></a>
+<p><em>Release Date: 08/27/2020</em></p>
+<section id="id243">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Changed Mixpanel batch size to maximum 500 events (default value is 50).</li>
+<li>Changed Mixpanel batch flush interval to 15 seconds (default value is 5 seconds).</li>
+</ul>
+</section>
+<section id="id244">
+<h3>Added</h3>
+<ul class="simple">
+<li>New <code class="docutils literal notranslate"><span class="pre">override</span></code> parameter added to Profile#apply gives the option of not overriding an existing preference.</li>
+</ul>
+<ul class="simple">
+<li>Support multiple models for the “Section Plane” option in the context menu.</li>
+</ul>
+<ul class="simple">
+<li>Ability to group context menu items into submenus.</li>
+</ul>
+<ul class="simple">
+<li>Added localized view cube for the Norwegian language.</li>
+</ul>
+</section>
+<section id="id245">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>The Model Browser now works correctly when loading subsequent 3D models from native DWF.</li>
+</ul>
+<ul class="simple">
+<li>Fix memory leak when loading PDFs.</li>
+</ul>
+<ul class="simple">
+<li>Displaying decimal m-and-cm and ft-and-in correctly when precision rounds the smaller unit to the maximum value.</li>
+</ul>
+<ul class="simple">
+<li>It was not possible to bring up the context menu on mobile after enabling the section tool.</li>
+<li>Added missing localization strings for the context menu.</li>
+</ul>
+</section>
+</section>
+<section id="id246">
+<a href="#id246"><h2>7.25.1</h2></a>
+<p><em>Release Date: 08/21/2020</em></p>
+<section id="id247">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed a regression in <code class="docutils literal notranslate"><span class="pre">v7.25</span></code> where some pdfs opens blank</li>
+</ul>
+</section>
+</section>
+<section id="id248">
+<a href="#id248"><h2>7.25.0</h2></a>
+<p><em>Release Date: 08/13/2020</em></p>
+<section id="id249">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Ability to configure mapping of the Mac <code class="docutils literal notranslate"><span class="pre">cmd</span></code> key through Profile Settings. This is done by intercepting keydown event for <code class="docutils literal notranslate"><span class="pre">cmd</span></code> key and triggering the default keydown event for the<code class="docutils literal notranslate"><span class="pre">ctrl</span></code> key.</li>
+</ul>
+</section>
+<section id="id250">
+<h3>Added</h3>
+<ul class="simple">
+<li>Lodash library, custom build. Includes throttle and debounce. Created by running: <code class="docutils literal notranslate"><span class="pre">lodash</span> <span class="pre">include=debounce,throttle</span> <span class="pre">exports=amd</span></code></li>
+</ul>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">RenderContext#useOverlayAlpha</span></code> to enable or disable blending of transparent backgrounds with overlays</li>
+</ul>
+<ul class="simple">
+<li>Added a second boolean parameter MeasureExtension#setFreeMeasureMode to enable free mode measurements to use the previous measurement’s viewport.</li>
+</ul>
+</section>
+<section id="id251">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Measure or calibration units are sometimes reset unexpectedly</li>
+</ul>
+</section>
+</section>
+<section id="id252">
+<a href="#id252"><h2>7.24.0</h2></a>
+<p><em>Release Date: 07/30/2020</em></p>
+<section id="id253">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension Autodesk.Edit2D now allows linear shape labels to optionally display ‘ft’ and ‘in’ in place of ‘ and “ respectively.</li>
+</ul>
+</section>
+<section id="id254">
+<h3>Added</h3>
+<ul class="simple">
+<li>ReCap extension now has multi-client live editing for creating, updating, and deleting annotations</li>
+<li>ReCap extension differentiates annotations created with ReCap Pro and Forge Viewer. ReCap Pro annotations are not be editable.</li>
+<li>Groundwork for handling and importing ViewState into the ReCap extension</li>
+</ul>
+</section>
+<section id="id255">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Highlight the Boardwalk for the AEC profile in the settings panel.</li>
+<li>Load default environment background when Prefs3D.LIGHT_PRESET is set to an incorrect value</li>
+</ul>
+<ul class="simple">
+<li>Unit conversion for area and volumes</li>
+</ul>
+<ul class="simple">
+<li>Blend modes for some PDFs.</li>
+</ul>
+<ul class="simple">
+<li>Crash when loading files with unicode-encoded characters.</li>
+</ul>
+<ul class="simple">
+<li>An infinite lock when panning while uninitializing <code class="docutils literal notranslate"><span class="pre">ToolController</span></code>.</li>
+</ul>
+<ul class="simple">
+<li>Measure calibration units settings now match the preferences</li>
+</ul>
+<ul class="simple">
+<li>Performance improvement for PDFs with many image masks.</li>
+</ul>
+<ul class="simple">
+<li>ScanId from legacy xml in ReCap Pro will be loaded correctly.</li>
+<li>Issue in the ReCap extension where freeform annotation transparency would reset when moving.</li>
+</ul>
+</section>
+</section>
+<section id="id256">
+<a href="#id256"><h2>7.23.0</h2></a>
+<p><em>Release Date: 07/16/2020</em></p>
+<section id="id257">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Webpack config for easier debugging in development</li>
+</ul>
+<ul class="simple">
+<li>Updated icons to SVG format</li>
+<li>Displayed line segments with proper occlusion</li>
+<li>Rounded up of value of measurement</li>
+</ul>
+</section>
+<section id="id258">
+<h3>Added</h3>
+<ul class="simple">
+<li>New option <code class="docutils literal notranslate"><span class="pre">ifcLevelsEnabled</span></code> in Levels extension. When true it will extract levels from IFC data.</li>
+</ul>
+<ul class="simple">
+<li>MEASUREMENT_COMPLETED_EVENT event and trigger it when all picks have been set</li>
+</ul>
+<ul class="simple">
+<li>Search Manager and search providers.</li>
+</ul>
+<ul class="simple">
+<li>Support for partial scan</li>
+<li>Button to hide/show project browser</li>
+<li>Navigation icon to rotate camera to look-at selected annotation</li>
+<li>Highlighted selected annotation</li>
+<li>Live preview for distance and markup creations</li>
+<li>Handling of legacy XML sync file</li>
+</ul>
+</section>
+<section id="id259">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Call F2DLoader directly to load 2D DWF models</li>
+<li>The DWFLoader onSuccess callback wasn’t getting called. Calling the DWFLoader onSuccess callback added the model to the viewer twice.</li>
+</ul>
+<ul class="simple">
+<li>Partial model loading could result in object-level metadata and selection id inconsistencies</li>
+</ul>
+<ul class="simple">
+<li>Incorrect annotation locations</li>
+<li>Issues with mini map</li>
+<li>Issues with CSS conflicts on container site</li>
+<li>Attachments loading from ReCap project file</li>
+</ul>
+</section>
+</section>
+<section id="id260">
+<a href="#id260"><h2>7.22.0</h2></a>
+<p><em>Release Date: 07/02/2020</em></p>
+<section id="id261">
+<h3>Changed</h3>
+<ul class="simple">
+<li>The outline noise for the NPR extension is no longer turned on by default.</li>
+</ul>
+</section>
+<section id="id262">
+<h3>Added</h3>
+<ul class="simple">
+<li>Use the latest firefly.dwf package that contains fixed for loading 2d dwf models.</li>
+</ul>
+<ul class="simple">
+<li>Added a checkbox to the NPR option panel to toggle the outline noise.</li>
+<li>Added a slider to the NPR option panel to control the size of the outline.</li>
+</ul>
+<ul class="simple">
+<li>‘Autodesk.Explode’ to 2D GuiViewer3D cleanup extension list</li>
+</ul>
+<ul class="simple">
+<li>Added display units and precision to settings panel. These are saved as <code class="docutils literal notranslate"><span class="pre">displayUnits</span></code> and <code class="docutils literal notranslate"><span class="pre">displayUnitsPrecision</span></code> preference</li>
+</ul>
+</section>
+<section id="id263">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Handling of bump and normal maps in Standard Surface extension</li>
+</ul>
+</section>
+</section>
+<section id="id264">
+<a href="#id264"><h2>7.21.0</h2></a>
+<p><em>Release Date: 06/18/2020</em></p>
+<section id="id265">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Swap displayed labels on radio buttons for DiffTool compare in order to display correct document version.</li>
+</ul>
+</section>
+</section>
+<section id="id266">
+<a href="#id266"><h2>7.20.0</h2></a>
+<p><em>Release Date: 06/03/2020</em></p>
+<section id="id267">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Partial reorder in <code class="docutils literal notranslate"><span class="pre">initEscapeHandlers</span></code> functionality and precondition for Section tool deactivation.</li>
+</ul>
+</section>
+<section id="id268">
+<h3>Added</h3>
+<ul class="simple">
+<li>Tutorials for loading, using, and customizing the Edit2D extension.</li>
+</ul>
+</section>
+<section id="id269">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-5480 - Phong materials. Material color and specular are no longer modified by LMV when the material is added. This allows vertex colors to be visible.</li>
+</ul>
+<ul class="simple">
+<li>Prepare a File for the Viewer link</li>
+</ul>
+</section>
+</section>
+<section id="id270">
+<a href="#id270"><h2>7.19.0</h2></a>
+<p><em>Release Date: 05/21/2020</em></p>
+<section id="id271">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Reverse zoom direction for AEC profile</li>
+</ul>
+<ul class="simple">
+<li>Changed Design Diff Changes Popup behavior.</li>
+</ul>
+<ul class="simple">
+<li>Pivot point behavior upon BimWalk exit</li>
+</ul>
+</section>
+<section id="id272">
+<h3>Added</h3>
+<ul class="simple">
+<li>New option, <code class="docutils literal notranslate"><span class="pre">navToolsConfig.isAECCameraControls</span></code>,  in viewer configuration that adds only Fit To View to camera interactions.</li>
+</ul>
+<ul class="simple">
+<li>Prefs3D.FORCE_DOUBLE_SIDED preference that will turn on or off double sided materials.</li>
+</ul>
+<ul class="simple">
+<li>Add outline noise when using the Autodesk.NPR extension.</li>
+</ul>
+</section>
+<section id="id273">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Uncommon error after a diff failed between two versions.</li>
+</ul>
+<ul class="simple">
+<li>Error handling in AggregatedView when model couldn’t be loaded.</li>
+</ul>
+<ul class="simple">
+<li>Draw missing PDF fill patterns.</li>
+</ul>
+<ul class="simple">
+<li>Typo in an AlertBox image (from <code class="docutils literal notranslate"><span class="pre">img-unloack</span></code> to <code class="docutils literal notranslate"><span class="pre">img-unlock</span></code>). The old css rule for <code class="docutils literal notranslate"><span class="pre">img-unloack</span></code> is still active to support old code.</li>
+</ul>
+<ul class="simple">
+<li>Material load exception for materials containing decals</li>
+</ul>
+<ul class="simple">
+<li>Some DWFx files can’t be measured</li>
+</ul>
+<ul class="simple">
+<li>Add missing selection type localization strings.</li>
+</ul>
+<ul class="simple">
+<li>Error loading property db from fluent server for some dwg files</li>
+</ul>
+</section>
+</section>
+<section id="id274">
+<a href="#id274"><h2>7.18.0</h2></a>
+<p><em>Release Date: 05/07/2020</em></p>
+<section id="id275">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Add optional callback instead of url string in Autodesk.Viewing.theExtensionManager.registerExternalExtension</li>
+</ul>
+<ul class="simple">
+<li>Changing the default for analytics to <code class="docutils literal notranslate"><span class="pre">opt</span> <span class="pre">out</span></code></li>
+</ul>
+</section>
+<section id="id276">
+<h3>Added</h3>
+<ul class="simple">
+<li>New option in Scenebuilder api <code class="docutils literal notranslate"><span class="pre">addNewModel({</span> <span class="pre">createWireframe:</span> <span class="pre">true</span> <span class="pre">})</span></code> causes edges to be generated for indexed geometry. Without indices, the edges may not be generated properly.</li>
+</ul>
+<ul class="simple">
+<li>LMV-5358 - Added api to Viewer3D for the scene and sceneAfter THREE.Scenes</li>
+</ul>
+<ul class="simple">
+<li>PDF: Added support for gradient fill colors.</li>
+</ul>
+<ul class="simple">
+<li>AggregatedView now supports customizing which extensions are loaded through <code class="docutils literal notranslate"><span class="pre">options.extensions</span></code></li>
+</ul>
+<ul class="simple">
+<li>Added attribName and searchAncestors options to the VisualClusters extension</li>
+</ul>
+</section>
+<section id="id277">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Problem with eye icons in the model browser for SceneBuilder scenes</li>
+</ul>
+<ul class="simple">
+<li>Viewer CSS breaks third-party application’s styles</li>
+</ul>
+</section>
+</section>
+<section id="id278">
+<a href="#id278"><h2>7.17.1</h2></a>
+<p><em>Release Date: 04/29/2020</em></p>
+<section id="id279">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>material load exception for materials containing decals</li>
+</ul>
+</section>
+</section>
+<section id="id280">
+<a href="#id280"><h2>7.16.1</h2></a>
+<p><em>Release Date: 04/29/2020</em></p>
+<ul class="simple">
+<li>material load exception for materials containing decals</li>
+</ul>
+</section>
+<section id="id281">
+<a href="#id281"><h2>7.15.3</h2></a>
+<p><em>Release Date: 04/29/2020</em></p>
+<section id="id282">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>material load exception for materials containing decals</li>
+</ul>
+</section>
+</section>
+<section id="id283">
+<a href="#id283"><h2>7.17.0</h2></a>
+<p><em>Release Date: 04/23/2020</em></p>
+<section id="id284">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-5396 - Added initial DWF Loader</li>
+</ul>
+<ul class="simple">
+<li>LMV-5341 - Added SceneBuilder tutorial.</li>
+</ul>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">isOTGCompareDisabled</span></code> option to Design Diff extension</li>
+</ul>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">Prefs3D.BIM_WALK_GRAVITY</span></code> to store the BimWalk gravity through the Viewer’s profiles.</li>
+</ul>
+</section>
+<section id="id285">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Inconsistency in viewcube compass</li>
+</ul>
+<ul class="simple">
+<li>LMV-5392 - Fixed theming for SceneBuilder scenes.</li>
+</ul>
+<ul class="simple">
+<li>Fixed <code class="docutils literal notranslate"><span class="pre">aggregateIsolate</span></code> throwing an exception on a model created with SceneBuilder api</li>
+</ul>
+<ul class="simple">
+<li>LMV-5416 - Fixed Scene Builder Model display in the Model Browser Panel</li>
+</ul>
+<ul class="simple">
+<li>Fixed Wireframes extension</li>
+</ul>
+<ul class="simple">
+<li>Render polygon offsets for models that contain lines.</li>
+</ul>
+<ul class="simple">
+<li>LMV-5422 - Fixed draw edges issue in overlays.</li>
+</ul>
+<ul class="simple">
+<li>Problem with eye icons in the model browser for SceneBuilder scenes</li>
+</ul>
+</section>
+</section>
+<section id="id286">
+<a href="#id286"><h2>7.16.0</h2></a>
+<p><em>Release Date: 04/09/2020</em></p>
+<section id="id287">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Do not restore the VIEW_TYPE preference when a default view exists for the model</li>
+</ul>
+<ul class="simple">
+<li>Removed zoom limitations from 3d models</li>
+<li>Removed zoom-out limitation from f2d (non-leaflet)</li>
+<li>Maximum zoom-in will be based on the thinnest line</li>
+</ul>
+</section>
+<section id="id288">
+<h3>Added</h3>
+<ul class="simple">
+<li>Viewer collects and sends analytics information by default</li>
+</ul>
+<ul class="simple">
+<li>Ability for VisualClusters extension to work with attribute data attached to ancestor nodes.</li>
+</ul>
+<ul class="simple">
+<li>Profile setting value avp.Prefs2D.DISABLE_PDF_HIGHLIGHT can be used to disable the object highlight for vector PDFs.</li>
+</ul>
+</section>
+</section>
+<section id="id289">
+<a href="#id289"><h2>7.15.2</h2></a>
+<p><em>Release Date: 03/30/2020</em></p>
+<section id="id290">
+<h3>Added</h3>
+<ul class="simple">
+<li>Viewer collects and sends analytics information by default</li>
+</ul>
+</section>
+</section>
+<section id="id291">
+<a href="#id291"><h2>7.15.1</h2></a>
+<p><em>Release Date: 03/27/2020</em></p>
+<section id="id292">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed error when loading PDFs in IE11.</li>
+</ul>
+</section>
+</section>
+<section id="id293">
+<a href="#id293"><h2>7.15.0</h2></a>
+<p><em>Release Date: 03/26/2020</em></p>
+<section id="id294">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Allow Fit to View on 2D/3D hybrid models (i.e. Hypermodeling)</li>
+</ul>
+</section>
+<section id="id295">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix fullScreen in iOS to get viewer to expand to full height and width</li>
+</ul>
+</section>
+</section>
+<section id="id296">
+<a href="#id296"><h2>7.14.0</h2></a>
+<p><em>Release Date: 03/12/2020</em></p>
+<section id="id297">
+<h3>Added</h3>
+<ul class="simple">
+<li>2D Edit extension now allows users to query toolsets by name.</li>
+</ul>
+<ul class="simple">
+<li>New extension <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.Hypermodeling</span></code> allows the placement of Revit 2D sheets on top of 3D models.</li>
+</ul>
+</section>
+<section id="id298">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Minimap extension UI fixes</li>
+</ul>
+<ul class="simple">
+<li>Section box gets removed after clicking “Done” in the measure tool.</li>
+</ul>
+</section>
+</section>
+<section id="id299">
+<a href="#id299"><h2>7.13.1</h2></a>
+<p><em>Release Date: 03/03/2020</em></p>
+<section id="id300">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Improved rendering of Standard Surface materials with height (bump) maps on Windows machines</li>
+</ul>
+</section>
+</section>
+<section id="id301">
+<a href="#id301"><h2>7.13.0</h2></a>
+<p><em>Release Date: 02/27/2020</em></p>
+<section id="id302">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.SheetSyncExtension</span></code>: An extension that syncs between a 3D model and its corresponding 2D sheet.</li>
+</ul>
+<ul class="simple">
+<li>Added SELECTION_SETS_PIVOT preference that will automatically reset the pivot point to the center of selected object(s).</li>
+</ul>
+</section>
+<section id="id303">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>An issue with restoring viewer to its default dimensions</li>
+</ul>
+</section>
+</section>
+<section id="id304">
+<a href="#id304"><h2>7.12.0</h2></a>
+<p><em>Release Date: 02/13/2020</em></p>
+<section id="id305">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Do not force calibration for PDF models and set the default units to points.</li>
+</ul>
+<ul class="simple">
+<li>Measure tool will restore existing measurements when the tool is reactivated.</li>
+</ul>
+</section>
+<section id="id306">
+<h3>Added</h3>
+<ul class="simple">
+<li>Store the ViewCube views as persistent preferences.</li>
+</ul>
+<ul class="simple">
+<li>Avatar Extension: An extension that displays an avatar on a 2D sheet, based on a target viewer’s 3D camera.</li>
+</ul>
+<ul class="simple">
+<li>Added switch for free measure in the measurement settings panel.</li>
+</ul>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">measureExt.deleteMeasurements</span></code> to remove all measurements.</li>
+</ul>
+<ul class="simple">
+<li>Support for Standard Surface materials in SVF via the <code class="docutils literal notranslate"><span class="pre">Autodesk.StandardSurface</span></code> extension</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">waitForLoadDone</span></code> and <code class="docutils literal notranslate"><span class="pre">isLoadDone</span></code> methods to Viewer3D API</li>
+</ul>
+</section>
+<section id="id307">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>After zooming is done, there is a delay in restarting progressive rendering.</li>
+</ul>
+<ul class="simple">
+<li>3D objects are not focused when you select an object from a 2D sheet and view it in 3D.</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">computeObjectBounds</span></code> function did not work as expected for selection proxies.</li>
+</ul>
+<ul class="simple">
+<li>Minimap Extension: Sheet remained visible when toggling during the zoom-in transition.</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue on mobile devices when a touch event doesn’t contain <code class="docutils literal notranslate"><span class="pre">e.target.className</span></code>.</li>
+</ul>
+<ul class="simple">
+<li>Unable to snap to a specific PDF document.</li>
+</ul>
+<ul class="simple">
+<li>Fixed double encoding of urls in PDFLoader.</li>
+</ul>
+<ul class="simple">
+<li>Standard Surface materials with transmission maps now render with correct transparency</li>
+</ul>
+</section>
+<section id="id308">
+<h3>Removed</h3>
+<ul class="simple">
+<li>Remove blue highlight when selecting the x, y or z section planes.</li>
+</ul>
+</section>
+</section>
+<section id="id309">
+<a href="#id309"><h2>7.11.0</h2></a>
+<p><em>Release Date: 01/30/2020</em></p>
+<section id="id310">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.Minimap3D</span></code> features a new level selection dropdown UI.</li>
+</ul>
+</section>
+<section id="id311">
+<h3>Added</h3>
+<ul class="simple">
+<li>Method <code class="docutils literal notranslate"><span class="pre">GuiViewer3D.registerCustomizeToolbarCB(callbackFunction)</span></code> to register a callback function that gets invoked each time the viewer gets resized. The callback’s signature is <code class="docutils literal notranslate"><span class="pre">function</span> <span class="pre">(viewer,</span> <span class="pre">width,</span> <span class="pre">height)</span></code>. The callback function is also invoked whenever a new extension gets loaded.</li>
+</ul>
+<ul class="simple">
+<li>Settings Panel option that enables/disables line-animations when loading PDF files.</li>
+<li>Profile setting value <code class="docutils literal notranslate"><span class="pre">avp.Prefs2D.LOADING_ANIMATION</span></code> can be used programmatically to control whether line-animations are enabled for PDF files.</li>
+</ul>
+<ul class="simple">
+<li>A context menu entry that allows users to select an object from a 2D sheet and view it in 3D.</li>
+</ul>
+<ul class="simple">
+<li>Support for <code class="docutils literal notranslate"><span class="pre">options.priority</span></code> into <code class="docutils literal notranslate"><span class="pre">viewer.addEventListener(eventId,</span> <span class="pre">callback,</span> <span class="pre">options)</span></code>.  Allows callbacks with higher priorities to be invoked first.</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">MeasureExtension.setMeasurements()</span></code> function restores measurements that were saved by the  <code class="docutils literal notranslate"><span class="pre">MeasureExtension.getMeasurementList()</span></code> api.</li>
+</ul>
+<ul class="simple">
+<li>Support for rendering PDF fill image patterns.</li>
+</ul>
+</section>
+<section id="id312">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.Minimap3D</span></code> is now localized.</li>
+</ul>
+<ul class="simple">
+<li>Runtime error in <code class="docutils literal notranslate"><span class="pre">model.getPageToModelTransform()</span></code> when viewports are not available.</li>
+</ul>
+<ul class="simple">
+<li>BLMV-3897 Fix issue where <code class="docutils literal notranslate"><span class="pre">BimMarkups</span></code> extension could not load a non-standard arrow-callout markup.</li>
+</ul>
+<ul class="simple">
+<li>Fixed an issue loading the viewer from data urls</li>
+</ul>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">getPropertiesSubsetWithInheritance</span></code> function was not returning properties correctly for objects that had more than one subset property</li>
+</ul>
+<ul class="simple">
+<li>Do not show the blue section plane when restoring a viewer state that contains cutplanes.</li>
+</ul>
+<ul class="simple">
+<li>LMV-5281 Viewer no longer pollutes css className <code class="docutils literal notranslate"><span class="pre">.card</span></code>, which clashes with Bootstrap’s css.</li>
+</ul>
+<ul class="simple">
+<li>LMV-5188 Release memory on <code class="docutils literal notranslate"><span class="pre">viewer.finish()</span></code></li>
+</ul>
+<ul class="simple">
+<li>LMV-5241 MSDF text not clipped correctly.</li>
+</ul>
+</section>
+</section>
+<section id="id313">
+<a href="#id313"><h2>7.10.0</h2></a>
+<p>Release Date 2020-01-16</p>
+<section id="id314">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Added a new Clipping implementation for PDFs with performance improvement.</li>
+</ul>
+</section>
+<section id="id315">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-5272 A new Preference value <code class="docutils literal notranslate"><span class="pre">avp.Prefs3D.EXPLODE_STRATEGY</span></code> to control which algorithm (hierarchical or radial) gets used when using the explode feature.</li>
+<li>Blending Mode support for PDFs.</li>
+<li>This version will attempt to initialize using a WebGL2 and will fallback into WebGL1.</li>
+</ul>
+</section>
+<section id="id316">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-5257 PDF background turns black when it’s white in the source PDF.</li>
+<li>LMV-5226 “Open properties on select” setting does not work on multiple models.</li>
+<li>PDF opened as raster instead of vector.</li>
+<li>BimWalk toolbar button doesn’t work when you change the navigation tool programmatically.</li>
+<li>LMV-5272 Explode tool is not working well for manufacturing-specific models.</li>
+<li>WebGL errors when rendering section outlines as a 2D material in a 3D material world when using WebGL2 context.</li>
+<li>Snapping to arc centers was broken.</li>
+</ul>
+</section>
+</section>
+<section id="id317">
+<a href="#id317"><h2>7.9.0</h2></a>
+<p><em>Release Date: 12/17/2019</em></p>
+<section id="id318">
+<h3>Added</h3>
+<ul class="simple">
+<li>Apply clip regions to path outlines to improve 2D viewing solution.</li>
+<li>LMV-5175 Performance improvement for the PDFs that contain inline image group.</li>
+<li>LMV-5214 Support to load properties for PDFs.</li>
+<li>Allow users to specify <code class="docutils literal notranslate"><span class="pre">bypassds</span></code> flag when requesting a manifest.</li>
+</ul>
+</section>
+<section id="id319">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Minimap camera rotation direction.</li>
+<li>PDFLayers: PDF sheet loads blank when it doesn’t have the layer information.</li>
+<li>LMV-5236 Some characters of text were missing from Vector PDFs.</li>
+<li>SheetThumbnails: Requesting sheet thumbnails failed with CORS-request when the viewer was initialized without useCookie=true.</li>
+<li>Multiple render target code path is not working in the latest version of Chrome.</li>
+</ul>
+</section>
+</section>
+<section id="id320">
+<a href="#id320"><h2>7.8.0</h2></a>
+<p><em>Release Date: 12/05/2019</em></p>
+<section id="id321">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-5153 Viewer3D.lockVisible(dbids, lock, model) - Keep visibility ON despite having parent dbIds OFF.</li>
+<li>LMV-5153 Viewer3D.lockExplode(dbids, lock, model) - Prevent specific dbIds from reacting to the explode operation.</li>
+<li>LMV-5153 Viewer3D.lockSelection(dbIds, lock, model) - Prevent specific dbIds from getting selected and highlighted.</li>
+<li>LMV-5127 BimWalk extension’s <code class="docutils literal notranslate"><span class="pre">Toggle</span> <span class="pre">Gravity</span></code> UI checkbox available in Settings Panel.</li>
+<li>Support for options.env values <code class="docutils literal notranslate"><span class="pre">FluentProductionEU</span></code> and <code class="docutils literal notranslate"><span class="pre">FluentStagingEU</span></code>.</li>
+<li>When entering and leaving the measure mode, Viewer fires new events:  Autodesk.Viewing.MeasureCommon.Events.MEASUREMENT_MODE_ENTER and Autodesk.Viewing.MeasureCommon.Events.MEASUREMENT_MODE_LEAVE.</li>
+</ul>
+</section>
+<section id="id322">
+<h3>Removed</h3>
+<ul class="simple">
+<li>BubbleNode.getPlacementTransform and BubbleNode.getHash functions have been deprecated.</li>
+</ul>
+</section>
+<section id="id323">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>BLMV-3772 Vector-PDF not supported in Europe</li>
+<li>viewer.setView() did not work for georeferenced models</li>
+<li>Improved and simplified directed zoom in Minimap</li>
+<li>Keyboard processing issues with multiple viewers side-by-side</li>
+<li>LevelExtension: LevelsPanel button not appearing if toolbar was not ready</li>
+<li>RenderContext: depthWrite was not always updated correctly for depthMaterials</li>
+<li>While using Viewer3DImpl.syncCamera, the camera was not consistently updated</li>
+<li>Always load the dbId mapping file</li>
+</ul>
+</section>
+</section>
+<section id="id324">
+<a href="#id324"><h2>7.7.0</h2></a>
+<p><em>Release Date: 11/21/2019</em></p>
+<section id="id325">
+<h3>Changed</h3>
+<ul class="simple">
+<li>LMV-5170 Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.PropertiesManager</span></code> now controls addition of Property Panel’s toolbar button. GuiViewer3D loads the extension by default.</li>
+</ul>
+</section>
+<section id="id326">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-5163 Dashed Line support into PDFLoader.</li>
+<li>LMV-5092 PDF supports measurement from the center of a circle.</li>
+</ul>
+</section>
+<section id="id327">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix <code class="docutils literal notranslate"><span class="pre">modelMemoryTracker</span></code> bug where <code class="docutils literal notranslate"><span class="pre">getByteLength</span></code> returns undefined.</li>
+<li>Propagate error when PDF file fails to load.</li>
+<li>LMV-5205 Fixed a regression in WebGLRenderer that caused occasionally missing meshes.</li>
+<li>LMV-5142 Animation shows objects that should be invisible.</li>
+<li>LMV-5171 Fix transform translations when using placement transform.</li>
+<li>LMV-4920 HyperlinkTool error when loading DWG.</li>
+<li>LMV-5171 load option <code class="docutils literal notranslate"><span class="pre">applyScaling</span></code>: ‘mm’ is forcing all fragments to origin.</li>
+<li>LMV-5063 Performance issue with 2d selection.</li>
+<li>LMV-4821 PDF text was not getting cropped correctly.</li>
+<li>LMV-4920 HyperlinkTool error when loading DWG.</li>
+<li>LMV-5090 Display view properties in the property panel when a view is selected.</li>
+<li>LMV-5146 glyph rendering transformation issue in PDF.</li>
+<li>LMV-5174 Transparent texts shows up in black in the PDF document.</li>
+<li>LMV-5176 Color UI for 4 arrows on ViewCube compass.</li>
+<li>BLMV-3716 Vector PDF cannot be calibrated on iOS.</li>
+<li>BLMV-3741 Error propagation when failing to load a PDF file.</li>
+<li>BLMV-3753: Duplicate entries in Layers Panel when option underlayRaster was enabled.</li>
+</ul>
+</section>
+</section>
+<section id="id328">
+<a href="#id328"><h2>7.6.1</h2></a>
+<p><em>Release Date: 11/11/2019</em></p>
+<section id="id329">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Prevent ViewCube’s Compass from displaying by default in non-AEC models.</li>
+</ul>
+</section>
+</section>
+<section id="id330">
+<a href="#id330"><h2>7.6.0</h2></a>
+<p><em>Release Date: 11/07/2019</em></p>
+<section id="id331">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.ModelStructure</span></code> now controls addition of Model Browser’s toolbar button. GuiViewer3D loads the extension by default.</li>
+</ul>
+</section>
+<section id="id332">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-2837 - Viewcube compass, which provides visual indicators for north, south, east and west directions.</li>
+<li>BimWalk - Added <code class="docutils literal notranslate"><span class="pre">jumpToFloor</span></code> API.</li>
+<li>RenderContext: Allow custom shapes to define their own edge opacity via material’s edgeOpacity attribute.</li>
+</ul>
+</section>
+<section id="id333">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-5134 Issue where Model Browser would display an incorrect number of models when multiple ones are loaded.</li>
+<li>LMV-4171 Measurement inconsistencies when “isolate measurements” options is checked.</li>
+<li>BLMV-3685 There is an unexpected tooltip shown when move explode submenu bar (IE).</li>
+<li>Hide tooltip on explode slider.</li>
+<li>Pixel Compare - Disable color button and visibility buttons on side-by-side mode.</li>
+<li>Vector-PDF - Fix underlayRaster race condition.</li>
+<li>LMV-4936 Fixed problem with thin arcs and circles on mobile.</li>
+<li>BLMV-3699 Toolbar missing after switching Vector PDF sheets while using underlayRaster option.</li>
+<li>BLMV-3684 PushPin extension - corrupted seedUrns</li>
+<li>LMV-4916 Autodesk.Viewing.shutdown() no longer breaks the property db loader</li>
+</ul>
+</section>
+</section>
+<section id="id334">
+<a href="#id334"><h2>7.5.1</h2></a>
+<p><em>Release Date: 10/24/2019</em></p>
+<section id="id335">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-5132 Issue where PDF layers were not working.</li>
+</ul>
+</section>
+</section>
+<section id="id336">
+<a href="#id336"><h2>7.5.0</h2></a>
+<p><em>Release Date: 10/22/2019</em></p>
+<section id="id337">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Selection did not work on animated Otg model fragments.</li>
+<li>BLMV-3501 Issue where some DWG 2D sheets would not load on mobile devices.</li>
+<li>BLMV-3666 Minimap UI buttons missaligned in Internet Explorer.</li>
+<li>BLMV-3658 Keep section planes when saving Markups.</li>
+<li>BLMV-3688 iPad detection on iOS 13</li>
+<li>BLMV-3676 Minimap3D: disable side-by-side and minimap buttons while in split view mode.</li>
+</ul>
+</section>
+</section>
+<section id="id338">
+<a href="#id338"><h2>7.4.2</h2></a>
+<p><em>Release Date: 10/17/2019</em></p>
+<section id="id339">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-5151 Orbit does not work in IE11</li>
+</ul>
+</section>
+</section>
+<section id="id340">
+<a href="#id340"><h2>7.4.1</h2></a>
+<p><em>Release Date: 10/16/2019</em></p>
+<section id="id341">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix bugs in the new Scene Builder API.</li>
+</ul>
+</section>
+</section>
+<section id="id342">
+<a href="#id342"><h2>7.4.0</h2></a>
+<p><em>Release Date: 10/08/2019</em></p>
+<section id="id343">
+<h3>Changed</h3>
+<ul class="simple">
+<li>BLMV-3638 Disable explode UI when creating or editing a pushpin.</li>
+<li>LMV-4862 Updated default memory budgets used by the <code class="docutils literal notranslate"><span class="pre">Autodesk.MemoryLimited</span></code>extension.</li>
+</ul>
+</section>
+<section id="id344">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-4933 SceneBuilder API.</li>
+<li>LMV-2675 <code class="docutils literal notranslate"><span class="pre">Autodesk.ProfileUi</span></code> extension, which can be used for switching to existing viewer profiles.</li>
+</ul>
+</section>
+<section id="id345">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-4927 Issue with the Layers Panel where parent-children relationships were not displayed correctly.</li>
+<li>BLMV-3622 Pixel Compare: Issue where sometimes the DiffTool would display inconsistent results on Leaflets.</li>
+<li>BLMV-3621 Pixel Compare: Background changes color after clicking on visibility button.</li>
+<li>BLMV-3619 Pixel Compare: Navigation toolbar was missing in diff mode.</li>
+<li>BLMV-3644 Pixel Compare: Handle models without background.</li>
+<li>Crash in AEC HyperlinkTracker in cases where no sheets are found.</li>
+<li>BLMV-3624 Unable to load PushPin issue when seedUrn was missing.</li>
+<li>Separate the CSS styles with comma.</li>
+<li>LMV-4971 New popout extension.</li>
+<li>Errors when when using snapping for 3D lines.</li>
+<li>LMV-4863 Unresponsive error in memory limited mode.</li>
+<li>LMV-5023 PDF:  Display progress bar while downloading content.</li>
+</ul>
+</section>
+</section>
+<section id="id346">
+<a href="#id346"><h2>7.3.0</h2></a>
+<p><em>Release Date: 09/18/2019</em></p>
+<section id="id347">
+<h3>Changed</h3>
+<ul class="simple">
+<li>LMV-4929 Profiles API is now official.</li>
+<li>Pixel Compare - Supports Vector-PDFs.</li>
+<li>LMV-4872 Change consolidation works when using theming and ghosting.</li>
+</ul>
+</section>
+<section id="id348">
+<h3>Added</h3>
+<ul class="simple">
+<li>LMV-4871 Method <code class="docutils literal notranslate"><span class="pre">setFreeMeasureMode(bool)</span></code> to <code class="docutils literal notranslate"><span class="pre">Autodesk.Measure</span></code> extension, which allows measuring from any location.</li>
+<li>LMV-4725 AEC Navigator for the <code class="docutils literal notranslate"><span class="pre">BimWalk</span></code> extension. Gives users an experience similar to the Navisworks and Revit first-person tools.</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.hitTest()</span></code> extends its implementation to also intersect objects from <code class="docutils literal notranslate"><span class="pre">sceneAfter</span></code>.</li>
+<li>LMV-4935 <code class="docutils literal notranslate"><span class="pre">getMeasurementList</span></code> and <code class="docutils literal notranslate"><span class="pre">getCalibration</span></code> APIs to get the list of measurements on the canvas and calibration values.</li>
+<li>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Snapping</span></code>, which exposes a tool for snapping to geometry: <code class="docutils literal notranslate"><span class="pre">Autodesk.Extensions.Snapping.Snapper</span></code>.</li>
+</ul>
+</section>
+<section id="id349">
+<h3>Removed</h3>
+<ul class="simple">
+<li>Hotkey for activating the Field-of-View tool ( Ctrl + Shift ). Users can still access the functionality by using the appropriate toolbar button.</li>
+<li>Hotkey for activating the Roll tool ( Alt + Shift ). Users can still access the functionality by using the appropriate toolbar button.</li>
+</ul>
+</section>
+<section id="id350">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-4873 Bubble nodes are sorted based on the order number provided in the bubble.json</li>
+<li>LMV-4877 DWG layers in external references do not turn on/off.</li>
+<li>LMV-4913 Model Browser and Selection wouldn’t work when Property Database contained cycles.</li>
+<li>LMV-4952 Fix Prism wood material problem when using different canvases.</li>
+<li>Regression: Extensions fail to load in multiple viewer instances.</li>
+</ul>
+</section>
+</section>
+<section id="id351">
+<a href="#id351"><h2>7.2.1</h2></a>
+<p><em>Release Date: 09/06/2019</em></p>
+<section id="id352">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Regression when loading external ids.</li>
+</ul>
+</section>
+</section>
+<section id="id353">
+<a href="#id353"><h2>7.2.0</h2></a>
+<p><em>Release Date: 08/15/2019</em></p>
+<section id="id354">
+<h3>Changed</h3>
+<ul class="simple">
+<li>Force calibration for vector PDF</li>
+<li>LMV-4861 Clicking in Model Browser will now isolate objects.</li>
+<li>LMV-4702 Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.LayerManager</span></code>_ controls whether the Layers Panel button gets added to the toolbar. This extension is loaded by default.</li>
+<li>LMV-4904 A single preference can have multiple registered callbacks. See <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Private.Preferences#addListeners</span></code>_.</li>
+</ul>
+</section>
+<section id="id355">
+<h3>Added</h3>
+<ul class="simple">
+<li>Toolbar button to select text in PDF files.</li>
+<li>LMV-4281 Layer support to PDF files</li>
+<li>LMV-4914 <code class="docutils literal notranslate"><span class="pre">PDF</span> <span class="pre">Extension</span></code>_: Add support for <code class="docutils literal notranslate"><span class="pre">options.enableHyperlinks</span></code> and <code class="docutils literal notranslate"><span class="pre">options.enableTextSearch</span></code>. Both are true by default.</li>
+<li>LMV-4675 <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.UI.DataTable</span></code>_ component</li>
+<li>LMV-4867 Beta release of <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Profile</span></code>_. A Profile can be used to apply settings and load/unload extensions from the Viewer.</li>
+</ul>
+</section>
+<section id="id356">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed <code class="docutils literal notranslate"><span class="pre">attributesVersion</span></code> bugs on pushpin’s metadata</li>
+<li>LMV-4901 Infinite recursion in Fusion Orbit</li>
+<li>LMV-4724 Reset view frustrum and clipping planes when zoomed into large model</li>
+<li>LMV-4937 MRT errors in Chrome 76</li>
+</ul>
+</section>
+</section>
+<section id="id357">
+<a href="#id357"><h2>7.1.1</h2></a>
+<p><em>Release Date: 08/09/2019</em></p>
+<section id="id358">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-4928 ViewerStates that contain objectSets that are not generated by <code class="docutils literal notranslate"><span class="pre">viewer.getState()</span></code> will not be applied when calling <code class="docutils literal notranslate"><span class="pre">viewer.restoreState(state)</span></code>.</li>
+</ul>
+</section>
+</section>
+<section id="id359">
+<a href="#id359"><h2>7.1.0</h2></a>
+<p><em>Release Date: 07/30/2019</em></p>
+<section id="id360">
+<h3>Changed</h3>
+<ul class="simple">
+<li>LMV-4715 Hyperlinks in PDF files will now preview destination page on hover.</li>
+<li>LMV-2910 <code class="docutils literal notranslate"><span class="pre">Autodesk.Section</span></code> extension will now take into account the cut planes set by <code class="docutils literal notranslate"><span class="pre">viewer.setCutPlanes()</span></code>.</li>
+<li>LMV-4810 Progress bar renders blue only when the memory limited extension is active (not just loaded).</li>
+<li>BLMV-3444 BimWalk no longer disables the section tool.</li>
+<li>Markup error handler returns error key as the second parameter.</li>
+</ul>
+</section>
+<section id="id361">
+<h3>Added</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.GestureDocumentNavigation</span></code> extension.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.RollCamera</span></code> extension.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Minimap</span></code> extension.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Extension.load()</span></code> may now return a Promise.</li>
+<li>LMV-4783 thumbnail view to <code class="docutils literal notranslate"><span class="pre">Autodesk.DocumentBrowser</span></code> extension.</li>
+<li>LMV-4726 context menu option “Section Box”. Places a section box around the selected model object(s). <code class="docutils literal notranslate"><span class="pre">Autodesk.Section#setSectionBox</span></code></li>
+<li>LMV-4834 context menu option “Section Plane”. Places a section plane at the selected point. <code class="docutils literal notranslate"><span class="pre">Autodesk.Section#setSectionPlane</span></code></li>
+<li>LMV-4554 Multiple model support to methods <code class="docutils literal notranslate"><span class="pre">viewer.getState()</span></code> and <code class="docutils literal notranslate"><span class="pre">viewer.restoreState()</span></code>.</li>
+<li>Event <code class="docutils literal notranslate"><span class="pre">LOADER_LOAD_FILE_EVENT</span></code></li>
+<li>Event <code class="docutils literal notranslate"><span class="pre">AGGREGATE_HIDDEN_CHANGED_EVENT</span></code></li>
+<li>Method <code class="docutils literal notranslate"><span class="pre">model.getProperties2(...)</span></code> which will avoid including <code class="docutils literal notranslate"><span class="pre">externalId</span></code> data in the result set. This speeds fetching property data and reduces memory footprint when <code class="docutils literal notranslate"><span class="pre">externalId</span></code> values are not required.</li>
+<li>Method <code class="docutils literal notranslate"><span class="pre">model.getBulkProperties2(...)</span></code>. Similar benefits to <code class="docutils literal notranslate"><span class="pre">model.getProperties2(...)</span></code>.</li>
+</ul>
+</section>
+<section id="id362">
+<h3>Fixed</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Minimap3DExtension</span></code>: Fix missing view node.</li>
+<li>Send correct tool with <code class="docutils literal notranslate"><span class="pre">TOOL_CHANGE_EVENT</span></code> event</li>
+<li>A trap that caused directional zoom when using own tools</li>
+<li>BLMV-3461 Runtime error when unloading a Leaflet model.</li>
+<li>Measure: Fix measurement type changing bug.</li>
+</ul>
+</section>
+</section>
+<section id="id363">
+<a href="#id363"><h2>7.0.4</h2></a>
+<p><em>Release Date: 07/23/2019</em></p>
+<section id="id364">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>LMV-4860 Extensions no longer load twice on first load when using <code class="docutils literal notranslate"><span class="pre">viewer.loadDocumentNode()</span></code></li>
+</ul>
+</section>
+</section>
+<section id="id365">
+<a href="#id365"><h2>7.0.3</h2></a>
+<p><em>Release Date: 07/15/2019</em></p>
+<section id="id366">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>The entire model getting selected when you select a group node in the model browser while using geometry consolidation.</li>
+</ul>
+</section>
+</section>
+<section id="id367">
+<a href="#id367"><h2>7.0.2</h2></a>
+<p><em>Release Date: 07/12/2019</em></p>
+<section id="id368">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Runtime error when URL contains “viewermemory” parameter.</li>
+</ul>
+</section>
+</section>
+<section id="id369">
+<a href="#id369"><h2>7.0.1</h2></a>
+<p><em>Release Date: 07/10/2019</em></p>
+<section id="id370">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>2D models not loading properly in the Firefox browser.</li>
+<li>Progress bar initial width.</li>
+</ul>
+</section>
+</section>
+<section id="important">
+<a href="#important"><h2>IMPORTANT</h2></a>
+<section id="breaking-changes-lmv-7-0">
+<h3>BREAKING CHANGES: LMV 7.0</h3>
+<p>This major release, LMV 7.0, contains breaking changes to better accommodate upstream merges, specify new file loaders, reduce package size, and improve performance.</p>
+<p>We strongly recommend that you specify the version of Viewer code you are using for web applications deployed in production. By including a specific version number, you can update your application as necessary to accommodate breaking changes and dictate when to migrate to the next version. To learn how to load version-specific Viewer libraries, refer to the section “Getting the Code” in <code class="docutils literal notranslate"><span class="pre">Developer's</span> <span class="pre">Guide</span> <span class="pre">Basics</span></code>_ .</p>
+</section>
+</section>
+<section id="id371">
+<a href="#id371"><h2>7.0.0</h2></a>
+<p><em>Release Date: 06/25/2019</em></p>
+<section id="id372">
+<h3>Changed</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ViewingApplication</span></code> is bundled into its own javascript file. See <code class="docutils literal notranslate"><span class="pre">Migration</span> <span class="pre">Guide</span></code>_ .</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.loadModel()</span></code> API now async and returns a promise</li>
+<li>LMV-4482 Non-photorealistic rendering feature moved into extension <code class="docutils literal notranslate"><span class="pre">Autodesk.NPR</span></code></li>
+<li>View cube APIs were moved to extension <code class="docutils literal notranslate"><span class="pre">Autodesk.ViewCubeUi</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getMessages</span></code> no longer accepts plain GUID. Use <code class="docutils literal notranslate"><span class="pre">Document.getRoot().findByGuid()</span></code> to obtain the corresponding BubbleNode.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getViewGeometry</span></code> returns BubbleNode instead of raw JSON</li>
+<li>Pushpin thumbnails generate only when supplying <code class="docutils literal notranslate"><span class="pre">generateIssueThumbnail</span></code> or <code class="docutils literal notranslate"><span class="pre">generateRFIThumbnail</span></code> in the extension’s options.</li>
+</ul>
+</section>
+<section id="id373">
+<h3>Added</h3>
+<ul>
+<li>LMV-4431 JavaScript bundle <code class="docutils literal notranslate"><span class="pre">viewerCE.min.js</span></code>, compact library with enough capabilities to load SVF and F2D models.</li>
+<li>Global shutdown API <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.shutdown()</span></code> to shutdown the application properly and free up memory.</li>
+<li>Namespace <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.ScreenShot</span></code> containing static functions for capturing viewer screenshots.</li>
+<li>LMV-4678 2nd argument <code class="docutils literal notranslate"><span class="pre">userData</span></code> into <code class="docutils literal notranslate"><span class="pre">model.getPropertyDb().executeUserFunction(userFunction,</span> <span class="pre">userData)</span></code>.</li>
+<li>LMV-2958 2nd argument <code class="docutils literal notranslate"><span class="pre">opacity</span></code> into <code class="docutils literal notranslate"><span class="pre">set2dSelectionColor(new</span> <span class="pre">THREE.Color(r,g,b),</span> <span class="pre">opacity)</span></code></li>
+<li>Option to display a toolbar vertically <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">avu.ToolBar('toolbar-id',</span> <span class="pre">{</span> <span class="pre">alignVertically:</span> <span class="pre">true</span> <span class="pre">});</span></code></li>
+<li>LMV-4522 <code class="docutils literal notranslate"><span class="pre">Extension.onToolbarCreated(toolbar)</span></code> API.</li>
+<li>Compact vertex buffer support to <code class="docutils literal notranslate"><span class="pre">VertexBufferReader</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.overlays</span></code> which exposes APIs for adding overlay scenes, meshes, etc.</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.unloadModel()</span></code>, <code class="docutils literal notranslate"><span class="pre">viewer.hitTest()</span></code>, and <code class="docutils literal notranslate"><span class="pre">viewer.refresh()</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">model.getFragmentPointer()</span></code> which exposes the <code class="docutils literal notranslate"><span class="pre">FragmentPointer</span></code> class of a specific fragment in the model.</li>
+<li>APIs to change the zoom dolly speed:<p></p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">toolController</span><span class="p">.</span><span class="nx">getTool</span><span class="p">(</span><span class="s1">'dolly'</span><span class="p">);</span>
+<span class="w">	</span><span class="nx">tool</span><span class="p">.</span><span class="nx">setDollyDragScale</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"> </span><span class="c1">//Drag Speed</span>
+<span class="w">	</span><span class="nx">tool</span><span class="p">.</span><span class="nx">setDollyScrollScale</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="w"> </span><span class="c1">//Scroll Speed</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</li>
+<li>Zoom speed and scroll wheel speed slider controls added to Settings.</li>
+<li>LMV-4714 Canadian-French local language support.</li>
+<li>Pinch gesture support into extension <code class="docutils literal notranslate"><span class="pre">Autodesk.BimWalk</span></code>.</li>
+<li>Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.Fusion360.Animation</span></code> can be now configured in a panel accessible from the Settings Panel.</li>
+<li><code class="docutils literal notranslate"><span class="pre">headless</span></code> viewer support for <code class="docutils literal notranslate"><span class="pre">Autodesk.DiffTool</span></code> extension.</li>
+<li>LMV-4626 Extension <code class="docutils literal notranslate"><span class="pre">Autodesk.NPR</span></code> can be now configured in a panel accessible from the Settings Panel.</li>
+<li>Panning ability for <code class="docutils literal notranslate"><span class="pre">3D</span> <span class="pre">Minimap</span></code>.</li>
+</ul>
+</section>
+<section id="id374">
+<h3>Removed</h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">viewer.getToolbar(true)</span></code> no longer creates a toolbar. Function no longer takes any parameters.</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.getToolbarProm():Promise</span></code> - Refer to migration guide: <code class="docutils literal notranslate"><span class="pre">Migration</span> <span class="pre">Guide</span></code>_ .</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.playAnimation(callback)</span></code> - Refer to migration guide: <code class="docutils literal notranslate"><span class="pre">Migration</span> <span class="pre">Guide</span></code>_ .</li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getViewableItems(document)</span></code> - use <code class="docutils literal notranslate"><span class="pre">Document.getRoot().findAllViewables()</span></code> instead.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getItemById(id)</span></code> - use <code class="docutils literal notranslate"><span class="pre">Document.getRoot().findByGuid()</span></code> .</li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getPropertyDbPath</span></code> - Use <code class="docutils literal notranslate"><span class="pre">Document.getFullPath(Document.getRoot().findPropertyDbPath())</span></code> to populate this field, in case you are calling <code class="docutils literal notranslate"><span class="pre">Viewer3D.loadModel</span></code> directly and not using <code class="docutils literal notranslate"><span class="pre">loadDocuementNode</span></code>, which populates the property automatically.</li>
+<li><code class="docutils literal notranslate"><span class="pre">Document.getRootItem</span></code> - use <code class="docutils literal notranslate"><span class="pre">Document.getRoot()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">createItem(data)</span></code>  method from extension <code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Extension.PushPin</span></code>; it has been replaced by <code class="docutils literal notranslate"><span class="pre">loadItems([data])</span></code> .</li>
+<li><code class="docutils literal notranslate"><span class="pre">RESET_EVENT</span></code> - No part of the code was firing the event; few classes where responding to it.</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.load()</span></code>, replaced by <code class="docutils literal notranslate"><span class="pre">viewer.loadModel()</span></code> .</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.isolateById()</span></code>, replaced by <code class="docutils literal notranslate"><span class="pre">viewer.isolate()</span></code> .</li>
+<li><code class="docutils literal notranslate"><span class="pre">viewer.displayHomeandInfoButton()</span></code> .</li>
+<li><code class="docutils literal notranslate"><span class="pre">MarkupsCoreUtils.getClipPathId()</span></code>, replaced by <code class="docutils literal notranslate"><span class="pre">MarkupsCoreUtils.getUniqueID()</span></code> .</li>
+</ul>
+</section>
+<section id="id375">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Pushpin label with spaces bug.</li>
+<li>CrossFadeEffect artifact bug on 2D.</li>
+<li>Pushpin selection bug on iOS.</li>
+<li>Pushpin visibility button bug.</li>
+<li>LMV-4235 slow 2d model.</li>
+<li>Visibility animation.</li>
+<li>Selection color to the blender shader.</li>
+<li>Minimap cleanup error when deactivating the tool.</li>
+<li>Inconsistent functionality of the toolbar bug.</li>
+<li>When an extension exists in <code class="docutils literal notranslate"><span class="pre">loadExtensionLocal</span></code>, return it instead of loading it again.</li>
+<li>Pixel compare was broken.</li>
+<li>Empty fontCache bug when changing sheets.</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

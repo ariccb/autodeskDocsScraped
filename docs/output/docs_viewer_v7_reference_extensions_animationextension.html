@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnimationExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Fusion360/AnimationExtension.js">
+<section id="animationextension">
+<h1>AnimationExtension</h1>
+<section id="new-animationextension-viewer-options">
+<a href="#new-animationextension-viewer-options"><h2>new AnimationExtension(viewer, options)</h2></a>
+<p>AnimationExtension adds a toolbar with buttons (play/pause/forward/backward/goto start/end) and timeline scrubber to control animation playback. The extension provides api methods that will be reflected by the animation toolbar.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Fusion360.Animation</span></code></p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// When ANIMATION_READY_EVENT is fired, object tree has been created and animation data has been processed</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">ANIMATION_READY_EVENT</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">animationExt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.Fusion360.Animation'</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">animationExt</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Adds a toolbar button and hooks animation listeners.</p>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Removes toobar button and unhooks animation listeners.</p>
+</section>
+<section id="play">
+<a href="#play"><h2>play()</h2></a>
+<p>Plays the animation. Invoke pause() to stop the animation.</p>
+</section>
+<section id="pause">
+<a href="#pause"><h2>pause()</h2></a>
+<p>Pauses an active animation. Can resume by invoking play()</p>
+</section>
+<section id="isplaying">
+<a href="#isplaying"><h2>isPlaying()</h2></a>
+<p>Whether the animation is currently playing. Always returns the opposite of isPaused()</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ispaused">
+<a href="#ispaused"><h2>isPaused()</h2></a>
+<p>Wether the animation is currently paused. Always returns the opposite of isPlaying()</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="rewind">
+<a href="#rewind"><h2>rewind()</h2></a>
+<p>Rewinds and pauses the animation.</p>
+</section>
+<section id="settimelinevalue-scale">
+<a href="#settimelinevalue-scale"><h2>setTimelineValue(scale)</h2></a>
+<p>Sets the animation at the very beginning (0), at the end(1) or anywhere in between. For example, use value 0.5 to set the animation half way through it’s completion. Will pause a playing animation.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">scale</span><span class="required">*</span><div class="type">number</div></td><td>value between 0 and 1</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="prevkeyframe">
+<a href="#prevkeyframe"><h2>prevKeyframe()</h2></a>
+<p>Sets animation onto the previous keyframe. Will pause the animation if playing.</p>
+</section>
+<section id="nextkeyframe">
+<a href="#nextkeyframe"><h2>nextKeyframe()</h2></a>
+<p>Sets animation onto the next keyframe. Will pause the animation if playing.</p>
+</section>
+<section id="getduration">
+<a href="#getduration"><h2>getDuration()</h2></a>
+<p>Returns how many seconds does the animation take to complete.</p>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdurationlabel">
+<a href="#getdurationlabel"><h2>getDurationLabel()</h2></a>
+<p>Returns duration as a formatted String h:mm:ss (hours:minutes:seconds)</p>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcurrenttime">
+<a href="#getcurrenttime"><h2>getCurrentTime()</h2></a>
+<p>Returns the elapsed time (in seconds) of the animation.</p>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcurrenttimelabel">
+<a href="#getcurrenttimelabel"><h2>getCurrentTimeLabel()</h2></a>
+<p>Returns the current animation time as a formatted String h:mm:ss (hours:minutes:seconds)</p>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setfollowcamera-followcam">
+<a href="#setfollowcamera-followcam"><h2>setFollowCamera(followCam)</h2></a>
+<p>Whether a playing animation updates the camera position.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">followCam</span><span class="required">*</span><div class="type">boolean</div></td><td>true to allow animation to update camera position (default behavior).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the operation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isfollowingcamera">
+<a href="#isfollowingcamera"><h2>isFollowingCamera()</h2></a>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether animations will update the camera’s position (true) or not (false)</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setspeedmodifier-value">
+<a href="#setspeedmodifier-value"><h2>setSpeedModifier(value)</h2></a>
+<p>Changes the speed at which the animation is played. Use value 1 to run the animation at default speed, use value 2 to run it at double the speed, use value 0.5 to run it at half the speed.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">number</div></td><td>A multiplier for the animation’s elapsed time.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getspeedmodifier">
+<a href="#getspeedmodifier"><h2>getSpeedModifier()</h2></a>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>The playback speed multiplier.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setlooping-loop">
+<a href="#setlooping-loop"><h2>setLooping(loop)</h2></a>
+<p>Sets whether the animation rewinds and plays as soon as the animation finishes playing.</p>
+<section id="id12">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">loop</span><span class="required">*</span><div class="type">boolean</div></td><td>true to have the animation loop continuously.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="islooping">
+<a href="#islooping"><h2>isLooping()</h2></a>
+<section id="id13">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the animation will loop continuously.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ontoolbarcreated-toolbar">
+<a href="#ontoolbarcreated-toolbar"><h2>onToolbarCreated(toolbar)</h2></a>
+<p>Invoked by the viewer when the toolbar UI is available.</p>
+<section id="id14">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolbar</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ToolBar/">Autodesk.Viewing.UI.ToolBar</a></div></td><td>toolbar instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="openpanel">
+<a href="#openpanel"><h2>openPanel()</h2></a>
+<p>Opens a panel with options to configure the animation extension.</p>
+</section>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>Plays the animation.</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Pauses the animation.</p>
+</section>
+<section id="isactive">
+<a href="#isactive"><h2>isActive()</h2></a>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the animation is playing.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

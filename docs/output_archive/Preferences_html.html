@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preferences | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Private</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Preferences.js">
+<section id="preferences">
+<h1>Preferences</h1>
+<p>Application preferences.</p>
+<p>Optionally uses web storage.</p>
+<p>Each preference value can have tags associated to them. Developer supported tags are:</p>
+<ul class="simple">
+<li>‘ignore-producer’</li>
+<li>‘no-storage’</li>
+<li>‘shared-storage’</li>
+<li>‘2d’</li>
+<li>‘3d’</li>
+</ul>
+<p>Use tag ‘ignore-producer’ in extensions to avoid having developer-defined render settings overridden by the loaded file.</p>
+<p>Use tag ‘no-storage’ in extensions to avoid having User Preferences (from Settings Panel) override default or developer-defined preferences. Useful for render settings.</p>
+<p>Use tag ‘shared-storage’ to always store the preference in a shared storage instead of the current profile storage. This is useful for preferences that should be shared across different storage profiles.</p>
+<p>Preferences may apply to all model types, only 2D models (with tag ‘2d’) or 3D models only (with tag ‘3d’).</p>
+<section id="new-preferences-options">
+<a href="#new-preferences-options"><h2>new Preferences(options)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><span class="required">*</span><div class="type type--collapsable">object</div></td><td>Contains configuration parameters used to do initializations.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">localStorage</span><div class="type type--collapsable">boolean</div></td><td>Whether values get stored and loaded back from localStorage. Defaults to <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">true</span></code>.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">prefix</span><div class="type type--collapsable">string</div></td><td>A string to prefix preference names in web storage. Defaults to <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">'Autodesk.Viewing.Preferences.'</span></code>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

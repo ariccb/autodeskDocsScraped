@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customizing Edit2D | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="customizing-your-edit2d-instance">
+<h1>Customizing Your Edit2D Instance</h1>
+<p>Edit2D defines several defaults when you run it. In the <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-setup">Setting Up Edit2D</a> tutorial, you looked at an application that runs some of those defaults, including Edit2D’s default toolset and context. There are several ways to customize Edit2D behavior. This tutorial covers some of them.</p>
+<p>This tutorial shows you ho to:</p>
+<ul class="simple">
+<li>Customize units</li>
+<li>Customize your toolset</li>
+<li>Customize context menu</li>
+<li>Add more layers</li>
+<li>Customize the appearance of selection and hover</li>
+</ul>
+<p>Before completing this tutorial, you should be familiar with how to set up and use Edit2D in your application. Refer to the <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-setup">Setting Up Edit2D</a> tutorial to familiarize yourself with these concepts. Tutorials about how to use Edit2D and how to manually draw Edit2D shapes with JavaScript are linked at the end of this tutorial.</p>
+<section id="step-1-customize-units">
+<a href="#step-1-customize-units"><h2>Step 1: Customize Units</h2></a>
+<p>By default, Edit2D’s unit handling is configured the same way as the <code class="docutils literal notranslate"><span class="pre">Measure</span></code> extension in Viewer SDK. If the <code class="docutils literal notranslate"><span class="pre">Measure</span></code> extension is not available, values are displayed 1:1 in layer coordinates without units.</p>
+<p>Edit2D sets the default formatting for label text using <code class="docutils literal notranslate"><span class="pre">DefaultUnitHandler</span></code>. <code class="docutils literal notranslate"><span class="pre">Default</span> <span class="pre">Unit</span> <span class="pre">Handler</span></code> defines how to translate measurements in layers to the text displayed in labels. This includes:
+- The name of the unit
+- The way in which lengths and areas in layer-coords are translated to displayed values
+- The number of digits displayed in labels.</p>
+<p>You can define your own formatting by replacing the default unit handler. Note that you need to set <code class="docutils literal notranslate"><span class="pre">unitHandler</span></code> before specifying the tools.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">unitHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">SimpleUnitHandler</span><span class="p">(</span><span class="nx">viewer</span><span class="p">);</span>
+<span class="nx">unitHandler</span><span class="p">.</span><span class="nx">layerUnit</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s1">'in'</span><span class="p">;</span>
+<span class="nx">unitHandler</span><span class="p">.</span><span class="nx">displayUnits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'cm'</span><span class="p">;</span>
+<span class="nx">unitHandler</span><span class="p">.</span><span class="nx">digits</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span>
+
+<span class="c1">// Register your tools after defining unitHandler</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-customize-your-toolset">
+<a href="#step-2-customize-your-toolset"><h2>Step 2: Customize Your Toolset</h2></a>
+<p>In the previous tutorial, we set up Edit2D with the default toolset, using the <code class="docutils literal notranslate"><span class="pre">registerDefaultTools()</span></code> method. This method completes a few steps for you in order to quickly set up Edit2D:</p>
+<ul class="simple">
+<li>Creates a single layer and gizmoLayer</li>
+<li>Creates all available tools</li>
+<li>Registers tools at ToolController</li>
+</ul>
+<p>It is usually sufficient to use the default toolset, as long as you can be sure that you are the only one who is using Edit2D within your application. However, Edit2D can also be used by different software components within the same application. This may happen, for example, if Edit2D is used in another Viewer extension. In this case, it would produce conflicts if different components are all accessing the same tools and EditLayer.</p>
+<p>You can avoid conflicts by registering your own toolset. First, you’ll want to register your tool, giving your toolset a name unique for your application.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">registerTools</span><span class="p">(</span><span class="nx">MyToolSetName</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Once you’ve registered your tools, you need to define your toolset, context, and tools.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">toolSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">getToolSet</span><span class="p">(</span><span class="nx">MyToolSetName</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">toolSet</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tools</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nx">toolSet</span><span class="p">.</span><span class="nx">tools</span><span class="p">;</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-3-customize-context-menu">
+<a href="#step-3-customize-context-menu"><h2>Step 3: Customize Context Menu</h2></a>
+<p>When you load Edit2D’s default toolset, it automatically registers a context menu with features such <code class="docutils literal notranslate"><span class="pre">addVertex</span></code> and <code class="docutils literal notranslate"><span class="pre">removeVertex</span></code>. You can add application-specific items by registering a <code class="docutils literal notranslate"><span class="pre">contextMenuCallback</span></code>. You need to register the callback after updating the Edit2D context menu. This is because the Edit2D context menu replaces Viewer SDK’s default context menu when your user hits an an Edit2D shape.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span>const myItem = {
+    title: 'My extra menu item',
+    target : ()=&gt; {console.log('Hello new item);}
+};
+
+const cb = (menu) =&gt; {
+    menu.push(item);
+}
+
+//Let Viewer SDK trigger the callback when building the contextMenu
+viewer.registerContextMenuCallback('MyOwnItems', cb);
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>You can also remove the Edit2D contextMenu altogether.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">toolset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">getToolSet</span><span class="p">(</span><span class="nx">MyToolSetName</span><span class="p">);</span>
+<span class="nx">toolset</span><span class="p">.</span><span class="nx">contextMenu</span><span class="p">.</span><span class="nx">unregister</span><span class="p">();</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-4-customize-appearance-of-selection-and-hover">
+<a href="#step-4-customize-appearance-of-selection-and-hover"><h2>Step 4: Customize Appearance of Selection and Hover</h2></a>
+<p>By default, displayed shape styles are slightly varied when users hover over or select them. For example, when a user selects a shape, the shape will display an increased line width and fill opacity. These responses do not alter the actual styles of the shapes you are editing. Instead, Edit2D uses style modifiers. A style modifier is a callback that temporarily overrides the display style of a shape with another one.</p>
+<p>In the following example, we will replace the default style modification behavior with custom highlighting that affects all shapes that pass the filter function <code class="docutils literal notranslate"><span class="pre">(shapeId)</span> <span class="pre">=&gt;</span> <span class="pre">bool</span></code>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Switch-off default highlighting behavior</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">selection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">.</span><span class="nx">selection</span><span class="p">;</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">removeStyleModifier</span><span class="p">(</span><span class="nx">selection</span><span class="p">.</span><span class="nx">modifier</span><span class="p">);</span>
+
+<span class="c1">// Define custom style modifier instead</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">myModifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">shape</span><span class="p">,</span><span class="w"> </span><span class="nx">style</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Leave style unaffected if shape does not pass the filter</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">myFilter</span><span class="p">(</span><span class="nx">shape</span><span class="p">.</span><span class="nx">id</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Return modified style copy</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">modified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">style</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">modified</span><span class="p">.</span><span class="nx">fillColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'rgb(255, 0, 0)'</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">modified</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addStyleModifier</span><span class="p">(</span><span class="nx">myModifier</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>A custom highlighting can, but does not have to, replace the default one. A layer supports multiple style modifiers that are applied in the order in which they were added.</p>
+<p>Note: The style parameter may either be the original polygon style or the style returned by a previously applied style modifier. Make sure to create a modified copy, rather than change the style itself.</p>
+</section>
+<section id="step-5-add-more-layers">
+<a href="#step-5-add-more-layers"><h2>Step 5: Add More Layers</h2></a>
+<p>When you register your tools, Edit2D creates a single <code class="docutils literal notranslate"><span class="pre">EditLayer</span></code> for your tools to work on–<code class="docutils literal notranslate"><span class="pre">context.layer</span></code>– and a second one for temporary overlays–<code class="docutils literal notranslate"><span class="pre">context.gizmoLayer</span></code>. You can add additional layers to the default setup.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="c1">// Create new layer</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">anotherLayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2d</span><span class="p">.</span><span class="nx">EditLayer</span><span class="p">(</span><span class="nx">viewer</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Once you’ve created the layer, you can choose how to display it. By default, additional layers are represented as overlays.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="k">this</span><span class="p">.</span><span class="nx">viewer</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">addOverlay</span><span class="p">(</span><span class="nx">OverlayName</span><span class="p">,</span><span class="w"> </span><span class="nx">layer</span><span class="p">.</span><span class="nx">scene</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>More generally, <code class="docutils literal notranslate"><span class="pre">layer.scene</span></code> is a <code class="docutils literal notranslate"><span class="pre">Three.Scene</span></code> with triangulated shapes that you can use in whatever way you want.</p>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s Next?</h2></a>
+<p>Now that you’ve learned how to customize Edit2D, check out these tutorials:</p>
+<ul class="simple">
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-use">Using the Edit2D Toolset</a></li>
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-manual">Drawing Edit2D Shapes Manually</a></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

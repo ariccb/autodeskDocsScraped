@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeatureFlags | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Classes</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/FeatureFlags.js"><section id="featureflags">
+<h1>FeatureFlags</h1>
+<p>Static class that manages feature flags. Feature flags are used to enable or disable certain features of the viewer. After initialization, the flags become immutable.</p>
+<section id="new-featureflags">
+<a href="#new-featureflags"><h2>new FeatureFlags()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">FeatureFlags</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'EXAMPLE_FEATURE'</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="set-name-value">
+<a href="#set-name-value"><h2>set(name, value)</h2></a>
+<p>Sets the value of a given feature flag. If the flag does not exist, nothing happens.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>Feature flag identifier</td></tr><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>New value of the feature flag</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isenabled-name">
+<a href="#isenabled-name"><h2>isEnabled(name)</h2></a>
+<p>Returns whether a given feature flag is enabled.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>Feature flag identifier</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean, undefined</td>
+<td>Feature flag value or undefined if the flag does not exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="print">
+<a href="#print"><h2>print()</h2></a>
+<p>Prints all public feature flags and their values to the console</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

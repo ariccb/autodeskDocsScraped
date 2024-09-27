@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExplodeExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Explode/Explode.js">
+<section id="explodeextension">
+<h1>ExplodeExtension</h1>
+<p>Use its <code class="docutils literal notranslate"><span class="pre">activate()</span></code> method to enable the explode UI.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Explode</span></code></p>
+<section id="new-explodeextension-viewer-options">
+<a href="#new-explodeextension-viewer-options"><h2>new ExplodeExtension(viewer, options)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Explode'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Initializes and registers the ExplodeTool.</p>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Deactivate the extension, deregister the ExplodeTool, and remove the UI from the toolbar.</p>
+</section>
+<section id="ontoolbarcreated-toolbar">
+<a href="#ontoolbarcreated-toolbar"><h2>onToolbarCreated(toolbar)</h2></a>
+<p>Invoked by the viewer when the toolbar UI is available.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolbar</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ToolBar/">Autodesk.Viewing.UI.ToolBar</a></div></td><td>toolbar instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>Activates the tool and UI.</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Hides the explode UI and deactivates the ExplodeTool (resets the explode scale).</p>
+</section>
+<section id="isactive">
+<a href="#isactive"><h2>isActive()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the ExplodeTool is active.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getscale">
+<a href="#getscale"><h2>getScale()</h2></a>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>Between 0 and 1.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setscale-value">
+<a href="#setscale-value"><h2>setScale(value)</h2></a>
+<p>Sets scale of the explode and applies an explode operation.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">number</div></td><td>Between 0 and 1.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getmagnitude">
+<a href="#getmagnitude"><h2>getMagnitude()</h2></a>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>0 - +inf.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setmagnitude-value">
+<a href="#setmagnitude-value"><h2>setMagnitude(value)</h2></a>
+<p>Sets magnitude of the explode and applies an explode operation.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">number</div></td><td>0 - +inf.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getdepthdampening">
+<a href="#getdepthdampening"><h2>getDepthDampening()</h2></a>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>1 - +inf.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setdepthdampening-value">
+<a href="#setdepthdampening-value"><h2>setDepthDampening(value)</h2></a>
+<p>Sets depth dampening of the explode and applies an explode operation.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">number</div></td><td>0 - +inf.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setstrategy-strategy">
+<a href="#setstrategy-strategy"><h2>setStrategy(strategy)</h2></a>
+<p>Specifies the algorithm used for exploding models.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">strategy</span><span class="required">*</span><div class="type">string</div></td><td>Either ‘hierarchy’ or ‘radial’.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getstrategy">
+<a href="#getstrategy"><h2>getStrategy()</h2></a>
+<p>Returns an identifier for the algorithm used for exploding models.</p>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setuienabled-enable">
+<a href="#setuienabled-enable"><h2>setUIEnabled(enable)</h2></a>
+<p>Enable / Disable the explode button &amp; slider. Doesn’t affect the state of the explode scale itself.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">enable</span><span class="required">*</span><div class="type">boolean</div></td><td>enable / disable the UI.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

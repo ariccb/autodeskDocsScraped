@@ -1,0 +1,2010 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer3D | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Viewer3D.js">
+<section id="viewer3d">
+<h1>Viewer3D</h1>
+<section id="new-viewer3d-container-config">
+<a href="#new-viewer3d-container-config"><h2>new Viewer3D(container, config)</h2></a>
+<p>Base class for all viewer implementations. It contains everything that is needed to connect to the Autodesk Platform Services and display 2D and 3D models. It also includes basic navigation support, context menu and extension APIs.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">container</span><span class="required">*</span><div class="type type--collapsable">HTMLElement</div></td><td>The viewer container.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">config</span><span class="required">*</span><div class="type type--collapsable">ViewerConfig</div></td><td>The initial settings object.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">startOnInitialize</span><div class="type type--collapsable">boolean</div></td><td>Set this to false if you want to defer the run to a later time by calling run() explicitly.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">theme</span><div class="type type--collapsable">string</div></td><td>Set this to ‘light-theme’ if you want to use the light ui theme. Themes can be changed during execution by calling setTheme() and passing the theme’s name.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">localStoragePrefix</span><div class="type type--collapsable">string</div></td><td>The local storage prefix for viewer.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">profileSettings</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/Settings/">Settings</a></div></td><td>settings object to override the default viewer settings: <a class="reference external" href="/en/docs/viewer/v7/reference/ProfileSettings#Default/">Autodesk.Viewing.ProfileSettings.Default</a>.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">useFileProfile</span><div class="type type--collapsable">boolean</div></td><td>if set to true one of the registered file profiles will be used to set the profile. Otherwise, the viewer uses the default profile.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">ViewerCount</span><div class="type"></div></td><td>Need to keep track of viewers in document so we know when it is safe to call clearPropertyWorkerCache()</td></tr><tr><td><span class="name">kDefaultCanvasConfig</span><div class="type"></div></td><td>Default values passed into <a class="reference external" href="#setCanvasClickBehavior/">#setCanvasClickBehavior</a> specifying how the viewer canvas will react to user input as well as other 3d-canvas related options.</td></tr><tr><td><span class="name">scene</span><div class="type"></div></td><td>The extra scene that gets rendered after the background and before any models are rendered. See <a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/Viewer3DExtraScene/">Viewer3DExtraScene</a></td></tr><tr><td><span class="name">sceneAfter</span><div class="type"></div></td><td>The extra scene that gets rendered after all models are rendered. See <a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/Viewer3DExtraScene/">Viewer3DExtraScene</a></td></tr></tbody></table></div>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="loadextension-extensionid-options">
+<a href="#loadextension-extensionid-options"><h2>loadExtension(extensionId, options)</h2></a>
+<p>Loads the extension with the given id and options.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">Object</div></td><td>An optional dictionary of options.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Resolves with the extension requested.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getextension-extensionid-callback">
+<a href="#getextension-extensionid-callback"><h2>getExtension(extensionId, callback)</h2></a>
+<p>Returns the loaded extension.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr><tr><td><span class="name">callback</span><div class="type">function</div></td><td>That receives an extension instance as argument.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object</td>
+<td><ul class="simple">
+<li>Extension.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getextensionasync-extensionid">
+<a href="#getextensionasync-extensionid"><h2>getExtensionAsync(extensionId)</h2></a>
+<p>Returns a promise with the loaded extension.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Resolves with the loaded extension.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unloadextension-extensionid">
+<a href="#unloadextension-extensionid"><h2>unloadExtension(extensionId)</h2></a>
+<p>Unloads the extension with the given id.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the extension was successfully unloaded.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="loadextensionlocal-extensionid-options">
+<a href="#loadextensionlocal-extensionid-options"><h2>loadExtensionLocal(extensionId, options)</h2></a>
+<p>Loads the extension with the given id and options. For internal use only.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionId</span><span class="required">*</span><div class="type">string</div></td><td>The string id of the extension.</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">Object</div></td><td>An optional dictionary of options.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Resolves with the extension requested.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="foreachextension-callback">
+<a href="#foreachextension-callback"><h2>forEachExtension(callback)</h2></a>
+<p>Iterate over each extension that has been successfully loaded and invokes a callback function for them.</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">callback</span><span class="required">*</span><div class="type">function</div></td><td>That receives an extension instance as argument.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">forEachExtension</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ext</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ext</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="w"> </span><span class="p">})</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="start-url-options-onsuccesscallback-onerrorcallback-initoptions">
+<a href="#start-url-options-onsuccesscallback-onerrorcallback-initoptions"><h2>start(url, options, onSuccessCallback, onErrorCallback, initOptions)</h2></a>
+<p>Initializes the viewer and loads any extensions specified in the constructor’s config parameter. If the optional parameters are specified, the start() function will use an optimized initialization sequence that results in faster model load. The parameters are the same as the ones for Viewer3D.loadModel and you do not need to call loadModel subsequently if the model is loaded via the call to start().</p>
+<section id="id12">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">url</span><div class="type">string</div></td><td>Optional URN or filepath to load on start.</td></tr><tr><td><span class="name">options</span><div class="type">object</div></td><td>Optional path to shared property database.</td></tr><tr><td><span class="name">onSuccessCallback</span><div class="type">Autodesk.Viewing.Viewer3D~onLoadModelSuccess</div></td><td>Method that gets called when initial loading is done and streaming starts.</td></tr><tr><td><span class="name">onErrorCallback</span><div class="type">Autodesk.Viewing.Viewer3D~onLoadModelFailure</div></td><td>Method that gets called when initial loading ends with an error.</td></tr><tr><td><span class="name">initOptions</span><div class="type">object</div></td><td>Optional: Options forwarded to viewer.initialize()</td></tr></tbody></table></div>
+</section>
+<section id="id13">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>0 if the viewer has started, an error code (same as that returned by initialize()) otherwise.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setup-config">
+<a href="#setup-config"><h2>setUp(config)</h2></a>
+<p>Loading extensions and initializing canvas interactions. Invoked automatically by <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#start/">Autodesk.Viewing.Viewer3D#start</a> method.</p>
+<section id="id14">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">config</span><div class="type type--collapsable">object</div></td><td>configuration values</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">extensions</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>List of extension ids to load with the model.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">canvasConfig</span><div class="type type--collapsable">object</div></td><td>Overrides for click/tap events on the 3D canvas. Refer to <a class="reference external" href="#setCanvasClickBehavior/">#setCanvasClickBehavior</a> for details.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="teardown-isunloadmodelswanted">
+<a href="#teardown-isunloadmodelswanted"><h2>tearDown(isUnloadModelsWanted)</h2></a>
+<p>Unloads extensions and the loaded models. Invoked automatically by <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#finish/">Autodesk.Viewing.Viewer3D#finish</a> method.</p>
+<section id="id16">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">isUnloadModelsWanted</span><div class="type">boolean</div></td><td>Whether to unload models at the end. Default is true.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="onaggregatedselectionchanged">
+<a href="#onaggregatedselectionchanged"><h2>_onAggregatedSelectionChanged()</h2></a>
+<p>When selection has changed set the pivot point to be in the middle, if Autodesk.Viewing.Private.Prefs3D.SELECTION_SETS_PIVOT is true</p>
+</section>
+<section id="run">
+<a href="#run"><h2>run()</h2></a>
+<p>Triggers the Viewer’s render loop. Invoked automatically by <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#start/">Autodesk.Viewing.Viewer3D#start</a> method. Refer to <a class="reference external" href="#fixMe/">ViewerConfig.startOnInitialize</a> to change start’s method behavior.</p>
+</section>
+<section id="localize">
+<a href="#localize"><h2>localize()</h2></a>
+<p>Localize the viewer. This method can be overwritten so that the subclasses can localize any additional elements. Invoked internally during initialization.</p>
+</section>
+<section id="uninitialize">
+<a href="#uninitialize"><h2>uninitialize()</h2></a>
+<p>Removes all created DOM elements, performs GL uninitialization that is needed and removes event listeners.</p>
+</section>
+<section id="finish">
+<a href="#finish"><h2>finish()</h2></a>
+<p>Unloads any loaded extensions and then uninitializes the viewer.</p>
+</section>
+<section id="loadmodel-url-options-onsuccesscallback-onerrorcallback">
+<a href="#loadmodel-url-options-onsuccesscallback-onerrorcallback"><h2>loadModel(url, options, onSuccessCallback, onErrorCallback)</h2></a>
+<p>Loads a model into the viewer. Can be used sequentially to load multiple 3D models into the same scene.</p>
+<section id="id18">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">url</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The url to the model.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>Dictionary of options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">fileLoader</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/FileLoader/">Autodesk.Viewing.FileLoader</a></div></td><td>The file loader to use for this url. Required for unsupported file types.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">keepCurrentModels</span><div class="type type--collapsable">boolean</div></td><td>Flag indicating whether viewer should keep or unload all other models.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">loadOptions</span><div class="type type--collapsable">object</div></td><td>May contain params that are specific for certain loaders/filetypes.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">sharedPropertyDbPath</span><div class="type type--collapsable">string</div></td><td>Optional path to shared property database.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ids</span><div class="type type--collapsable">string</div></td><td>A list of object IDs to load.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">loadAsHidden</span><div class="type type--collapsable">boolean</div></td><td>By default, a new model is instantly shown and triggers viewer refreshes during loading. Setting this option avoids that. The model can then be shown later by calling showModel().</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">modelNameOverride</span><div class="type type--collapsable">string</div></td><td>Allows host application to override model name used in UI.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">placementTransform</span><div class="type type--collapsable">LmvMatrix4</div></td><td>Applied to the model during loading.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">applyScaling</span><div class="type type--collapsable">string, Object</div></td><td>Unit-Scaling that is applied to the model on load, e.g. { from: ‘ft’, to: ‘m’ }. If ‘from’ is not set, it is determined from model metadata (if provided). If only ‘to’ is set, you can just assign a string directly, e.g. applyScaling = ‘m’ is the same as applyScaling = { to: ‘m’ }.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">applyPlacementInModelUnits</span><div class="type type--collapsable">boolean</div></td><td>Only relevant if options.placementTransform and options.applyScaling are both used at once. In this way, it controls the order in which placement and scaling happen: - False: Placement happens in viewer world-units. That is, applyScaling is done first, then the custom placementMatrix is applied. (Default behavior) - True: Placement happens in model units. That is, custom placementMatrix is applied first, then the unit scaling.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><div class="type type--collapsable">Autodesk.Viewing.Viewer3D~onLoadModelSuccess</div></td><td>A method that gets called when model’s metadata loading is done and geometry streaming starts.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><div class="type type--collapsable">Autodesk.Viewing.Viewer3D~onLoadModelFailure</div></td><td>A method that gets called when loading fails.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isloaddone-include">
+<a href="#isloaddone-include"><h2>isLoadDone(include)</h2></a>
+<p>Check whether models are completely loaded This method checks all models in the model queue and load requests that haven’t loaded the root model yet. A model is completely loaded when the root model is loaded, all of the geometry is loaded, the property database, if present is loaded and no textures are being loaded.</p>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">include</span><div class="type type--collapsable">Object</div></td><td>Optional object to set the scope of the wait</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">geometry</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the geometry loading from consideration. Because textures are loaded with geometry, include.textures must also be set to false to prevent geometry from being considered. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propDb</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the property data base loading from consideration. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">textures</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the texture loading from consideration. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">hidden</span><div class="type type--collapsable">Boolean</div></td><td>Set to true to include hidden models for consideration. Defaults to false.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">onlyModels</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Model</a>, Array.&lt;Model&gt;</div></td><td>Limits the check to the model or models in this property. Note that checking for textures loaded cannot be limited to models.</td></tr></tbody></table></div>
+</section>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td>True if all models are completely loaded, otherwise false</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="waitforloaddone-include">
+<a href="#waitforloaddone-include"><h2>waitForLoadDone(include)</h2></a>
+<p>Wait for models to be completely loaded This method checks all models in the model queue and load requests that haven’t loaded the root model yet. A model is completely loaded when the root model is loaded, all of the geometry is loaded, the property database, if there is one, is loaded and no textures are being loaded. If this method is called before the viewer is started, then it will wait until the viewer starts and at least one model start loading to check for the load completing</p>
+<section id="id21">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">include</span><div class="type type--collapsable">Object</div></td><td>Optional object to set the scope of the wait</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">geometry</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the geometry loading from consideration. Because textures are loaded with geometry, include.textures must also be set to false to prevent waiting for geometry to load. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propDb</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the property data base loading from consideration. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">textures</span><div class="type type--collapsable">Boolean</div></td><td>Set to false to exclude the texture loading from consideration. Defaults to true.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">hidden</span><div class="type type--collapsable">Boolean</div></td><td>Set to true to include hidden models for consideration. Defaults to false.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">onlyModels</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Model</a>, Array.&lt;Model&gt;</div></td><td>Limits the wait to the model or models in this property. Note that waiting for textures loaded cannot be limited to models.</td></tr></tbody></table></div>
+</section>
+<section id="id23">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td>resolves when all models are loaded. This promise can be rejected by a LOADER_LOAD_ERROR_EVENT event.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unloadmodel-model">
+<a href="#unloadmodel-model"><h2>unloadModel(model)</h2></a>
+<p>Unloads the specified model. Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#hideModel/">Autodesk.Viewing.Viewer3D#hideModel</a> to hide the model.</p>
+<section id="id24">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model to unload.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="loaddocumentnode-avdocument-manifestnode-options">
+<a href="#loaddocumentnode-avdocument-manifestnode-options"><h2>loadDocumentNode(avDocument, manifestNode, options)</h2></a>
+<section id="id25">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">avDocument</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Document/">Autodesk.Viewing.Document</a></div></td><td>The Document instance, which owns the model being loaded</td></tr><tr><td><span class="name">manifestNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The specific manifest node to load (within the Document)</td></tr><tr><td><span class="name">options</span><div class="type">ViewerConfig</div></td><td>Options to pass to <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#loadModel/">Autodesk.Viewing.Viewer3D#loadModel</a>. Will be initialized internally if not specified. The options object will be augmented by automatically determined load parameters.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Resolves with an object representing the model.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unloaddocumentnode-manifestnode">
+<a href="#unloaddocumentnode-manifestnode"><h2>unloadDocumentNode(manifestNode)</h2></a>
+<p>Unloads a model previously loaded by loadDocumentNode().</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#loadDocumentNode/">Autodesk.Viewing.Viewer3D#loadDocumentNode</a></p>
+<section id="id27">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">manifestNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The specific manifest node to unload (within the Document)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id29">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true on success</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdimensions">
+<a href="#getdimensions"><h2>getDimensions()</h2></a>
+<p>Returns the dimensions of the WebGL canvas.</p>
+<section id="id30">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Client rectangle bounds object { width:Number, height: Number }</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="resize">
+<a href="#resize"><h2>resize()</h2></a>
+<p>Resizes the viewer. Required when wrapping div changes dimensions due to CSS changes.</p>
+</section>
+<section id="gethotkeymanager">
+<a href="#gethotkeymanager"><h2>getHotkeyManager()</h2></a>
+<section id="id31">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/HotkeyManager/">Autodesk.Viewing.HotkeyManager</a></td>
+<td>The hotkey manager.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getcamera">
+<a href="#getcamera"><h2>getCamera()</h2></a>
+<p>Gets the camera so it can be modified by the client.</p>
+<section id="id32">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Camera</td>
+<td>The active camera.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getstate-filter">
+<a href="#getstate-filter"><h2>getState(filter)</h2></a>
+<p>Gets the view state as a plain object. A viewer state contains data for the viewport, selection and isolation.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#restoreState/">Autodesk.Viewing.Viewer3D#restoreState</a></p>
+<section id="id33">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">filter</span><div class="type">object</div></td><td>Specifies which viewer values to get.</td></tr></tbody></table></div>
+</section>
+<section id="id34">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Viewer state.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="restorestate-viewerstate-filter-immediate">
+<a href="#restorestate-viewerstate-filter-immediate"><h2>restoreState(viewerState, filter, immediate)</h2></a>
+<p>Restores the viewer state from a given object.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getState/">Autodesk.Viewing.Viewer3D#getState</a></p>
+<section id="id35">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewerState</span><span class="required">*</span><div class="type">Object</div></td><td></td></tr><tr><td><span class="name">filter</span><div class="type">Object</div></td><td>Similar in structure to viewerState used to filter out values that should not be restored.</td></tr><tr><td><span class="name">immediate</span><div class="type">boolean</div></td><td>Whether the new view is applied with (true) or without transition (false).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id36">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if restore operation was successful.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setview-viewnode-options">
+<a href="#setview-viewnode-options"><h2>setView(viewNode, options)</h2></a>
+<p>Loads a view specified in the Manifest JSON. For 3D models it will use the camera values. For 2D models it will use the viewBox values.</p>
+<p>Notice that in order that the view will be properly set according to the model’s transformation, the model has to be loaded first.</p>
+<section id="id37">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">viewNode</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>bubble node representing the view</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">skipTransition</span><div class="type type--collapsable">boolean</div></td><td>true to apply instanstly instead of lerping.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">useExactCamera</span><div class="type type--collapsable">boolean</div></td><td>whether any up vector adjustment is to be done (to keep head up view)</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">skipViewpointExtra</span><div class="type type--collapsable">boolean</div></td><td>true to skip using extra viewpoint information</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id39">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true, if the view is applied.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setviewfromarray-params">
+<a href="#setviewfromarray-params"><h2>setViewFromArray(params)</h2></a>
+<p>Sets the view from an array of parameters.</p>
+<p>To get the view array of the current camera use: <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getViewArrayFromCamera/">getViewArrayFromCamera</a>. To get the camera object from the view array use <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getCameraFromViewArray/">getCameraFromViewArray</a>.</p>
+<section id="id40">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">params</span><span class="required">*</span><div class="type">Array.&lt;Number&gt;</div></td><td>View parameters: [position-x, position-y, position-z, target-x, target-y, target-z, up-x, up-y, up-z, aspect, fov (radians), orthoScale, isPerspective (0=perspective, 1=ortho)]</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getcamerafromviewarray-params-model">
+<a href="#getcamerafromviewarray-params-model"><h2>getCameraFromViewArray(params, model)</h2></a>
+<p>Returns an object representing a Camera from an unintuitive array of number. Note: To use this function in multi-model scenarios, you must pass the model parameter.</p>
+<p>To get the view array of the current camera use: <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getViewArrayFromCamera/">getViewArrayFromCamera</a>.</p>
+<section id="id42">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">params</span><span class="required">*</span><div class="type">Array.&lt;Number&gt;</div></td><td>Array with 13 elements describing different aspects of a camera.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>Camera is transformed in the same way as the model. Default is this.model (only sufficient for single-view scenarios).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id44">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object, null</td>
+<td><ul class="simple">
+<li>Camera object, or null if argument is invalid or missing.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id45">
+<a href="#id45"><h2>getViewArrayFromCamera()</h2></a>
+<p>Returns an Array of values that could be inserted back into a manifest to represent a view. To get the camera object from the view array use <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getCameraFromViewArray/">getCameraFromViewArray</a>.</p>
+<section id="id47">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Number&gt;</td>
+<td><ul class="simple">
+<li>Array with 13 elements describing different aspects of the current camera.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setviewfromviewbox-viewbox-name-skiptransition">
+<a href="#setviewfromviewbox-viewbox-name-skiptransition"><h2>setViewFromViewBox(viewbox, name, skipTransition)</h2></a>
+<p>Sets the view from an array representing a view box.</p>
+<p>Not applicable to 3D.</p>
+<section id="id48">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewbox</span><span class="required">*</span><div class="type">Array.&lt;Number&gt;</div></td><td>View parameters: [min-x, min-y, max-x, max-y]</td></tr><tr><td><span class="name">name</span><div class="type">string</div></td><td>Optional named view name to also set the layer visibility state associated with this view.</td></tr><tr><td><span class="name">skipTransition</span><div class="type">boolean</div></td><td>true to apply instanstly instead of lerping.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="activatelayerstate-statename">
+<a href="#activatelayerstate-statename"><h2>activateLayerState(stateName)</h2></a>
+<p>Changes the active layer state. Layers is a feature usually available on 2D models and some 3D models.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getLayerStates/">Autodesk.Viewing.Viewer3D#getLayerStates</a></p>
+<section id="id49">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">stateName</span><span class="required">*</span><div class="type">string</div></td><td>Name of the layer state to activate.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getlayerstates">
+<a href="#getlayerstates"><h2>getLayerStates()</h2></a>
+<p>Returns information for each layer state: name, description, active. Activate a state through <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#activateLayerState/">Autodesk.Viewing.Viewer3D#activateLayerState</a>.</p>
+<section id="id50">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Object&gt;, null</td>
+<td><ul class="simple">
+<li>Array of layer states. If layers don’t exist or are hidden, this methods returns null.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setviewfromfile-model">
+<a href="#setviewfromfile-model"><h2>setViewFromFile(model)</h2></a>
+<p>Sets the view using the default view in the source file.</p>
+<section id="id51">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model, defaults to the loaded model.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="getproperties-dbid-onsuccesscallback-onerrorcallback">
+<a href="#getproperties-dbid-onsuccesscallback-onerrorcallback"><h2>getProperties(dbid, onSuccessCallback, onErrorCallback)</h2></a>
+<p>Gets the properties for an ID.</p>
+<section id="id53">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbid</span><span class="required">*</span><div class="type">number</div></td><td>The database identifier.</td></tr><tr><td><span class="name">onSuccessCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onPropertiesSuccess/">Callbacks#onPropertiesSuccess</a></div></td><td>Callback for when the properties are fetched.</td></tr><tr><td><span class="name">onErrorCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Callback for when the properties are not found or another error occurs.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getobjecttree-onsuccesscallback-onerrorcallback">
+<a href="#getobjecttree-onsuccesscallback-onerrorcallback"><h2>getObjectTree(onSuccessCallback, onErrorCallback)</h2></a>
+<p>Gets the viewer model object tree. Once the tree is received it will invoke the specified callback function.</p>
+<p>You can use the model object tree to get information about items in the model.  The tree is made up of nodes, which correspond to model components such as assemblies or parts.</p>
+<section id="id54">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">onSuccessCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onObjectTreeSuccess/">Callbacks#onObjectTreeSuccess</a></div></td><td>Success callback invoked once the object tree is available.</td></tr><tr><td><span class="name">onErrorCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Error callback invoked when the object tree is not found available.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="setcanvasclickbehavior-config">
+<a href="#setcanvasclickbehavior-config"><h2>setCanvasClickBehavior(config)</h2></a>
+<p>Sets the click behavior on the canvas to follow config. This is used to change the behavior of events such as selection or Center-of-Interest changed.</p>
+<section id="id56">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">config</span><span class="required">*</span><div class="type">object</div></td><td>Parameter object that meets the above layout.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id57">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="s2">"click"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="s2">"onObject"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ACTIONS</span><span class="p">],</span>
+<span class="w">         </span><span class="s2">"offObject"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ACTIONS</span><span class="p">]</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="s2">"clickCtrl"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="s2">"onObject"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ACTIONS</span><span class="p">],</span>
+<span class="w">         </span><span class="s2">"offObject"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">ACTIONS</span><span class="p">]</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="s2">"clickShift"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">...</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="s2">"clickCtrlShift"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="p">...</span>
+<span class="w">     </span><span class="p">},</span>
+<span class="w">     </span><span class="s2">"disableSpinner"</span><span class="o">:</span><span class="w"> </span><span class="nx">BOOLEAN</span>
+<span class="w">     </span><span class="s2">"disableMouseWheel"</span><span class="o">:</span><span class="w"> </span><span class="nx">BOOLEAN</span><span class="p">,</span>
+<span class="w">     </span><span class="s2">"disableTwoFingerSwipe"</span><span class="o">:</span><span class="w"> </span><span class="nx">BOOLEAN</span>
+<span class="p">}</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Actions can be any of the following: “selectOnly”, “selectToggle”, “deselectAll”, “isolate”, “showAll”, “setCOI”, “focus”, “hide”</p>
+</section>
+</section>
+<hr class="docutils">
+<section id="search-text-onsuccesscallback-onerrorcallback-attributenames-options">
+<a href="#search-text-onsuccesscallback-onerrorcallback-attributenames-options"><h2>search(text, onSuccessCallback, onErrorCallback, attributeNames, options)</h2></a>
+<p>Searches the elements for the given text. When the search is complete, the callback onResultsReturned(idArray) is invoked.</p>
+<section id="id58">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">text</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The search term (not case sensitive).</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onSearchSuccess/">Callbacks#onSearchSuccess</a></div></td><td>Invoked when the search results are ready.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Invoke when an error occured during search.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">attributeNames</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Restricts search to specific attribute names.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Search options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">searchHidden</span><div class="type type--collapsable">boolean</div></td><td>Set to true to also search hidden properties</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">includeInherited</span><div class="type type--collapsable">boolean</div></td><td>Set to true to include nodes that inherit the property</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="gethiddennodes-model">
+<a href="#gethiddennodes-model"><h2>getHiddenNodes(model)</h2></a>
+<p>Returns an array of the IDs of the currently hidden nodes. When isolation is in place, there are no hidden nodes returned because all nodes that are not isolated are considered hidden.</p>
+<section id="id60">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>Model object, if passed in the hidden nodes of the model are returned</td></tr></tbody></table></div>
+</section>
+<section id="id62">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td>Array of nodes that are currently hidden, when no isolation is in place.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getisolatednodes-model">
+<a href="#getisolatednodes-model"><h2>getIsolatedNodes(model)</h2></a>
+<p>Returns an array of the IDs of the currently isolated nodes.</p>
+<p>Not yet implemented for 2D.</p>
+<section id="id63">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>Model object, if passed in the isolated nodes of the model are returned</td></tr></tbody></table></div>
+</section>
+<section id="id65">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td>Array of nodes that are currently isolated.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isolate-node-model">
+<a href="#isolate-node-model"><h2>isolate(node, model)</h2></a>
+<p>Isolates one of many sub-elements. You can pass in a node or an array of nodes to isolate. Pass in null to reset isolation.</p>
+<section id="id66">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>A node ID or array of node IDs from the model tree <a class="reference external" href="#fixMe/">BaseViewer#getObjectTree</a>.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the node id. Defaults to the first loaded model.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setbackgroundcolor-red-green-blue-red2-green2-blue2">
+<a href="#setbackgroundcolor-red-green-blue-red2-green2-blue2"><h2>setBackgroundColor(red, green, blue, red2, green2, blue2)</h2></a>
+<p>Sets the background colors, which will be used to create a gradient. Values are in the range [0..255]</p>
+<section id="id68">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">red</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">green</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">blue</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">red2</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">green2</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">blue2</span><span class="required">*</span><div class="type">number</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setbackgroundopacity-opacity">
+<a href="#setbackgroundopacity-opacity"><h2>setBackgroundOpacity(opacity)</h2></a>
+<p>Sets the background opacity.</p>
+<section id="id69">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">opacity</span><span class="required">*</span><div class="type">number</div></td><td>Value is in the range [0.0..1.0]</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="toggleselect-dbid-model-selectiontype">
+<a href="#toggleselect-dbid-model-selectiontype"><h2>toggleSelect(dbid, model, selectionType)</h2></a>
+<p>Toggles the selection for a given dbid. If it was unselected, it is selected. If it was selected, it is unselected.</p>
+<p>Currently three ways of node selection are supported:</p>
+<ul>
+<li>Autodesk.Viewing.SelectionType.MIXED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Leaf nodes are selected using the overlayed selection type, and inner nodes are selected using regular selection type.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.REGULAR<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Nodes are tinted with the selection color.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.OVERLAYED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Nodes are tinted with the selection color and shown on top of the not selected geometry.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Not yet implemented for 2D.</p>
+<section id="id70">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbid</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the dbId. Uses the initial model loaded by default.</td></tr><tr><td><span class="name">selectionType</span><span class="required">*</span><div class="type">number</div></td><td>a member of Autodesk.Viewing.SelectionMode.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="select-dbids-model-selectiontype">
+<a href="#select-dbids-model-selectiontype"><h2>select(dbids, model, selectionType)</h2></a>
+<p>Selects the array of ids. You can also pass in a single id instead of an array.</p>
+<p>Currently three ways of node selection are supported:</p>
+<ul>
+<li>Autodesk.Viewing.SelectionType.MIXED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Leaf nodes are selected using the overlayed selection type, and inner nodes are selected using regular selection type.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.REGULAR<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Nodes are tinted with the selection color.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.OVERLAYED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Nodes are tinted with the selection color and shown on top of the not selected geometry.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<section id="id72">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbids</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>element or array of elements to select.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model instance containing the ids.</td></tr><tr><td><span class="name">selectionType</span><div class="type">number</div></td><td>a member of <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">Autodesk.Viewing.SelectionType</span></code>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="clearselection">
+<a href="#clearselection"><h2>clearSelection()</h2></a>
+<p>Clears the selection. See <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#select/">select()</a></p>
+</section>
+<section id="getselectionvisibility">
+<a href="#getselectionvisibility"><h2>getSelectionVisibility()</h2></a>
+<p>Returns information about the visibility of the current selection.</p>
+<section id="id74">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td><code class="docutils literal notranslate"><span class="pre">{hasVisible:boolean,</span> <span class="pre">hasHidden:boolean}</span></code></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getselectioncount">
+<a href="#getselectioncount"><h2>getSelectionCount()</h2></a>
+<p>Returns the number of nodes (dbIds) in the current selection.</p>
+<section id="id75">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td><ul class="simple">
+<li>number of selected nodes</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setselectionmode-mode">
+<a href="#setselectionmode-mode"><h2>setSelectionMode(mode)</h2></a>
+<p>Sets selection granularity mode. Supported values are:</p>
+<ul class="simple">
+<li>Autodesk.Viewing.SelectionMode.LEAF_OBJECT: Always select the leaf objects in the hierarchy.</li>
+<li>Autodesk.Viewing.SelectionMode.FIRST_OBJECT: For a given node, selects the first non-composite (layer, collection, model) on the path from the root to the given node, and all children.</li>
+<li>Autodesk.Viewing.SelectionMode.LAST_OBJECT: For a given node, selects the nearest ancestor composite node and all children. Selects the input node itself in case there is no composite node in the path to the root node.</li>
+</ul>
+<section id="id76">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><span class="required">*</span><div class="type">number</div></td><td>The selection mode.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getselection">
+<a href="#getselection"><h2>getSelection()</h2></a>
+<p>Returns the current selection.</p>
+<section id="id77">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td>Array of the nodes (dbIds) of the currently selected nodes.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="lockselection-dbids-lock-model">
+<a href="#lockselection-dbids-lock-model"><h2>lockSelection(dbIds, lock, model)</h2></a>
+<p>Locks the selection of specific <code class="docutils literal notranslate"><span class="pre">nodes</span></code> (dbIds) in a given model. The <code class="docutils literal notranslate"><span class="pre">nodes</span></code> will be unselected if the <code class="docutils literal notranslate"><span class="pre">lock</span></code> is set to true and the nodes are already selected. The locked nodes will not be selectable.</p>
+<section id="id78">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbIds</span><span class="required">*</span><div class="type">Number, Array.&lt;Number&gt;</div></td><td>dbIds to lock</td></tr><tr><td><span class="name">lock</span><span class="required">*</span><div class="type">Boolean</div></td><td>true to lock, false otherwise</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="unlockselection-dbids-model">
+<a href="#unlockselection-dbids-model"><h2>unlockSelection(dbIds, model)</h2></a>
+<p>This function will unlock the specified <code class="docutils literal notranslate"><span class="pre">nodes</span></code> (dbIds) for a specific <code class="docutils literal notranslate"><span class="pre">model</span></code>. If the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> parameter is omitted then the specified <code class="docutils literal notranslate"><span class="pre">model</span></code>’s locked nodes will be unlocked. If the <code class="docutils literal notranslate"><span class="pre">model</span></code> parameter is omitted then the specified <code class="docutils literal notranslate"><span class="pre">nodes</span></code> will be unlocked for the viewer.model. If both parameters are omitted then all of the models in the viewer will release their locked nodes.</p>
+<section id="id80">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbIds</span><div class="type">Array.&lt;Number&gt;</div></td><td>dbIds to unlock</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model associated to the nodes parameters</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="isselectionlocked-dbid-model">
+<a href="#isselectionlocked-dbid-model"><h2>isSelectionLocked(dbId, model)</h2></a>
+<p>Checks whether selection is locked for a node</p>
+<section id="id82">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>the object’s identifier.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id84">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True is the visibility is locked</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getaggregateselection-callback">
+<a href="#getaggregateselection-callback"><h2>getAggregateSelection(callback)</h2></a>
+<p>Returns the selected items from all loaded models.</p>
+<section id="id85">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">callback</span><div class="type">function</div></td><td>Optional callback to receive enumerated pairs of model and dbId for each selected object. If no callback is given, an array of objects is returned.</td></tr></tbody></table></div>
+</section>
+<section id="id86">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;object&gt;</td>
+<td>An array of objects with a model and selectionSet properties for each model that has selected items in the scene.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setaggregateselection-selection-fireevent">
+<a href="#setaggregateselection-selection-fireevent"><h2>setAggregateSelection(selection, fireEvent)</h2></a>
+<p>Selects ids from different models. Choose this api instead of select() when selecting across many models</p>
+<section id="id87">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">selection</span><span class="required">*</span><div class="type">Array.&lt;SelectionDef&gt;</div></td><td>Array of selection objects defining what to select</td></tr><tr><td><span class="name">fireEvent</span><div class="type">Boolean</div></td><td>Whether an event is fired at the end</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getaggregateisolation">
+<a href="#getaggregateisolation"><h2>getAggregateIsolation()</h2></a>
+<p>Returns the isolated items from all loaded models.</p>
+<section id="id88">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;object&gt;</td>
+<td>An array of objects with a <code class="docutils literal notranslate"><span class="pre">model</span></code> and the isolated <code class="docutils literal notranslate"><span class="pre">ids</span></code> in that model.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setaggregateisolation-isolation">
+<a href="#setaggregateisolation-isolation"><h2>setAggregateIsolation(isolation)</h2></a>
+<p>Isolate ids from different models. Choose this api instead of isolate() when isolating across many models. It will hide all other models.</p>
+<section id="id89">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">isolation</span><span class="required">*</span><div class="type">Array.&lt;object&gt;</div></td><td>An array of objects with a <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">model</span></code> and the <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">ids</span></code> to isolate in that model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getaggregatehiddennodes">
+<a href="#getaggregatehiddennodes"><h2>getAggregateHiddenNodes()</h2></a>
+<p>Returns the hidden nodes for all loaded models.</p>
+<section id="id90">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;object&gt;</td>
+<td>An array of objects with a <code class="docutils literal notranslate"><span class="pre">model</span></code> and the hidden <code class="docutils literal notranslate"><span class="pre">ids</span></code> in that model.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hide-node-model">
+<a href="#hide-node-model"><h2>hide(node, model)</h2></a>
+<p>Ensures the passed in nodes (dbIds) are hidden.</p>
+<section id="id91">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>An array of nodes (dbids) or just a single node.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="show-node-model">
+<a href="#show-node-model"><h2>show(node, model)</h2></a>
+<p>Ensures the passed in nodes (dbIds) are shown.</p>
+<section id="id93">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>An array of nodes (dbids) or just a single node.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="showall">
+<a href="#showall"><h2>showAll()</h2></a>
+<p>Ensures everything is visible. Clears all node isolation (3D) and turns on all layers (2D).</p>
+</section>
+<section id="hideall">
+<a href="#hideall"><h2>hideAll()</h2></a>
+<p>Ensures all objects are hidden. Clears all nodes.</p>
+</section>
+<section id="togglevisibility-dbid-model">
+<a href="#togglevisibility-dbid-model"><h2>toggleVisibility(dbId, model)</h2></a>
+<p>Toggles the visibility of the given node (dbId).</p>
+<p>Not yet implemented for 2D.</p>
+<section id="id95">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>the object’s identifier.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="areallvisible">
+<a href="#areallvisible"><h2>areAllVisible()</h2></a>
+<p>Returns true if every node (dbId) is visible.</p>
+<section id="id97">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if every node is visible, false otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isnodevisible-nodeid-model">
+<a href="#isnodevisible-nodeid-model"><h2>isNodeVisible(nodeId, model)</h2></a>
+<p>Returns true if the specified node is visible. The model argument is required only when in multi-model scenarios.</p>
+<section id="id98">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodeId</span><span class="required">*</span><div class="type">number</div></td><td>Geometry node to check if visible.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model that contains the specified <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">nodeId</span></code>.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id100">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="show-dbid-locked-model">
+<a href="#show-dbid-locked-model"><h2>show(dbId, locked, model)</h2></a>
+<p>Ensures the passed in nodes (dbIds) are shown.</p>
+<section id="id101">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>array of nodes or a single node</td></tr><tr><td><span class="name">locked</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true to lock the nodes visible. Set to false to allow the nodes to be hidden.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="togglelockvisible-dbid-model">
+<a href="#togglelockvisible-dbid-model"><h2>toggleLockVisible(dbId, model)</h2></a>
+<p>Toggles the visibility of the given node (dbId).</p>
+<p>Not yet implemented for 2D.</p>
+<section id="id103">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>the object’s identifier.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isvisiblelocked-dbid-model">
+<a href="#isvisiblelocked-dbid-model"><h2>isVisibleLocked(dbId, model)</h2></a>
+<p>Checks whether visibility is locked for a node (dbId).</p>
+<p>Not yet implemented for 2D.</p>
+<section id="id105">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>the object’s identifier.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>the model that contains the dbId. By default uses the initial model loaded into the scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id107">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True is the visibility is locked</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="explode-scale-options">
+<a href="#explode-scale-options"><h2>explode(scale, options)</h2></a>
+<p>Explodes the model from the center of gravity.</p>
+<p>Not applicable to 2D.</p>
+<section id="id108">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">scale</span><span class="required">*</span><div class="type type--collapsable">number</div></td><td>A value from 0.0-1.0 to indicate how much to explode.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><span class="required">*</span><div class="type type--collapsable">Object</div></td><td>Additional setting for STRATEGY_HIERARCHY.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">magnitude</span><span class="required">*</span><div class="type type--collapsable">Number</div></td><td>Controls the spread of explode.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">depthDampening</span><span class="required">*</span><div class="type type--collapsable">Number</div></td><td>Controls the reduction of the explode effect with depth of the object in the hierarchy.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getexplodescale">
+<a href="#getexplodescale"><h2>getExplodeScale()</h2></a>
+<p>Returns the explode scale.</p>
+<p>Not applicable to 2D.</p>
+<section id="id109">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td><ul class="simple">
+<li>A value from 0.0-1.0 indicating how exploded the model is.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getexplodeoptions">
+<a href="#getexplodeoptions"><h2>getExplodeOptions()</h2></a>
+<p>Returns the explode options.</p>
+<p>Not applicable to 2D.</p>
+<section id="id110">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td><code class="docutils literal notranslate"><span class="pre">{magnitude:Number,</span> <span class="pre">depthDampening:Number}</span></code></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="lockexplode-dbids-lock-model">
+<a href="#lockexplode-dbids-lock-model"><h2>lockExplode(dbids, lock, model)</h2></a>
+<p>Lock node (dbid) so that it doesn’t explode</p>
+<p>Not applicable to 2D.</p>
+<section id="id111">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbids</span><span class="required">*</span><div class="type">Array.&lt;number&gt;, number</div></td><td>The dbids to lock or unlock</td></tr><tr><td><span class="name">lock</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true to prevent dbids from exploding. Set to false to allow dbids to explode.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model containing the dbids. Defaults to this.model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id113">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if any dbids were changed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isexplodelocked-dbid-model">
+<a href="#isexplodelocked-dbid-model"><h2>isExplodeLocked(dbid, model)</h2></a>
+<p>Check whether a dbid is locked so it doesn’t explode.</p>
+<p>Not applicable to 2D.</p>
+<section id="id114">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbid</span><span class="required">*</span><div class="type">number</div></td><td>The dbid to check</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model containing the dbids. Defaults to this.model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id116">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if dbid is locked to prevent explode</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="togglelockexplode-dbid-model">
+<a href="#togglelockexplode-dbid-model"><h2>toggleLockExplode(dbid, model)</h2></a>
+<p>Toggle dbid lock so it doesn’t explode</p>
+<p>Not applicable to 2D.</p>
+<section id="id117">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbid</span><span class="required">*</span><div class="type">number</div></td><td>The dbid to lock or unlock</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>The model containing the dbids. Defaults to this.model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id119">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if any dbids were changed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setqualitylevel-usesao-usefxaa">
+<a href="#setqualitylevel-usesao-usefxaa"><h2>setQualityLevel(useSAO, useFXAA)</h2></a>
+<p>Enables or disables the high quality rendering settings.</p>
+<p>Not applicable to 2D.</p>
+<section id="id120">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">useSAO</span><span class="required">*</span><div class="type">boolean</div></td><td>True or false to enable screen space ambient occlusion.</td></tr><tr><td><span class="name">useFXAA</span><span class="required">*</span><div class="type">boolean</div></td><td>True or false to enable fast approximate anti-aliasing.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setghosting-value">
+<a href="#setghosting-value"><h2>setGhosting(value)</h2></a>
+<p>Toggles ghosting during search and isolate.</p>
+<p>Not applicable to 2D.</p>
+<section id="id121">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether ghosting is on or off.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgroundshadow-value">
+<a href="#setgroundshadow-value"><h2>setGroundShadow(value)</h2></a>
+<p>Toggles ground shadow.</p>
+<p>Not applicable to 2D.</p>
+<section id="id122">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether shadow is on or off.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgroundreflection-value">
+<a href="#setgroundreflection-value"><h2>setGroundReflection(value)</h2></a>
+<p>Toggles ground reflection.</p>
+<p>Not applicable to 2D.</p>
+<section id="id123">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether reflection is on or off.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setenvmapbackground-value">
+<a href="#setenvmapbackground-value"><h2>setEnvMapBackground(value)</h2></a>
+<p>Toggles environment map for background.</p>
+<p>Not applicable to 2D.</p>
+<section id="id124">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether environment map for background is on or off.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setfirstpersontoolpopup-value">
+<a href="#setfirstpersontoolpopup-value"><h2>setFirstPersonToolPopup(value)</h2></a>
+<p>Toggles first person tool popup.</p>
+<p>Not applicable to 2D.</p>
+<section id="id125">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether first person tool popup is showed or not.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getfirstpersontoolpopup">
+<a href="#getfirstpersontoolpopup"><h2>getFirstPersonToolPopup()</h2></a>
+<p>Returns the state of First Person Walk tool popup.</p>
+<p>Not applicable to 2D.</p>
+<section id="id126">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the First Person Walk tool popup appears, false if the First Person Walk tool popup does not appear.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setbimwalktoolpopup-value">
+<a href="#setbimwalktoolpopup-value"><h2>setBimWalkToolPopup(value)</h2></a>
+<p>Toggles the bimwalk tool popup.</p>
+<p>Not applicable to 2D.</p>
+<section id="id127">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether first person tool popup is showed or not.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getbimwalktoolpopup">
+<a href="#getbimwalktoolpopup"><h2>getBimWalkToolPopup()</h2></a>
+<p>Returns the state of First Person Walk tool popup</p>
+<p>Not applicable to 2D.</p>
+<section id="id128">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the First Person Walk tool popup appears, false if the First Person Walk tool popup does not appear.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setprogressiverendering-value">
+<a href="#setprogressiverendering-value"><h2>setProgressiveRendering(value)</h2></a>
+<p>Toggles whether progressive rendering is used. Warning: turning progressive rendering off will have serious performance implications.</p>
+<section id="id129">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>whether it is on or off</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgrayscale-value">
+<a href="#setgrayscale-value"><h2>setGrayscale(value)</h2></a>
+<p>Overrides line colors in 2D models to render in shades of gray. Applies only to 2D models.</p>
+<section id="id130">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>whether it is on or off</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setswapblackandwhite-value">
+<a href="#setswapblackandwhite-value"><h2>setSwapBlackAndWhite(value)</h2></a>
+<p>AutoCAD drawings are commonly displayed with white lines on a black background. Setting reverse swaps (just) these two colors.</p>
+<section id="id131">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>whether it is on or off</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setoptimizenavigation-value">
+<a href="#setoptimizenavigation-value"><h2>setOptimizeNavigation(value)</h2></a>
+<p>Toggles whether the navigation should be optimized for performance. If set to true, anti-aliasing and ambient shadows will be off while navigating.</p>
+<p>Not applicable to 2D.</p>
+<section id="id132">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>whether it is on or off</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setnavigationlock-value">
+<a href="#setnavigationlock-value"><h2>setNavigationLock(value)</h2></a>
+<p>Locks or unlocks navigation controls.</p>
+<p>When navigation is locked, certain operations (for example, orbit, pan, or fit-to-view) are disabled.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setNavigationLockSettings/">Autodesk.Viewing.Viewer3D#setNavigationLockSettings</a></p>
+<section id="id133">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>True if the navigation should be locked.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id134">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>The previous state of the lock (this may be used to restore the lock to it’s previous state).</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnavigationlock">
+<a href="#getnavigationlock"><h2>getNavigationLock()</h2></a>
+<p>Gets the current state of the navigation lock.</p>
+<section id="id135">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the navigation controls are currently locked.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setnavigationlocksettings-settings">
+<a href="#setnavigationlocksettings-settings"><h2>setNavigationLockSettings(settings)</h2></a>
+<p>Updates the configuration of the navigation lock, i.e., which actions are available when navigation is locked.</p>
+<p>The configurable actions are ‘orbit’, ‘pan’, ‘zoom’, ‘roll’, ‘fov’, ‘walk’, or ‘gotoview’. By default, none of the actions are enabled when the navigation is locked.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setNavigationLock/">Autodesk.Viewing.Viewer3D#setNavigationLock</a></p>
+<section id="id136">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">settings</span><span class="required">*</span><div class="type">object</div></td><td>Map of : pairs specifying whether the given action is enabled even when the navigation is locked.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getnavigationlocksettings">
+<a href="#getnavigationlocksettings"><h2>getNavigationLockSettings()</h2></a>
+<p>Gets the current configuration of the navigation lock.</p>
+<section id="id137">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Map of : pairs specifying whether the given action is enabled even when the navigation is locked.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setactivenavigationtool-toolname">
+<a href="#setactivenavigationtool-toolname"><h2>setActiveNavigationTool(toolName)</h2></a>
+<p>Swaps the current navigation tool for the tool with the provided name. Will trigger NAVIGATION_MODE_CHANGED event if the mode actually changes.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#getActiveNavigationTool/">getActiveNavigationTool()</a></p>
+<section id="id138">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolName</span><div class="type">string</div></td><td>The name of the tool to activate. By default it will switch to the default tool.</td></tr></tbody></table></div>
+</section>
+<section id="id139">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the tool was set successfully. False otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id140">
+<a href="#id140"><h2>getActiveNavigationTool()</h2></a>
+<p>Returns the name of the active navigation tool.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setActiveNavigationTool/">setActiveNavigationTool()</a></p>
+<section id="id141">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td><ul class="simple">
+<li>The tool’s name.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setdefaultnavigationtool-toolname">
+<a href="#setdefaultnavigationtool-toolname"><h2>setDefaultNavigationTool(toolName)</h2></a>
+<p>Sets the default navigation tool. This tool will always sit beneath the navigation tool on the tool stack.</p>
+<section id="id142">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolName</span><span class="required">*</span><div class="type">string</div></td><td>The name of the new default navigation tool.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getdefaultnavigationtoolname">
+<a href="#getdefaultnavigationtoolname"><h2>getDefaultNavigationToolName()</h2></a>
+<p>Returns the default navigation tool</p>
+<section id="id143">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object</td>
+<td><ul class="simple">
+<li>The default navigation tool.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfov">
+<a href="#getfov"><h2>getFOV()</h2></a>
+<p>Gets the current camera vertical field of view.</p>
+<section id="id144">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td><ul class="simple">
+<li>the field of view in degrees.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setfov-degrees">
+<a href="#setfov-degrees"><h2>setFOV(degrees)</h2></a>
+<p>Sets the current cameras vertical field of view.</p>
+<section id="id145">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">degrees</span><span class="required">*</span><div class="type">number</div></td><td>Field of view in degrees.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getfocallength">
+<a href="#getfocallength"><h2>getFocalLength()</h2></a>
+<p>Gets the current camera focal length.</p>
+<section id="id146">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td><ul class="simple">
+<li>the focal length in millimetres.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setfocallength-mm">
+<a href="#setfocallength-mm"><h2>setFocalLength(mm)</h2></a>
+<p>Sets the current cameras focal length.</p>
+<section id="id147">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mm</span><span class="required">*</span><div class="type">number</div></td><td>Focal length in millimetres</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="hidelines-hide">
+<a href="#hidelines-hide"><h2>hideLines(hide)</h2></a>
+<p>Hides all lines in the scene.</p>
+<section id="id148">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">hide</span><span class="required">*</span><div class="type">boolean</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="hidepoints-hide">
+<a href="#hidepoints-hide"><h2>hidePoints(hide)</h2></a>
+<p>Hides all points in the scene.</p>
+<section id="id149">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">hide</span><span class="required">*</span><div class="type">boolean</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setdisplayedges-show">
+<a href="#setdisplayedges-show"><h2>setDisplayEdges(show)</h2></a>
+<p>Turns edge topology display on/off (where available).</p>
+<section id="id150">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">show</span><span class="required">*</span><div class="type">boolean</div></td><td>true to turn edge topology display on, false to turn edge topology display off.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="applycamera-camera-fit">
+<a href="#applycamera-camera-fit"><h2>applyCamera(camera, fit)</h2></a>
+<section id="id151">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">THREE.Camera</div></td><td>the camera to apply.</td></tr><tr><td><span class="name">fit</span><div class="type">boolean</div></td><td>Do a fit to view after transition.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="fittoview-objectids-model-immediate">
+<a href="#fittoview-objectids-model-immediate"><h2>fitToView(objectIds, model, immediate)</h2></a>
+<p>Fits camera to objects by ID. It fits the entire model if no ID is provided. Operation will fit to the model’s bounding box when its object tree is not available.</p>
+<section id="id152">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">objectIds</span><div class="type">Array.&lt;number&gt;, null</div></td><td>array of Ids to fit into the view. Avoid passing this value to fit the entire model.</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a>, null</div></td><td>The model containing the <code class="docutils literal notranslate" style="background: #f2f2f2;"><span class="pre" style="background: none;">objectIds</span></code>. If falsey, the viewer’s current model will be used.</td></tr><tr><td><span class="name">immediate</span><div class="type">boolean</div></td><td>true to avoid the default transition.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="setclickconfig-what-where-newaction">
+<a href="#setclickconfig-what-where-newaction"><h2>setClickConfig(what, where, newAction)</h2></a>
+<p>Modifies a click action configuration entry.</p>
+<section id="id154">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">what</span><span class="required">*</span><div class="type">string</div></td><td>which click config to modify (one of “click”, “clickAlt”, “clickCtrl”, “clickShift”, “clickCtrlShift”).</td></tr><tr><td><span class="name">where</span><span class="required">*</span><div class="type">string</div></td><td>hit location selector (one of “onObject”, “offObject”).</td></tr><tr><td><span class="name">newAction</span><span class="required">*</span><div class="type">Array.&lt;string&gt;</div></td><td>action list (containing any of “setCOI”, “selectOnly”, “selectToggle”, “deselectAll”, “deselectAll”, “isolate”, “showAll”, “hide”, “focus”).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id155">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>False if specified entry is not found, otherwise true.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getclickconfig-what-where">
+<a href="#getclickconfig-what-where"><h2>getClickConfig(what, where)</h2></a>
+<p>Fetch a click action configuration entry.</p>
+<section id="id156">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">what</span><span class="required">*</span><div class="type">string</div></td><td>which click config to fetch (one of “click”, “clickAlt”, “clickCtrl”, “clickShift”, “clickCtrlShift”).</td></tr><tr><td><span class="name">where</span><span class="required">*</span><div class="type">string</div></td><td>hit location selector (one of “onObject”, “offObject”).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id157">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>array</td>
+<td>action list for the given entry or null if not found.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setclicktosetcoi-state-updateprefs">
+<a href="#setclicktosetcoi-state-updateprefs"><h2>setClickToSetCOI(state, updatePrefs)</h2></a>
+<p>Modify the default click behaviour for the viewer.</p>
+<section id="id158">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">state</span><span class="required">*</span><div class="type">boolean</div></td><td>If true the default is to set the center of interest. If false the default is single select.</td></tr><tr><td><span class="name">updatePrefs</span><div class="type">boolean</div></td><td>If true, the user preferences will be updated.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setprofile-profile-override">
+<a href="#setprofile-profile-override"><h2>setProfile(profile, override)</h2></a>
+<p>Updates viewer settings encapsulated witihn a Profile. This method will also load and unload extensions referenced by the Profile.</p>
+<section id="id159">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">profile</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a></div></td><td>profile containing settings.</td></tr><tr><td><span class="name">override</span><div class="type">boolean</div></td><td>If set to true this will override all existing preference with the new profile preference. Default: true</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id160">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">profileSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"mySettings"</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">settings</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">ambientShadows</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">       </span><span class="nx">groundShadows</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="nx">extensions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">load</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span><span class="w">   </span><span class="c1">// Extension IDs</span>
+<span class="w">       </span><span class="nx">unload</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="w">  </span><span class="c1">// Extension IDs</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Profile</span><span class="p">(</span><span class="nx">profileSettings</span><span class="p">);</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setProfile</span><span class="p">(</span><span class="nx">profile</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="setlightpreset-index">
+<a href="#setlightpreset-index"><h2>setLightPreset(index)</h2></a>
+<p>Sets the Light Presets (Environments) for the Viewer.</p>
+<p>Not applicable to 2D.</p>
+<p>Sets the preference in the UI</p>
+<section id="id161">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">index</span><span class="required">*</span><div class="type">Number</div></td><td>The index mapping looks like this: 0 -&gt; Simple Grey, 1 -&gt; Sharp Highlights, 2 -&gt; Dark Sky, 3 -&gt; Grey Room, 4 -&gt; Photo Booth, 5 -&gt; Tranquility, 6 -&gt; Infinity Pool, 7 -&gt; Simple White, 8 -&gt; Riverbank, 9 -&gt; Contrast, 1 -&gt;0 Rim Highlights, 1 -&gt;1 Cool Light, 1 -&gt;2 Warm Light, 1 -&gt;3 Soft Light, 1 -&gt;4 Grid Light, 1 -&gt;5 Plaza, 1 -&gt;6 Snow Field</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setusepivotalways-value">
+<a href="#setusepivotalways-value"><h2>setUsePivotAlways(value)</h2></a>
+<p>Set or unset a view navigation option which requests that orbit controls always orbit around the currently set pivot point.</p>
+<p>Sets the preference in the UI</p>
+<section id="id162">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true to request use of the pivot point. When false some controls may pivot around the center of the view. (Currently applies only to the view-cube orbit controls.)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setreversezoomdirection-value">
+<a href="#setreversezoomdirection-value"><h2>setReverseZoomDirection(value)</h2></a>
+<p>Set or unset a view navigation option to reverse the default direction for camera dolly (zoom) operations.</p>
+<p>Sets the preference in the UI</p>
+<section id="id163">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true for reverse, false for default</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setreversehorizontallookdirection-value">
+<a href="#setreversehorizontallookdirection-value"><h2>setReverseHorizontalLookDirection(value)</h2></a>
+<p>Set or unset a view navigation option to reverse the default direction for horizontal look operations.</p>
+<p>Not applicable to 2D.</p>
+<p>Sets the preference in the UI</p>
+<section id="id164">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true for reverse, false for default</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setreverseverticallookdirection-value">
+<a href="#setreverseverticallookdirection-value"><h2>setReverseVerticalLookDirection(value)</h2></a>
+<p>Set or unset a view navigation option to reverse the default direction for vertical look operations.</p>
+<p>Not applicable to 2D.</p>
+<p>Sets the preference in the UI</p>
+<section id="id165">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true for reverse, false for default</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setzoomtowardspivot-value">
+<a href="#setzoomtowardspivot-value"><h2>setZoomTowardsPivot(value)</h2></a>
+<p>Get the state of the view navigation option that requests the default direction for camera dolly (zoom) operations to be towards the camera pivot point.</p>
+<p>Sets the preference in the UI</p>
+<section id="id166">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true for towards the pivot, false for default</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setorbitpastworldpoles-value">
+<a href="#setorbitpastworldpoles-value"><h2>setOrbitPastWorldPoles(value)</h2></a>
+<p>Set or unset a view navigation option to allow the orbit controls to move the camera beyond the north and south poles (world up/down direction). In other words, when set the orbit control will allow the camera to rotate into an upside down orientation. When unset orbit navigation should stop when the camera view direction reaches the up/down direction.</p>
+<p>Not applicable to 2D.</p>
+<p>Sets the preference in the UI</p>
+<section id="id167">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true to allow orbiting past the poles.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setuselefthandedinput-value">
+<a href="#setuselefthandedinput-value"><h2>setUseLeftHandedInput(value)</h2></a>
+<p>Set or unset a view navigation option which requests that mouse buttons be reversed from their default assignment (i.e. Left mouse operation becomes right mouse and vice versa).</p>
+<p>Sets the preference in the UI</p>
+<section id="id168">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">boolean</div></td><td>value of the option, true to request reversal of mouse button assignments.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setdisplayunits-value">
+<a href="#setdisplayunits-value"><h2>setDisplayUnits(value)</h2></a>
+<p>Set units for quantities displayed in the property panel. Only setting linear (distance) quantity units are supported</p>
+<section id="id169">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">string</div></td><td>display units to set. The units can be “” (file units), “mm”, “cm”, “m”, “in”, “ft”, “ft-and-fractional-in”, “ft-and-decimal-in”, “decimal-in”, “decimal-ft”, “fractional-in”, “m-and-cm”,</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setdisplayunitsprecision-value">
+<a href="#setdisplayunitsprecision-value"><h2>setDisplayUnitsPrecision(value)</h2></a>
+<p>Set the precision for quantities displayed in the property panel.</p>
+<section id="id170">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">value</span><span class="required">*</span><div class="type">number</div></td><td>precision for the units The value is the number of decimal values after the “.”. For e.g., a value of 5 would be either 0.12345 or 1/32 (2^5) for fraction type units Values greater than 6 is not supported If value is not specified, it defaults to the precision in the file</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setlayervisible-nodes-visible-isolate">
+<a href="#setlayervisible-nodes-visible-isolate"><h2>setLayerVisible(nodes, visible, isolate)</h2></a>
+<p>Set visibility for a single layer, or for all layers.</p>
+<section id="id171">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodes</span><span class="required">*</span><div class="type">Array</div></td><td>An array of layer nodes, or a single layer node, or null for all layers</td></tr><tr><td><span class="name">visible</span><span class="required">*</span><div class="type">boolean</div></td><td>true to show the layer, false to hide it</td></tr><tr><td><span class="name">isolate</span><div class="type">boolean</div></td><td>true to isolate the layer</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="islayervisible-node">
+<a href="#islayervisible-node"><h2>isLayerVisible(node)</h2></a>
+<p>Returns true if the layer is visible.</p>
+<section id="id172">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">Object</div></td><td>Layer node</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id173">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if the layer is visible</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="anylayerhidden">
+<a href="#anylayerhidden"><h2>anyLayerHidden()</h2></a>
+<p>Returns true if any layer is hidden.</p>
+<section id="id174">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if any layer is hidden</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="alllayershidden">
+<a href="#alllayershidden"><h2>allLayersHidden()</h2></a>
+<p>Returns true if all layers are hiden.</p>
+<section id="id175">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if all layers are hidden</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hidehiddenobjects">
+<a href="#hidehiddenobjects"><h2>hideHiddenObjects()</h2></a>
+</section>
+<section id="setgroundshadowcolor-color">
+<a href="#setgroundshadowcolor-color"><h2>setGroundShadowColor(color)</h2></a>
+<p>If enabled, set ground shadow color</p>
+<p>Not applicable to 2D</p>
+<section id="id176">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">color</span><span class="required">*</span><div class="type">THREE.Color</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgroundshadowalpha-alpha">
+<a href="#setgroundshadowalpha-alpha"><h2>setGroundShadowAlpha(alpha)</h2></a>
+<p>If enabled, set ground shadow alpha</p>
+<p>Not applicable to 2D</p>
+<section id="id177">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">alpha</span><span class="required">*</span><div class="type">float</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgroundreflectioncolor-color">
+<a href="#setgroundreflectioncolor-color"><h2>setGroundReflectionColor(color)</h2></a>
+<p>If enabled, set ground reflection color. This is reset to default when reflections toggled off.</p>
+<p>Not applicable to 2D</p>
+<section id="id178">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">color</span><span class="required">*</span><div class="type">THREE.Color</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setgroundreflectionalpha-alpha">
+<a href="#setgroundreflectionalpha-alpha"><h2>setGroundReflectionAlpha(alpha)</h2></a>
+<p>If enabled, set ground reflection alpha. This is reset to default when reflections toggled off.</p>
+<p>Not applicable to 2D</p>
+<section id="id179">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">alpha</span><span class="required">*</span><div class="type">number</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getcutplanes">
+<a href="#getcutplanes"><h2>getCutPlanes()</h2></a>
+<p>Returns a list of active cut planes</p>
+<p>Not applicable to 2D</p>
+<section id="id180">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;THREE.Vector4&gt;</td>
+<td>List of Vector4 plane representation {x:a, y:b, z:c, w:d}</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setcutplanes-planes">
+<a href="#setcutplanes-planes"><h2>setCutPlanes(planes)</h2></a>
+<p>Apply a list of cut planes</p>
+<p>Not applicable to 2D</p>
+<section id="id181">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">planes</span><span class="required">*</span><div class="type">Array.&lt;THREE.Vector4&gt;</div></td><td>List of Vector4 plane representation: {x:a, y:b, z:c, w:d} Plane general equation: ax + by + cz + d = 0 where a, b, and c are not all zero Passing an empty list or null is equivalent to setting zero cut planes</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getscreenshot-w-h-cb-overlayrenderer">
+<a href="#getscreenshot-w-h-cb-overlayrenderer"><h2>getScreenShot(w, h, cb, overlayRenderer)</h2></a>
+<p>Captures the current screen image as Blob URL Blob URL can be used like a regular image url (e.g., window.open, img.src, etc) If width and height are 0, returns asynchronously and calls the callback with an image as Blob URL with dimensions equal to current canvas dimensions If width and height are given, returns asynchronously and calls the callback with the resized image as Blob URL If no callback is given, displays the image in a new window. Optional overlayRenderer can be supplied, in order to render an overlay on top of the renderer image.</p>
+<section id="id182">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">w</span><div class="type">number</div></td><td>width of the requested image</td></tr><tr><td><span class="name">h</span><div class="type">number</div></td><td>height of the requested image</td></tr><tr><td><span class="name">cb</span><div class="type">function</div></td><td>callback</td></tr><tr><td><span class="name">overlayRenderer</span><div class="type">function</div></td><td>overlayRenderer</td></tr></tbody></table></div>
+</section>
+<section id="id183">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>DOMString</td>
+<td>screenshot image Blob URL, if no parameters are given</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="worldtoclient-point-camera">
+<a href="#worldtoclient-point-camera"><h2>worldToClient(point, camera)</h2></a>
+<p>Calculates the pixel position in client space coordinates of a point in world space.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#clientToWorld/">clientToWorld()</a>.</p>
+<section id="id184">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">point</span><span class="required">*</span><div class="type">THREE.Vector3</div></td><td>Point in world space coordinates.</td></tr><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">THREE.Camera</div></td><td>Optional camera to use - default is the viewer’s native camera.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id185">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Vector3</td>
+<td>Point transformed and projected into client space coordinates. Z value is 0.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clienttoworld-clientx-clienty-ignoretransparent-ignore2dmodelbounds-ignore2dmodelson3d">
+<a href="#clienttoworld-clientx-clienty-ignoretransparent-ignore2dmodelbounds-ignore2dmodelson3d"><h2>clientToWorld(clientX, clientY, ignoreTransparent, ignore2dModelBounds, ignore2dModelsOn3d)</h2></a>
+<p>Given coordinates in pixel screen space it returns information of the underlying geometry node. Hidden nodes will not be taken into account. Returns null if there is no geometry in the specified location. For 2d models, it will return null outside the paper, unless ignore2dModelBounds is true.
+See also <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#worldToClient/">worldToClient()</a>.</p>
+<section id="id186">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">clientX</span><span class="required">*</span><div class="type">Number</div></td><td>X coordinate where 0 is left</td></tr><tr><td><span class="name">clientY</span><span class="required">*</span><div class="type">Number</div></td><td>Y coordinate where 0 is top</td></tr><tr><td><span class="name">ignoreTransparent</span><div class="type">Boolean</div></td><td>Ignores transparent materials</td></tr><tr><td><span class="name">ignore2dModelBounds</span><div class="type">boolean</div></td><td>For 2d models - whether to return a result outside of the model’s bounds.</td></tr><tr><td><span class="name">ignore2dModelsOn3d</span><div class="type">boolean</div></td><td>Whether to ignore 2d models when in 3d mode.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id187">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object, null</td>
+<td>contains point attribute. 3d models have additional attributes.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="modelhastopology">
+<a href="#modelhastopology"><h2>modelHasTopology()</h2></a>
+<p>Expose if the model has topology information downloaded. Only applicable to 3D models.</p>
+<section id="id188">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>value - Indicates whether the model has topology information.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setselectioncolor-color-selectiontype">
+<a href="#setselectioncolor-color-selectiontype"><h2>setSelectionColor(color, selectionType)</h2></a>
+<p>Changes the color of the selection for a particular selection type.</p>
+<ul>
+<li>Autodesk.Viewing.SelectionType.MIXED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Sets the same color for regular and overlayed selection.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.REGULAR<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Sets the color of regular selection.</li>
+</ul>
+</div></blockquote>
+</li>
+<li>Autodesk.Viewing.SelectionType.OVERLAYED<p></p>
+<blockquote>
+<div><ul class="simple">
+<li>Sets the color of overlayed selection.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<section id="id189">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">color</span><span class="required">*</span><div class="type">THREE.Color</div></td><td></td></tr><tr><td><span class="name">selectionType</span><span class="required">*</span><div class="type">number</div></td><td>a member of Autodesk.Viewing.SelectionMode.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id190">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">setSelectionColor</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Color</span><span class="p">(</span><span class="mh">0xFF0000</span><span class="p">),</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">SelectionType</span><span class="p">.</span><span class="nx">MIXED</span><span class="p">);</span><span class="w"> </span><span class="c1">// red color</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="set2dselectioncolor-color-opacity">
+<a href="#set2dselectioncolor-color-opacity"><h2>set2dSelectionColor(color, opacity)</h2></a>
+<p>Changes the color of the selection for 2D drawings.</p>
+<section id="id191">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">color</span><span class="required">*</span><div class="type">THREE.Color</div></td><td></td></tr><tr><td><span class="name">opacity</span><span class="required">*</span><div class="type">number</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id192">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">set2dSelectionColor</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Color</span><span class="p">(</span><span class="mh">0xFF0000</span><span class="p">),</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span><span class="w"> </span><span class="c1">// red color, opacity of 0.1</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="settheme-name">
+<a href="#settheme-name"><h2>setTheme(name)</h2></a>
+<p>Sets the current UI theme of the viewer. Supported values are “light-theme” and “dark-theme”, which is the default.</p>
+<section id="id193">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>Name of the theme, it will be added to the viewer’s container class list.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setthemingcolor-dbid-color-model-recursive">
+<a href="#setthemingcolor-dbid-color-model-recursive"><h2>setThemingColor(dbId, color, model, recursive)</h2></a>
+<p>Highlight an object with a theming color that is blended with the original object’s material.</p>
+<section id="id194">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td></td></tr><tr><td><span class="name">color</span><span class="required">*</span><div class="type">THREE.Vector4</div></td><td>(r, g, b, intensity), all in [0,1].</td></tr><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>For multi-model support.</td></tr><tr><td><span class="name">recursive</span><div class="type">boolean</div></td><td>Should apply theming color recursively to all child nodes.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="clearthemingcolors-model">
+<a href="#clearthemingcolors-model"><h2>clearThemingColors(model)</h2></a>
+<p>Restore original colors for all themed shapes.</p>
+<section id="id196">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>For multi-model support.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="setmaterialstodefaults-model">
+<a href="#setmaterialstodefaults-model"><h2>setMaterialsToDefaults(model)</h2></a>
+<p>Restore original materials of a model if they were overwritten, e.g. by Autodesk.Viewing.Viewer3D#setView.”</p>
+<section id="id198">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>For multi-model support.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="hidemodel-model">
+<a href="#hidemodel-model"><h2>hideModel(model)</h2></a>
+<p>Temporarily remove a model from the Viewer, but keep loaders, materials, and geometry alive.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#showModel/">Autodesk.Viewing.Viewer3D#showModel</a></p>
+<section id="id200">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><span class="required">*</span><div class="type">number, <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>model id or Model object</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id202">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true indicates success, i.e., modelId referred to a visible model that is now hidden</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="showmodel-model-preservetools">
+<a href="#showmodel-model-preservetools"><h2>showModel(model, preserveTools)</h2></a>
+<p>Make a previously hidden model visible again.</p>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#hideModel/">Autodesk.Viewing.Viewer3D#hideModel</a></p>
+<section id="id204">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">model</span><span class="required">*</span><div class="type">number, <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></div></td><td>model id or Model object</td></tr><tr><td><span class="name">preserveTools</span><span class="required">*</span><div class="type">boolean</div></td><td>disable automatic activation of default tool</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id206">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true indicates success, i.e., <code class="docutils literal notranslate"><span class="pre">model</span></code> referred to a hidden model that is now visible</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getvisiblemodels">
+<a href="#getvisiblemodels"><h2>getVisibleModels()</h2></a>
+<section id="id207">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.Model&gt;</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="gethiddenmodels">
+<a href="#gethiddenmodels"><h2>getHiddenModels()</h2></a>
+<section id="id208">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.Model&gt;</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getallmodels">
+<a href="#getallmodels"><h2>getAllModels()</h2></a>
+<p>Returns all models loaded in the viewer.</p>
+<section id="id209">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.Model&gt;</td>
+<td><ul class="simple">
+<li>An array of visible and hidden models</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfirstmodel">
+<a href="#getfirstmodel"><h2>getFirstModel()</h2></a>
+<p>Returns the first model, according to the environment. If we are in 2D, returns the first sheet. If we are in 3D, returns the first 3D model, regardless if a 2D sheet was loaded before. Note: If there’s only 2D models in a 3D environment it will return null.</p>
+<section id="id210">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></td>
+<td><ul class="simple">
+<li>A model</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getunderlayraster-bubblenode">
+<a href="#getunderlayraster-bubblenode"><h2>getUnderlayRaster(bubbleNode)</h2></a>
+<p>When loading a PDF document we optionally add a raster preview. This function returns the preview corresponding to the passed bubbleNode.</p>
+<section id="id212">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id214">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.Model&gt;</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="disablehighlight-disable">
+<a href="#disablehighlight-disable"><h2>disableHighlight(disable)</h2></a>
+<p>Disables roll-over highlighting.</p>
+<section id="id215">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">disable</span><span class="required">*</span><div class="type">boolean</div></td><td>Indicates whether highlighting should be on or off. True to disable highlights, false to enable them.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="disableselection-disable">
+<a href="#disableselection-disable"><h2>disableSelection(disable)</h2></a>
+<p>disable the selection of a loaded model.</p>
+<section id="id216">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">disable</span><span class="required">*</span><div class="type">boolean</div></td><td>true to disable selection, false to enable selection.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="ishighlightdisabled">
+<a href="#ishighlightdisabled"><h2>isHighlightDisabled()</h2></a>
+<p>check if the mouse-over highlight is disabled or not</p>
+</section>
+<section id="ishighlightpaused">
+<a href="#ishighlightpaused"><h2>isHighlightPaused()</h2></a>
+<p>check if the mouse-over highlight is paused or not</p>
+</section>
+<section id="ishighlightactive">
+<a href="#ishighlightactive"><h2>isHighlightActive()</h2></a>
+<p>check if the mouse-over highlight is active or not</p>
+</section>
+<section id="isselectiondisabled">
+<a href="#isselectiondisabled"><h2>isSelectionDisabled()</h2></a>
+<p>check if the selection of the loaded model is disabled or not</p>
+</section>
+<section id="activateextension-extensionid-mode">
+<a href="#activateextension-extensionid-mode"><h2>activateExtension(extensionID, mode)</h2></a>
+<p>Activates the extension based on the extensionID and mode given. By default it takes the first available mode in getmodes();</p>
+<section id="id217">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionID</span><span class="required">*</span><div class="type">string</div></td><td>The extension id.</td></tr><tr><td><span class="name">mode</span><div class="type">string</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="deactivateextension-extensionid">
+<a href="#deactivateextension-extensionid"><h2>deactivateExtension(extensionID)</h2></a>
+<p>Dectivates the extension based on the extensionID specified.</p>
+<section id="id218">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionID</span><span class="required">*</span><div class="type">string</div></td><td>the extension ID</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id219">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the extension was deactivated false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isextensionactive-extensionid-mode">
+<a href="#isextensionactive-extensionid-mode"><h2>isExtensionActive(extensionID, mode)</h2></a>
+<p>Check if the extension is active or not by passing the extensionID.</p>
+<section id="id220">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionID</span><span class="required">*</span><div class="type">string</div></td><td>the extension ID</td></tr><tr><td><span class="name">mode</span><span class="required">*</span><div class="type">string</div></td><td>The model of the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id221">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>True if the extension is active, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isextensionloaded-extensionid">
+<a href="#isextensionloaded-extensionid"><h2>isExtensionLoaded(extensionID)</h2></a>
+<p>Check if the extension is loaded or not by passing the extensionID.</p>
+<section id="id222">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionID</span><span class="required">*</span><div class="type">string</div></td><td>the extension ID</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id223">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>returns true if the extension was loaded, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getloadedextensions">
+<a href="#getloadedextensions"><h2>getLoadedExtensions()</h2></a>
+<p>Get a list of all the extensions that are currently loaded.</p>
+<section id="id224">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td><ul class="simple">
+<li>returns the IDs of all of the loaded extensions</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getextensionmodes-extensionid">
+<a href="#getextensionmodes-extensionid"><h2>getExtensionModes(extensionID)</h2></a>
+<p>Get a list of all the modes that are available for the given extensionID.</p>
+<section id="id225">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extensionID</span><span class="required">*</span><div class="type">string</div></td><td>the extension ID</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id226">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td><ul class="simple">
+<li>array of the extension’s modes.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hittest-x-y-ignoretransparent">
+<a href="#hittest-x-y-ignoretransparent"><h2>hitTest(x, y, ignoreTransparent)</h2></a>
+<p>Returns the intersection information for point x,y. If no intersection is found this function will return null.</p>
+<section id="id227">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">x</span><span class="required">*</span><div class="type">number</div></td><td>X-coordinate, i.e., horizontal distance (in pixels) from the left border of the canvas.</td></tr><tr><td><span class="name">y</span><span class="required">*</span><div class="type">number</div></td><td>Y-coordinate, i.e., vertical distance (in pixels) from the top border of the canvas.</td></tr><tr><td><span class="name">ignoreTransparent</span><div class="type">boolean</div></td><td>ignores any transparent objects that might intersect x,y</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id228">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/Intersection/">Intersection</a>, null</td>
+<td><ul class="simple">
+<li>Intersection information about closest hit point.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="refresh-clear">
+<a href="#refresh-clear"><h2>refresh(clear)</h2></a>
+<p>Clears the screen and redraws the overlays if clear is set to true. Only the overlays will be redrawn if clear is set to false. Should only be called when absolutely needed.</p>
+<section id="id229">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">clear</span><span class="required">*</span><div class="type">boolean</div></td><td>clears the screen and redraws the overlays.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="chooseprofile">
+<a href="#chooseprofile"><h2>chooseProfile()</h2></a>
+<p>Function that decides which <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a> to use when a model is loaded for the first time.</p>
+<p>Override this method to implement a different logic.</p>
+<section id="id231">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a>, null</td>
+<td>a Profile</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

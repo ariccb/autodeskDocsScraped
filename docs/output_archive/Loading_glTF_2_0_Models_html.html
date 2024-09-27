@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading glTF 2.0 Models | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="loading-gltf-2-0-models">
+<h1>Loading glTF 2.<wbr>0 Models</h1>
+<p>The glTF 2.0 Loader extension provides the ability to load glTF 2.0 models in the viewer.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.glTFExtension</span></code></p>
+<section id="initialization">
+<a href="#initialization"><h2>Initialization</h2></a>
+<p>Using the glTF 2.0 Loader, you can load local glTF models in Viewer SDK. Initialize the page using function Autodesk.Viewing.Initializer().</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">viewer</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="s1">'AutodeskProduction2'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">api</span><span class="o">:</span><span class="w"> </span><span class="s1">'streamingV2'</span><span class="p">,</span><span class="w">  </span><span class="c1">// for models uploaded to EMEA change this option to 'streamingV2_EU'</span>
+<span class="w">        </span><span class="nx">documentId</span><span class="o">:</span><span class="w"> </span><span class="s1">'tests/unittest/models/glTF/duck.gltf'</span>
+<span class="w">        </span><span class="nx">getAccessToken</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">onTokenReady</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'YOUR_ACCESS_TOKEN'</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">timeInSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3600</span><span class="p">;</span><span class="w"> </span><span class="c1">// Use value provided by APS Authentication (OAuth) API</span>
+<span class="nx">onTokenReady</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">timeInSeconds</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Initializer</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">htmlDiv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'forgeViewer'</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">viewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GuiViewer3D</span><span class="p">(</span><span class="nx">htmlDiv</span><span class="p">);</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">startedCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">startedCode</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failed to create a Viewer: WebGL not supported.'</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="usage">
+<a href="#usage"><h2>Usage</h2></a>
+<p>The glTF 2.0 Loader supports these features:</p>
+<ul class="simple">
+<li>glTF2.0 loading, including geometry and basic material.</li>
+<li>Basic navigation, including Orbit, Zoom and Pan tool.</li>
+<li>Basic selection, including mapping dbID to glTF nodes.</li>
+<li>Show node name on property panel and model browser.</li>
+<li>Supports only free measurement mode.</li>
+</ul>
+<p>The glTF 2.0 Loader does not support these features:
+* Property database.
+* Measurement tool.</p>
+<p>To activate free measurement mode:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">measuretool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.Measure'</span><span class="p">);</span>
+<span class="nx">measuretool</span><span class="p">.</span><span class="nx">setFreeMeasureMode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Example using glTF 2.0 Loader:</p>
+<img alt="../../../../_images/gltfextension.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/gltfextension.gif">
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

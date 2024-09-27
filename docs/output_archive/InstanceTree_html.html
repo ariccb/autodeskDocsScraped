@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstanceTree | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Private</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/wgs/scene/InstanceTree.js">
+<section id="instancetree">
+<h1>InstanceTree</h1>
+<section id="new-instancetree-nodeaccess-objectcount-maxdepth">
+<a href="#new-instancetree-nodeaccess-objectcount-maxdepth"><h2>new InstanceTree(nodeAccess, objectCount, maxDepth)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nodeAccess</span><span class="required">*</span><div class="type"></div></td><td></td></tr><tr><td><span class="name">objectCount</span><span class="required">*</span><div class="type"></div></td><td></td></tr><tr><td><span class="name">maxDepth</span><span class="required">*</span><div class="type"></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="isnodehidden-dbid">
+<a href="#isnodehidden-dbid"><h2>isNodeHidden(dbId)</h2></a>
+<p>Whether a node id is hidden.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isnodevisiblelocked-dbid">
+<a href="#isnodevisiblelocked-dbid"><h2>isNodeVisibleLocked(dbId)</h2></a>
+<p>Whether a node id’s visiblitly is locked.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isnodeexplodelocked-dbid">
+<a href="#isnodeexplodelocked-dbid"><h2>isNodeExplodeLocked(dbId)</h2></a>
+<p>Whether a node id’s explode is locked.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnodetype-dbid">
+<a href="#getnodetype-dbid"><h2>getNodeType(dbId)</h2></a>
+<p>Gets the type associated with the node, such as assmebly, layer, model, geometry, etc.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>one of <a class="reference external" href="#fixMe/">NODE_TYPE</a></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isnodeselectable-dbid">
+<a href="#isnodeselectable-dbid"><h2>isNodeSelectable(dbId)</h2></a>
+<p>Whether the node is a selectable entity.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnodeparentid-dbid">
+<a href="#getnodeparentid-dbid"><h2>getNodeParentId(dbId)</h2></a>
+<p>Gets the database id of the node’s parent.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getrootid">
+<a href="#getrootid"><h2>getRootId()</h2></a>
+<p>Gets the model’s root database id.</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnodename-dbid-includecount">
+<a href="#getnodename-dbid-includecount"><h2>getNodeName(dbId, includeCount)</h2></a>
+<p>Gets the name associated to the id.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr><tr><td><span class="name">includeCount</span><span class="required">*</span><div class="type">boolean</div></td><td>True if must include count</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getchildcount-dbid">
+<a href="#getchildcount-dbid"><h2>getChildCount(dbId)</h2></a>
+<p>Gets get number of children under the specified id.</p>
+<section id="id15">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnodebox-dbid-dst">
+<a href="#getnodebox-dbid-dst"><h2>getNodeBox(dbId, dst)</h2></a>
+<p>Sets the bounding box values for a particular id on the 2nd argument provided. There is no return value.</p>
+<section id="id17">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The node’s database id</td></tr><tr><td><span class="name">dst</span><span class="required">*</span><div class="type">Float32Array</div></td><td>An array holding 6 number values: (min-x, min-y, min-z, max-x, max-y, max-z)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="enumnodefragments-node-callback-recursive">
+<a href="#enumnodefragments-node-callback-recursive"><h2>enumNodeFragments(node, callback, recursive)</h2></a>
+<section id="id18">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">number</div></td><td>The id of a node.</td></tr><tr><td><span class="name">callback</span><span class="required">*</span><div class="type">Autodesk.Viewing.Private.InstanceTree~onEnumNodeFragments</div></td><td>The function that will be called for each fragment. Note that if the callback function returns a truthy value, a loop over the fragments and child nodes will be interrupted and the callback result will be forwarded back to the caller.</td></tr><tr><td><span class="name">recursive</span><div class="type">boolean</div></td><td>Whether the callback function gets called for child nodes, too.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="enumnodechildren-node-callback-recursive">
+<a href="#enumnodechildren-node-callback-recursive"><h2>enumNodeChildren(node, callback, recursive)</h2></a>
+<section id="id19">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type">number</div></td><td>The id of a node.</td></tr><tr><td><span class="name">callback</span><span class="required">*</span><div class="type">Autodesk.Viewing.Private.InstanceTree~onEnumNodeChildren</div></td><td>The function that will be called for each child node. Note that if the callback function returns a truthy value, a loop over the child nodes will be interrupted and the callback result will be forwarded back to the caller.</td></tr><tr><td><span class="name">recursive</span><div class="type">boolean</div></td><td>Whether the callback function gets called for indirect child nodes, too.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="search-text">
+<a href="#search-text"><h2>search(text)</h2></a>
+<p>Search the tree for nodes whose names match the given string.</p>
+<section id="id20">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">text</span><span class="required">*</span><div class="type">string</div></td><td>The search term (not case sensitive).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td><ul class="simple">
+<li>The dbIds of all nodes in the tree matching the search text.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

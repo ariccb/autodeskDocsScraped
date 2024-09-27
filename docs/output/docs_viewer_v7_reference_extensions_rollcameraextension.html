@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RollCameraExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/RollCamera/RollCamera.js">
+<section id="rollcameraextension">
+<h1>RollCameraExtension</h1>
+<p>Provides UI controls to perform rotation of camera view.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.RollCamera</span></code></p>
+<section id="new-rollcameraextension">
+<a href="#new-rollcameraextension"><h2>new RollCameraExtension()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.BIM360.RollCamera'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Load the roll camera extension.</p>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Unload the roll camera extension.</p>
+</section>
+<section id="ontoolbarcreated-toolbar">
+<a href="#ontoolbarcreated-toolbar"><h2>onToolbarCreated(toolbar)</h2></a>
+<p>Invoked by the viewer when the toolbar UI is available.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">toolbar</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/ToolBar/">Autodesk.Viewing.UI.ToolBar</a></div></td><td>toolbar instance.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="roll-clockwise">
+<a href="#roll-clockwise"><h2>roll(clockwise)</h2></a>
+<p>Roll the camera 90 degrees.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">clockwise</span><span class="required">*</span><div class="type">boolean</div></td><td>True to rotate clockwise, false to rotate counter clockwise.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

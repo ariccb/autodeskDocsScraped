@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MinimapExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Minimap2D/Minimap2D.js">
+<section id="minimapextension">
+<h1>MinimapExtension</h1>
+<p>Provides a 2d Minimap to show the view of the current document.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.Minimap</span></code></p>
+<section id="new-minimapextension">
+<a href="#new-minimapextension"><h2>new MinimapExtension()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.BIM360.Minimap'</span><span class="p">)</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Load the minimap extension.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if minimap extension is loaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Unload the minimap extension.</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if minimap extension is unloaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="oncamerachange-withtransition">
+<a href="#oncamerachange-withtransition"><h2>onCameraChange(withTransition)</h2></a>
+<p>Occurs when camera changes</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">withTransition</span><span class="required">*</span><div class="type">boolean</div></td><td>True if cameara changed with a transition.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="destroyui">
+<a href="#destroyui"><h2>destroyUI()</h2></a>
+<p>Destroys minimap’s UI</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

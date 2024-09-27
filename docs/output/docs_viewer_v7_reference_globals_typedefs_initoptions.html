@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InitOptions | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Type Definitions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/docs/generics/typedefs.js"><section id="initoptions">
+<h1>InitOptions</h1>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">env</span><div class="type">string</div></td><td>Can be <code class="docutils literal notranslate"><span class="pre">AutodeskProduction</span></code> (default), <code class="docutils literal notranslate"><span class="pre">AutodeskStaging</span></code>, or <code class="docutils literal notranslate"><span class="pre">AutodeskDevelopment</span></code>.</td></tr><tr><td><span class="name">api</span><div class="type">string</div></td><td>Can be undefined (default), use <code class="docutils literal notranslate"><span class="pre">streamingV2</span></code> (SVF2) or <code class="docutils literal notranslate"><span class="pre">derivativeV2</span></code> (SVF) for US data center, <code class="docutils literal notranslate"><span class="pre">derivativeV2_EU</span></code> for European data center, and <code class="docutils literal notranslate"><span class="pre">streamingV2_APAC</span></code> or <code class="docutils literal notranslate"><span class="pre">derivativeV2_APAC</span></code> for Australian data center</td></tr><tr><td><span class="name">getAccessToken</span><div class="type">function</div></td><td>A function that provides an access token asynchronously. The function signature is <code class="docutils literal notranslate"><span class="pre">getAccessToken(onSuccess)</span></code>, where onSuccess is a callback that getAccessToken function should invoke when a token is granted, with the token being the first input parameter for the onSuccess function, and the token expire time (in seconds) being the second input parameter for the function. Viewer relies on both getAccessToken and the expire time to automatically renew token, so it is critical that getAccessToken must be implemented as described here.</td></tr><tr><td><span class="name">language</span><div class="type">string</div></td><td>Preferred language code as defined in RFC 4646, such as <code class="docutils literal notranslate"><span class="pre">en</span></code>, <code class="docutils literal notranslate"><span class="pre">de</span></code>, <code class="docutils literal notranslate"><span class="pre">fr</span></code> , etc. If no language is set, viewer will pick it up from the browser. If language is not as defined in RFC, viewer will fall back to <code class="docutils literal notranslate"><span class="pre">en</span></code> but the behavior is undefined.</td></tr><tr><td><span class="name">logLevel</span><div class="type">number</div></td><td>Specifies which types of messages will be logged into the console. Values are: 5 Debug, 4 Logs, 3 Info, 2 Warnings, 1 Errors, 0 None. Defaults to (1) for Errors only. All values can be found in Autodesk.Viewing.Private.LogLevels.</td></tr><tr><td><span class="name">webGLHelpLink</span><div class="type">string</div></td><td>A link url to a help page on webGL if it’s disabled. Supported only when using the GuiViewer3D instance; not supported in headless mode.</td></tr></tbody></table></div>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

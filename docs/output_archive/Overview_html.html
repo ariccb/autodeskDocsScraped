@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="about-the-viewer-sdk">
+<h1>About the Viewer SDK</h1>
+<img alt="../../../_images/viewer_illustration.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/viewer_illustration.png">
+<p><strong>The Autodesk Platform Services Viewer SDK lets you create applications to view, share, and interact with design models on your own website from a wide variety of products.</strong> The Viewer can display files from <a class="reference external" href="http://www.autodesk.com/products/autocad/overview" target="_blank">AutoCAD</a>, <a class="reference external" href="http://www.autodesk.com/products/fusion-360/overview" target="_blank">Fusion 360</a>, <a class="reference external" href="http://www.autodesk.com/products/revit-family/overview" target="_blank">Revit</a>, and many more. This JavaScript library enables developers to create applications that combine 2D and 3D visualization with business-oriented data.</p>
+<p>The Viewer SDK provides an extension framework that allows developers to:</p>
+<ul class="simple">
+<li>Customize the Viewer’s appearance, controls, and behavior.</li>
+<li>Customize the content and location of the Viewer toolbar.</li>
+<li>Write custom extensions to further customize the user experience.</li>
+</ul>
+<section id="common-uses">
+<a href="#common-uses"><h2>Common Uses</h2></a>
+<p>Common applications that use this SDK include, but are not limited to:</p>
+<ul class="simple">
+<li>Project dashboards</li>
+<li>Digital twin</li>
+<li>Display planning and timelines</li>
+<li>Aggregate and coordinate model changes</li>
+<li>Generate 2D and 3D markups</li>
+</ul>
+</section>
+<section id="try-it-out">
+<a href="#try-it-out"><h2>Try it out</h2></a>
+<p>You can interact with the viewer in the following example. Click the drop-down in the Viewer window to choose different 2D and 3D models.</p>
+ <iframe height="600" style="width: 100%;" scrolling="no" title="Simplified Template" src="https://codepen.io/autodesk-platform-services/embed/MWqmXxG?default-tab=result&amp;theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+See the Pen <a href="https://codepen.io/autodesk-platform-services/pen/MWqmXxG">
+Simplified Template</a> by Autodesk Platform Services (<a href="https://codepen.io/autodesk-platform-services">@autodesk-platform-services</a>)
+on <a href="https://codepen.io">CodePen</a>.
+ </iframe><p><strong>Tip</strong>: To experiment with customizing the Viewer, copy the following snippet and then click EDIT ON CODEPEN at upper right in the example. When CodePen opens, paste the snippet to the end of the original code in the <strong>JS</strong> tab. This snippet isolates all objects that contain the word “concrete” in their metadata.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">GEOMETRY_LOADED_EVENT</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s1">'concrete'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">isolate</span><span class="p">(</span><span class="nx">ids</span><span class="p">);</span>
+<span class="w"> </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="next-steps">
+<a href="#next-steps"><h2>Next Steps</h2></a>
+<p>Before you can display a model in the viewer, it must be translated into the SVF or SVF2 format. There are two ways to do this:</p>
+<ul class="simple">
+<li>If the file is in a BIM 360 or ACC workspace, the SVF/SVF2 file is automatically generated.</li>
+<li>Upload the model to the Object Storage Service (OSS). After uploading you can call the Model Derivative API’s <a class="reference external" href="/en/docs/model-derivative/v2/reference/http/jobs/job-POST/">POST Start Translation Job</a> operation to perform the translation.</li>
+</ul>
+<p>For more information, see the Model Derivative tutorial <a class="reference external" href="/en/docs/model-derivative/v2/">Prepare a File for the Viewer</a>.</p>
+<p><strong>Authentication (OAuth)</strong> is required to use Model Derivative. The Model Derivative tutorial guides you through the process of obtaining an access token. You can also refer to the <a class="reference external" href="/en/docs/oauth/v2/">Authentication Documentation</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li>The Autodesk Viewer SDK JavaScript must be delivered from an Autodesk hosted URL.</li>
+<li>Before you begin, it is advisable to review the content in the Viewer Essentials and Advanced Options sections.</li>
+</ul>
+</div>
+</section>
+<section id="terms-of-service">
+<a href="#terms-of-service"><h2>Terms of Service</h2></a>
+<p><strong>APS Viewer SDK</strong> is subject to <a class="reference external" href="https://www.autodesk.com/company/legal-notices-trademarks/terms-of-service-autodesk360-web-services/forge-platform-web-services-api-terms-of-service" target="_blank">Autodesk Platform Services Terms of Service.</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

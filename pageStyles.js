@@ -1,108 +1,123 @@
 exports.css = `
-  body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-  }
+body {
+  display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
 
-  h1, h2, h3, h4, h5, h6 {
-      color: #0696D7;
-      margin-top: 30px;
-  }
+#nav-sidebar {
+  width: 250px;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  padding: 20px;
+  position: fixed;
+}
 
-  #breadCrumbs {
-      background-color: #f5f5f5;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 5px;
-  }
+#content {
+  margin-left: 250px;
+  padding: 20px;
+  max-width: 800px;
+}
 
-  #breadCrumbs a {
-      color: #0696D7;
-      text-decoration: none;
-  }
+h1, h2, h3, h4, h5, h6 {
+  color: #0696D7;
+  margin-top: 30px;
+}
 
-  #breadCrumbs a:hover {
-      text-decoration: underline;
-  }
+#breadCrumbs {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
 
-  .highlight {
-      background-color: #f8f8f8;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 15px;
-      margin: 15px 0;
-      position: relative;
-  }
+#breadCrumbs a {
+  color: #0696D7;
+  text-decoration: none;
+}
 
-  .highlight pre {
-      margin: 0;
-      white-space: pre-wrap;
-  }
+#breadCrumbs a:hover {
+  text-decoration: underline;
+}
 
-  .copy-button {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background-color: #0696D7;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      padding: 5px 10px;
-      cursor: pointer;
-  }
+.highlight {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
+  position: relative;
+}
 
-  .copy-button:hover {
-      background-color: #0570a3;
-  }
+.highlight pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
 
-  table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 15px 0;
-  }
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #0696D7;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
-  th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-  }
+.copy-button:hover {
+  background-color: #0570a3;
+}
 
-  th {
-      background-color: #f2f2f2;
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
 
-  img {
-      max-width: 100%;
-      height: auto;
-  }
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
 `;
 
 exports.js = `
-  function copyToClipboard(button) {
-    const pre = button.nextElementSibling;
-    const textArea = document.createElement('textarea');
-    textArea.value = pre.textContent;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-    button.textContent = 'Copied!';
-    setTimeout(() => {
-      button.textContent = 'Copy';
-    }, 2000);
-  }
+function copyToClipboard(button) {
+  const pre = button.nextElementSibling;
+  const textArea = document.createElement('textarea');
+  textArea.value = pre.textContent;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textArea);
+  button.textContent = 'Copied!';
+  setTimeout(() => {
+    button.textContent = 'Copy';
+  }, 2000);
+}
 
-  document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre').forEach((block) => {
-      const button = document.createElement('button');
-      button.textContent = 'Copy';
-      button.className = 'copy-button';
-      button.onclick = function() { copyToClipboard(this); };
-      block.parentNode.insertBefore(button, block);
-    });
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('pre').forEach((block) => {
+    const button = document.createElement('button');
+    button.textContent = 'Copy';
+    button.className = 'copy-button';
+    button.onclick = function() { copyToClipboard(this); };
+    block.parentNode.insertBefore(button, block);
   });
+});
 `;

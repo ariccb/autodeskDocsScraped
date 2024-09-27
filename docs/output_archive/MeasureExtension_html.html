@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeasureExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Measure/Measure.js">
+<section id="measureextension">
+<h1>MeasureExtension</h1>
+<section id="new-measureextension-viewer-options">
+<a href="#new-measureextension-viewer-options"><h2>new MeasureExtension(viewer, options)</h2></a>
+<p>Provides UI controls to perform distance and angle measurements for 2D and 3D models.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.Measure</span></code></p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Measure'</span><span class="p">)</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Load the measure extension.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if measure extension is loaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Unload the measure extension.</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if measure extension is unloaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getmeasurement-unittype-precision">
+<a href="#getmeasurement-unittype-precision"><h2>getMeasurement(unitType, precision)</h2></a>
+<p>Get the current measurement in the measure tool.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">unitType</span><div class="type">string</div></td><td>Either: “decimal-ft”, “ft”, “ft-and-decimal-in”, “decimal-in”, “fractional-in”, “m”, “cm”, “mm” or “m-and-cm”.</td></tr><tr><td><span class="name">precision</span><div class="type">number</div></td><td>precision index (0: 0, 1: 0.1, 2: 0.01, 3: 0.001, 4: 0.0001, 5: 0.00001). When units type is “ft”, “in” or “fractional-in”, then the precisions are 0: 1, 1: 1/2, 2: 1/4, 3: 1/8, 4: 1/16, 5: 1/32, 6: 1/64.</td></tr></tbody></table></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object, null</td>
+<td>Object with properties of the current measurement, or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getmeasurementlist-unittype-precision">
+<a href="#getmeasurementlist-unittype-precision"><h2>getMeasurementList(unitType, precision)</h2></a>
+<p>Get a list of all the measurements that are currently on the screen.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">unitType</span><div class="type">string</div></td><td>Either: “decimal-ft”, “ft”, “ft-and-decimal-in”, “decimal-in”, “fractional-in”, “m”, “cm”, “mm” or “m-and-cm”.</td></tr><tr><td><span class="name">precision</span><div class="type">number</div></td><td>precision index (0: 0, 1: 0.1, 2: 0.01, 3: 0.001, 4: 0.0001, 5: 0.00001). When units type is “ft”, “in” or “fractional-in”, then the precisions are 0: 1, 1: 1/2, 2: 1/4, 3: 1/8, 4: 1/16, 5: 1/32, 6: 1/64.</td></tr></tbody></table></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;object&gt;</td>
+<td>An array of measurement objects with properties of the measurement.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setmeasurements-measurements">
+<a href="#setmeasurements-measurements"><h2>setMeasurements(measurements)</h2></a>
+<p>Restores existing measurements. The <code class="docutils literal notranslate"><span class="pre">measurements</span></code> object should be generated by either the <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MeasureExtension/#getMeasurementList/">getMeasurementList</a> or the <a class="reference external" href="/en/docs/viewer/v7/reference/Extensions/MeasureExtension/#getMeasurement/">getMeasurement</a> methods.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">measurements</span><span class="required">*</span><div class="type">Array.&lt;object&gt;, object</div></td><td>An array of measurement objects</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="activate-mode-type">
+<a href="#activate-mode-type"><h2>activate(mode, type)</h2></a>
+<p>Activates the tool and UI to start measuring.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mode</span><div class="type">string</div></td><td>Either ‘distance’, ‘angle’, ‘area’ (2D only), ‘arc’ (2D only), ‘calibrate’ or ‘custom’. Default is ‘distance’.</td></tr><tr><td><span class="name">type</span><div class="type">string</div></td><td>Custom measurement type. Required when mode is ‘custom’.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Deactivates measuring tool and UI.</p>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setisolatemeasure-enable">
+<a href="#setisolatemeasure-enable"><h2>setIsolateMeasure(enable)</h2></a>
+<p>When enabled, the Viewer will only render model parts that are included in measurements.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">enable</span><span class="required">*</span><div class="type">boolean</div></td><td>true to render only nodes being measured.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="deleteallmeasurements">
+<a href="#deleteallmeasurements"><h2>deleteAllMeasurements()</h2></a>
+<p>Delete all measurements.</p>
+</section>
+<section id="deletecurrentmeasurement">
+<a href="#deletecurrentmeasurement"><h2>deleteCurrentMeasurement()</h2></a>
+<p>Deletes the selected measurement.</p>
+</section>
+<section id="setfreemeasuremode-allow-uselastviewport">
+<a href="#setfreemeasuremode-allow-uselastviewport"><h2>setFreeMeasureMode(allow, useLastViewport)</h2></a>
+<p>Enable measuring on non snapped locations.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">allow</span><span class="required">*</span><div class="type">boolean</div></td><td>true to allow measuring on non snapped locations, otherwise false;</td></tr><tr><td><span class="name">useLastViewport</span><span class="required">*</span><div class="type">boolean</div></td><td>override the free measurement’s viewport with a previously created measurement’s viewport.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="isfreemeasuremode">
+<a href="#isfreemeasuremode"><h2>isFreeMeasureMode()</h2></a>
+<p>Checks whether measuring can be performed from non snapped locations.</p>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true is users can measure from any location.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

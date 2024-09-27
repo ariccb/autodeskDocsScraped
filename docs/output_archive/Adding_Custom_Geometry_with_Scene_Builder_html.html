@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding Custom Geometry with Scene Builder | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="adding-custom-geometry-with-scene-builder">
+<h1>Adding Custom Geometry with Scene Builder</h1>
+<p>Using the Scene Builder extension, you can create models and add your own objects to Viewer SDK. These objects are treated just like data from a downloaded model with a few restrictions:</p>
+<ul class="simple">
+<li>Only 3D objects are supported, including 3D lines and other geometry.</li>
+<li>Only THREE.BufferGeometry objects can be used.</li>
+<li>Lines are not rendered using THREE.Line objects. You must set the property <code class="docutils literal notranslate"><span class="pre">isLine:</span> <span class="pre">true</span></code> on the BufferGeometry.</li>
+<li>The same BufferGeometry can’t be used for lines and triangles.</li>
+<li>Similarly, use the BufferGeometry property <code class="docutils literal notranslate"><span class="pre">isPoint:</span> <span class="pre">true</span></code> to draw points.</li>
+<li>The model doesn’t have a property database. You can assign database ids and they can be used to collect multiple objects together, but there are no properties associated with the objects.</li>
+<li>The model is flat and doesn’t have an instance tree.</li>
+<li>The only materials that you can use with the Scene Builder are MeshPhong, MeshBasic, LineBasic and Prism.</li>
+</ul>
+<p>The objects you add using the SceneBuilder render just like models that are downloaded. Unlike using overlays,
+the framerate is not impacted when you add objects. However, it takes longer to fully render the model if you are rendering many objects. It should be noted that the spatial accelerator
+hasn’t been implemented for the Scene Builder models.</p>
+<p>In this tutorial, you will:</p>
+<ul class="simple">
+<li>Load the Scene Builder extension, which provides access to the ModelBuilder API.</li>
+<li>Use the ModelBuilder API to create custom models.</li>
+<li>Add custom geometry to your models.</li>
+</ul>
+<section id="step-1-loading-the-extension">
+<a href="#step-1-loading-the-extension"><h2>Step 1: Loading the Extension</h2></a>
+<p>Like other extensions, the Scene Builder extension is loaded using <a class="reference external" href="en/docs/viewer/v7/reference/Viewing/Viewer3D/#loadextension-extensionid-options">loadExtension</a>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="k">await</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.SceneBuilder'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Once the extension is loaded get the extension by using <a class="reference external" href="en/docs/viewer/v7/reference/Viewing/Viewer3D/#getextension-extensionid-callback">getExtension</a>.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.Viewing.SceneBuilder'</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-creating-a-model">
+<a href="#step-2-creating-a-model"><h2>Step 2: Creating a Model</h2></a>
+<p>After the extension is loaded, you must create a model to hold the objects that you want to display.
+To do that, use the extension method <a class="reference external" href="en/docs/viewer/v7/reference/Extensions/SceneBuilder/#addnewmodel-options">addNewModel</a>. This method creates the model and returns a
+<a class="reference external" href="en/docs/viewer/v7/reference/Extensions/ModelBuilder">ModelBuilder</a> API you can use to update the model.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">modelBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">ext</span><span class="p">.</span><span class="nx">addNewModel</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">conserveMemory</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">modelNameOverride</span><span class="o">:</span><span class="w"> </span><span class="s1">'My Model Name'</span>
+<span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Notice the two optional arguments to addNewModel, <code class="docutils literal notranslate"><span class="pre">conserveMemory</span></code> and <code class="docutils literal notranslate"><span class="pre">modelNameOverride</span></code>. This is the effect of the
+arguments on the new model:</p>
+<ul class="simple">
+<li>conserveMemory: Changes the way LMV stores meshes. This defaults to false and setting it to true will cause lmv to conserve memory by sharing a single mesh object for all of the fragments in the model. If you set this to true, then the <code class="docutils literal notranslate"><span class="pre">addMesh()</span></code> method cannot be used to add fragments.</li>
+<li>modelNameOverride: Sets a name that you want to display in the model browser panel. If you don’t set this option LMV will generate a name - <code class="docutils literal notranslate"><span class="pre">Scene</span> <span class="pre">Builder</span> <span class="pre">Model</span> <span class="pre">n</span></code> - where n is the model id of the new model.</li>
+</ul>
+</section>
+<section id="step-3-adding-custom-graphics-to-the-model">
+<a href="#step-3-adding-custom-graphics-to-the-model"><h2>Step 3: Adding custom graphics to the model</h2></a>
+<p>LMV identifies objects using their property database id. Each object can consist of multiple <code class="docutils literal notranslate"><span class="pre">fragments</span></code>. Each fragment
+has some geometry, a material, and a transform to position the geometry in 3D.</p>
+<p>There are three ways to add graphics using the ModelBuilder:</p>
+<ul class="simple">
+<li>Create and add materials and geometry with THREE separately and then add fragments using the material name and the geometry id.</li>
+<li>Create the materials and geometry with THREE and add fragments using the javascript objects.</li>
+<li>Create a THREE Mesh and add fragments using the THREE Mesh object.</li>
+</ul>
+<p>You can use the different methods separately or together as needed. Methods on the ModelBuilder that require a material accept the
+name of a material added to a model or a THREE material. If the THREE material does not exist, it is added to the model.
+Similarly, a geometry id or a THREE geometry object can be used interchangeably.</p>
+<section id="adding-graphics-separately">
+<h3>3.1 Adding graphics separately</h3>
+<p>When you add a material to the model you assign it a name. If the name is already in use or the material was added to a different model, the operation fails to add the material.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">purple</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshPhongMaterial</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Color</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="p">});</span>
+<span class="nx">modelBuilder</span><span class="p">.</span><span class="nx">addMaterial</span><span class="p">(</span><span class="s1">'purple'</span><span class="p">,</span><span class="w"> </span><span class="nx">purple</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>When you add geometry to the model, the ModelBuilder assigns and returns an id for the geometry. However, if the geometry was already added to the model, the operation fails.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">BufferGeometry</span><span class="p">().</span><span class="nx">fromGeometry</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">BoxGeometry</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">10</span><span class="p">));</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">modelBuilder</span><span class="p">.</span><span class="nx">addGeometry</span><span class="p">(</span><span class="nx">box</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>After the material and geometry are added, you can add a fragment using the material name and geometry id.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Matrix4</span><span class="p">().</span><span class="nx">compose</span><span class="p">(</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mf">15</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Quaternion</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="nx">modelBuilder</span><span class="p">.</span><span class="nx">addFragment</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'purple'</span><span class="p">,</span><span class="w"> </span><span class="nx">transform</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">addFragment</span></code> method returns an id that you can use to delete or change the display of the fragment.</p>
+</section>
+<section id="adding-graphics-using-three-objects">
+<h3>3.2 Adding graphics using THREE objects</h3>
+<p>An alternate mechanism for adding graphics is using THREE objects. ModelBuilder checks to see if the objects have
+been added and adds them if they haven’t. You can’t share THREE objects between models and the operation fails if any of the objects were added to a different
+model. ModelBuilder generates a name to use when adding the material. The generated name is <code class="docutils literal notranslate"><span class="pre">!!mtl-n</span></code>, where n is the value of the <code class="docutils literal notranslate"><span class="pre">id</span></code> property of the material.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshPhongMaterial</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Color</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span>
+<span class="p">});</span>
+<span class="nx">torus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">BufferGeometry</span><span class="p">().</span><span class="nx">fromGeometry</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">TorusGeometry</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">32</span><span class="p">,</span><span class="w"> </span><span class="mf">32</span><span class="p">));</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Matrix4</span><span class="p">().</span><span class="nx">compose</span><span class="p">(</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mf">19</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Quaternion</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="nx">modelBuilder</span><span class="p">.</span><span class="nx">addFragment</span><span class="p">(</span><span class="nx">torus</span><span class="p">,</span><span class="w"> </span><span class="nx">red</span><span class="p">,</span><span class="w"> </span><span class="nx">transform</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="adding-graphics-using-three-mesh">
+<h3>3.3 Adding graphics using THREE Mesh</h3>
+<p>Adding graphics using THREE Mesh is like adding graphics using THREE objects, and the same limitations apply to both. Using THREE Mesh is a good option when you want to hold all of the THREE objects in the THREE mesh. This option only works if the conserveMemory method is not present–or is set to false–when calling a new model.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span><span class="nx">torus</span><span class="p">,</span><span class="w"> </span><span class="nx">purple</span><span class="p">);</span>
+<span class="nx">mesh</span><span class="p">.</span><span class="nx">matrix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Matrix4</span><span class="p">().</span><span class="nx">compose</span><span class="p">(</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">,</span><span class="w"> </span><span class="mf">12</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Quaternion</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Vector3</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="nx">mesh</span><span class="p">.</span><span class="nx">dbId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span><span class="w">    </span><span class="c1">// Set the database id for the mesh</span>
+<span class="nx">modelBuilder</span><span class="p">.</span><span class="nx">addMesh</span><span class="p">(</span><span class="nx">mesh</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s next?</h2></a>
+<p>Check out the <a class="reference external" href="en/docs/viewer/v7/reference/Extensions/ModelBuilder">ModelBuilder</a> API documentation page to see all available methods.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

@@ -1,17 +1,13 @@
-function sanitizeFilename(url) {
-  // Remove the protocol and domain
-  let filename = url.replace(/^https?:\/\/[^\/]+/, "");
+function sanitizeFilename(filename) {
+  // Remove any characters that are not alphanumeric, underscore, or dash
+  let sanitized = filename.replace(/[^a-z0-9_-]/gi, "_");
 
-  // Remove trailing slash if present
-  filename = filename.replace(/\/$/, "");
+  // Ensure the filename ends with .html
+  if (!sanitized.toLowerCase().endsWith(".html")) {
+    sanitized += ".html";
+  }
 
-  // Replace remaining slashes with underscores
-  filename = filename.replace(/\//g, "_");
-
-  // Remove any characters that are not alphanumeric, underscore, or hyphen
-  filename = filename.replace(/[^a-z0-9_-]/gi, "");
-
-  return filename;
+  return sanitized;
 }
 
 module.exports = {

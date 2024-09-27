@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataTable | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.UI</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/gui/DataTable.js">
+<section id="datatable">
+<h1>DataTable</h1>
+<section id="new-datatable-dockingpanel">
+<a href="#new-datatable-dockingpanel"><h2>new DataTable(dockingPanel)</h2></a>
+<p>UI component in LMV that can be added into the DockingPanels to create custom tables</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dockingPanel</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/UI/DockingPanel/">Autodesk.Viewing.UI.DockingPanel</a></div></td><td>Instance of the Docking Panel</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="setdata-rowdata-columndata">
+<a href="#setdata-rowdata-columndata"><h2>setData(rowdata, columndata)</h2></a>
+<p>Sets the table data</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">rowdata</span><span class="required">*</span><div class="type">Array.&lt;Array.&lt;Array&gt;&gt;</div></td><td>The dataset in array of arrays and represents a set of rows</td></tr><tr><td><span class="name">columndata</span><span class="required">*</span><div class="type">Array</div></td><td>The dataset in array and represents the column data</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="destroytable">
+<a href="#destroytable"><h2>destroyTable()</h2></a>
+<p>Destroys the table instance</p>
+</section>
+<section id="setsortfunction-sortfunc">
+<a href="#setsortfunction-sortfunc"><h2>setSortFunction(sortFunc)</h2></a>
+<p>API to set the custom sorting function</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">sortFunc</span><span class="required">*</span><div class="type">function</div></td><td>custom sort function for the table dataset</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getsortfunction">
+<a href="#getsortfunction"><h2>getSortFunction()</h2></a>
+<p>API to get the custom sorting function</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>function</td>
+<td>custom sort function set by the setSortFunction method</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="restoredefaultsortfunction">
+<a href="#restoredefaultsortfunction"><h2>restoreDefaultSortFunction()</h2></a>
+<p>API to set the default sorting function</p>
+</section>
+<section id="getgroupbycolumn-col">
+<a href="#getgroupbycolumn-col"><h2>getGroupByColumn(col)</h2></a>
+<p>Get the group by given column</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">col</span><span class="required">*</span><div class="type">number</div></td><td>column index</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;number&gt;</td>
+<td>rowGroups - an array of grouped data, where each group contains numbers that represent the row-indices of the original table dataset.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="groupbycolumn-col">
+<a href="#groupbycolumn-col"><h2>groupByColumn(col)</h2></a>
+<p>Group by given column</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">col</span><span class="required">*</span><div class="type">number</div></td><td>column index</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getaggregate-type-col">
+<a href="#getaggregate-type-col"><h2>getAggregate(type, col)</h2></a>
+<p>Get aggregation based on the type for the given column</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">type</span><span class="required">*</span><div class="type">string</div></td><td>type of aggregation</td></tr><tr><td><span class="name">col</span><span class="required">*</span><div class="type">number</div></td><td>column index</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>the final result of the aggregation</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="aggregate-type-col">
+<a href="#aggregate-type-col"><h2>aggregate(type, col)</h2></a>
+<p>Aggregate based on the type for the given column</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">type</span><span class="required">*</span><div class="type">string</div></td><td>type of aggregation</td></tr><tr><td><span class="name">col</span><span class="required">*</span><div class="type">number</div></td><td>column index</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="clearaggregates">
+<a href="#clearaggregates"><h2>clearAggregates()</h2></a>
+<p>Clears all the aggregations</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

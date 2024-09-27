@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProfileManager | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/ProfileManager.js">
+<section id="profilemanager">
+<h1>ProfileManager</h1>
+<p>The ProfileManager provides a mechanism for registering <a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">profile settings</a> with a specific file type. Any of the registered profiles can be set by using <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/#setProfile/">viewer.setProfile()</a>.</p>
+<section id="new-profilemanager">
+<a href="#new-profilemanager"><h2>new ProfileManager()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">profileManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">ProfileManager</span><span class="p">();</span>
+<span class="c1">// or</span>
+<span class="c1">// const profileManger = viewer.profileManager;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">profileSettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"DWF"</span><span class="p">,</span>
+<span class="w">   </span><span class="nx">settings</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">swapBlackAndWhite</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="c1">// Registers the specified profile settings for dwf models.</span>
+<span class="nx">profileManager</span><span class="p">.</span><span class="nx">registerProfile</span><span class="p">(</span><span class="s1">'dwf'</span><span class="p">,</span><span class="w"> </span><span class="nx">profileSettings</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">profile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">profileManager</span><span class="p">.</span><span class="nx">getProfile</span><span class="p">(</span><span class="s1">'dwf'</span><span class="p">);</span><span class="w"> </span><span class="c1">// others: 'default', 'nwc', 'nwd', 'rvt', 'ifc'</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">setProfile</span><span class="p">(</span><span class="nx">profile</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="registerprofile-fileext-profilesettings">
+<a href="#registerprofile-fileext-profilesettings"><h2>registerProfile(fileExt, profileSettings)</h2></a>
+<p>Registers a profile. The profile will be overridden if a profile was already registered with the ProfileManager.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">fileExt</span><span class="required">*</span><div class="type">String</div></td><td>file extension to register the profile settings with.</td></tr><tr><td><span class="name">profileSettings</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/globals/TypeDefs/ProfileSettings/">ProfileSettings</a>, <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a></div></td><td>profile settings object or profile instance to register</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="unregisterprofile-fileext">
+<a href="#unregisterprofile-fileext"><h2>unregisterProfile(fileExt)</h2></a>
+<p>Unregister the profile associated with a file type</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">fileExt</span><span class="required">*</span><div class="type">String</div></td><td>file type</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getprofileordefault-fileext">
+<a href="#getprofileordefault-fileext"><h2>getProfileOrDefault(fileExt)</h2></a>
+<p>Returns a profile that is registered with the specific file type. If the file type is not registered, then the default profile is returned.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">fileExt</span><span class="required">*</span><div class="type">String</div></td><td>file extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Profile/">Autodesk.Viewing.Profile</a></td>
+<td><ul class="simple">
+<li>Profile associated with the file extension.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

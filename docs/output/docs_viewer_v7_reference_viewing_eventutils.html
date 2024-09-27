@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventUtils | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/EventUtils.js">
+<section id="eventutils">
+<h1>EventUtils</h1>
+<p>Contains static utility functions for DOM and viewer events.</p>
+<section id="new-eventutils">
+<a href="#new-eventutils"><h2>new EventUtils()</h2></a>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="isrightclick-event">
+<a href="#isrightclick-event"><h2>isRightClick(event)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">DOMEvent</div></td><td>A browser-triggered event</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the event matches a secondary-button click.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ismiddleclick-event">
+<a href="#ismiddleclick-event"><h2>isMiddleClick(event)</h2></a>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">event</span><span class="required">*</span><div class="type">DOMEvent</div></td><td>A browser-triggered event</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the event matches a middle-button mouse click.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="waituntiltransitionended-viewer">
+<a href="#waituntiltransitionended-viewer"><h2>waitUntilTransitionEnded(viewer)</h2></a>
+<p>If there’s no camera transition, return immediately. Otherwise, resolve when the camera transition is finished.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="waituntilgeometryloaded-viewer">
+<a href="#waituntilgeometryloaded-viewer"><h2>waitUntilGeometryLoaded(viewer)</h2></a>
+<p>If geometry has been loaded, return immediately. Otherwise, resolve when the geometry loaded event is fired.</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">viewer</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td></td></tr><tr class="row-collapsable--hide level--3"><td><i class="icon-collapsable--empty"></i><span class="name">Model</span><div class="type type--collapsable"></div></td><td>model - Default is viewer.model, if not provided</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="waituntilmodeladded-viewer">
+<a href="#waituntilmodeladded-viewer"><h2>waitUntilModelAdded(viewer)</h2></a>
+<p>If model has been already added, return immediately. Otherwise, resolve when the model is added.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">viewer</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Autodesk.Viewing.Viewer3D</a></div></td><td></td></tr><tr class="row-collapsable--hide level--3"><td><i class="icon-collapsable--empty"></i><span class="name">Model</span><div class="type type--collapsable"></div></td><td>model - Default is viewer.model, if not provided</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertyDatabase | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Classes</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/file-loaders/lmvtk/common/Propdb.js"><section id="propertydatabase">
+<h1>PropertyDatabase</h1>
+<section id="new-propertydatabase-dbjsons">
+<a href="#new-propertydatabase-dbjsons"><h2>new PropertyDatabase(dbjsons)</h2></a>
+<p>The Property Database contains property information for each part of a model. The data is read-only, since it has been packed to optimize memory footprint. It’s implemented as an Entity-Atribute-Value (EAV) set of tables. LMV keeps the PropertyDatabase in a browser worker thread to prevent compute-intensive methods to block the main browser UI thread. Words “Attribute” and “Property” are use interchangeably.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbjsons</span><span class="required">*</span><div class="type"></div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">enumObjectProperties</span><div class="type"></div></td><td>Iterates over all properties for a given database id and invokes the supplied callback function.</td></tr><tr><td><span class="name">getPropertiesSubsetWithInheritance</span><div class="type"></div></td><td>Given an object ID, returns the corresponding value IDs for the given list of attribute Ids. Takes into account instance_of inheritance of properties.</td></tr></tbody></table></div>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="getobjectcount">
+<a href="#getobjectcount"><h2>getObjectCount()</h2></a>
+<p>Obtains the number of database ids (dbIds) available. These ids range betwee 1 (inclusive) up to getObjectCount() (exclusive).</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getattrvalue-attrid-valid-integerhint">
+<a href="#getattrvalue-attrid-valid-integerhint"><h2>getAttrValue(attrId, valId, integerHint)</h2></a>
+<p>Obtains the actual value of a property.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">attrId</span><span class="required">*</span><div class="type">number</div></td><td>The attribute id</td></tr><tr><td><span class="name">valId</span><span class="required">*</span><div class="type">number</div></td><td>The value id</td></tr><tr><td><span class="name">integerHint</span><div class="type">boolean</div></td><td>If true the return value will be casted to integer.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getobjectproperties-dbid-propfilter-ignorehidden-propignored">
+<a href="#getobjectproperties-dbid-propfilter-ignorehidden-propignored"><h2>getObjectProperties(dbId, propFilter, ignoreHidden, propIgnored)</h2></a>
+<p>Obtains all properties for a given database id.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The database id</td></tr><tr><td><span class="name">propFilter</span><div class="type">Array.&lt;string&gt;</div></td><td>Array of property names to return values for. Use null for no filtering.</td></tr><tr><td><span class="name">ignoreHidden</span><div class="type">boolean</div></td><td>true to ignore hidden properties.</td></tr><tr><td><span class="name">propIgnored</span><div class="type">Array.&lt;string&gt;</div></td><td>Array of property names to not include in the return value.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>consisting of attributes <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">dbId</span></code>, <code class="docutils literal notranslate"><span class="pre">properties</span></code> and <code class="docutils literal notranslate"><span class="pre">externalId</span></code>.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getexternalidmapping-extidfilter">
+<a href="#getexternalidmapping-extidfilter"><h2>getExternalIdMapping(extIdFilter)</h2></a>
+<p>Obtains a map between each database id (dbId) and their corresponding external-id. The external-id is the identifier used by the source file. Example: A translated Revit file has a wall with dbId=1, but in Revit (desktop application) the identifier of that wall is “Wall-06-some-guid-here”.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">extIdFilter</span><div class="type">Array.&lt;number&gt;</div></td><td>Limits the result to only contain the ids in this array.</td></tr></tbody></table></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>map from dbId into external-id.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getsearchterms-searchtext">
+<a href="#getsearchterms-searchtext"><h2>getSearchTerms(searchText)</h2></a>
+<p>Given a text string, returns an array of individual words separated by white spaces. Will preserve white spacing within double quotes.</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">searchText</span><span class="required">*</span><div class="type">string</div></td><td>Text to search</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="bruteforcefind-propertyname">
+<a href="#bruteforcefind-propertyname"><h2>bruteForceFind(propertyName)</h2></a>
+<p>Given a property name, it returns an array of ids that contain it.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">propertyName</span><span class="required">*</span><div class="type">string</div></td><td>Property name</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getlayertonodeidmapping">
+<a href="#getlayertonodeidmapping"><h2>getLayerToNodeIdMapping()</h2></a>
+<p>Specialized function that returns: { ‘layer-name-1’: [id1, id2, …, idN], ‘layer-name-2’: [idX, idY, …, idZ], … }</p>
+</section>
+<section id="getattributedef-attrid">
+<a href="#getattributedef-attrid"><h2>getAttributeDef(attrId)</h2></a>
+<p>Unpacks an attribute value into all available components.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">attrId</span><span class="required">*</span><div class="type">number</div></td><td>The attribute id.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>containing <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">category</span></code>, <code class="docutils literal notranslate"><span class="pre">dataType</span></code>, <code class="docutils literal notranslate"><span class="pre">dataTypeContext</span></code>, <code class="docutils literal notranslate"><span class="pre">description</span></code>, <code class="docutils literal notranslate"><span class="pre">displayName</span></code> and <code class="docutils literal notranslate"><span class="pre">flags</span></code>.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="enumattributes-cb">
+<a href="#enumattributes-cb"><h2>enumAttributes(cb)</h2></a>
+<p>Invokes a callback function for each attribute-id in the model.</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cb</span><span class="required">*</span><div class="type">function</div></td><td>Callback invoked</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">pdb</span><span class="p">.</span><span class="nx">enumAttributes</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">attrId</span><span class="p">,</span><span class="w"> </span><span class="nx">attrDef</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// attrDef is an object</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">attrDef</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">'name'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// return true to stop iteration.</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">   </span><span class="p">})</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="findlayers">
+<a href="#findlayers"><h2>findLayers()</h2></a>
+<p>Iterates over the property database and finds all layers.</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="enumobjects-cb-fromid-toid">
+<a href="#enumobjects-cb-fromid-toid"><h2>enumObjects(cb, fromId, toId)</h2></a>
+<p>Iterates over all database ids and invokes a callback function.</p>
+<section id="id13">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cb</span><span class="required">*</span><div class="type">function</div></td><td>callback function. Receives a single parameter: the database-id. Have the function return true to abort iteration.</td></tr><tr><td><span class="name">fromId</span><span class="required">*</span><div class="type">number</div></td><td>starting id (inclusive)</td></tr><tr><td><span class="name">toId</span><span class="required">*</span><div class="type">number</div></td><td>end id (exclusive)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="attributehidden-attrid">
+<a href="#attributehidden-attrid"><h2>attributeHidden(attrId)</h2></a>
+<p>Checks whether an attribute is hidden or not.</p>
+<section id="id14">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">attrId</span><span class="required">*</span><div class="type">number</div></td><td>The attribute id.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the attribute is a hidden one.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ignoreattribute-propertyfilter-attrid">
+<a href="#ignoreattribute-propertyfilter-attrid"><h2>_ignoreAttribute(propertyFilter, attrId)</h2></a>
+<p>Checks whether an attribute must be excluded from Diff comparison.</p>
+<section id="id16">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">propertyFilter</span><span class="required">*</span><div class="type">Object</div></td><td>A key-value pair of category and property names to ignore from Diff</td></tr><tr><td><span class="name">attrId</span><span class="required">*</span><div class="type">number</div></td><td>The attribute id.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="numberofattributes">
+<a href="#numberofattributes"><h2>numberOfAttributes()</h2></a>
+<p>Returns count of the number of attributes</p>
+<section id="id17">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="numberofvalues">
+<a href="#numberofvalues"><h2>numberOfValues()</h2></a>
+<p>Returns count of the number of values</p>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

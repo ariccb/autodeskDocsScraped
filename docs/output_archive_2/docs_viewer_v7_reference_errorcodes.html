@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ErrorCodes | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  
+<section id="errorcodes">
+<h1>ErrorCodes</h1>
+<p>Error code constants These constants will be used in <a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a> functions.</p>
+</section>
+<section id="constants">
+<h1>Constants</h1>
+<section id="unknown-failure">
+<a href="#unknown-failure"><h2>UNKNOWN_FAILURE</h2></a>
+<p>An unknown failure has occurred.</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="bad-data">
+<a href="#bad-data"><h2>BAD_DATA</h2></a>
+<p>Bad data (corrupted or malformed) was encountered.</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="network-failure">
+<a href="#network-failure"><h2>NETWORK_FAILURE</h2></a>
+<p>A network failure was encountered.</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="network-access-denied">
+<a href="#network-access-denied"><h2>NETWORK_ACCESS_DENIED</h2></a>
+<p>Access was denied to a network resource (HTTP 403)</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="network-file-not-found">
+<a href="#network-file-not-found"><h2>NETWORK_FILE_NOT_FOUND</h2></a>
+<p>A network resource could not be found (HTTP 404)</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="network-server-error">
+<a href="#network-server-error"><h2>NETWORK_SERVER_ERROR</h2></a>
+<p>A server error was returned when accessing a network resource (HTTP 5xx)</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="network-unhandled-response-code">
+<a href="#network-unhandled-response-code"><h2>NETWORK_UNHANDLED_RESPONSE_CODE</h2></a>
+<p>An unhandled response code was returned when accessing a network resource (HTTP ‘everything else’)</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="browser-webgl-not-supported">
+<a href="#browser-webgl-not-supported"><h2>BROWSER_WEBGL_NOT_SUPPORTED</h2></a>
+<p>Browser error = webGL is not supported by the current browser</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="bad-data-no-viewable-content">
+<a href="#bad-data-no-viewable-content"><h2>BAD_DATA_NO_VIEWABLE_CONTENT</h2></a>
+<p>There is nothing viewable in the fetched document</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="browser-webgl-disabled">
+<a href="#browser-webgl-disabled"><h2>BROWSER_WEBGL_DISABLED</h2></a>
+<p>Browser error = webGL is supported, but not enabled</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="bad-data-model-is-empty">
+<a href="#bad-data-model-is-empty"><h2>BAD_DATA_MODEL_IS_EMPTY</h2></a>
+<p>There is no geometry in loaded model</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="unsuported-file-extension">
+<a href="#unsuported-file-extension"><h2>UNSUPORTED_FILE_EXTENSION</h2></a>
+<p>The extension of the loaded file is not supported</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="viewer-internal-error">
+<a href="#viewer-internal-error"><h2>VIEWER_INTERNAL_ERROR</h2></a>
+<p>Viewer error: wrong or forbidden usage of the viewer</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="webgl-lost-context">
+<a href="#webgl-lost-context"><h2>WEBGL_LOST_CONTEXT</h2></a>
+<p>WebGL error while loading a model, typically due to IE11 limitations</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="load-canceled">
+<a href="#load-canceled"><h2>LOAD_CANCELED</h2></a>
+<p>Viewer error because loading a resource was canceled</p>
+<div class="table-section"><table><thead><tr><th class="head"><p>type</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

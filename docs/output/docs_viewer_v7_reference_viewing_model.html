@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Model.js">
+<section id="model">
+<h1>Model</h1>
+<p>Core class representing the geometry.</p>
+<section id="new-model">
+<a href="#new-model"><h2>new Model()</h2></a>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="getinstancetree">
+<a href="#getinstancetree"><h2>getInstanceTree()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Private/InstanceTree/">InstanceTree</a></td>
+<td>Instance tree of the model if available, otherwise null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfuzzybox-options">
+<a href="#getfuzzybox-options"><h2>getFuzzyBox(options)</h2></a>
+<p>Computes Bounding box of all fragments, but excluding outliers.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">quantil</span><div class="type type--collapsable">float</div></td><td>in [0,1]. Relative amount of fragments that we consider computation. By default, we consider the 75% of fragments that are closest to the center.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">center</span><div class="type type--collapsable">float</div></td><td>Center from which we collect the closest shapes. By default, we use the center of mass.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreTransforms</span><div class="type type--collapsable">boolean</div></td><td>Ignore modelMatrix and animation transforms</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">allowlist</span><div class="type type--collapsable">Array.&lt;number&gt;</div></td><td>Fragments to include in fuzzybox, by index.</td></tr></tbody></table></div>
+</section>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Box3</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getboundingbox-ignoretransform-excludeshadow">
+<a href="#getboundingbox-ignoretransform-excludeshadow"><h2>getBoundingBox(ignoreTransform, excludeShadow)</h2></a>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">ignoreTransform</span><div class="type">boolean</div></td><td>Set to true to return the original bounding box in model space coordinates.</td></tr><tr><td><span class="name">excludeShadow</span><div class="type">boolean</div></td><td>Remove shadow geometry (if exists) from model bounds.</td></tr></tbody></table></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Box3</td>
+<td>Bounding box of the model if available, otherwise null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is2d">
+<a href="#is2d"><h2>is2d()</h2></a>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the model is 2D.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is3d">
+<a href="#is3d"><h2>is3d()</h2></a>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Whether the model is 3D.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="issvf2">
+<a href="#issvf2"><h2>isSVF2()</h2></a>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is an SVF2 file - which supports sharing of materials and geometry.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ispdf-onlypdfsource">
+<a href="#ispdf-onlypdfsource"><h2>isPdf(onlyPdfSource)</h2></a>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">onlyPdfSource</span><span class="required">*</span><div class="type">boolean</div></td><td>Set to true in order to verify that the source file of the model is PDF. Some design files can get extracted to PDFs for example, and in that case, when using the flag, we’ll get false as a result.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is created from a PDF file.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isrevitpdf">
+<a href="#isrevitpdf"><h2>isRevitPdf()</h2></a>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is a PDF that was created from a Revit source file.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="issmartpdf">
+<a href="#issmartpdf"><h2>isSmartPdf()</h2></a>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is a Smart PDF that was created by our translation pipeline.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isleaflet">
+<a href="#isleaflet"><h2>isLeaflet()</h2></a>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is created from an image file.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ispagecoordinates">
+<a href="#ispagecoordinates"><h2>isPageCoordinates()</h2></a>
+<p>By default, Leaflet documents are being loaded in a normalized coordinate system. Only when using <code class="docutils literal notranslate"><span class="pre">fitPaperSize</span></code> load option, the model will be loaded in page coordinates, like every other 2D model.</p>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is loaded in page coordinates.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isscenebuilder">
+<a href="#isscenebuilder"><h2>isSceneBuilder()</h2></a>
+<section id="id13">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model is created using Autodesk.Viewing.SceneBuilder extension</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdata">
+<a href="#getdata"><h2>getData()</h2></a>
+<p>Returns the geometry data.</p>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Object</td>
+<td>Data that represents the geometry.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdocumentnode">
+<a href="#getdocumentnode"><h2>getDocumentNode()</h2></a>
+<p>Returns an object wrapping the bubble/manifest entry for the loaded geometry. Contains data such as the viewableID, guid, role…</p>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getroot">
+<a href="#getroot"><h2>getRoot()</h2></a>
+<p>Returns the root of the geometry node graph.</p>
+<section id="id16">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>The root of the geometry node graph. Null if it doesn’t exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getrootid">
+<a href="#getrootid"><h2>getRootId()</h2></a>
+<p>Returns the root of the geometry node graph.</p>
+<section id="id17">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>The ID of the root or 0 if it doesn’t exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getunitdata-unit">
+<a href="#getunitdata-unit"><h2>getUnitData(unit)</h2></a>
+<p>Returns an object that contains the standard unit string (unitString) and the scale value (unitScale).</p>
+<section id="id18">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">unit</span><span class="required">*</span><div class="type">string</div></td><td>Unit name from the metadata</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id19">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>This object contains the standardized unit string (unitString) and a unit scaling value (unitScale)</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getunitscale">
+<a href="#getunitscale"><h2>getUnitScale()</h2></a>
+<p>Returns the scale factor of model’s distance unit to meters.</p>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td>The scale factor of the model’s distance unit to meters or unity if the units aren’t known.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getunitstring">
+<a href="#getunitstring"><h2>getUnitString()</h2></a>
+<p>Returns a standard string representation of the model’s distance unit.</p>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Standard representation of model’s unit distance or null if it is not known.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdisplayunit">
+<a href="#getdisplayunit"><h2>getDisplayUnit()</h2></a>
+<p>Returns a standard string representation of the model’s display unit.</p>
+<section id="id22">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Standard representation of model’s display unit or null if it is not known.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getmetadata-itemname-subitemname-defaultvalue">
+<a href="#getmetadata-itemname-subitemname-defaultvalue"><h2>getMetadata(itemName, subitemName, defaultValue)</h2></a>
+<p>Return metadata value.</p>
+<section id="id23">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">itemName</span><span class="required">*</span><div class="type">string</div></td><td>Metadata item name.</td></tr><tr><td><span class="name">subitemName</span><div class="type">string</div></td><td>Metadata subitem name.</td></tr><tr><td><span class="name">defaultValue</span><div class="type"><ul class="simple">
+<li></li>
+</ul>
+</div></td><td>Default value.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id24">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><ul class="simple">
+<li></li>
+</ul>
+</td>
+<td>Metadata value, or defaultValue if no metadata or metadata item/subitem does not exist.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdefaultcamera">
+<a href="#getdefaultcamera"><h2>getDefaultCamera()</h2></a>
+<p>Returns the default camera.</p>
+</section>
+<section id="isaec">
+<a href="#isaec"><h2>isAEC()</h2></a>
+<section id="id25">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True when the “AEC” loader settings were used when loading the model</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="haspageshadow">
+<a href="#haspageshadow"><h2>hasPageShadow()</h2></a>
+<section id="id26">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True when a 2D model has a page shadow</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getupvector">
+<a href="#getupvector"><h2>getUpVector()</h2></a>
+<p>Returns up vector as an array of 3.</p>
+</section>
+<section id="getnorthvector">
+<a href="#getnorthvector"><h2>getNorthVector()</h2></a>
+<p>Returns north vector as an array of 3.</p>
+</section>
+<section id="getfrontvector">
+<a href="#getfrontvector"><h2>getFrontVector()</h2></a>
+<p>Returns front vector as an array of 3.</p>
+</section>
+<section id="geompolycount">
+<a href="#geompolycount"><h2>geomPolyCount()</h2></a>
+<p>Returns the polygon count.</p>
+<section id="id27">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="instancepolycount">
+<a href="#instancepolycount"><h2>instancePolyCount()</h2></a>
+<p>Returns the instanced polygon count.</p>
+<section id="id28">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>number</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isloaddone-checktextures">
+<a href="#isloaddone-checktextures"><h2>isLoadDone(checkTextures)</h2></a>
+<p>Returns true if the model with all its geometries has loaded.</p>
+<section id="id29">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">checkTextures</span><div class="type">boolean</div></td><td>Ensures that the model’s textures were completely loaded.</td></tr></tbody></table></div>
+</section>
+<section id="id30">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isobjecttreecreated">
+<a href="#isobjecttreecreated"><h2>isObjectTreeCreated()</h2></a>
+<section id="id31">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the frag to node id mapping is done.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getpropertydb">
+<a href="#getpropertydb"><h2>getPropertyDb()</h2></a>
+<p>Returns an instance of <a class="reference external" href="/en/docs/viewer/v7/reference/Private/PropDbLoader/">PropertyDatabase Loader</a>, responsible for communicating with the PropertyDatabase instance hosted in a browser worker thread.</p>
+<section id="id32">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Private/PropDbLoader/">Autodesk.Viewing.Private.PropDbLoader</a></td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getpropertyhashes-namere-categoryre">
+<a href="#getpropertyhashes-namere-categoryre"><h2>getPropertyHashes(nameRE, categoryRE)</h2></a>
+<p>Enumerates all attributes (types of properties) used for the given model. If the property database is available, for each property a triple with the property’s hash, name, and category is created and added to the result array. In addition, regular expression can be used to filter by name and/or category.</p>
+<section id="id33">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">nameRE</span><span class="required">*</span><div class="type">RegExp</div></td><td>Regular expression to use for filtering properties by their name.</td></tr><tr><td><span class="name">categoryRE</span><span class="required">*</span><div class="type">RegExp</div></td><td>Regular expression to use for filtering properties by their category.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id34">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array</td>
+<td>Array with triples of the properties’ hashes, names, and categories.</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button">Copy</button>
+            <pre><code><span></span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">model</span><span class="p">.</span><span class="nx">getPropertyHashes</span><span class="p">(</span><span class="sr">/category/i</span><span class="p">);</span>
+<span class="c1">// -&gt; Array(8) [ (3) […], (3) […], (3) […], (3) […], (3) […], (3) […], (3) […], (3) […] ]</span>
+<span class="c1">//     0: Array(3) [ "p5eddc473", "Category", "__category__" ]</span>
+<span class="c1">//     1: Array(3) [ "pa7275c45", "CategoryId", "__categoryId__" ]</span>
+<span class="c1">//     2: Array(3) [ "p3ed85946", "Subcategory", "Identity Data" ]</span>
+<span class="c1">//     ...</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getproperties-dbid-onsuccesscallback-onerrorcallback">
+<a href="#getproperties-dbid-onsuccesscallback-onerrorcallback"><h2>getProperties(dbId, onSuccessCallback, onErrorCallback)</h2></a>
+<p>Asynchronous method that gets object properties</p>
+<section id="id35">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">dbId</span><span class="required">*</span><div class="type">number</div></td><td>The database identifier.</td></tr><tr><td><span class="name">onSuccessCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onPropertiesSuccess/">Callbacks#onPropertiesSuccess</a></div></td><td>Callback for when the properties are fetched.</td></tr><tr><td><span class="name">onErrorCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Callback for when the properties are not found or another error occurs.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getproperties2-dbid-onsuccesscallback-onerrorcallback-options">
+<a href="#getproperties2-dbid-onsuccesscallback-onerrorcallback-options"><h2>getProperties2(dbId, onSuccessCallback, onErrorCallback, options)</h2></a>
+<p>Asynchronous method that gets object properties</p>
+<section id="id36">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbId</span><span class="required">*</span><div class="type type--collapsable">number</div></td><td>The database identifier.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onPropertiesSuccess/">Callbacks#onPropertiesSuccess</a></div></td><td>Callback for when the properties are fetched.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Callback for when the properties are not found or another error occurs.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td></td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>Ensures loading of externalID table if necessary. This may consume a lot of memory. Only use if you really need externalIds.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getbulkproperties-dbids-options-onsuccesscallback-onerrorcallback">
+<a href="#getbulkproperties-dbids-options-onsuccesscallback-onerrorcallback"><h2>getBulkProperties(dbIds, options, onSuccessCallback, onErrorCallback)</h2></a>
+<p>Returns properties for multiple objects with an optional filter on which properties to retrieve.</p>
+<section id="id39">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;number&gt;</div></td><td>IDs of the nodes to return the properties for.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><span class="required">*</span><div class="type type--collapsable">object, undefined</div></td><td>Dictionary with options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Array of property names to return values for. Use null for no filtering. Filter applies to “name” and “externalId” fields also.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>Ignore hidden properties</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db succeeds.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db fails.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getbulkproperties2-dbids-options-onsuccesscallback-onerrorcallback">
+<a href="#getbulkproperties2-dbids-options-onsuccesscallback-onerrorcallback"><h2>getBulkProperties2(dbIds, options, onSuccessCallback, onErrorCallback)</h2></a>
+<p>Returns properties for multiple objects with an optional filter on which properties to retrieve.</p>
+<section id="id40">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;int&gt;</div></td><td>IDs of the nodes to return the properties for.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><span class="required">*</span><div class="type type--collapsable">object, undefined</div></td><td>Dictionary with options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Array of property names to return values for. Use null for no filtering. Filter applies to “name” and “externalId” fields also.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">categoryFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Array of category names to return values for. Use null for no filtering.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>Ignore hidden properties</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>Ensures loading of externalID table if necessary. This may consume a lot of memory. Only use if you really need externalIds.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db succeeds.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db fails.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getpropertysetasync-dbids-options">
+<a href="#getpropertysetasync-dbids-options"><h2>getPropertySetAsync(dbIds, options)</h2></a>
+<p>Returns a Promise that resolves with <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">PropertySet</a> for multiple objects. An optional filter can be passed in to specify which properties to retrieve.</p>
+<section id="id41">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;int&gt;</div></td><td>IDs of the nodes to return the properties for.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Dictionary with options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Array of property names to return values for. Use null for no filtering. Filter applies to “name” and “externalId” fields also.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>Ignore hidden properties</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>Ensures loading of externalID table if necessary. This may consume a lot of memory. Only use if you really need externalIds.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id42">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">Promise (PropertySet)</a></td>
+<td>A promise that resolves with an instance of a Autodesk.Viewing.PropertySet</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getpropertyset-dbids-onsuccesscallback-onerrorcallback-options">
+<a href="#getpropertyset-dbids-onsuccesscallback-onerrorcallback-options"><h2>getPropertySet(dbIds, onSuccessCallback, onErrorCallback, options)</h2></a>
+<p>Gets the property <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">PropertySet</a> for multiple objects. An optional filter can be passed in to specify which properties to retrieve.</p>
+<p>For the async version see <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/#getPropertySetAsync/">getPropertySetAsync</a></p>
+<section id="id44">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">dbIds</span><span class="required">*</span><div class="type type--collapsable">Array.&lt;int&gt;</div></td><td>IDs of the nodes to return the properties for.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db succeeds.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>This method is called when request for property db fails.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Dictionary with options.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propFilter</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Array of property names to return values for. Use null for no filtering. Filter applies to “name” and “externalId” fields also.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreHidden</span><div class="type type--collapsable">boolean</div></td><td>Ignore hidden properties</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">needsExternalId</span><div class="type type--collapsable">boolean</div></td><td>Ensures loading of externalID table if necessary. This may consume a lot of memory. Only use if you really need externalIds.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id45">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/PropertySet/">Promise (PropertySet)</a></td>
+<td><ul class="simple">
+<li>Returns a promise that resolves with an instance of a Autodesk.Viewing.PropertySet</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getexternalidmapping-onsuccesscallback-onerrorcallback">
+<a href="#getexternalidmapping-onsuccesscallback-onerrorcallback"><h2>getExternalIdMapping(onSuccessCallback, onErrorCallback)</h2></a>
+<p>Returns an object with key values being dbNodeIds and values externalIds. Useful to map LMV node ids to Fusion node ids.</p>
+<section id="id47">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type">function</div></td><td>This method is called when request for property db succeeds.</td></tr><tr><td><span class="name">onErrorCallback</span><span class="required">*</span><div class="type">function</div></td><td>This method is called when request for property db fails.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getlayertonodeidmapping-onsuccesscallback-onerrorcallback">
+<a href="#getlayertonodeidmapping-onsuccesscallback-onerrorcallback"><h2>getLayerToNodeIdMapping(onSuccessCallback, onErrorCallback)</h2></a>
+<p>Returns an object with key values being layer names, pointing to Arrays containing dbIds.</p>
+<section id="id48">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type">function</div></td><td>This method is called when request for property db succeeds.</td></tr><tr><td><span class="name">onErrorCallback</span><span class="required">*</span><div class="type">function</div></td><td>This method is called when request for property db fails.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="getobjecttree-onsuccesscallback-onerrorcallback">
+<a href="#getobjecttree-onsuccesscallback-onerrorcallback"><h2>getObjectTree(onSuccessCallback, onErrorCallback)</h2></a>
+<p>Asynchronous operation that gets a reference to the object tree.</p>
+<p>You can use the model object tree to get information about items in the model.  The tree is made up of nodes, which correspond to model components such as assemblies or parts.</p>
+<section id="id49">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">onSuccessCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onObjectTreeSuccess/">Callbacks#onObjectTreeSuccess</a></div></td><td>Success callback invoked once the object tree is available.</td></tr><tr><td><span class="name">onErrorCallback</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Error callback invoked when the object tree is not found available.</td></tr></tbody></table></div>
+</section>
+</section>
+<section id="isobjecttreeloaded">
+<a href="#isobjecttreeloaded"><h2>isObjectTreeLoaded()</h2></a>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> only when the object tree is loaded into memory. Will return <code class="docutils literal notranslate"><span class="pre">false</span></code> while the object tree is still loading, or when the object tree fails to load.</p>
+<section id="id51">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="search-text-onsuccesscallback-onerrorcallback-attributenames-options">
+<a href="#search-text-onsuccesscallback-onerrorcallback-attributenames-options"><h2>search(text, onSuccessCallback, onErrorCallback, attributeNames, options)</h2></a>
+<p>Async operation to search the object property database.</p>
+<section id="id52">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">text</span><span class="required">*</span><div class="type type--collapsable">string</div></td><td>The search term (not case sensitive).</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onSuccessCallback</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onSearchSuccess/">Callbacks#onSearchSuccess</a></div></td><td>Invoked when the search results are ready.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">onErrorCallback</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Callbacks/onGenericError/">Callbacks#onGenericError</a></div></td><td>Invoke when an error occured during search.</td></tr><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">attributeNames</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>Restricts search to specific attribute names.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Search options. Currently only supported option is searchHidden</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">searchHidden</span><div class="type type--collapsable">boolean</div></td><td>Set to true to also search hidden properties</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="findproperty-propertyname">
+<a href="#findproperty-propertyname"><h2>findProperty(propertyName)</h2></a>
+<p>Searches the property database for all dbIds that contains a specific property name.</p>
+<section id="id54">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">propertyName</span><span class="required">*</span><div class="type">string</div></td><td>The property name to search for (case sensitive).</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id55">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise (number[])</td>
+<td>The promise, which resolves with an array of dbIds containing the specified property.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="gettopology-index">
+<a href="#gettopology-index"><h2>getTopology(index)</h2></a>
+<p>Return topology data of one fragment.</p>
+<p>Requires topology data to have been fetched with <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/#fetchTopology/">fetchTopology()</a>.</p>
+<section id="id56">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">index</span><span class="required">*</span><div class="type">number</div></td><td>Topology index.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id57">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Topology data.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hastopology">
+<a href="#hastopology"><h2>hasTopology()</h2></a>
+<p>See also <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/#fetchTopology/">fetchTopology()</a>.</p>
+<section id="id59">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true if topology data has been downloaded and is available in memory</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="fetchtopology-maxsizemb">
+<a href="#fetchtopology-maxsizemb"><h2>fetchTopology(maxSizeMB)</h2></a>
+<p>Downloads the topology file, if one is available. The file may not get downloaded if the topology content size in memory is bigger than a specified limit (100 MB by default, 20 MB for mobile).</p>
+<section id="id60">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">maxSizeMB</span><div class="type">number</div></td><td>Maximum uncompressed topology size allowed (in MegaBytes).</td></tr></tbody></table></div>
+</section>
+<section id="id61">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td>A Promise that resolves with the topology object.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hasgeometry">
+<a href="#hasgeometry"><h2>hasGeometry()</h2></a>
+<section id="id62">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the model loaded contains at least 1 fragment.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getfragmentpointer-fragid">
+<a href="#getfragmentpointer-fragid"><h2>getFragmentPointer(fragId)</h2></a>
+<p>Returns the FragmentPointer of the specified fragId in the model. This method returns null if the fragId is not passed in.</p>
+<section id="id63">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">fragId</span><span class="required">*</span><div class="type">number</div></td><td>fragment id in the model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id64">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Autodesk.Viewing.Private.FragmentPointer</td>
+<td>The FragmentPointer</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clone">
+<a href="#clone"><h2>clone()</h2></a>
+<p>Returns a shallow copy of the model. All the inner state (Fragments, Geometries etc.) are shared.</p>
+<section id="id65">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></td>
+<td>A shallow copy of the model.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

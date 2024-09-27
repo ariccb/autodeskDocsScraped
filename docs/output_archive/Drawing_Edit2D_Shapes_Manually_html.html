@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing Edit2D Shapes Manually | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="drawing-edit2d-shapes-manually">
+<h1>Drawing Edit2d Shapes Manually</h1>
+<p>With Edit2D loaded in your application, you can begin adding shapes to PDF files and sheets. This tutorial demonstrates how to draw and change shapes using JavaScript, giving you a view into the mechanisms that make up the Edit2D extension. Google Chrome is required to complete this tutorial.</p>
+<p>This tutorial covers:
+- Drawing polygons and polylines
+- Adding and removing shape styles
+- Drawing Bezier and ellipse arcs
+- Converting your Edit2D shapes to and from SVG</p>
+<p>Before you do this tutorial, you should complete the <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-setup">Setting Up Edit2D</a> tutorial. Tutorials for using and customizing Edit2D are linked at the end of this tutorial.</p>
+<section id="step-1-run-the-edit2d-playground">
+<a href="#step-1-run-the-edit2d-playground"><h2>Step 1: Run the Edit2D Playground</h2></a>
+<p>For this tutorial, you need to set up the Edit2D playground. The Edit2D playground is useful for debugging Edit2D and testing its functionality. To set up the playground, copy this code snippet to your Chrome DevTools snippet collection and run it:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Facilitate access to extension and layer</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">edit2d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">getExtension</span><span class="p">(</span><span class="s1">'Autodesk.Edit2D'</span><span class="p">);</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">layer</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">.</span><span class="nx">layer</span><span class="p">;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">tools</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultTools</span><span class="p">;</span>
+
+<span class="c1">// Convenience function for tool switching per console. E.g. startTool(tools.polygonTool)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">startTool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">tool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NOP_VIEWER</span><span class="p">.</span><span class="nx">toolController</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Check if currently active tool is from Edit2D</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">activeTool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">controller</span><span class="p">.</span><span class="nx">getActiveTool</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">isEdit2D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">activeTool</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">activeTool</span><span class="p">.</span><span class="nx">getName</span><span class="p">().</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">"Edit2"</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// deactivate any previous edit2d tool</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isEdit2D</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">controller</span><span class="p">.</span><span class="nx">deactivateTool</span><span class="p">(</span><span class="nx">activeTool</span><span class="p">.</span><span class="nx">getName</span><span class="p">());</span>
+<span class="w">        </span><span class="nx">activeTool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// stop editing tools</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">tool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">controller</span><span class="p">.</span><span class="nx">activateTool</span><span class="p">(</span><span class="nx">tool</span><span class="p">.</span><span class="nx">getName</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Setting up the Edit2D playground gives you quick access to some Edit2D functions. However, because the functions are mechanisms for testing, they should not be used in a production code or environment. They are used in this tutorial to demonstrate how the Edit2D extension works after being loaded in your application.</p>
+</section>
+<section id="step-2-check-sheet-coordinates">
+<a href="#step-2-check-sheet-coordinates"><h2>Step 2: Check Sheet Coordinates</h2></a>
+<p>The following steps contain code snippets that let you draw shapes, lines, and arcs. You need to change the coordinates in these snippets so that the items are within visible range of your sheet. By default, Edit2D uses the same coordinate system as the underlying sheet. To find out the visible area for a sheet, you can check the bounding box of the model:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NOP_Viewer</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">getBoundingBox</span><span class="p">();</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>You can now check x/y values with <code class="docutils literal notranslate"><span class="pre">box.min</span></code> and <code class="docutils literal notranslate"><span class="pre">box.max</span></code>.</p>
+</section>
+<section id="step-3-draw-polygons-and-polylines">
+<a href="#step-3-draw-polygons-and-polylines"><h2>Step 3: Draw Polygons and Polylines</h2></a>
+<p>Let’s start by drawing a polygon. Enter the following snippet to add a triangle to your sheet. Remember to adjust the coordinates so that the triangle is visible on your PDF or sheet.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Create simple triangle</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">poly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Polygon</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">53</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">57</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">34</span><span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="c1">// Show it</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">poly</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>You can create polylines using similar code:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">//Create polyline</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">polyline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Polyline</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">54</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">54</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">35</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">35</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">30</span><span class="p">}</span>
+<span class="p">]);</span>
+
+<span class="c1">// Show it</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">polyline</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-4-add-shape-styles">
+<a href="#step-4-add-shape-styles"><h2>Step 4: Add Shape Styles</h2></a>
+<p>All Edit2D shapes have a <code class="docutils literal notranslate"><span class="pre">style</span></code> that configures their appearance. Let’s modify the style of the polygon we created.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Configure shape style</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">poly</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
+<span class="nx">style</span><span class="p">.</span><span class="nx">fillColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'rgb(255,0,0)'</span><span class="p">;</span>
+<span class="nx">style</span><span class="p">.</span><span class="nx">fillAlpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.3</span><span class="p">;</span>
+<span class="nx">style</span><span class="p">.</span><span class="nx">lineWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span>
+<span class="nx">style</span><span class="p">.</span><span class="nx">lineStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">11</span><span class="p">;</span>
+
+<span class="c1">// show changes</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Notice that you must use <code class="docutils literal notranslate"><span class="pre">layer.update()</span></code> to show the changes. This is because an edit layer knows the shape it is showing, but the shape does not know which edit layer is using it. If a shape you are modifying is already displayed, as in this example, you must update the layer.</p>
+</section>
+<section id="step-5-undo-changes">
+<a href="#step-5-undo-changes"><h2>Step 5: Undo Changes</h2></a>
+<section id="remove-shapes">
+<h3>5.1 Remove Shapes</h3>
+<p>You can remove a single shape using <code class="docutils literal notranslate"><span class="pre">layer.removeShape(poly)</span></code> or clear the entire layer using <code class="docutils literal notranslate"><span class="pre">layer.clear()</span></code>.</p>
+</section>
+<section id="use-undo-redo">
+<h3>5.2 Use Undo/Redo</h3>
+<p>For simplicity, we manipulated the layer directly in our examples. If you are using the Edit2D tools in your application, they track the undo/redo history. Mixing this with manual modifications may cause inconsistencies between the undo history and the actual layer state.</p>
+<p>To make sure your manual changes are tracked in the undo/redo history, wrap your modifications into an action.</p>
+<p>If you are using Edit2D’s default toolset, the <code class="docutils literal notranslate"><span class="pre">Edit2DContext</span></code> provides shortcuts for tracking your manual changes.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">.</span><span class="nx">clearLayer</span><span class="p">();</span>
+<span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">poly</span><span class="p">);</span>
+<span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">.</span><span class="nx">removeShape</span><span class="p">(</span><span class="nx">poly</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>More generally, you can perform an action by calling run on the undoStack. Here is an example for adding multiple shapes in this way:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Actions</span><span class="p">.</span><span class="nx">AddShapes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">layer</span><span class="p">,</span><span class="w"> </span><span class="nx">shapes</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">undoStack</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="step-6-draw-bezier-arcs">
+<a href="#step-6-draw-bezier-arcs"><h2>Step 6: Draw Bezier Arcs</h2></a>
+<p>Polygons and polylines can contain only straight line segments. To create shapes that are fully or partially smooth, you can use <em>path</em> shapes. Path shapes allow you to change straight line segments to Bezier arcs.</p>
+<p>This example demonstrates how to create a polypath:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Create simple PolygonPath</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">PolygonPath</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">53</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// a</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// b</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">57</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">34</span><span class="p">}</span><span class="w">  </span><span class="c1">// c</span>
+<span class="p">]);</span>
+
+<span class="c1">// Change segment (a,b) from line to arc</span>
+<span class="nx">path</span><span class="p">.</span><span class="nx">setBezierArc</span><span class="p">(</span>
+<span class="w">    </span><span class="mf">0</span><span class="p">,</span><span class="w">              </span><span class="c1">// segment index (= index of its start vertex)</span>
+<span class="w">    </span><span class="mf">54.72</span><span class="p">,</span><span class="w"> </span><span class="mf">20.54</span><span class="p">,</span><span class="w">   </span><span class="c1">// control point to define start tangent</span>
+<span class="w">    </span><span class="mf">60.53</span><span class="p">,</span><span class="w"> </span><span class="mf">20.34</span><span class="w">    </span><span class="c1">// control point to define end tangent</span>
+<span class="p">);</span>
+
+<span class="c1">// Show it</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>The arc segment is specified by 4 control points P0, P1, P2, P3;</p>
+<ul class="simple">
+<li>P0 and P3 define the start and end point. These points are specified in advance by the start and end positions of the edge’s vertex.</li>
+<li>P1 and P2 are points that control the start and end tangents of the arc.</li>
+</ul>
+<p>As previously noted, you need <code class="docutils literal notranslate"><span class="pre">layer.update()</span></code> for shapes that are already visible to show the changes from calling <code class="docutils literal notranslate"><span class="pre">setBezierArc(..)</span></code>.</p>
+<p>Creating a polyline path is similar to creating a polygon path.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Create simple PolylinePath</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">PolylinePath</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">53</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// a</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// b</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">57</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">34</span><span class="p">},</span><span class="w"> </span><span class="c1">// c</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">53</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// d = a (repeated to close the triangle)</span>
+<span class="p">]);</span>
+
+<span class="c1">// Change segment (a,b) from line to arc</span>
+<span class="nx">path</span><span class="p">.</span><span class="nx">setBezierArc</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">54.72</span><span class="p">,</span><span class="w"> </span><span class="mf">20.54</span><span class="p">,</span><span class="w"> </span><span class="mf">60.53</span><span class="p">,</span><span class="w"> </span><span class="mf">20.34</span><span class="p">);</span>
+
+<span class="c1">// Show it</span>
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Notice that the polyline path requires 4 vertices while the polylgon path only needed 3. This is because the closing segment from c to a is added automatically when using the polygon path. To create the same closed shape with a polyline path, you need to repeat <em>vertex a</em> at the end. Be aware that the number of valid segment indices for polygons is <code class="docutils literal notranslate"><span class="pre">vertexCount-1</span></code> and <code class="docutils literal notranslate"><span class="pre">vertexCount-2</span></code> for polylines.</p>
+</section>
+<section id="step-7-draw-ellipse-arcs">
+<a href="#step-7-draw-ellipse-arcs"><h2>Step 7: Draw Ellipse Arcs</h2></a>
+<p>The following example shows how to specify an ellipse arc. All ellipse parameters are 1:1 matching with those in SVG standard.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Create simple PolygonPath</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">PolygonPath</span><span class="p">([</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">53</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// a</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">62</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">},</span><span class="w"> </span><span class="c1">// b</span>
+<span class="w">    </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">57</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">34</span><span class="p">}</span><span class="w">  </span><span class="c1">// c</span>
+<span class="p">]);</span>
+
+<span class="c1">// Change segment 0 into ellipse arc</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">EllipseArcParams</span><span class="p">();</span>
+
+<span class="c1">// ellipse radii along ellipse x/y-axis</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">rx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">ry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">6</span><span class="p">;</span>
+
+<span class="c1">// ccw rotation of x/y-axes in degrees.</span>
+<span class="c1">// rotation 0 means ellipse-x-axis = (1,0)</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">rotation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+
+<span class="c1">// whether to use shorter or longer path around ellipse.</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">largeArcFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">// Whether to go counterclockwise (true) or clockwise (false) from startAngle.</span>
+<span class="nx">params</span><span class="p">.</span><span class="nx">sweepFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+
+<span class="nx">path</span><span class="p">.</span><span class="nx">setEllipseArc</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">);</span>
+
+<span class="nx">layer</span><span class="p">.</span><span class="nx">addShape</span><span class="p">(</span><span class="nx">path</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-8-about-edit2d-shapes-and-svg-shapes">
+<a href="#step-8-about-edit2d-shapes-and-svg-shapes"><h2>Step 8: About Edit2D Shapes and SVG Shapes</h2></a>
+<p>You can convert SVG shapes to Edit2D shapes or convert Edit2D shapes to SVG shapes.</p>
+<section id="import-and-convert-svg-shapes">
+<h3>8.1 Import and Convert SVG Shapes</h3>
+<p>The following example shows how to import a single SVG shape and convert it to an Edit2D shape.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="c1">// Create Edit2D shape from SVG string</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">svgString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;path d="M 12.79,21.51 H 18.70 V 18.56 H 12.79 Z"/&gt;'</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">shape2</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Shape</span><span class="p">.</span><span class="nx">fromSVG</span><span class="p">(</span><span class="nx">svgString</span><span class="p">);</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="export-and-convert-edit2d-shapes">
+<h3>8.2 Export and Convert Edit2D Shapes</h3>
+<p>You can also export Edit2D shapes as SVG shapes.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="c1">// Get SVG string representation from a shape</span>
+<span class="nx">shape</span><span class="p">.</span><span class="nx">toSVG</span><span class="p">();</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>In the following example, we convert the full content of an Edit2D layer to an SVG and show the result in a pop up window.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">showSvgPopup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// window size</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">400</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">400</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// define pixel-scope as box2</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">pixelBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Box2</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">pixelBox</span><span class="p">.</span><span class="nx">min</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">pixelBox</span><span class="p">.</span><span class="nx">max</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// convert layer to svg element</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">svg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Svg</span><span class="p">.</span><span class="nx">createSvgElement</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">layer</span><span class="p">.</span><span class="nx">shapes</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">dstBox</span><span class="o">:</span><span class="w"> </span><span class="nx">pixelBox</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// rescale to fit pixelBox [0,400]^2</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// show in popup window</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">,</span><span class="w"> </span><span class="sb">`width=</span><span class="si">${</span><span class="nx">width</span><span class="si">}</span><span class="sb">,height=</span><span class="si">${</span><span class="nx">height</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">svg</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nx">showSvgPopup</span><span class="p">();</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>When you export from Edit2D, you can add style attributes.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">shape</span><span class="p">.</span><span class="nx">toSVG</span><span class="p">({</span><span class="nx">exportStyle</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Example output</strong>: &lt;path d=”M 12.79,21.51 H 18.7 V 18.56 H 12.79 Z” stroke=”rgb(0,0,128)” fill=”rgb(0,0,128)” stroke-width=”3” fill-opacity=”0.2”/&gt;</p>
+<p>You can also serialize Edit2D’s layer content 1:1 into an xml file and download it.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">download</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'a'</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">,</span><span class="w"> </span><span class="s1">'data:text/plain;charset=utf-8,'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'download'</span><span class="p">,</span><span class="w"> </span><span class="nx">filename</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'none'</span><span class="p">;</span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">downloadLayerAsSvg</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// define pixel-scope as box2</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">pixelBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Box2</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">pixelBox</span><span class="p">.</span><span class="nx">min</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">pixelBox</span><span class="p">.</span><span class="nx">max</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="mf">400</span><span class="p">,</span><span class="w"> </span><span class="mf">400</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// get layer content as svg dom element</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">svgElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Svg</span><span class="p">.</span><span class="nx">createSvgElement</span><span class="p">(</span><span class="nx">layer</span><span class="p">.</span><span class="nx">shapes</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">dstBox</span><span class="o">:</span><span class="w"> </span><span class="nx">pixelBox</span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Serialize to string and download</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">serializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLSerializer</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">serializer</span><span class="p">.</span><span class="nx">serializeToString</span><span class="p">(</span><span class="nx">svg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="nx">download</span><span class="p">(</span><span class="s1">'test.svg'</span><span class="p">,</span><span class="w"> </span><span class="nx">xmlText</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s Next?</h2></a>
+<p>Now that you’ve learned how to draw shapes manually, check out these other Edit2D tutorials:</p>
+<ul class="simple">
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-use">Using the Edit2D Toolset</a></li>
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-customize">Customizing Edit2D</a></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

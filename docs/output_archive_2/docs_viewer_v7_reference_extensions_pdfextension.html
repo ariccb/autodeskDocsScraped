@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDFExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/PDF/index.js">
+<section id="pdfextension">
+<h1>PDFExtension</h1>
+<p>Registers a FileLoader to enhance <code class="docutils literal notranslate"><span class="pre">viewer.loadModel()</span></code> to allow loading of PDF files. The viewer will render a single page at a time.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.PDF</span></code></p>
+<section id="new-pdfextension">
+<a href="#new-pdfextension"><h2>new PDFExtension()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Create Viewer instance and load PDF file on page 1</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<dl>
+<dt>Autodesk.Viewing.Initializer(options, function() {</dt><dd><p>var viewer = new Autodesk.Viewing.Viewer3D(div,config3d);
+viewer.start();
+viewer.loadExtension(‘Autodesk.PDF’).then(function() {</p>
+<blockquote>
+<div><p>// URL parameter <cite>page</cite> will override value passed to loadModel
+viewer.loadModel(‘path/to/file.pdf’, { page: 1 });</p>
+</div></blockquote>
+<p>});</p>
+</dd>
+</dl>
+<p>});</p>
+<hr class="docutils">
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

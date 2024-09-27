@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snapper | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions.Snapping</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/Snapping/Snapper.js">
+<section id="snapper">
+<h1>Snapper</h1>
+<section id="new-snapper-viewer-options">
+<a href="#new-snapper-viewer-options"><h2>new Snapper(viewer, options)</h2></a>
+<p>A tool that lets users attach pointer events to vertices and edges. It supports 2D and 3D models.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">viewer</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Viewer3D/">Viewer3D</a></div></td><td>Viewer instance</td></tr><tr><td><span class="name">options</span><span class="required">*</span><div class="type">object</div></td><td>Configurations for the extension</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="isactive">
+<a href="#isactive"><h2>isActive()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the tool is active</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="activate">
+<a href="#activate"><h2>activate()</h2></a>
+<p>Starts intercepting pointer events. Invoked automatically by the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/ToolController/">ToolController</a>.</p>
+</section>
+<section id="deactivate">
+<a href="#deactivate"><h2>deactivate()</h2></a>
+<p>Stops intercepting pointer events. Invoked automatically by the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/ToolController/">ToolController</a>.</p>
+</section>
+<section id="getsnapresult">
+<a href="#getsnapresult"><h2>getSnapResult()</h2></a>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/MeasureCommon/SnapResult/">SnapResult</a></td>
+<td>The snapping status of the last pointer event performed.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="issnapped">
+<a href="#issnapped"><h2>isSnapped()</h2></a>
+<p>Checks whether the tool’s last update resulted on a snap.</p>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>true when the last pointer event got snapped.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="snapping3d-result">
+<a href="#snapping3d-result"><h2>snapping3D(result)</h2></a>
+<p>3D Snapping</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">result</span><span class="required">*</span><div class="type"></div></td><td>Result of Hit Test.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="extractlinegeometry-edge-geometry">
+<a href="#extractlinegeometry-edge-geometry"><h2>extractLineGeometry(edge, geometry)</h2></a>
+<p>Get Edge geometry for the case that the hittest result contained a 3D lines. For this case, we have no Face3, so that faceSnapping and edgeSnapping don’t work.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">edge</span><span class="required">*</span><div class="type">Object</div></td><td>{a, b} with vertex indices a,b of lineStart/lineEnd vertex</td></tr><tr><td><span class="name">geometry</span><span class="required">*</span><div class="type">GeometryBuffer</div></td><td></td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>THREE.Geometry, THREE.BufferGeometry</td>
+<td>Geometry with simple line</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="faceiscurved-face">
+<a href="#faceiscurved-face"><h2>faceIsCurved(face)</h2></a>
+<p>Checks if the given geometry is curved</p>
+<section id="id7">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">face</span><span class="required">*</span><div class="type">THREE.BufferGeometry</div></td><td>The geometry</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the any of the faces composing the geometry is curved</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="snapping2d-hitresult-options">
+<a href="#snapping2d-hitresult-options"><h2>snapping2D(hitResult, options)</h2></a>
+<p>Snap to a 2D model.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">hitResult</span><span class="required">*</span><div class="type type--collapsable">object</div></td><td>a result of a ray intersection.</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>Options object.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">enumSegments</span><div class="type type--collapsable">function</div></td><td>Enumerates all segments within a given bbox in model-space.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

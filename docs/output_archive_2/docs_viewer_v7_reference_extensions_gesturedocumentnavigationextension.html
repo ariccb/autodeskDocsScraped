@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GestureDocumentNavigationExtension | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing.Extensions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/extensions/GestureDocumentNavigation/GestureDocumentNavigation.js">
+<section id="gesturedocumentnavigationextension">
+<h1>GestureDocumentNavigationExtension</h1>
+<p>Provide an option to switch sheets and documents, using gestures.</p>
+<p>The extension id is: <code class="docutils literal notranslate"><span class="pre">Autodesk.BIM360.GestureDocumentNavigation</span></code></p>
+<section id="new-gesturedocumentnavigationextension">
+<a href="#new-gesturedocumentnavigationextension"><h2>new GestureDocumentNavigationExtension()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.BIM360.GestureDocumentNavigation'</span><span class="p">)</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="load">
+<a href="#load"><h2>load()</h2></a>
+<p>Load the GestureDocumentNavigation extension.</p>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if measure extension is loaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unload">
+<a href="#unload"><h2>unload()</h2></a>
+<p>Unload the measure extension.</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if measure extension is unloaded successfully.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="preparechange-cb">
+<a href="#preparechange-cb"><h2>prepareChange(cb)</h2></a>
+<p>Prepare current document before switching sheet / document.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cb</span><span class="required">*</span><div class="type">function</div></td><td>This callback is called after current document is ready to switch.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="changesheetrequired-guid">
+<a href="#changesheetrequired-guid"><h2>changeSheetRequired(guid)</h2></a>
+<p>Change a sheet.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">guid</span><span class="required">*</span><div class="type">number</div></td><td>The guid of the desired sheet.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="changesheetrequired-urn-guid">
+<a href="#changesheetrequired-urn-guid"><h2>changeSheetRequired(urn, guid)</h2></a>
+<p>Change a document.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">urn</span><span class="required">*</span><div class="type">number</div></td><td>The urn of the desired document.</td></tr><tr><td><span class="name">guid</span><span class="required">*</span><div class="type">number</div></td><td>The guid of the desired sheet.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

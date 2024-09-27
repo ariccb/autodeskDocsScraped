@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v4 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v4-changelog">
+<h1>V4 Changelog</h1>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-4-2-7">
+<a href="#version-4-2-7"><h2>Version 4.2.7</h2></a>
+<p><em>Release Date: 2018-06-22</em></p>
+<section id="fixed">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Avoid crashing when attempting to use an undefined material id.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-2-6">
+<a href="#version-4-2-6"><h2>Version 4.2.6</h2></a>
+<p><em>Release Date: 2018-05-29</em></p>
+<section id="id1">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Translation update from localization build.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-2-5">
+<a href="#version-4-2-5"><h2>Version 4.2.5</h2></a>
+<p><em>Release Date: 2018-05-09</em></p>
+<section id="id2">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed Scalaris Extension localization strings.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-2-4">
+<a href="#version-4-2-4"><h2>Version 4.2.4</h2></a>
+<p><em>Release Date: 2018-05-07</em></p>
+<section id="id3">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed problem with Animation activate() and deactivate().</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-2-2">
+<a href="#version-4-2-2"><h2>Version 4.2.2</h2></a>
+<p><em>Release Date: 2018-04-19</em></p>
+<section id="id4">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed problem with Fit-to-View in 2D models on iOS devices.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-2-1">
+<a href="#version-4-2-1"><h2>Version 4.2.1</h2></a>
+<p><em>Release Date: 2018-04-17</em></p>
+<section id="added">
+<h3>Added</h3>
+<section id="moldflow-extension">
+<h4>MoldFlow Extension</h4>
+<p>This release adds an extension to LMV that enables a legend for MoldFlow files.</p>
+<p><img alt="MoldFlow Extension" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/moldflow-legend.png"></p>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-1-0">
+<a href="#version-4-1-0"><h2>Version 4.1.0</h2></a>
+<p><em>Release Date: 2018-04-02</em></p>
+<section id="id5">
+<h3>Added</h3>
+<section id="glazing-materials">
+<h4>Glazing Materials</h4>
+<p>Glazing materials are now supported.</p>
+</section>
+</section>
+<section id="id6">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fixed problem with initialization of viewer with multi-model.</li>
+<li>Fixed size of first person panel in Spanish language.</li>
+<li>Hidden properties are now skipped when evaluating instance_of relationships.</li>
+<li>Viewer no longer fails with jQuery slim.</li>
+<li>Default text is now provided for null selection in model properties.</li>
+<li>cloneMaterial() now copies disableEnvMap property.</li>
+<li>Model browser no longer switches node positions</li>
+</ul>
+</section>
+<section id="changed">
+<h3>Changed</h3>
+<section id="settings-ux-redesign">
+<h4>Settings UX Redesign</h4>
+<p>The viewer Settings dialog has been redesigned for improved ease of use.</p>
+<p>Settings are now presented in a modal dialog featuring better functional grouping of settings and detailed new descriptions of each viewer option.  The dialog for 3D models comprises four tabs–Performance, Navigation, Appearance, and Environment.  For 2D sheets there are three tabs–Performance, Navigation, and Appearance.</p>
+<p><em>(Table 1) 3D Settings Panel</em></p>
+<div class="table-section"><table><thead><tr><th>Existing 3D Settings (4.0.1 and earlier)</th><th>New 3D Settings (4.1)</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Existing 3d Settings" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/settings_3d_existing.gif"></td>
+<td><img alt="New 3d Tabs" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/settings_3d_tabs.gif"></td>
+</tr>
+</tbody></table></div>
+<p><em>(Table 2) 2D Settings Panel</em></p>
+<div class="table-section"><table><thead><tr><th>Existing 2D Settings (4.0.1 and earlier)</th><th>New 2D Settings (4.1)</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Existing 3d Settings" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/settings_2d_existing.gif"></td>
+<td><img alt="New 2d Tabs" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/settings_2d_tabs.gif"></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="known-issues">
+<h3>Known Issues</h3>
+<ul class="simple">
+<li>On IOS, Fit to view fails for 2D models (Issue LMV-3154)</li>
+<li>WebVR extension fails in 4.0.x and 4.1.0 (issue LMV-3203)</li>
+</ul>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-0-1">
+<a href="#version-4-0-1"><h2>Version 4.0.1</h2></a>
+<p><em>Release Date: 2018-02-21</em></p>
+<section id="id7">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed “ReferenceError WGS is not defined.” The WGS global variable that was used by LMV was not defined. The fix was to change the output format of the Rollup build of WGS from UMD to IIFE.</li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-4-0-0">
+<a href="#version-4-0-0"><h2>Version 4.0.0</h2></a>
+<p><em>Release Date: 2018-01-25</em></p>
+<section id="id8">
+<h3>Changed</h3>
+<section id="ui-themes">
+<h4>UI Themes</h4>
+<p><strong>ALERT!</strong>  Changes to UI themes in version 4.0 may break applications developed using 3.3.5 and earlier.
+Light and Dark UI themes are now available.</p>
+<div class="table-section"><table><thead><tr><th>Existing UI theme (3.3.5 and earlier)</th><th>string = “dark-theme”</th><th>string = “light-theme”</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Existing UI" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/themes_existing_none.JPG"></td>
+<td><img alt="4.0 Dark Theme" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/themes_4.0_default_dark.JPG"></td>
+<td><img alt="4.0 Light Theme" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/themes_4.0_light-theme.JPG"></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="api-reference">
+<h4>API Reference</h4>
+<p><strong>Viewer configuration option</strong></p>
+<dl>
+<dt><em>config</em>.theme = &lt;<em>string</em>&gt;;</dt><dd><div class="line-block">
+<div class="line"><em>config</em> is the configuration options object</div>
+<div class="line"><em>string</em> options are “dark-theme” (default) or “light-theme”.</div>
+</div>
+</dd>
+</dl>
+<p><strong>Set theme method</strong></p>
+<dl>
+<dt>setTheme(<em>string</em>);</dt><dd><div class="line-block">
+<div class="line"><em>string</em> options are “dark-theme” (default) or “light-theme”.</div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="enhanced-search-results">
+<h4>Enhanced Search Results</h4>
+<p>Search now yields results in a more intuitive results summary.</p>
+<div class="table-section"><table><thead><tr><th>Existing search (3.3.5 and earlier)</th><th>Improved version 4.0 behavior</th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Existing Search" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/search_existing.gif"></td>
+<td><img alt="Improved 4.0 Search" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/search_4.0.gif"></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="toolbar-api">
+<h4>Toolbar API</h4>
+<p>ADDED new toolbar API.</p>
+<p>Each tool in the toolbar should be considered an extension.  Likewise, each extension may be queried and activated in the toolbar as described below.</p>
+</section>
+<section id="id9">
+<h4>API Reference</h4>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="nx">activateExtension</span><span class="p">(</span><span class="nx">extensionID</span><span class="p">,</span><span class="w"> </span><span class="nx">mode</span><span class="p">);</span><span class="w">  </span><span class="c1">// Activates the extension based on the extensionID and mode given.</span>
+<span class="w">                                       </span><span class="c1">// By default uses the first available mode in getExtensionModes()</span>
+
+<span class="nx">deactivateExtension</span><span class="p">(</span><span class="nx">extensionID</span><span class="p">);</span><span class="w">      </span><span class="c1">// Deactivates the extension based on the extensionID specified.</span>
+
+<span class="nx">IsExtensionActive</span><span class="p">(</span><span class="nx">extensionID</span><span class="p">);</span><span class="w">        </span><span class="c1">// Check if the extension is active or not by passing the extensionID.</span>
+
+<span class="nx">IsExtensionLoaded</span><span class="p">(</span><span class="nx">extensionID</span><span class="p">);</span><span class="w">        </span><span class="c1">// Check if the extension is loaded or not by passing the extensionID.</span>
+
+<span class="nx">getLoadedExtensions</span><span class="p">();</span><span class="w">                 </span><span class="c1">// Get a list of all the extensions that are currently loaded.</span>
+
+<span class="nx">getExtensionModes</span><span class="p">(</span><span class="nx">extensionID</span><span class="p">);</span><span class="w">        </span><span class="c1">// Get a list of all the modes that are available for the given extensionID.</span>
+<span class="w">                                       </span><span class="c1">// For example, "Autodesk.Measure" has modes: "distance", "area", "angle", "calibrate"</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="optimized-prism-materials-performance">
+<h4>Optimized Prism materials performance</h4>
+<p>We no longer copy data structures such as matrices, vectors, and colors every frame for every PRISM material.</p>
+</section>
+</section>
+<section id="id10">
+<h3>Added</h3>
+<section id="autodesk-forge-viewer-usage-limitations-disclaimer">
+<h4>Autodesk Forge Viewer Usage Limitations Disclaimer</h4>
+<p>The Autodesk Forge viewer can only be used to view files generated by Autodesk Forge services. The Autodesk Forge Viewer JavaScript must be delivered from an Autodesk hosted URL.</p>
+</section>
+<section id="multi-model-support">
+<h4>Multi-model support</h4>
+<p>UI behavior has been updated to allow multiple models. In addition, model names may now be overridden in the Model Browser.</p>
+</section>
+<section id="fragmentlist-visibility-flags">
+<h4>FragmentList visibility flags</h4>
+<p>Initial visibility flags for fragments are now supported.</p>
+</section>
+<section id="measure-markup-and-hyperlinks">
+<h4>Measure, Markup and Hyperlinks</h4>
+<p>Measure, Markup and Hyperlinks are now external extensions</p>
+</section>
+<section id="material-tiling-patterns">
+<h4>Material Tiling Patterns</h4>
+<p>Protein Materials tiling patterns (Revit 2019) are now supported.</p>
+</section>
+<section id="swedish-language-localization">
+<h4>Swedish language localization</h4>
+<p>Localized Swedish language “sv” is now supported.</p>
+</section>
+</section>
+<section id="id11">
+<h3>Fixed</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed minor problem with selection of dimension markup.</li>
+<li>Fixed problem with Fit to View not working for all models.</li>
+<li>Fixed selection highlight issue when using non-photoreal rendering styles.</li>
+<li>Viewer no longer refreshes needlessly in specific cases.</li>
+<li>Textures now work in Prism materials coming from Revit.</li>
+<li>Loading of large raster images has been optimized.</li>
+<li>Isolation is no longer cleared when measuring.</li>
+<li>Pivot point can now be predictably changed in orthographic projection.</li>
+<li>Zoom Window no longer leaves artifacts over selected objects.</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id12">
+<h3>Known Issues</h3>
+<blockquote>
+<div><ul class="simple">
+<li>Localization is incomplete in the Settings panel, where titles “Navigation” and “Performance” remain printed in English.</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

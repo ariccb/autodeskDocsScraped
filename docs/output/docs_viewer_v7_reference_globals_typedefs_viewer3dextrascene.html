@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer3DExtraScene | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Type Definitions</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/Viewer3D.js"><section id="viewer3dextrascene">
+<h1>Viewer3DExtraScene</h1>
+<p>LMV has two extra scene it renders along with the models. One is rendered before the models, and the other is rendered after the models. These scenes are THREE.Scene objects and you can add custom meshes to be rendered to either of the scenes.</p>
+<p>The objects you add to these scenes will be drawn using the same multiple render targets that are used when drawing the models. You may choose to either support multiple render targets or disable them.</p>
+<p>To support multiple render targets you can only use Prism, MeshPhongMaterial, MeshBasicMateiral or LineBasicMaterial materials, and you must add all the materials to LMV.</p>
+<p>To disable multiple render targets you can set the <code class="docutils literal notranslate"><span class="pre">skipIdTarget</span></code> and <code class="docutils literal notranslate"><span class="pre">skipDepthTarget</span></code> properties to <code class="docutils literal notranslate"><span class="pre">true</span></code>. If you disable multiple render targets your objects will not have rollover highlighting and will not contribute to ambient occlusion.</p>
+</section>
+<section id="properties">
+<h1>Properties</h1>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">skipIdTarget</span><div class="type">boolean</div></td><td>Set to true to prevent the id target from being rendered.</td></tr><tr><td><span class="name">skipDepthTarget</span><div class="type">boolean</div></td><td>Set to true to prevent the ambient occlusion depth target from being rendered.</td></tr></tbody></table></div>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

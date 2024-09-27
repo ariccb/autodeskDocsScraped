@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AggregatedView | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/AggregatedView.js">
+<section id="aggregatedview">
+<h1>AggregatedView</h1>
+<p>AggregatedView implements a viewing application based on Viewer3D. Its purpose is to provide functionality around Viewer3D to facilitate implementation of viewer application workflows like switching between different views or toggling models on/off dynamically.</p>
+<p>Examples of AggregatedView functionality include:</p>
+<ol class="arabic simple">
+<li><strong>Facilitate use in react</strong>: Just set an array of nodes from React property and AggregatedView takes care to make sure that models are loaded and shown/hidden as needed.</li>
+<li><strong>LRU-Caching of models</strong>: Keep models in memory for fast switches, but unload unused models if memory is critical</li>
+<li><strong>Extensions</strong>: Setting up a couple of useful default extensions (can be customized or switched off where wanted)</li>
+<li><strong>Home camera</strong>: Setting a home view camera that considers multiple models.</li>
+<li><strong>Application State management</strong>: Facilitates some state management, e.g.<p></p>
+<ol class="arabic simple">
+<li>Setting a camera without having to care whether the model is already loaded or not.</li>
+<li>Starting Walk-mode without having to care whether BIMWalk extension is already loaded.</li>
+<li>Allow toggling visibility of a model without having to care about the loading state of the model.</li>
+</ol>
+</li>
+<li><strong>GlobalOffsets</strong>: Choose globalOffset automatically, but identically for all models to make sure that they are placed consistently.</li>
+<li><strong>View Switches</strong>: Allow visibility toggling (<code class="docutils literal notranslate"><span class="pre">hide</span></code>/<code class="docutils literal notranslate"><span class="pre">show</span></code>) versus full view switches (<code class="docutils literal notranslate"><span class="pre">switchView(nodes)</span></code>), the latter including proper reset of camera, UI, and extensions</li>
+<li><strong>Diff Setups</strong>: Just set diffOptions to setup change visualization of aggregated views.</li>
+</ol>
+<section id="new-aggregatedview">
+<a href="#new-aggregatedview"><h2>new AggregatedView()</h2></a>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">AggregatedView</span><span class="p">();</span>
+<span class="c1">// Initialize the aggregatedView with the HTML element and the options object</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">viewerElement</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils">
+<section id="methods">
+<h1>Methods</h1>
+<section id="init-parentdiv-options">
+<a href="#init-parentdiv-options"><h2>init(parentDiv, options)</h2></a>
+<p>Initializes the AggregatedView and loads the following predefined extensions: <code class="docutils literal notranslate"><span class="pre">Autodesk.CrossFadeEffects</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.LevelsExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.ModelStructure</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.HyperlinkExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.Minimap3DExtension</span></code>, <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.CanvasBookmarkExtension</span></code> and <code class="docutils literal notranslate"><span class="pre">Autodesk.AEC.DropMeExtension</span></code> The initialization can also be customized with the options object.</p>
+<p>To initialize the viewer without loading the specified extension please reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#initViewerInstance/">initViewerInstance</a>.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">parentDiv</span><span class="required">*</span><div class="type type--collapsable">HTMLDivElement</div></td><td>The div element in which the viewer will be initialized</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">Object</div></td><td>Configuration options for aggregated view</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">viewerConfig</span><div class="type type--collapsable">Object</div></td><td>Used for initializing GuiViewer3D. This is the options object that is passed into either av.Viewer3D or av.GuiViewer3D</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">disableBookmarks</span><div class="type type--collapsable">boolean</div></td><td>Disable display of visual bookmarks</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">clusterfck</span><div class="type type--collapsable">Object</div></td><td>Dependency-Injection of clusterfck library (enables clustering of Bookmark icons)</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">viewerStartOptions</span><div class="type type--collapsable">Object</div></td><td>Options passed to the viewer initialization process</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">ignoreGlobalOffset</span><div class="type type--collapsable">boolean</div></td><td>Forces globalOffset to undefined for all loaded models. Effect of this is that all models are auto-centered using the model bbox. Note that this does only work if you never show more than one 3D viewable at once</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">unloadUnfinishedModels</span><div class="type type--collapsable">boolean</div></td><td>By setting unloadUnfinishedModels, when calling hide(bubbleNode), it will unload models that haven’t been fully loaded. Used in order to reduce amount of file loaders when switching between models</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">useDynamicGlobalOffset</span><div class="type type--collapsable">boolean</div></td><td>If true, the globalOffset is applied dynamically after loading</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">cameraValidator</span><div class="type type--collapsable">boolean</div></td><td>Called with a (camera, model) when using a model camera as start or home camera. This allows for clients to apply optional custom repairs for models with messy camera data</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">propagateInputEventTypes</span><div class="type type--collapsable">Array.&lt;string&gt;</div></td><td>By default, LMV ToolController “eats” all handled events so that they don’t reach any other widgets. Specify an array of event types that you want this behaviour disabled for. For example [‘mouseup’, ‘mousedown’] allows alloy to detect mouse outside clicks to close pending dropdown menus</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">createModelAlignmentService</span><span class="required">*</span><div class="type type--collapsable">function</div></td><td>Factory function to create AlignmentService implementation for loading/saving model transforms. See AlignmentServices above for details</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">getCustomLoadOptions</span><div class="type type--collapsable">function</div></td><td>Allows for applying custom options to be used for all model loading. The callback returns an options object that is applied by default in all model-load calls. The signature should look like: function(av.BubbleNode)=&gt;Object</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">viewerUnits</span><div class="type type--collapsable">string</div></td><td>If specified, all models are re-scaled from model units to this unit. Must be a GNU unit format string, e.g. “m”.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">multiViewerFactory</span><div class="type type--collapsable">Autodesk.Viewing.MultiViewerFactory</div></td><td>Optional multi viewer factory. Used to create multiple viewers with shared resources</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">useConsolidation</span><div class="type type--collapsable">boolean</div></td><td>Optional flag to enable / disable mesh consolidation. Defaults to true.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>returns a promise once all of the specified extensions are loaded.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="initviewerinstance-parentdiv-options">
+<a href="#initviewerinstance-parentdiv-options"><h2>initViewerInstance(parentDiv, options)</h2></a>
+<p>Initialize a new viewer instance.</p>
+<p>To initialize the viewer and load the default extensions please see <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#init/">init</a>.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">parentDiv</span><span class="required">*</span><div class="type">HTMLDivElement</div></td><td>The div element in which the viewer will be initialized</td></tr><tr><td><span class="name">options</span><div class="type">Object</div></td><td>The same options object that is passed into the init method</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="reset">
+<a href="#reset"><h2>reset()</h2></a>
+<p>Resets tools, UI, camera, and refPoint. This method should be called when an explicit view switch occurred instead of just toggling visibility of models.</p>
+</section>
+<section id="getmodel-node">
+<a href="#getmodel-node"><h2>getModel(node)</h2></a>
+<p>Finds a model for the given bubbleNode or key. To get multiple models reference <a class="reference external" href="#fixMe/">getModels</a>. To make sure that the model is loaded reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#getModelAndWait/">getModelAndWait</a>.</p>
+<section id="id2">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The Bubble node to use to get the model</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id3">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/Model/">Autodesk.Viewing.Model</a></td>
+<td><ul class="simple">
+<li>The model that corresponds to the bubbleNode</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="id4">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getVisibleNodes</span><span class="p">();</span>
+<span class="c1">// Get the model of the first bubble node.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getModel</span><span class="p">(</span><span class="nx">nodes</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="getmodelandwait-node-checkifvisible">
+<a href="#getmodelandwait-node-checkifvisible"><h2>getModelAndWait(node, checkIfVisible)</h2></a>
+<p>Find a model for given bubbleNode or key. If the model is not available yet, wait until it’s ready.</p>
+<section id="id5">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">node</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The Bubble node to use to get the model</td></tr><tr><td><span class="name">checkIfVisible</span><div class="type">Boolean</div></td><td>If true, will wait until model is also visible</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>the promise resolves once the model is loaded with the model instance</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="id8">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getModelAndWait</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="isempty">
+<a href="#isempty"><h2>isEmpty()</h2></a>
+<p>Returns true if there are no visible bubble nodes.</p>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>returns true if all nodes are invisible</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="show-bubblenode-customloadoptions">
+<a href="#show-bubblenode-customloadoptions"><h2>show(bubbleNode, customLoadOptions)</h2></a>
+<p>Makes sure that a model is loaded and shown</p>
+<p>To get the bubbleNode from a URN please reference <a class="reference external" href="#fixMe/">Document#load</a>.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The node to load and show in the viewer</td></tr><tr><td><span class="name">customLoadOptions</span><div class="type">Object</div></td><td>Optional extra loadOptions to override/extend the default ones</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>Returns a promise which resolves with the model</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="id13">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Load a document from a documentId/URN</span>
+<span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">Document</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="nx">documentId</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Find all of the 3D bubble nodes</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">nodes3D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">docRoot</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">'3d'</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"geometry"</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="c1">// Using aggregated view load and show the model.</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">nodes3D</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="hide-bubblenode">
+<a href="#hide-bubblenode"><h2>hide(bubbleNode)</h2></a>
+<p>Hides the model associated from the supplied bubble node.</p>
+<p>To show the model reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#show/">show</a>.</p>
+<section id="id14">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The node to hide in the viewer</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id16">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="nx">view</span><span class="p">.</span><span class="nx">hide</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="isvisible-bubblenode">
+<a href="#isvisible-bubblenode"><h2>isVisible(bubbleNode)</h2></a>
+<p>Returns true if the supplied bubble node is currently visible.</p>
+<section id="id17">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The BubbleNode to check the visibility of</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id19">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>true if the specified node is visible, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hideall">
+<a href="#hideall"><h2>hideAll()</h2></a>
+<p>Hide all of the models in the viewer.</p>
+</section>
+<section id="getvisiblenodes">
+<a href="#getvisiblenodes"><h2>getVisibleNodes()</h2></a>
+<p>Returns all of the visible bubble nodes.</p>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.BubbleNode&gt;</td>
+<td><ul class="simple">
+<li>An array of all of the visible nodes</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="areallnodes2d">
+<a href="#areallnodes2d"><h2>areAllNodes2D()</h2></a>
+<p>Returns true if all of the nodes are 2D.</p>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>returns true if all nodes are 2D, false otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isotgmanifestmissing-bubblenode">
+<a href="#isotgmanifestmissing-bubblenode"><h2>isOtgManifestMissing(bubbleNode)</h2></a>
+<p>Checks if the Otg manifest for a 3D viewable is available and complete. If not, it reports an error and returns false.</p>
+<section id="id22">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The BubbleNode</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id24">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>true if the OTG manifest is missing.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="load-bubblenode-customloadoptions">
+<a href="#load-bubblenode-customloadoptions"><h2>load(bubbleNode, customLoadOptions)</h2></a>
+<p>Loads the model that is specified by the passed in bubbleNode parameter. Note this function will not show the model once it is loaded. To load and show the model reference the <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#show/">show</a> method.</p>
+<section id="id26">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The BubbleNode</td></tr><tr><td><span class="name">customLoadOptions</span><div class="type">Object</div></td><td>Optional extra loadOptions to override/extend the default ones</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id28">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>The promise resolves with the loaded model</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="unload-bubblenode">
+<a href="#unload-bubblenode"><h2>unload(bubbleNode)</h2></a>
+<p>Unload the model that corresponds with the passed in bubbleNode.</p>
+<section id="id29">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>The BubbleNode to unload</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id31">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getVisibleNodes</span><span class="p">();</span>
+<span class="c1">// Unload the first model</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">unload</span><span class="p">(</span><span class="nx">nodes</span><span class="p">[</span><span class="mf">0</span><span class="p">]);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="unloadall-itemfilter">
+<a href="#unloadall-itemfilter"><h2>unloadAll(itemFilter)</h2></a>
+<p>Unload all of the models that are currently in the view.</p>
+<section id="id32">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">itemFilter</span><div class="type">function</div></td><td>This callback is used to check if a model needs to be unloaded. This callback recieves an object describing the current view item and it should return a boolean</td></tr></tbody></table></div>
+</section>
+<section id="id33">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// This example will unload all invisible models.</span>
+<span class="nx">view</span><span class="p">.</span><span class="nx">unloadAll</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="nx">item</span><span class="p">.</span><span class="nx">visible</span>
+<span class="p">});</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="setcameraglobal-camera">
+<a href="#setcameraglobal-camera"><h2>setCameraGlobal(camera)</h2></a>
+<p>Set camera in global coords.</p>
+<ul class="simple">
+<li>The current global offset is automatically subtracted</li>
+<li>You don’t have to specify all members, e.g., can leave out up or fov. Only defined values are replaced.</li>
+<li>You can call it independent of loading state: If no model is loaded yet, the camera change is applied after first model add</li>
+<li>Note that the call only has effect on current view, i.e., is discarded on reset/viewSwitch calls.</li>
+</ul>
+<section id="id34">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">THREE.Camera</div></td><td>Camera instance that will be used to apply to global camera</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="setcamera-camera">
+<a href="#setcamera-camera"><h2>setCamera(camera)</h2></a>
+<p>Set the view from the passed in camera.</p>
+<section id="id35">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">camera</span><span class="required">*</span><div class="type">THREE.Camera</div></td><td>Camera instance</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="startbimwalk">
+<a href="#startbimwalk"><h2>startBimWalk()</h2></a>
+<p>Starts the BIM walk tool. Under the hood this method will activate the BimWalk extension.</p>
+</section>
+<section id="stopbimwalk">
+<a href="#stopbimwalk"><h2>stopBimWalk()</h2></a>
+<p>Stop the BIM walk tool. Under the hood this method will deactivate the BimWalk extension.</p>
+</section>
+<section id="isbimwalkactive">
+<a href="#isbimwalkactive"><h2>isBimWalkActive()</h2></a>
+<p>Returns true if the BimWalk tool is active.</p>
+<section id="id36">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>true if the tool is active, false otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="switchview-bubblenodes-diffconfig">
+<a href="#switchview-bubblenodes-diffconfig"><h2>switchView(bubbleNodes, diffConfig)</h2></a>
+<p>Switches between bubble node models. This method will reset the view and then set the passed in nodes.</p>
+<p>Use this for explicit view switches. See <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#setNodes/">setNodes()</a> for params.</p>
+<section id="id37">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">bubbleNodes</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a>, Array.&lt;Autodesk.Viewing.BubbleNode&gt;</div></td><td>The nodes to be shown</td></tr><tr><td><span class="name">diffConfig</span><div class="type">Object</div></td><td>see the setNodes method for the diffConfig parameter</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id39">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>The promise resolves with the loaded models</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="setnodes-bubblenodes-diffconfig">
+<a href="#setnodes-bubblenodes-diffconfig"><h2>setNodes(bubbleNodes, diffConfig)</h2></a>
+<p>Load/Unload models so that the currently loaded models matches with the given list of svfs.</p>
+<p>Note: Use <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#switchView/">switchView()</a> to do an explicit view switch (including resetting tools/camera). Use <a class="reference external" href="#fixMe/">setModels()</a> to reconfiguring which models are visible in the current view.</p>
+<section id="id40">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="level--1"><td><i class="icon-collapsable--empty"></i><span class="name">bubbleNodes</span><span class="required">*</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a>, Array.&lt;Autodesk.Viewing.BubbleNode&gt;</div></td><td>The nodes to be shown</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">diffConfig</span><div class="type type--collapsable">Object</div></td><td>Options to activate diff views.</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">primaryBubbles</span><div class="type type--collapsable">Array.&lt;Autodesk.Viewing.BubbleNode&gt;</div></td><td>A subset of ‘bubbleNodes’ that participates in the diff. If ‘bubbleNodes’ contains more, these will be ghosted. These nodes represent the current/as-is state</td></tr><tr class="row-collapsable--parent js-row-collapsable--parent row-collapsable--hide level--2"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">diffBubbles</span><div class="type type--collapsable">Array.&lt;Autodesk.Viewing.BubbleNode&gt;</div></td><td>Length must match primaryBubbles. For each node primaryBubbles[i], diffBubbles[i] provides the corresponding “before” state to compare against</td></tr><tr class="row-collapsable--hide level--3"><td><i class="icon-collapsable--empty"></i><span class="name">diff</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>If svfs are sheet nodes, diff.supportModels must provide the bubbleNodes for the corresponding 3D support models. { diff, primary }</td></tr><tr class="row-collapsable--hide level--3"><td><i class="icon-collapsable--empty"></i><span class="name">primary</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>Primary bubble node to do the diff comparison on</td></tr><tr class="row-collapsable--hide level--3"><td><i class="icon-collapsable--empty"></i><span class="name">autoDetect</span><div class="type type--collapsable">boolean</div></td><td>If true, support models are automatically found - works for Revit models with master views</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id44">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>The promise resolves with the loaded models</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isloaddone">
+<a href="#isloaddone"><h2>isLoadDone()</h2></a>
+<p>Returns true if all pending loading is finished. More concrete, it means that there is no…</p>
+<ul class="simple">
+<li>model-root loading</li>
+<li>geometry loading, or</li>
+<li>propDbLoading pending or in progress.</li>
+</ul>
+<p>Reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#waitForLoadDone/">waitForLoadDone</a>.</p>
+<section id="id45">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Boolean</td>
+<td><ul class="simple">
+<li>Returns true if all of the models in the view are fully loaded, false otherwise.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="id46">
+<a href="#id46"><h2>waitForLoadDone()</h2></a>
+<p>Returns a promise that resolves when <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#isLoadDone/">isLoadDone()</a> returns true.</p>
+<section id="id48">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Promise</td>
+<td><ul class="simple">
+<li>resolves when all isLoadDone returns true.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="finddiffsupportmodel-sheetnode">
+<a href="#finddiffsupportmodel-sheetnode"><h2>findDiffSupportModel(sheetNode)</h2></a>
+<p>“Support models” are 3D models that augment 2D diffs for better results: Instead of comparing the 2D objects directly, the correspodning 3D counterparts are compared. This is more reliable and avoids false positives due to irrelevant plotting differences. We use master views as support models, because they contain all objects of a given phase.</p>
+<p>Given a bubble node referring to a 2D sheet node, this function returns the bubbleNode of the corresponding 3D master view that belongs to the same phase. This can be used as “support model” to obtain better results for 2D diff.</p>
+<section id="id49">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">sheetNode</span><span class="required">*</span><div class="type"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>A 2d bubble node</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id51">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td><ul class="simple">
+<li>the coresponding 3d bubble node</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="finddiffsupportmodels-diffconfig">
+<a href="#finddiffsupportmodels-diffconfig"><h2>findDiffSupportModels(diffConfig)</h2></a>
+<p>Find corresponding 3D model for each diff/primary The result will be stored in the passed in diffConfig. The results will be in diffConfig.supportBubbles.diff and diffConfig.supportBubbles.primary.</p>
+<p>For the diffConfig parameter reference <a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/AggregatedView/#setNodes/">setNodes</a>.</p>
+<section id="id54">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">diffConfig</span><span class="required">*</span><div class="type">Object</div></td><td>see the setNodes method for the diffConfig parameter</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

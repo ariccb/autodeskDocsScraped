@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting Up Edit2D | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/developers_guide">Developer's Guide</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="setting-up-edit2d-in-your-application">
+<h1>Setting up Edit2D in Your Application</h1>
+<p>The Edit2D extension provides tools for displaying and editing 2D shapes in Viewer SDK. This tutorial demonstrates how the Edit2D extension works. Tutorials that demonstrate how to use Edit2D, customize Edit2D, and how to manually draw Edit2D shapes with JavaScript are linked at the end of this tutorial.</p>
+<p>This tutorial covers:</p>
+<ul class="simple">
+<li>How to load the Edit2D extension</li>
+<li>How to connect your app with Edit2D</li>
+</ul>
+<section id="step-1-load-the-extension">
+<a href="#step-1-load-the-extension"><h2>Step 1: Load the Extension</h2></a>
+<p>To start using Edit2D, you first need to load the extension. In this example, we will register Edit2D’s default toolset. You can learn how to create your own toolset, along with other customizations, in the <a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-customize">Customizing Edit2D</a> tutorial.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Load Edit2D extension</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// If true, PolygonTool creates Paths instead of just Polygons. This lets you change segments to arcs.</span>
+<span class="w">    </span><span class="nx">enableArcs</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">};</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">edit2d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">viewer</span><span class="p">.</span><span class="nx">loadExtension</span><span class="p">(</span><span class="s1">'Autodesk.Edit2D'</span><span class="p">);</span>
+
+<span class="c1">// Register all standard tools in default configuration</span>
+<span class="nx">edit2d</span><span class="p">.</span><span class="nx">registerDefaultTools</span><span class="p">();</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="step-2-connect-your-app-with-edit2d">
+<a href="#step-2-connect-your-app-with-edit2d"><h2>Step 2: Connect Your App with Edit2D</h2></a>
+<p>After you’ve loaded the extension, make sure that the Edit2D toolset responds to your Viewer SDK application. Do this by setting up the Edit2D Context and configuring event handling.</p>
+<section id="set-edit2d-context">
+<h3>2.1 Set Edit2D Context</h3>
+<p>Registering the default tools sets up an <code class="docutils literal notranslate"><span class="pre">Edit2DContext</span></code> that contains an edit layer, tools, and everything the tools need to work.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Code follows example above</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">edit2d</span><span class="p">.</span><span class="nx">defaultContext</span><span class="p">;</span>
+
+<span class="c1">// {EditLayer} Edit layer containing your shapes</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">layer</span>
+
+<span class="c1">// {EditLayer} An additional layer used by tools to display temporary shapes (e.g. dashed lines for snapping etc.)</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">gizmoLayer</span>
+
+<span class="c1">// {UndoStack} Manages all modifications and tracks undo/redo history</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">undoStack</span>
+
+<span class="c1">// {Selection} Controls selection and hovering highlight</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">selection</span>
+
+<span class="c1">// {Edit2DSnapper} Edit2D snapper</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">snapper</span>
+</code></pre>
+          </div>
+        <div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="configure-event-handling">
+<h3>2.2 Configure Event Handling</h3>
+<p>Most Edit2D classes support the Viewer SDK EventListener interface. There are a few different ways you can connect your application UI and data model with Edit2D. This step shows two examples:</p>
+<ul class="simple">
+<li>Synchronizing your data model</li>
+<li>Synchronizing selection</li>
+</ul>
+<p><strong>Synchronizing your data model</strong></p>
+<p>Within your application, shapes may have an application-specific meaning unknown to Edit2D. This means that when you modify the layer with Edit2D tools or undo/redo, your application-specific data model remains unchanged. To keep your data model in sync with changes made to the layer, you can register an event listener with <code class="docutils literal notranslate"><span class="pre">UndoStack</span></code>. Doing this allows you to be notified consistently, regardless of whether a modification is caused by a tool, Undo, or Redo. Add one of the following lines to your code to notify you before or after the action is taken.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Before action</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">undoStack</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">UndoStack</span><span class="p">.</span><span class="nx">BEFORE_ACTION</span><span class="p">,</span><span class="w"> </span><span class="nx">beforeAction</span><span class="p">);</span>
+
+<span class="c1">// After action</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">undoStack</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">UndoStack</span><span class="p">.</span><span class="nx">BEFORE_ACTION</span><span class="p">,</span><span class="w"> </span><span class="nx">afterAction</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p><strong>Synchronizing selection</strong></p>
+<p>You can also synchronize selection with Edit2D for certain items in your UI using <code class="docutils literal notranslate"><span class="pre">edit2d.context.selection</span></code>.</p>
+<p>One way to do this is to register a handler. The handler ensures the application is notified if selection changes.</p>
+<p>In the following example, we’ve set the handler to listen for mouse clicks.</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Register your handler</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Selection</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">SELECTION_CHANGED</span><span class="p">,</span><span class="w"> </span><span class="nx">onSelectionChanged</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Similarly, you can set the handler to synchronize mouse hovering:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Update UI state on hover changes</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Edit2D</span><span class="p">.</span><span class="nx">Selection</span><span class="p">.</span><span class="nx">Events</span><span class="p">.</span><span class="nx">SELECTION_HOVER_CHANGED</span><span class="p">,</span><span class="w"> </span><span class="nx">onHoverChanged</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>By default, selection and mouse-over highlighting are automatically controlled by Edit2D tools. However, you can also modify selection and hover-highlighting from your application by accessing ctx.selection directly:</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0">
+          <div class="highlight">
+            <button class="copy-button" onclick="copyToClipboard(this)">Copy</button>
+            <pre><code><span></span><span class="c1">// Apply your selection from UI</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">selectOnly</span><span class="p">(</span><span class="nx">myItem</span><span class="p">.</span><span class="nx">shape</span><span class="p">);</span>
+
+<span class="c1">// Sync Edit2D state on UI-hover events</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">selection</span><span class="p">.</span><span class="nx">setHoverID</span><span class="p">(</span><span class="nx">shape</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+</code></pre>
+          </div>
+        </div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="what-s-next">
+<a href="#what-s-next"><h2>What’s Next?</h2></a>
+<p>Now that you’ve set up Edit2D, check out these tutorials:</p>
+<ul class="simple">
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-use">Using the Edit2D Toolset</a></li>
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-manual">Drawing Edit2D Shapes Manually</a></li>
+<li><a class="reference external" href="/en/docs/viewer/v7/developers_guide/advanced_options/edit2d-customize">Customizing Edit2D</a></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>

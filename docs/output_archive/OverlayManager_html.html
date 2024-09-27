@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OverlayManager | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/OverlayManager.js">
+<section id="overlaymanager">
+<h1>OverlayManager</h1>
+<p>Provides a mechanism for adding custom meshes. These meshes are added into their own overlay scenes, which are always rendered after the main scene.</p>
+<section id="new-overlaymanager">
+<a href="#new-overlaymanager"><h2>new OverlayManager()</h2></a>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="addscene-name">
+<a href="#addscene-name"><h2>addScene(name)</h2></a>
+<p>Creates a scene that is always rendered after the main scene. It is rendered into a separate buffer when each frame of the main scene is drawn. The buffer is then composited over the main scene. If it is enabled, the overlay scenes use the main scene depth buffer for the depth testing, to allow the overlay to appear in the main scene.</p>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>scene identifier</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the overlay was added or already exists, false otherwise</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="removescene-name">
+<a href="#removescene-name"><h2>removeScene(name)</h2></a>
+<p>Removes a scene along with all the meshes in it.</p>
+<section id="id1">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>scene identifier</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the overlay was removed or if it doesn’t exist</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="clearscene-name">
+<a href="#clearscene-name"><h2>clearScene(name)</h2></a>
+<p>Removes all meshes from a scene.</p>
+<section id="id3">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>scene identifier</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+<section id="hasscene-name">
+<a href="#hasscene-name"><h2>hasScene(name)</h2></a>
+<p>Checks whether a scene already exists</p>
+<section id="id4">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">name</span><span class="required">*</span><div class="type">string</div></td><td>scene identifier</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true the scene exists</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="addmesh-mesh-scenename">
+<a href="#addmesh-mesh-scenename"><h2>addMesh(mesh, sceneName)</h2></a>
+<p>Inserts one or more custom THREE.Mesh into an existing scene.</p>
+<section id="id6">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mesh</span><span class="required">*</span><div class="type">THREE.Mesh, Array</div></td><td>A mesh instance or an Array of them.</td></tr><tr><td><span class="name">sceneName</span><span class="required">*</span><div class="type">string</div></td><td>Name of an existing scene.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the mesh was added to the scene</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Create a new mesh</span>
+<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">geometry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">SphereGeometry</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">);</span>
+<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">material</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">MeshBasicMaterial</span><span class="p">({</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="mh">0x336699</span><span class="w"> </span><span class="p">});</span>
+<span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">THREE</span><span class="p">.</span><span class="nx">Mesh</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span><span class="w"> </span><span class="nx">material</span><span class="p">);</span>
+<span class="w">   </span><span class="nx">mesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">;</span><span class="w"> </span><span class="nx">mesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w"> </span><span class="nx">mesh</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nx">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span>
+<span class="w">   </span><span class="c1">// Add scene and mesh</span>
+<span class="w">   </span><span class="nx">addScene</span><span class="p">(</span><span class="s1">'my_scene'</span><span class="p">);</span>
+<span class="w">   </span><span class="nx">addMesh</span><span class="p">([</span><span class="nx">mesh</span><span class="p">],</span><span class="w"> </span><span class="s1">'my_scene'</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="removemesh-mesh-scenename">
+<a href="#removemesh-mesh-scenename"><h2>removeMesh(mesh, sceneName)</h2></a>
+<p>Removes one or more custom THREE.Mesh from an existing scene. Developers are responsible for disposing the material and geometry after the mesh is removed.</p>
+<section id="id8">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mesh</span><span class="required">*</span><div class="type">THREE.Mesh, Array</div></td><td>A mesh instance or an Array of them.</td></tr><tr><td><span class="name">sceneName</span><span class="required">*</span><div class="type">string</div></td><td>Name of the scene the mesh(es) belong to.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id9">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the mesh (or meshes) was removed.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="hasmesh-mesh-scenename">
+<a href="#hasmesh-mesh-scenename"><h2>hasMesh(mesh, sceneName)</h2></a>
+<p>Checks whether a mesh is already part of a scene.</p>
+<section id="id10">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">mesh</span><span class="required">*</span><div class="type">THREE.Mesh</div></td><td>The mesh instance.</td></tr><tr><td><span class="name">sceneName</span><span class="required">*</span><div class="type">string</div></td><td>Name of the scene to check against.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id11">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td><ul class="simple">
+<li>true if the mesh belongs to the scene.</li>
+</ul>
+</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

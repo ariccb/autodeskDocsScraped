@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BubbleNode | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/reference">Reference Guide</a></div></div></div><div class="title-category">Autodesk.Viewing</div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <meta name="edit-url" content="https://git.autodesk.com/A360/firefly.js/edit/master/src/application/bubble.js">
+<section id="bubblenode">
+<h1>BubbleNode</h1>
+<p>Wrapper and helper for “bubble” data.</p>
+<p>Bubble is a container of various 2D or 3D viewables (and additional data) that may be generated from a single seed file. The bubble is a JSON structure of nodes that have different roles, for example, they may represent sheets, nested 2D/3D geometry, etc.</p>
+<p>This class wraps the internal representation of the bubble and adds a couple of helper methods.</p>
+<section id="new-bubblenode-data-parent">
+<a href="#new-bubblenode-data-parent"><h2>new BubbleNode(data, parent)</h2></a>
+<section id="parameters">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">data</span><span class="required">*</span><div class="type">object</div></td><td>Raw node from the bubble JSON.</td></tr><tr><td><span class="name">parent</span><div class="type">object</div></td><td>Parent node from the bubble JSON.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+</section>
+</section>
+<section id="methods">
+<h1>Methods</h1>
+<section id="issvf2">
+<a href="#issvf2"><h2>isSVF2()</h2></a>
+<section id="returns">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the bubble is from MD API.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getotggraphicsnode">
+<a href="#getotggraphicsnode"><h2>getOtgGraphicsNode()</h2></a>
+<p>Returns the OTG viewable from an otg manifest (if available, otherwise undefined)</p>
+<section id="id1">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a>, undefined</td>
+<td></td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getpropertydbmanifest">
+<a href="#getpropertydbmanifest"><h2>getPropertyDbManifest()</h2></a>
+<p>Returns a list of property database files. Previously, for v1, this list was hardcoded in PropWorker/ This function knows about v2 and cross-version sharing of OTG property databases</p>
+</section>
+<section id="getrootnode">
+<a href="#getrootnode"><h2>getRootNode()</h2></a>
+<section id="id2">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td>Top-most bubble node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isforgemanifest">
+<a href="#isforgemanifest"><h2>isForgeManifest()</h2></a>
+<p>Whether the manifest comes from APS (modelDerivativeV2) or not (derivativeV2). Applies only to the root node. Used internally.</p>
+</section>
+<section id="findpropertydbpath">
+<a href="#findpropertydbpath"><h2>findPropertyDbPath()</h2></a>
+<p>Finds shared property DB if there is one.</p>
+<section id="id4">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Shared property DB path, or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="name">
+<a href="#name"><h2>name()</h2></a>
+<section id="id5">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The node’s name.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="guid">
+<a href="#guid"><h2>guid()</h2></a>
+<section id="id6">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The node’s GUID.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="type">
+<a href="#type"><h2>type()</h2></a>
+<section id="id7">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The node’s type.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="extensions">
+<a href="#extensions"><h2>extensions()</h2></a>
+<section id="id8">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;string&gt;</td>
+<td>Either an Array of extension ids, or undefined.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="urn-searchparent">
+<a href="#urn-searchparent"><h2>urn(searchParent)</h2></a>
+<p>Retrieves the URN of the node or its closest ancestor.</p>
+<section id="id9">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">searchParent</span><span class="required">*</span><div class="type">boolean</div></td><td>If URN is not available for this node, search through its ancestors, too.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id10">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Viewable URN.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="lineageurn-encode">
+<a href="#lineageurn-encode"><h2>lineageUrn(encode)</h2></a>
+<p>Retrieves the lineageUrn of the node. Note that models uploaded to OSS directly (not through WipDM) do not have a lineageUrn.</p>
+<section id="id11">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">encode</span><div class="type">boolean</div></td><td>Whether to return the result base64 encoded or not.</td></tr></tbody></table></div>
+</section>
+<section id="id12">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Viewable lineageUrn, or null in case of an error.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isgeomleaf">
+<a href="#isgeomleaf"><h2>isGeomLeaf()</h2></a>
+<section id="id13">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a geometry leaf node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isviewable">
+<a href="#isviewable"><h2>isViewable()</h2></a>
+<section id="id14">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a viewable node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getlodnode">
+<a href="#getlodnode"><h2>getLodNode()</h2></a>
+<section id="id15">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">BubbleNode</a></td>
+<td>The LOD node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isgeometry">
+<a href="#isgeometry"><h2>isGeometry()</h2></a>
+<section id="id17">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a geometry node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="isviewpreset">
+<a href="#isviewpreset"><h2>isViewPreset()</h2></a>
+<section id="id18">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a view preset/camera definition node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is2d">
+<a href="#is2d"><h2>is2D()</h2></a>
+<section id="id19">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a 2D node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is3d">
+<a href="#is3d"><h2>is3D()</h2></a>
+<section id="id20">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a 3D node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is2dgeom">
+<a href="#is2dgeom"><h2>is2DGeom()</h2></a>
+<section id="id21">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a 2D geometry node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="is3dgeom">
+<a href="#is3dgeom"><h2>is3DGeom()</h2></a>
+<section id="id22">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a 3D geometry node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="useasdefault">
+<a href="#useasdefault"><h2>useAsDefault()</h2></a>
+<section id="id23">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if the node is meant to be loaded initially.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getdefaultgeometry-searchmasterview-loadlargestview">
+<a href="#getdefaultgeometry-searchmasterview-loadlargestview"><h2>getDefaultGeometry(searchMasterview, loadLargestView)</h2></a>
+<section id="id24">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">searchMasterview</span><div class="type">boolean</div></td><td>Search for master view</td></tr><tr><td><span class="name">loadLargestView</span><div class="type">boolean</div></td><td>Sort by geometry size</td></tr></tbody></table></div>
+</section>
+<section id="id25">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">BubbleNode</a></td>
+<td>The default geometry if any, and otherwise the full data set. For SVF: A geometry node marked as being the default (for SVF: <code class="docutils literal notranslate"><span class="pre">useAsDefault=true</span></code>). When none is found, it returns the first element from <code class="docutils literal notranslate"><span class="pre">this.search({'type':</span> <span class="pre">'geometry'})</span></code>.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getplacementtransform">
+<a href="#getplacementtransform"><h2>getPlacementTransform()</h2></a>
+<section id="id27">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>object</td>
+<td>Placement transform of the node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="ismetadata">
+<a href="#ismetadata"><h2>isMetadata()</h2></a>
+<section id="id28">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>True if this is a metadata node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="findviewableparent">
+<a href="#findviewableparent"><h2>findViewableParent()</h2></a>
+<section id="id29">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td>First parent in the hierarchy that is a viewable. If called on the top level design node, returns the first child of the design node that is a viewable.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="findparentgeom2dor3d-options">
+<a href="#findparentgeom2dor3d-options"><h2>findParentGeom2Dor3D(options)</h2></a>
+<section id="id31">
+<h3>Parameters</h3>
+<div class="table-collapser-toggle js-table-collapser-toggle"><i class="fui-icon fui-icon-arrow-expand"></i> Expand all</div><div class="table-section"><table><thead></thead><tbody><tr class="row-collapsable--parent js-row-collapsable--parent level--1"><td><i class="fui-icon-right icon-collapsable"></i><span class="name">options</span><div class="type type--collapsable">object</div></td><td>Advance usage options</td></tr><tr class="row-collapsable--hide level--2"><td><i class="icon-collapsable--empty"></i><span class="name">fallbackParent</span><div class="type type--collapsable"><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></div></td><td>Gets returned when no geometry node is available after iterating through the parent chain.</td></tr></tbody></table></div>
+</section>
+<section id="id33">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td>First parent in the hierarchy that is a 2D or 3D geometry.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="findallviewables">
+<a href="#findallviewables"><h2>findAllViewables()</h2></a>
+<section id="id35">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;Autodesk.Viewing.BubbleNode&gt;</td>
+<td>Array with all of the viewables under this node.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getviewablerootpath-ignoreleaflet">
+<a href="#getviewablerootpath-ignoreleaflet"><h2>getViewableRootPath(ignoreLeaflet)</h2></a>
+<p>Looks for the viewable root path in this node and all its children.</p>
+<section id="id36">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">ignoreLeaflet</span><span class="required">*</span><div class="type">boolean</div></td><td>If set, it will skip any image pyramid sub-nodes and return a path to F2D file if available.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id37">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>Viewable root path, or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getnamedviews">
+<a href="#getnamedviews"><h2>getNamedViews()</h2></a>
+<p>Returns all the named view in the viewable. Named views are obtained from the document’s manifest which contains camera information and a string identifier.</p>
+<section id="id38">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>array</td>
+<td>All named views. Returns empty array if none are found.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="findbyguid-guid">
+<a href="#findbyguid-guid"><h2>findByGuid(guid)</h2></a>
+<p>Returns first node from the bubble matching a GUID.</p>
+<p>Note that some GUIDs in the bubble are not unique, you have to be sure you are looking for a GUID that is unique if you want correct result from this function. Otherwise use the generic search.</p>
+<section id="id39">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">guid</span><span class="required">*</span><div class="type">string</div></td><td>Node GUID.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id40">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td><a class="reference external" href="/en/docs/viewer/v7/reference/Viewing/BubbleNode/">Autodesk.Viewing.BubbleNode</a></td>
+<td>Matching bubble node, or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="search-propstomatch">
+<a href="#search-propstomatch"><h2>search(propsToMatch)</h2></a>
+<p>Finds nodes from the bubble matching one or more properties.</p>
+<section id="id42">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">propsToMatch</span><span class="required">*</span><div class="type">object</div></td><td>Filter criteria: To match, nodes must have the specified properties and values. Use comma-separated property:value pairs or named preset object. (See comments in examples below.)</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id43">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>Array.&lt;BubbleNode&gt;</td>
+<td>Matching nodes, or null.</td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="examples">
+<h3>Examples</h3>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="c1">// Filter criteria syntax:</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>//   { “property”:”value” [, “property”:”value”, …] }
+// or use named preset objects:
+//   BubbleNode.MODEL_NODE           { “role”:”3d”, “type”:”geometry” }
+//   BubbleNode.GEOMETRY_SVF_NODE    { “role”:”graphics”, “mime”: “application/autodesk-svf” }
+//   BubbleNode.SHEET_NODE           { “role”:”2d”, “type”:”geometry” }
+//   BubbleNode.LEAFLET_NODE         { “role”:”leaflet” }
+//   BubbleNode.IMAGE_NODE           { “role”:”image” }
+//   BubbleNode.GEOMETRY_F2D_NODE    { “role”:”graphics”, “mime”: “application/autodesk-f2d” }
+//   BubbleNode.VIEWABLE_NODE        { “role”:”viewable” }
+//   BubbleNode.AEC_MODEL_DATA       { “role”:”Autodesk.AEC.ModelData”}</p>
+<p>var singleProps = myBubbleNode.search({ “type”:”geometry” });
+var multiProps  = myBubbleNode.search({ “role”:”3d”, “type”:”geometry” });
+var presetProps = myBubbleNode.search( myBubbleNode.SHEET_NODE );</p>
+</section>
+</section>
+<hr class="docutils">
+<section id="traverse-cb">
+<a href="#traverse-cb"><h2>traverse(cb)</h2></a>
+<p>Recursively traverses the bubble, calling a callback function for each node, for as long as the callback function keeps returning false.</p>
+<section id="id44">
+<h3>Parameters</h3>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name">cb</span><span class="required">*</span><div class="type">function</div></td><td>Callback function, accepts a bubble node as an argument, and returns true if the traversal should be terminated.</td></tr></tbody></table><div class="text-required">* Required</div></div>
+</section>
+<section id="id45">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>boolean</td>
+<td>Result of the last callback invocation.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+<section id="getlevel">
+<a href="#getlevel"><h2>getLevel()</h2></a>
+<p>Returns the Revit Level/Floor of this bubble node. Only relevant for 2d sheets coming from Revit at the moment.</p>
+</section>
+<section id="getlevelname">
+<a href="#getlevelname"><h2>getLevelName()</h2></a>
+<section id="id46">
+<h3>Returns</h3>
+<div class="table-section"><table><thead><tr><th>type</th><th>description</th></tr></thead><tbody>
+<tr class="row-even"><td>string</td>
+<td>The Revit level/floor name of this bubble node. Only relevant for 2d sheets coming from Revit at the moment.</td>
+</tr>
+</tbody></table></div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    

@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v3 Changelog | Viewer | Autodesk Platform Services</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <div id="nav-sidebar"></div>
+  <div id="content">
+    <div id="breadCrumbs"><div class="breadcrumb-container"><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/developer/documentation">Documentation</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7">Viewer</a><span class="breadcrumb-separator"> / </span></div><div class="breadcrumb"><a data-test-id="documentation-breadcrumb-link" data-external-target="documentation-breadcrumb-link" class="breadcrumb-url" href="/en/docs/viewer/v7/change_history">Change History</a></div></div></div>
+<meta name="sphinx-version" content="5.0.0">
+            
+  <section id="v3-changelog">
+<h1>V3 Changelog</h1>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+<section id="version-3-3-5">
+<a href="#version-3-3-5"><h2>Version 3.3.5</h2></a>
+<p><em>Release Date: 2017-12-15</em></p>
+<section id="fixed">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix a conflict in Angular zone.js promise polyfill.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-3-3-4">
+<a href="#version-3-3-4"><h2>Version 3.3.4</h2></a>
+<p><em>Release Date: 2017-11-29</em></p>
+<section id="added">
+<h3>Added</h3>
+<section id="non-photorealistic-npr-rendering-styles">
+<h4>Non-Photorealistic (NPR) Rendering Styles</h4>
+<p>Several styles of non-photorealistic rendering (NPR) are now available.</p>
+<p>NPR is often used for artistic expression or as a way to suggest that a view is to be interpreted as a work in progress.</p>
+<p>This is done as a post process. For desktops and laptops the cost is negligible; for mobile devices the cost is some drop in frame rate, due to a lack of multiple-render target support on these devices.</p>
+</section>
+<section id="api-reference">
+<h4>API Reference</h4>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">preloadPostProcessStyle</span><span class="p">();</span><span class="w">        </span><span class="c1">//OPTIONAL: loads all textures needed, for all styles.</span>
+<span class="nx">preloadPostProcessStyle</span><span class="p">(</span><span class="nx">string</span><span class="p">);</span><span class="w">  </span><span class="c1">//OPTIONAL: use style string to initialize textures for a single style</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>Optional:</p>
+<blockquote>
+<div><p>The “graphite” and “pencil” styles require textures, so there may be a slight delay upon first launch while textures are cached. You can preload all textures or instead pass an individual style string to initialize only a single style. (If not called, the first call to setPostProcessParameter which sets a style will load the textures.)</p>
+</div></blockquote>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">setPostProcessParameter</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span><span class="w">  </span><span class="c1">//string options and value ranges are described in the reference below</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+<p>All NPR parameters are set with a combination of string and value.  See additional descriptions below.</p>
+<dl>
+<dt><strong>style</strong></dt><dd><div class="line-block">
+<div class="line"><em>string</em> options:</div>
+</div>
+<blockquote>
+<div><ul class="simple">
+<li>“” (or “off”)</li>
+<li>“edging”</li>
+<li>“cel”</li>
+<li>“graphite”</li>
+<li>“pencil”</li>
+</ul>
+</div></blockquote>
+<div class="table-section"><table><thead><tr><th class="head"><p>None (value = “” or “off”)</p></th>
+<th class="head"><p>value = “edging”</p></th>
+<th class="head"><p>value = “cel”</p></th>
+<th class="head"><p>value = “graphite”</p></th>
+<th class="head"><p>value = “pencil”</p></th>
+</tr></thead><tbody>
+<tr class="row-even"><td><img alt="None" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/scooter.png"></td>
+<td><img alt="Edges" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/scooter_edges.png"></td>
+<td><img alt="Cel" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/scooter_cel_6levels.png"></td>
+<td><img alt="Graphite" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/scooter_gray.png"></td>
+<td><img alt="Pencil" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/scooter_color75.png"></td>
+</tr>
+</tbody></table></div>
+</dd>
+<dt><strong>brightness</strong></dt><dd><div class="line-block">
+<div class="line"><em>value range:  -1.0 to 1.0 (default:  0.0)</em></div>
+<div class="line">Adjust the intensity of the effect.</div>
+</div>
+</dd>
+<dt><strong>contrast</strong></dt><dd><div class="line-block">
+<div class="line"><em>value range:  -1.0 to 1.0 (default:  0.0)</em></div>
+<div class="line">Adjust the variation between light and dark in the effect.</div>
+</div>
+</dd>
+<dt><strong>preserveColor</strong></dt><dd><div class="line-block">
+<div class="line"><em>boolean: true|false (default: false)</em></div>
+<div class="line">Enable to scale (normalize) color values or disable to clamp colors.</div>
+<div class="line">Example:</div>
+<div class="line-block">
+<div class="line">When false, color (4.0,1.0,0.5) becomes (1.0,1.0,0.5)</div>
+<div class="line">When true,  color (4.0,1.0,0.5) becomes (1.0,0.25,0.125) – <em>each element is divided by the maximum of 4.0</em></div>
+</div>
+</div>
+</dd>
+<dt><strong>grayscale</strong></dt><dd><div class="line-block">
+<div class="line"><em>boolean: true|false (default: false)</em></div>
+<div class="line">Enable to desaturate the image after the operations above but before further processing.</div>
+<div class="line"><em>Note that this will have no visible effect for the “graphite” style.</em></div>
+</div>
+</dd>
+<dt><strong>edges</strong></dt><dd><div class="line-block">
+<div class="line"><em>boolean: true|false (default: true)</em></div>
+<div class="line">Enable to show (screen-based) edges.  (Note that the reflected image does not show edges)</div>
+<div class="line"><br></div>
+<div class="line"><em>The</em> <code class="docutils literal notranslate"><span class="pre">edges</span></code> <em>parameter sets all edges on or off. There are also three individual toggles for specific edge types:</em></div>
+<div class="line-block">
+<div class="line"><strong>idEdges</strong></div>
+<div class="line-block">
+<div class="line"><em>boolean: true|false (default: true)</em></div>
+<div class="line">Enable to show edges where objects with separate IDs or the background meet. Internal edges to these objects are not displayed.</div>
+</div>
+<div class="line"><strong>normalEdges</strong></div>
+<div class="line-block">
+<div class="line"><em>boolean: true|false (default: true)</em></div>
+<div class="line">Enable to show edges where the normals differ by “enough,” so that sharp edges are shown.</div>
+</div>
+<div class="line"><strong>depthEdges</strong></div>
+<div class="line-block">
+<div class="line"><em>boolean: true|false (default: true)</em></div>
+<div class="line">Enable to show edges where the depths differ by “enough,” so that edges between distant objects are shown. This catches cases where the planes in a single object are parallel, so that the ID and normals are the same.</div>
+</div>
+</div>
+</div>
+</dd>
+<dt><strong>levels (style “cel” only)</strong></dt><dd><div class="line-block">
+<div class="line"><em>value range: 2.0 to 256.0 (default: 6.0)</em></div>
+<div class="line">Sets the number of levels of posterization.  Typical range: 2.0 - 8.0.</div>
+<div class="line"><em>Note that fractional values are valid, giving a smooth transition from one to another level.</em></div>
+</div>
+</dd>
+<dt><strong>repeats (styles “graphite” and “pencil” only)</strong></dt><dd><div class="line-block">
+<div class="line"><em>value range: 0.001 to 100.0 (default: 3.0)</em></div>
+<div class="line">Sets the number of times the texture patterns used in these styles is repeated in the view, top to bottom.  Typical range: 1.0 - 5.0.</div>
+<div class="line"><em>Increasing this number makes the pattern smaller and more likely to be detected as repeating.</em></div>
+</div>
+</dd>
+<dt><strong>rotation (styles “graphite” and “pencil” only)</strong></dt><dd><div class="line-block">
+<div class="line"><em>value range: 0.0 to 1.0 (default: 0.0)</em></div>
+<div class="line">Sets the clockwise rotation of the texture patterns used in these styles. 0.0 is no rotation, 1.0 is 180 degrees.</div>
+<div class="line"><em>The default patterns have a lower-left to upper-right orientation.</em></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="example-code">
+<h4>Example Code</h4>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Optional call, do this some time before using a style so that the required textures are loaded before the style is used.</span>
+<span class="c1">// Not doing so may give a bad render or two while the textures are being loaded. In particular, Graphite will look black.</span>
+<span class="c1">// This loads all textures needed, for all styles. You can instead pass an individual style string to initialize only it.</span>
+<span class="c1">// Currently only the graphite and pencil styles require textures. If not called, the first call to setPostProcessParameter</span>
+<span class="c1">// which sets a style will load the textures.</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">preloadPostProcessStyle</span><span class="p">();</span>
+
+<span class="c1">// Turn on a style. Styles are passed in as strings, for the "value" parameter:</span>
+<span class="c1">// "" - turn off the style; back to normal, no post-process is done.</span>
+<span class="c1">// "edging" - turn on image-based edging system</span>
+<span class="c1">// "cel" - cartoon ("posterized") style, with edges</span>
+<span class="c1">// "graphite" - black pencil style</span>
+<span class="c1">// "pencil" - colored pencil and paper</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"graphite"</span><span class="p">;</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">setPostProcessParameter</span><span class="p">(</span><span class="w"> </span><span class="s2">"style"</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="p">);</span>
+
+<span class="c1">// make the image have no edges:</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">setPostProcessParameter</span><span class="p">(</span><span class="w"> </span><span class="s2">"edges"</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// turn up brightness a bit:</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">impl</span><span class="p">.</span><span class="nx">setPostProcessParameter</span><span class="p">(</span><span class="w"> </span><span class="s2">"brightness"</span><span class="p">,</span><span class="w"> </span><span class="mf">0.4</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="selection-and-highlight-can-be-turned-off-individually-using-a-new-api">
+<h3>Selection and highlight can be turned off individually using a new API</h3>
+<p>By default, the viewer changes the color of an object when you hover the mouse over it, and you can select objects by clicking them in the view or Model Browser.  This highlighting is useful when selecting and interacting with the model, but can be a distraction when you prefer a presentation mode. You can now toggle these behaviors.</p>
+<section id="id1">
+<h4>API Reference</h4>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="nx">disableHighlight</span><span class="p">(</span><span class="kr">boolean</span><span class="p">);</span><span class="w"> </span><span class="c1">//true to disable highlight, false to show highlight (defaults to false)</span>
+<span class="nx">disableSelection</span><span class="p">(</span><span class="kr">boolean</span><span class="p">);</span><span class="w"> </span><span class="c1">//true to disable selection, false to allow selection (defaults to false)</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+<section id="id2">
+<h4>Example Code</h4>
+<p>Toggle highlight and selection</p>
+<div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Disable highlight when cursor hovers over an object</span>
+<span class="nx">disableHighlight</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// Enable highlight when cursor hovers over an object</span>
+<span class="nx">disableHighlight</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// Disable selection when clicking an object in the view or Model Browser</span>
+<span class="nx">disableSelection</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// Enable selection when clicking an object in the view or Model Browser</span>
+<span class="nx">disableSelection</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</section>
+</section>
+<section id="layers-defined-in-3d-files-now-can-accessed-through-the-layers-panel">
+<h3>Layers defined in 3D files now can accessed through the Layers Panel</h3>
+<p>The Layer Manager control now works for 3D files.  Click the Layer Manager icon to open the Layers panel, where you can toggle visibility of layers.</p>
+<blockquote>
+<div><p><img alt="Layers in 3D views" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/layers_in_3d.gif"></p>
+</div></blockquote>
+</section>
+<section id="dutch-language-supported">
+<h3>Dutch language supported</h3>
+<p>See existing API Reference for <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.Initializer</span></code>.</p>
+<p>Set string <code class="docutils literal notranslate"><span class="pre">options.language</span></code> to “nl” to enable Dutch.</p>
+</section>
+<section id="id3">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Hyperlinks pointing to invalid locations are no longer displayed</li>
+<li>Fit to View “f” hotkey now works consistently</li>
+<li>Ambient shadows now work on mobile devices</li>
+<li>Measure Tool is more accurate when measuring large drawings</li>
+<li><dl class="docutils">
+<dt>Interaction is no longer blocked in the ViewCube area when ViewCube is disabled</dt><dd><p><code class="docutils literal notranslate"><span class="pre">div.viewcubeUI</span></code> no longer blocks interaction when the ViewCube is disabled</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-3-2-1">
+<a href="#version-3-2-1"><h2>Version 3.2.1</h2></a>
+<p><em>Release Date: 2017-10-25</em></p>
+<section id="changed">
+<h3>Changed</h3>
+<section id="model-browser-look-and-feel">
+<h4>Model Browser look and feel</h4>
+<p>The Model Browser has been improved for more consistent appearance and behavior. Object visibility is now explicitly indicated by the eye icon to the right of each element. Object selection behavior has changed.</p>
+<ul class="simple">
+<li>Toggle visibility by clicking the eye icon to the right of the element</li>
+<li>Left-click a listed name to select an element and automatically focus the view on it</li>
+<li>Right-click a selected object to bring up the full context menu (Isolate, Hide selected, Show all objects, Focus, Clear selection)</li>
+</ul>
+<div class="table-section"><table><thead><tr><th>Before</th><th><strong>Now</strong></th></tr></thead><tbody>
+<tr class="row-even"><td><img alt="Before" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/3.2_model_browser_old.png"></td>
+<td><img alt="Now" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/3.2_model_browser_new.png"></td>
+</tr>
+</tbody></table></div>
+</section>
+<section id="measure-angle-tool">
+<h4>Measure Angle tool</h4>
+<p>Measurement of angles will now require selecting 3 points instead of choosing 2 lines.</p>
+<p>Animated example:
+<img alt="Angle Tool" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/measure-three-point-angle.gif"></p>
+</section>
+</section>
+<section id="id4">
+<h3>Added</h3>
+<section id="viewer-version-display">
+<h4>Viewer version display</h4>
+<p>Viewer version is now displayed at the very top of viewer3D.min.js</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name"><strong>URL</strong></span></td><td><div class="display--table"><span class="name"><a class="reference external" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=3.2" target="_blank">https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=3.2</a></span></div></td></tr><tr><td><span class="name"><strong>Content</strong></span></td><td><div class="display--table"><span class="name"><img alt="Header" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/3.2_js_version_header.png"></span></div></td></tr></tbody></table></div>
+</section>
+<section id="camera-transition-event">
+<h4>Camera transition event</h4>
+<div class="table-section"><table><thead></thead><tbody><tr><td><span class="name"><strong>Event</strong></span></td><td><div class="display--table"><span class="name">Autodesk.Viewing.CAMERA_TRANSITION_COMPLETED</span></div></td></tr><tr><td><span class="name"><strong>Usage</strong></span></td><td><div class="display--table"><span class="name"><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Hook the event</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">CAMERA_TRANSITION_COMPLETED</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'camera is no longer moving'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Trigger an action that will move the camera and fire the event</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">fitToView</span><span class="p">();</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</span></div></td></tr></tbody></table></div>
+</section>
+<section id="transition-types">
+<h4>Transition types</h4>
+<p>The event will fire at the end of these operations:</p>
+<ul class="simple">
+<li>Go Home transition</li>
+<li>Focus / Fit to View transition (example above)</li>
+<li>Restore State transition</li>
+<li>Named Views transition</li>
+<li>Any other camera transitions</li>
+</ul>
+</section>
+<section id="new-tool-method-getpriority">
+<h4>New tool method: getPriority()</h4>
+<p>Tools that are registered into the <code class="docutils literal notranslate"><span class="pre">ToolController</span></code> will now be able to specify their own priority. The priority is used by the <code class="docutils literal notranslate"><span class="pre">ToolController</span></code> to sort the tools in it. By default all tools have a priority value of 0.</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-default margin-bottom-3"><div class="highlight snippet-container margin-bottom-0 pad-bottom-0"><pre><code><span></span><span class="c1">// Default implementation</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">getPriority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</div></blockquote>
+<p>The higher the numeric value returned, the higher priority on the tool stack. Tools with a higher priority have the opportunity to handle events first.</p>
+<blockquote>
+<div><div class="highlight-javascript notranslate x-snippet-block x-snippet-block--height-200 margin-bottom-3"><div class="highlight snippet-container"><pre><code><span></span><span class="c1">// Tool with high priority</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">MyAwesomeTool</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">ToolInterface</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'my-awesome-tool'</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">getPriority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span><span class="w"> </span><span class="c1">// Default is 0, higher numerical value results in higher priority.</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">// Tool with default priority</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">MyRegularTool</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Autodesk</span><span class="p">.</span><span class="nx">Viewing</span><span class="p">.</span><span class="nx">ToolInterface</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'my-regular-tool'</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="c1">// Register them to the Viewer instance (no matter the order)</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">toolController</span><span class="p">.</span><span class="nx">registerTool</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">MyAwesomeTool</span><span class="p">());</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">toolController</span><span class="p">.</span><span class="nx">registerTool</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">MyRegularTool</span><span class="p">());</span>
+
+<span class="c1">// Activate tools</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">toolController</span><span class="p">.</span><span class="nx">activateTool</span><span class="p">(</span><span class="s1">'my-awesome-tool'</span><span class="p">);</span><span class="w"> </span><span class="c1">// MyAwesomeTool gets all events because it is being activated</span>
+<span class="nx">viewer</span><span class="p">.</span><span class="nx">toolController</span><span class="p">.</span><span class="nx">activateTool</span><span class="p">(</span><span class="s1">'my-regular-tool'</span><span class="p">);</span><span class="w"> </span><span class="c1">// MyAwesomeTool STILL gets all events first because it has the highest priority.</span>
+</code></pre><div class="snippet-toggle js-snippet-toggle">Show More</div></div><div class="clipboard-container" data-original-title="" title=""><i class="fui-icon fui-icon-copy clipboard-icon"></i></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="id5">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>The Freehand Markup is now smoother and more performant.</li>
+<li>Fixed issue where SVG icon on toolbar buttons didn’t work on IE11</li>
+<li>Fixed issue with the New First Person tool which locked the camera when the initial view was pointing directly down or up</li>
+<li>Fixed issues with touch gestures on IE11 running on Windows Surface devices.</li>
+<li>Improved memory handling on iOS for models that referenced multiple textures</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-3-1-3">
+<a href="#version-3-1-3"><h2>Version 3.1.3</h2></a>
+<p><em>Release Date: 2017-10-02</em></p>
+<section id="id6">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix issue where the event <code class="docutils literal notranslate"><span class="pre">Autodesk.Viewing.GEOMETRY_LOADED_EVENT</span></code> was not getting fired after loading a 2D model in Chrome for iPhone.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-3-1-2">
+<a href="#version-3-1-2"><h2>Version 3.1.2</h2></a>
+<p><em>Release Date: 2017-09-21</em></p>
+<section id="id7">
+<h3>Fixed</h3>
+<ul class="simple">
+<li>Fix issue where ESC button would enable the measure toolbar.</li>
+</ul>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+</section>
+</section>
+<hr class="docutils">
+<section id="version-3-1-1">
+<a href="#version-3-1-1"><h2>Version 3.1.1</h2></a>
+<p><em>Release Date: 2017-09-15</em></p>
+<section id="id8">
+<h3>Changed</h3>
+<section id="semantic-versioning">
+<h4>Semantic Versioning</h4>
+<p>Starting now, current and future versions of the Viewer will be following the <a class="reference external" href="http://semver.org/" target="_blank">Semantic Versioning</a> convention.</p>
+</section>
+<section id="breaking-changes">
+<h4>Breaking Changes</h4>
+<p>A few API methods have been relocated:</p>
+<div class="table-section"><table><thead></thead><tbody><tr><td></td>
+<td>Before</td>
+<td><strong>Now</strong></td>
+</tr><tr><td>method</td>
+<td>Autodesk.Viewing.setApiEndpoint</td>
+<td>Autodesk.Viewing.endpoint.setApiEndpoint</td>
+</tr><tr><td>method</td>
+<td>Autodesk.Viewing.getEndpointAndApi</td>
+<td>Autodesk.Viewing.endpoint.getApiEndpoint</td>
+</tr><tr><td>object</td>
+<td>Autodesk.Viewing.HTTP_REQUEST_HEADERS</td>
+<td>Autodesk.Viewing.endpoint.HTTP_REQUEST_HEADERS</td>
+</tr></tbody></table></div>
+</section>
+<section id="model-browser">
+<h4>Model Browser</h4>
+<p>In our previous release, the Model Browser internals were changed to reduce the memory consumption, which was a big issue with BIM models.</p>
+<p>In this occasion, the Model Browser is getting some behavior improvements.</p>
+<p><strong>Tree-Node Selection</strong></p>
+<p>Clicking to select a node in the Model Browser will now trigger a selection and a focus operation on the model canvas.</p>
+<img alt="../../_images/model-browser-tree-click.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/model-browser-tree-click.gif">
+<p>Additionally, the selection will display on top of occluding objects.</p>
+<p><strong>Viewer Selection</strong></p>
+<p>To keep the experience consistent, the selection on the viewer will get reflected on the Model Browser.</p>
+<p>The Model Browser will automatically scroll to the selected item.</p>
+<img alt="../../_images/model-browser-viewer-click.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/model-browser-viewer-click.gif">
+<p><strong>Context Menu</strong></p>
+<p>Right clicking to open the Context Menu will no longer perform a selection action as part of the operation.</p>
+<p>Same rule applies when clicking away to close the Context Menu.</p>
+<p><strong>Upcoming changes</strong></p>
+<p>The Model Browser will receive UI changes in the upcoming release.</p>
+</section>
+<section id="measure-tool-redesign">
+<h4>Measure Tool Redesign</h4>
+<p>Accessing the measure tool is still done through a button on the toolbar</p>
+<img alt="../../_images/measure_redesign_1.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/measure_redesign_1.png">
+<p>After clicking on the button, the toolbar will expand to reveal additional measuring tools</p>
+<img alt="../../_images/measure_redesign_2.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/measure_redesign_2.png">
+<p><strong>Measure simple distance</strong></p>
+<p>Click 2 points and get their distance.</p>
+<p><em>For 2D models</em>:</p>
+<img alt="../../_images/distance-2d.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/distance-2d.gif">
+<p><em>For 3D models</em>:</p>
+<img alt="../../_images/distance-3d.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/distance-3d.gif">
+<p><strong>Measure angle</strong></p>
+<p>Click 2 lines and get the angle between them.</p>
+<p><em>For 2D models</em>:</p>
+<img alt="../../_images/angle-2d.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/angle-2d.gif">
+<p><em>For 3D models</em>:</p>
+<img alt="../../_images/angle-3d.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/angle-3d.gif">
+<p><strong>Measure area</strong></p>
+<p>Define a closed area composed of line segments to get the total area within. Available <strong>only in 2D models</strong>.</p>
+<img alt="../../_images/area-2d.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/area-2d.gif">
+<p><strong>Calibration</strong></p>
+<p>Is the document’s default measurement inaccurate? Then use the calibration tool to specify a known distance,
+and have all the other measurements performed on the document adjusted accordingly.</p>
+<p><strong>Settings</strong></p>
+<p>Accessing measurement unit type and precision is now done through the measure’s Settings panel</p>
+<img alt="../../_images/measure_redesign_settings.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/measure_redesign_settings.png">
+<p><strong>Multiple measurements</strong></p>
+<p>It is now possible to have more than one measurement on the screen at once!</p>
+<img alt="../../_images/mesure_redesign_multiple.png" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/mesure_redesign_multiple.png">
+<p><strong>Modify measurement</strong></p>
+<p>After a measurement has been performed, users are able to adjust it by dragging the blue knobs.</p>
+<img alt="../../_images/change-knobs.gif" src="https://developer.doc.autodesk.com/bPlouYTd/A360-firefly.js-docs-master-317984/_images/change-knobs.gif">
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<hr class="docutils">
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          
+  </div>
+  <script src="../../script.js"></script>
+</body>
+</html>
+    
